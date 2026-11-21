@@ -2747,7 +2747,8 @@ stationarity as a **normalized, natural-domain eigenvector theorem**:
 for every real edge change `ε`, the full perturbed operator still has
 `D` at the original crossing energy.
 
-The second module adds the exact detuning response for `t=t_*+δ`:
+The second module proves that the compact-mode plane stays exactly
+invariant under any detuning and adds the energy response for `t=t_*+δ`:
 
 ```math
 K_{t_*+\delta}a=(E_*+\delta)a,\qquad
@@ -3317,6 +3318,10 @@ The dynamic obstruction and any successful preparation protocol remain open.
 This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
 The spectral-product program below remains the project's long-term goal.
+A future theorem combining a proved reachability limitation with a
+quantitative preparation protocol could be proposed as a **new Palomar
+selection**, after complete Lean and independent verification. The
+existing registration, Challenge and Comparator remain unchanged now.
 
 **Remaining tasks for the original spectral-product program**
 
