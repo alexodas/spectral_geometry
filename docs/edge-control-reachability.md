@@ -116,6 +116,43 @@ It implies leakage norm at most `η` and leakage probability at most
 `η²`. A weak-pulse perturbation and the certified unperturbed gap
 are candidates for proving this estimate; **it has not been proved**.
 
+## Exact edge-induced excitation outside the qubit plane
+
+The proposed two-level description is **not an invariant subspace**
+under the physical one-edge perturbation. An explicit exact
+full-infinite-Hilbert-space calculation in
+[`AmmannBeenkerQubitLeakage.lean`](../SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
+(submitted for Lean CI) shows, for the original **unnormalized**
+compact mode `a`, and the exact orthogonal projection `P` onto
+`span{a,b}`:
+
+```text
+‖W a‖²         = 2
+‖P W a‖²       = 1/4
+‖(1-P) W a‖²   = 7/4 .
+```
+
+For the **normalized** first-ring mode `A=a/√8` this yields
+`‖(1-P) W A‖²=7/32`. Thus the external coupling is
+*strictly nonzero* for the first compact mode. It cannot be
+replaced by a closed two-by-two matrix without approximation.
+
+This result is static. If the full complex Schrödinger evolution
+under `K_*+εW` is constructed and a constant edge pulse is switched
+on at time zero starting in `A`, a standard short-time expansion
+formally predicts
+
+```text
+‖(1-P) ψ(τ)‖² = (7/32) ε² τ² + o(τ²) .
+```
+
+Deriving that asymptotic *inside Lean* requires the complex
+dynamical construction; it is **not** yet a certified theorem.
+Moreover, strictly positive short-time leakage does not prohibit
+a later exact return of all external amplitudes to zero for a
+specially shaped pulse. Arbitrarily accurate preparation and
+exact zero final leakage remain separate open questions.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
