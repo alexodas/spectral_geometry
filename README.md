@@ -1,31 +1,61 @@
 # Spectral Geometry
 
-**A mathematical research program in Lean 4 and Mathlib connecting local
-geometric operators, compact eigenstates, finite-coordinate observation, and the response of zeros
-on a prescribed complex line.**
+**A research program in Lean 4 and Mathlib studying how local changes to
+operators on infinite geometric graphs affect their energy levels and the
+zeros of analytic functions built from those levels.**
 
-## Current status
+## Executive summary
 
-The selected Palomar result is the **exact multiplicity of a crossing of two
-compact states on the infinite confined octagonal graph** (§4.78). The
-intervention acts on the eight neighbors of the origin. At
-$t_*=17/16+\sqrt2$, the entire real eigenspace at $E_*=13/4+\sqrt2$ is spanned
-by the two alternating ring states. Every eigenvector is determined by its
-amplitudes at two specified vertices; no central-support hypothesis is needed.
-Section 4.79 also certifies a **conservative quantitative real spectral
-gap** for the same infinite natural-domain operator: no other real spectral
-point lies within distance $1/128$ of $E_*$. This does not determine the
-exact nearest-level distance.
+**Overall objective.** The long-term goal is to obtain rigorous, quantitative
+predictions for how a specified local geometric change affects an infinite
+operator's spectrum and the zeros of its associated canonical product.
+The program aims to connect exact infinite-system results with certified
+finite calculations. Several steps are already proved; the full
+relative-product and finite-patch program remains open (§6).
 
-Sections 4.68–4.72 also prove complete ordered spectra, exact full-product
-zero multiplicities and a nine-level response for an intervention on the
-radius-two sector. Sections 4.73–4.77 sharpen its radial bound and identify
-the compact modes, the 17-vertex central sector, its sixteen boundary edges
-and its central kernel. A state stays fixed when one edge weight changes;
-§4.79 proves an explicit real spectral isolation interval using
-central/exterior estimates and compact-resolvent spectral completeness.
-A quantitative bound for the other level after an edge change remains open.
+**An important intermediate result, already proved.** During this work,
+the project established a separate result for a specified infinite,
+confined Ammann–Beenker cut-and-project vertex graph. By tuning a
+perturbation acting on the eight neighbors of the origin, two compact
+localized modes reach the same nonzero energy. The proof shows more than
+the existence of two modes: **they span the entire eigenspace at that
+energy, whose dimension is exactly two**. No other eigenstate at that
+energy can extend into the rest of the infinite graph (§§4.75–4.78).
+A separate theorem also establishes that this energy is isolated from
+every other point of the real spectrum by a certified distance of
+`1/128` (§4.79); this is a lower bound, not the exact nearest-level distance.
 
+**Palomar Registry.** The exact-multiplicity theorem and its companion
+description of all eigenvectors at the crossing were registered as
+**PALOMAR-2026-11-06-000012 (version 1)** on **2026-11-06**
+([registration details](PALOMAR.md), §4.78). The separately proved
+spectral-gap theorem was **not** part of the Comparator-selected
+registration. Formal verification and registration do not by themselves
+establish mathematical priority or physical implementation.
+
+**Why this merits further investigation.** Having two exactly degenerate,
+localized modes raises a concrete question: can changing the weight of
+the **single edge connecting their rings** prepare a chosen coherent
+superposition, starting from one mode alone? The existing Lean proofs
+identify an unchanged combination under that edge change and an exact
+energy expectation for a complementary direction. They do **not** yet
+show dynamical preparation, a complete eigenvalue-splitting law, or
+protection from unwanted excitation of other energy levels.
+
+This **coherent-control question is now the first stand-alone research
+priority** (§6.4): understand the edge perturbation, introduce the
+necessary time-dependent dynamics, and seek a preparation protocol with
+a certified error bound, or a proof of its limitations. Changing the
+original eight-site parameter `t` can instead control the relative
+phase of an already prepared superposition in a quantum dynamical
+interpretation; it cannot by itself create amplitude in the other
+mode. Such time-dependent phase control is not yet formalized in the
+current real Lean model. The project's original long-term goal concerning
+spectral products and their zeros **does not change**.
+
+## Current status and verified milestones
+
+The table below separates proved results from remaining research tasks.
 | Part of the program | Status |
 | --- | --- |
 | Natural-domain operators, bounded matching interactions, conditional self-adjointness and compact resolvents | Formalized under the explicit hypotheses documented in §4 |
@@ -49,37 +79,14 @@ A quantitative bound for the other level after an edge change remains open.
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
-The research objective is an end-to-end statement relating an explicitly defined
-local geometric modification to a quantitatively controlled change in a
-spectral product and its zeros. The observation theorem of §4.40 supplies a
-finite observation sector for this program. The subsequent abstract spectral
-response is now proved separately. The analytic product is entire and records
-the exact full spectral multiplicities under the stated positivity and
-summability hypotheses. The indexed zero-response bridge is now proved for positive finite-sector
-perturbations in the sufficient abstract setting. A bounded-operator-error
-certificate now controls separated zero clusters, with exact multiplicity
-counts. Proper onsite sublevels now supply the required sorted site bijection.
-For nonnegative interactions, the positive onsite gap and a sharper indexed
-response are proved without requiring that gap to exceed the interaction norm.
-Scalar analytic errors now yield local zero certificates, with the actual
-zero multiplicity determining the power in the location bound. A proved
-Rouché theorem conserves the total zero multiplicity in a disk under a
-strict boundary error. An explicit inverse-square tail controls finite
-truncations of a fixed canonical product and eventually certifies their
-exact local counts. A worked linear onsite model now has a numerical
-cofactor bound, isolation radius and truncation cutoff. Linear spectral
-growth gives an explicit tail rate, also for that onsite potential with a
-symmetric nonnegative bounded interaction. An explicit octagonal vertex graph
-now supplies a concrete spectral application: at least nine ordered levels
-are controlled by a finite onsite intervention, with positive gap preserved.
-Its planar counting bound, onsite and full-spectrum inverse-square
-summability, and exact entire-product zero-response instantiation are now
-proved. Geometric cofactor/radius certificates, finite-patch approximation
-and statistical results remain open. Counting on arbitrary noncircular contours is not
-formalized. The Palomar selection concerns the same graph under a first-ring
-intervention: §4.78 classifies its entire crossing eigenspace and §4.79
-proves its explicit real spectral isolation. Section 6.8 records the
-precise scope and verification requirements.
+The program already has formal results on infinite-operator spectral
+enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
+spectral response, and zeros of canonical products. The explicit octagonal
+graph supplies concrete examples, including the crossing described above.
+The more ambitious geometric cofactor certificates, relative-product
+identity and certified finite-patch comparisons remain open (§6).
+The registered crossing result (§4.78), the separately proved gap (§4.79),
+and the proposed coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
 Originality and research significance must come from the geometric and spectral
