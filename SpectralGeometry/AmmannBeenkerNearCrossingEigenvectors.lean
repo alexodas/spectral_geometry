@@ -128,14 +128,21 @@ theorem crossingReducedGapResidualEstimate_of_domainEigenbasis
   have hqcoe :
       (qdom : TileHilbert Vertex) =
         crossingLeakage (x : TileHilbert Vertex) := by
-    simp only [qdom, pdom, crossingLeakage, crossingQubitPart,
-      Submodule.coe_sub, Submodule.coe_add, Submodule.coe_smul]
+    change
+      (x : TileHilbert Vertex) -
+        (crossingCoeffA (x : TileHilbert Vertex) • compactA +
+          crossingCoeffB (x : TileHilbert Vertex) • compactB) =
+        crossingLeakage (x : TileHilbert Vertex)
+    rfl
   have hp :
       onsitePlusBounded potential (ringInteraction crossingParameter) pdom =
         crossingEnergy • (pdom : TileHilbert Vertex) := by
-    simpa only [pdom, crossingQubitPart, Submodule.coe_add,
-      Submodule.coe_smul] using
-        (crossingQubitPart_restored_eigenvector (x : TileHilbert Vertex))
+    change
+      onsitePlusBounded potential (ringInteraction crossingParameter)
+        (crossingCoeffA (x : TileHilbert Vertex) • domainCompactA +
+          crossingCoeffB (x : TileHilbert Vertex) • domainCompactB) =
+      crossingEnergy • crossingQubitPart (x : TileHilbert Vertex)
+    exact crossingQubitPart_restored_eigenvector (x : TileHilbert Vertex)
   have hres :
       onsitePlusBounded potential (ringInteraction crossingParameter) qdom -
           crossingEnergy • (qdom : TileHilbert Vertex) =
@@ -167,6 +174,10 @@ theorem crossingReducedGapResidualEstimate_of_domainEigenbasis
       simpa only [hi] using b.eigen i
     have hrepr := crossing_eigenvector_representation
       ⟨b.basis i, b.mem_domain i⟩ he
+    change
+      b.basis i =
+        (b.basis i) (centralVertex 1) • compactA +
+          (b.basis i) (centralVertex 9) • compactB at hrepr
     rw [hqcoe, hrepr]
     simp only [inner_add_left, real_inner_smul_left,
       crossingLeakage_inner_compactA, crossingLeakage_inner_compactB]
@@ -174,7 +185,8 @@ theorem crossingReducedGapResidualEstimate_of_domainEigenbasis
   have hq := DomainEigenbasis.norm_le_residual_of_gap
       b hsymm crossingEnergy crossingGapCandidate
       crossingGapCandidate_pos hseparated qdom hsupport
-  rw [hqcoe, hres] at hq
+  rw [hres] at hq
+  rw [hqcoe] at hq
   exact hq
 
 /-- Assuming the reduced-gap residual estimate, the external norm
@@ -218,8 +230,9 @@ theorem crossingEdge_perturbed_eigenvector_gap_bound
         |ε| * ‖crossingEdge (x : TileHilbert Vertex)‖ := hnorm
     _ ≤ |energy - crossingEnergy| * ‖(x : TileHilbert Vertex)‖ +
         |ε| * (2 * ‖(x : TileHilbert Vertex)‖) :=
-      add_le_add_left
-        (mul_le_mul_of_nonneg_left (crossingEdge_apply_norm_le_two _)
+      add_le_add_right
+        (mul_le_mul_of_nonneg_left
+          (crossingEdge_apply_norm_le_two (x : TileHilbert Vertex))
           (abs_nonneg ε)) _
     _ = |energy - crossingEnergy| * ‖(x : TileHilbert Vertex)‖ +
         2 * |ε| * ‖(x : TileHilbert Vertex)‖ := by ring
