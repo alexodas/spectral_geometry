@@ -255,5 +255,69 @@ theorem crossingEdge_nearby_eigenvector_leakage_le
     4 * |ε| * ‖(x : TileHilbert Vertex)‖ at hb
   nlinarith
 
+/-- The original Ammann–Beenker crossing has the required
+reduced-gap residual estimate UNCONDITIONALLY.
+
+The full real eigenbasis is constructed from the proper onsite potential,
+the bounded symmetric interaction, and the existing compact-resolvent
+theory. The precise 1/128 separation and the complete two-mode
+eigenspace have already been proved. -/
+theorem crossingReducedGapResidualEstimate_full :
+    CrossingReducedGapResidualEstimate := by
+  have hsymB :
+      ∀ x y : TileHilbert Vertex,
+        inner ℝ ((ringInteraction crossingParameter) x) y =
+          inner ℝ x ((ringInteraction crossingParameter) y) := by
+    simpa only [ringInteraction] using
+      (finiteSectorCorrection_symmetric interaction interaction_symmetric
+        (neighbors origin) crossingParameter)
+  obtain ⟨ev, _hev, ⟨b⟩⟩ :=
+    onsitePlusBounded_exists_orderedEigenbasis
+      potential 1 potential_lower potential_proper
+      (ringInteraction crossingParameter) hsymB
+  have hsymm :
+      ∀ x y : infiniteOnsiteDomain potential,
+        inner ℝ
+            (onsitePlusBounded potential (ringInteraction crossingParameter) x)
+            (y : TileHilbert Vertex) =
+          inner ℝ (x : TileHilbert Vertex)
+            (onsitePlusBounded potential (ringInteraction crossingParameter) y) :=
+    onsitePlusBounded_symmetric potential
+      (ringInteraction crossingParameter) hsymB
+  exact crossingReducedGapResidualEstimate_of_domainEigenbasis b hsymm
+
+/-- The certified gap and the exact single-edge operator norm
+give an UNCONDITIONAL residual-to-leakage bound for every perturbed
+eigenvector, including all the infinite-graph external modes. -/
+theorem crossingEdge_perturbed_eigenvector_gap_bound_full
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge) x =
+          energy • (x : TileHilbert Vertex)) :
+    crossingGapCandidate *
+        ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+      |energy - crossingEnergy| * ‖(x : TileHilbert Vertex)‖ +
+        2 * |ε| * ‖(x : TileHilbert Vertex)‖ :=
+  crossingEdge_perturbed_eigenvector_gap_bound
+    crossingReducedGapResidualEstimate_full ε energy x heigen
+
+/-- Whenever a genuine perturbed eigenvector lies in the expected
+energy-shift window, its total external amplitude is at most
+512|ε| times its norm. The gap and residual hypotheses are now
+**proved** for the full graph; only the stated eigenvalue-window
+condition is needed to identify a near-crossing eigenvector. -/
+theorem crossingEdge_nearby_eigenvector_leakage_le_full
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge) x =
+          energy • (x : TileHilbert Vertex))
+    (hnear : |energy - crossingEnergy| ≤ 2 * |ε|) :
+    ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+      512 * |ε| * ‖(x : TileHilbert Vertex)‖ :=
+  crossingEdge_nearby_eigenvector_leakage_le
+    crossingReducedGapResidualEstimate_full ε energy x heigen hnear
+
 end
 end SpectralGeometry.AmmannBeenker
