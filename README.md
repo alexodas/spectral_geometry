@@ -80,7 +80,8 @@ The table below separates proved results from remaining research tasks.
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
-| Qubit/leakage population budget and restored operator | New real-space source in §4.81: orthogonal decomposition, exact squared-norm identity and restored-eigenstate theorem (pending Lean CI); no dynamic control theorem yet |
+| Qubit/leakage bookkeeping and control response | §4.81: orthogonal real-space decomposition, exact squared-norm budget, restored eigenstate and two-control off-plane formula; the new extension is pending CI |
+| Uniform leakage estimate from nearby invariant planes | §4.82: generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -2856,6 +2857,22 @@ that leakage is possible: it is an exact nonzero numerical certificate
 in the complete infinite graph, not a truncated finite model. The
 new exact calculation awaits CI verification.
 
+**Full two-control response.** The latest Lean extension also
+treats the complete natural-domain action of both available controls,
+`K_(t_*+δ)+εW`. For any real compact-mode input `ra+sb`,
+the off-plane response has the exact squared norm
+
+```math
+\|(I-P)(K_{t_*+\delta}+\varepsilon W)(ra+sb)\|^2
+=\tfrac74\,\varepsilon^2(r-s)^2.
+```
+
+The detuning `δ` disappears *exactly*: changing `t`
+does not directly excite external modes, whereas the connecting
+edge does whenever `r≠s`. These are static natural-domain
+identities, **not** bounds on the leakage after a finite pulse.
+This latest extension is submitted for the full Lean CI check.
+
 **Careful distinction:** this number measures the *off-plane
 component of the perturbation vector*, not leakage probability
 after any particular pulse. Under a future complex unitary
@@ -2899,9 +2916,67 @@ The existing real spectral gap is a possible input for such an
 estimate, not proof of it. See §6.4 and
 [the research note](docs/edge-control-reachability.md).
 
+### 4.82. Uniform leakage estimate conditional on a nearby invariant spectral plane
+
+The most useful next analytical step is not merely to make an edge
+pulse *short*: to produce a significant mixing of A and B using a
+weak edge weight, its duration may have to grow as the weight shrinks.
+A naive time-integrated bound proportional to `|ε| T` is
+therefore insufficient.
+
+The new
+[`QubitLeakagePulseBound.lean`](SpectralGeometry/QubitLeakagePulseBound.lean)
+formalizes a **generic, conditional, time-uniform estimate** in a real
+normed space. It assumes three bounded linear maps:
+
+- `P`, the desired compact-mode projection;
+- `S`, a projection onto a nearby *invariant* (perturbed) plane;
+- `U`, a norm-preserving evolution map that commutes with `S`.
+
+Assume the initial vector `x` is entirely in the desired plane
+(`Px=x`), and the projections are quantitatively close:
+
+```math
+\|(P-S)y\|\le d\,\|y\|\quad\text{for every }y.
+```
+
+The Lean lemma derives **without assuming an evolution duration**
+that
+
+```math
+\|Ux-PUx\|\le 2d\,\|x\|.
+```
+
+For `‖x‖=1` and `d≥0`, the squared-norm leakage is at
+most `4d²`. The proof is only the triangle inequality: compare
+the final state with the invariant perturbed plane and account for
+the initial and final differences between `P` and `S`.
+The result is **fully conditional on the displayed hypotheses**,
+and is not yet instantiated with the Ammann–Beenker Hamiltonian or
+a complex Schrödinger propagator. It does not prove that a useful
+qubit rotation can be reached.
+
+**Graph-specific goals still open.** The existing full crossing gap
+`g=1/128` suggests constructing a two-dimensional perturbed
+spectral projector `P_ε` for a sufficiently weak fixed edge
+perturbation and proving an operator-norm estimate
+`‖P_ε-P‖≤d(ε)`, with `d(ε)→0` as `ε→0`. One must
+then construct the complex unitary pulse propagator, prove it
+commutes with `P_ε`, and instantiate the abstract lemma. This
+would give uniformly small **final leakage for a long but weak
+pulse**, independently of pulse duration. Finally one must
+separately prove that the same pulse yields the intended relative
+amplitudes/phase; a leakage bound alone does not prepare an
+arbitrary target.
+
+This sequence distinguishes three different assertions:
+the exact static off-plane response (§4.81), the **conditional**
+time-uniform estimate (this section), and the still-unproved
+full infinite-graph coherent-control protocol (§6.4).
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **95 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **96 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-one infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -2989,7 +3064,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (18):**
+- **Explicit octagonal geometry, operator and spectral products (19):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3002,6 +3077,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
   - [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
   - [`AmmannBeenkerQubitLeakage.lean`](SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
+  - [`QubitLeakagePulseBound.lean`](SpectralGeometry/QubitLeakagePulseBound.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3037,7 +3113,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **95 mathematical source modules**, including the
+build covers all **96 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3436,7 +3512,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§4.81).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.82).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
