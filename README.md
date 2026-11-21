@@ -3003,8 +3003,8 @@ obeys the **unconditional residual identity**
 (K_*-E_*)x=(\lambda-E_*)x-\varepsilon Wx.
 ```
 
-To turn this into a bound on the *external component* `Qx`, the
-crucial remaining obligation is the **reduced-gap residual estimate**
+To turn this into a bound on the *external component* `Qx`, we
+use the **reduced-gap residual estimate**
 
 ```math
 g\,\|Qy\|\le\|(K_*-E_*)y\|
@@ -3015,13 +3015,14 @@ In a complete self-adjoint spectral decomposition this is the
 quantitative form of spectral isolation: every component outside
 the `E_*` eigenspace has spectral distance at least `g`.
 The graph's real spectral exclusion within radius `g` is already
-certified (§4.79), **but this implication to a residual-norm
-inequality is not yet formalized**. The new module declares this
-condition as a separate proposition, rather than silently assuming
-it has been proved.
+certified (§4.79). The latest new lemma
+`crossingReducedGapResidualEstimate_full` now also derives
+this norm inequality from the previously proved full eigenbasis
+existence and operator symmetry (§4.84); **the latest
+declarations are awaiting Lean CI verification**.
 
-**Conditional quantitative theorem:** given that residual estimate,
-the source derives
+**Quantitative theorem, with the gap hypothesis now discharged
+in source:** the latest declaration derives
 
 ```math
 g\,\|Qx\|\le
@@ -3036,14 +3037,15 @@ numerical **one-sided eigenvector estimate**
 \boxed{\|Qx\|\le512|\varepsilon|\,\|x\|.}
 ```
 
-For instance, decreasing `|ε|` makes this certified *conditional*
-upper bound tend to zero. This is precisely why the isolated gap can
-protect the two-mode state against weak edge coupling.
+For eigenvectors satisfying that energy-window hypothesis,
+decreasing `|ε|` makes the proposed upper bound tend to zero.
+This is precisely how the isolated gap can protect the two-mode
+state against weak edge coupling.
 
-**Two important boundaries:** the new theorem's hypotheses (the
-reduced-gap residual inequality and the eigenvalue-shift window)
-are still to be proved or supplied for the selected perturbed
-spectral cluster. Also, an inequality on individual perturbed
+**Two important boundaries:** the graph-specific residual inequality
+has now been derived in source from complete-basis and gap theorems,
+pending CI. The **perturbed eigenvalue-shift window** remains
+an explicit hypothesis for the selected nearby cluster. Also, an inequality on individual perturbed
 eigenvectors is **not yet** an operator-norm estimate
 `‖P_ε-P‖` for the whole perturbed two-dimensional spectral
 projection. The latter requires constructing and identifying that
@@ -3051,10 +3053,10 @@ cluster, including its dimension, before §4.82's duration-independent
 pulse estimate can be applied. This is *not* a proof of arbitrary
 state preparation.
 
-The next Lean task is to instantiate the complete real crossing
-basis and symmetry in the spectral-gap-to-residual implication
-(§4.84), then prove stability of the rank-two perturbed cluster
-and its spectral projector. Only after these steps do we obtain
+The next Lean task is to certify the completed gap-to-residual
+instantiation (§4.84), then prove stability and dimension two of
+the perturbed spectral cluster, including its eigenvalue window
+and spectral projector. Only after these steps do we obtain
 a graph-specific leakage bound uniform in pulse duration.
 
 ### 4.84. Why spectral isolation yields a residual bound: infinite-dimensional Parseval
@@ -3095,18 +3097,30 @@ operator**:
 \tfrac1{128}\|(I-P)x\|\le\|(K_*-E_*)x\|.
 ```
 
-Thus the needed spectral inference is no longer a vague appeal
-to general perturbation theory: its analytical core has been
-isolated into a complete-basis theorem and its graph-specific
-instantiation. **These declarations are newly submitted and
-must pass Lean CI before they can be described as certified.**
+The new `crossingReducedGapResidualEstimate_full` declaration
+goes a step further: it **constructs the required complete crossing
+eigenbasis** by invoking the repository's earlier
+`onsitePlusBounded_exists_orderedEigenbasis` theorem for the proper
+onsite potential, and supplies symmetry via
+`finiteSectorCorrection_symmetric`. Hence the full reduced-gap
+inequality is now a **proposed unconditional theorem for the
+actual infinite graph**, not merely a new hypothesis.
+**The latest Lean CI must still verify the code.**
 
-What remains before claiming unconditional graph-specific
-`‖(I-P)x‖≤512|ε|‖x‖` is to supply a complete
-crossing eigenbasis and symmetry for this concrete operator, and
-the suitable perturbed eigenvalue window. The repository already
-contains generic compact-resolvent/eigenbasis machinery, but its
-application here is not completed merely by stating the new lemma.
+Consequently, the latest `crossingEdge_perturbed_eigenvector_gap_bound_full`
+states without any *additional* gap assumption that
+
+```math
+\tfrac1{128}\|(I-P)x\|\le
+\bigl(|\lambda-E_*|+2|\varepsilon|\bigr)\|x\|
+```
+
+for **every real perturbed full-domain eigenvector** at `λ`.
+The related `crossingEdge_nearby_eigenvector_leakage_le_full`
+gives `‖(I-P)x‖≤512|ε|‖x‖` whenever the
+energy-window hypothesis `|λ-E_*|≤2|ε|` holds. These are
+proposed mathematical statements pending CI, *not* a spectral
+projector or time-evolution result.
 
 Even that eigenvector estimate does not yet prove
 `‖P_ε-P‖→0`. We still need a stable two-dimensional
