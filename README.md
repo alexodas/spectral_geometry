@@ -3371,7 +3371,8 @@ build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
 Their exact operator identities have passed the full Lean build; the
 dynamic no-go theorem and any successful preparation protocol remain open.
-The dynamic obstruction and any successful preparation protocol remain open.
+Section 4.81 adds an exact qubit/leakage decomposition; the complex unitary
+control and quantitative pulse-error bounds are still to be established.
 
 - [ ] **Understand the edge response beyond the exact algebra (§4.80).** Use the certified gap to
   estimate how the other eigenvalue and its eigenstate behave under a small
