@@ -353,6 +353,12 @@ theorem crossingTwoControl_compact_action (δ ε r s : ℝ) :
   rw [onsitePlusBounded_apply] at hdet ⊢
   change infiniteOnsiteOperator potential
       (r • domainCompactA + s • domainCompactB) +
+        ringInteraction (crossingParameter + δ)
+          (r • compactA + s • compactB) =
+      (crossingEnergy + δ) • (r • compactA) +
+        crossingEnergy • (s • compactB) at hdet
+  change infiniteOnsiteOperator potential
+      (r • domainCompactA + s • domainCompactB) +
         (ringInteraction (crossingParameter + δ)
           (r • compactA + s • compactB) +
          ε • crossingEdge (r • compactA + s • compactB)) = _
