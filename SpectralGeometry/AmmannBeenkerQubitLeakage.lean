@@ -289,5 +289,110 @@ theorem crossingEdge_two_mode_leakage_norm_sq (r s : ℝ) :
     Real.norm_eq_abs, sq_abs, crossingEdge_compactA_leakage_norm_sq]
   ring
 
+/-- The exact compact coefficient of any combination of the two
+original unnormalized eigenvectors is its first input coefficient. -/
+theorem crossingCoeffA_pair (r s : ℝ) :
+    crossingCoeffA (r • compactA + s • compactB) = r := by
+  simp only [crossingCoeffA, inner_add_right, real_inner_smul_right,
+    compactA_inner_self, compactA_inner_compactB]
+  ring
+
+theorem crossingCoeffB_pair (r s : ℝ) :
+    crossingCoeffB (r • compactA + s • compactB) = s := by
+  have hba : inner ℝ compactB compactA = 0 := by
+    rw [real_inner_comm, compactA_inner_compactB]
+  simp only [crossingCoeffB, inner_add_right, real_inner_smul_right,
+    hba, compactB_inner_self]
+  ring
+
+/-- The original qubit plane has exactly zero leakage, with no
+approximation or spectral-gap assumption. -/
+theorem crossingLeakage_pair_zero (r s : ℝ) :
+    crossingLeakage (r • compactA + s • compactB) = 0 := by
+  rw [crossingLeakage_eq_zero_iff]
+  simp only [crossingQubitPart, crossingCoeffA_pair, crossingCoeffB_pair]
+
+theorem crossingCoeffA_add (x y : TileHilbert Vertex) :
+    crossingCoeffA (x + y) = crossingCoeffA x + crossingCoeffA y := by
+  unfold crossingCoeffA
+  rw [inner_add_right]
+  ring
+
+theorem crossingCoeffB_add (x y : TileHilbert Vertex) :
+    crossingCoeffB (x + y) = crossingCoeffB x + crossingCoeffB y := by
+  unfold crossingCoeffB
+  rw [inner_add_right]
+  ring
+
+/-- Orthogonal projection onto the compact plane is additive. -/
+theorem crossingQubitPart_add (x y : TileHilbert Vertex) :
+    crossingQubitPart (x + y) =
+      crossingQubitPart x + crossingQubitPart y := by
+  simp only [crossingQubitPart, crossingCoeffA_add, crossingCoeffB_add,
+    add_smul]
+  abel
+
+/-- The entire off-plane component is additive. -/
+theorem crossingLeakage_add (x y : TileHilbert Vertex) :
+    crossingLeakage (x + y) =
+      crossingLeakage x + crossingLeakage y := by
+  simp only [crossingLeakage, crossingQubitPart_add]
+  abel
+
+/-- For a compact-mode input, the *full* two-control Hamiltonian
+response equals a new compact-mode combination plus the edge action.
+This is an equation on the natural domain of the infinite graph. -/
+theorem crossingTwoControl_compact_action (δ ε r s : ℝ) :
+    onsitePlusBounded potential
+      (ringInteraction (crossingParameter + δ) + ε • crossingEdge)
+      (r • domainCompactA + s • domainCompactB) =
+      ((crossingEnergy + δ) • (r • compactA) +
+        crossingEnergy • (s • compactB)) +
+      ε • crossingEdge (r • compactA + s • compactB) := by
+  have hdet := detuning_two_mode_action δ r s
+  rw [onsitePlusBounded_apply] at hdet ⊢
+  change infiniteOnsiteOperator potential
+      (r • domainCompactA + s • domainCompactB) +
+        (ringInteraction (crossingParameter + δ)
+          (r • compactA + s • compactB) +
+         ε • crossingEdge (r • compactA + s • compactB)) = _
+  rw [← add_assoc, hdet]
+
+/-- The detuning control *never* drives amplitude outside the
+two-mode plane; every off-plane term in the full natural-domain
+two-control response comes exactly from the selected edge. -/
+theorem crossingTwoControl_offplane_action (δ ε r s : ℝ) :
+    crossingLeakage
+      (onsitePlusBounded potential
+        (ringInteraction (crossingParameter + δ) + ε • crossingEdge)
+        (r • domainCompactA + s • domainCompactB)) =
+    ε • crossingLeakage
+      (crossingEdge (r • compactA + s • compactB)) := by
+  have hplane :
+      crossingLeakage
+        ((crossingEnergy + δ) • (r • compactA) +
+          crossingEnergy • (s • compactB)) = 0 := by
+    simpa only [smul_smul] using
+      (crossingLeakage_pair_zero
+        ((crossingEnergy + δ) * r) (crossingEnergy * s))
+  rw [crossingTwoControl_compact_action, crossingLeakage_add,
+    hplane, zero_add, crossingLeakage_smul]
+
+/-- Exact two-control external response, in the infinite-graph Hilbert
+space: 7/4 times the product of the squared edge strength and
+squared compact-mode amplitude imbalance. The detuning δ cancels
+*exactly*, at the level of Hamiltonian action.
+
+This is not a final-time leakage estimate for a unitary pulse. -/
+theorem crossingTwoControl_offplane_norm_sq (δ ε r s : ℝ) :
+    ‖crossingLeakage
+      (onsitePlusBounded potential
+        (ringInteraction (crossingParameter + δ) + ε • crossingEdge)
+        (r • domainCompactA + s • domainCompactB))‖ ^ 2 =
+      (7 / 4 : ℝ) * ε ^ 2 * (r - s) ^ 2 := by
+  rw [crossingTwoControl_offplane_action, norm_smul, mul_pow,
+    Real.norm_eq_abs, sq_abs, crossingEdge_two_mode_leakage_norm_sq]
+  ring
+
 end
 end SpectralGeometry.AmmannBeenker
