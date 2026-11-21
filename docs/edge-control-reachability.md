@@ -77,9 +77,11 @@ plane*, a necessary condition for exact edge-only reachability from
 |α + β|² = 1,  or equivalently  Re(conj(α) β) = 0.
 ```
 
-Thus real equal-sign or opposite-sign superpositions are excluded;
-relative-phase superpositions such as `(A + i B)/√2` satisfy this
-**necessary** condition, but reachability is not yet proved.
+For **real** coefficients, the necessary condition forces `αβ = 0`:
+no nontrivial real-coefficient superposition in the two-mode plane can
+be prepared from `A` using the edge alone. Relative-phase superpositions
+such as `(A + i B)/√2` satisfy the necessary condition, but their
+reachability is not yet proved.
 
 **What is and is not formalized:** the existing and new Lean results
 are over the *real* Hilbert space. The conservation argument above is a
@@ -106,7 +108,34 @@ spectral isolation theorem, and (4) explain what a second control
 (such as detuning the eight-site parameter `t`) adds if one wants a
 general target superposition.
 
-This is a **candidate for a future Palomar-selected theorem**, pending
-formal proof and an independent novelty assessment. The
+**A two-control candidate.** The original eight-site parameter `t` is
+an exact *phase* control on the two compact modes: changing `t` does
+not mix their amplitudes. A promising pulse sequence is therefore:
+
+1. Change the single edge by a small constant `ε` for a controlled
+   duration, aiming to create a relative complex phase and transfer
+   amplitude between `A` and `B`.
+2. Restore that edge, then detune `t` for a chosen duration to adjust
+   the relative phase without further mixing within the compact plane.
+3. Restore `t` to the crossing value and estimate the preparation
+   error and residual population outside the compact plane.
+
+For example, in the *projected* model, an edge pulse giving a
+dark/bright phase difference of `π/2` creates
+`(A + i B)/√2` up to a global phase, and a subsequent `t` pulse
+can rotate the relative phase to make `(A + B)/√2`. This **does not**
+prove that the first pulse is an accurate operation in the infinite graph.
+
+A possible rigorous method is to isolate the moving bright eigenstate
+under a small fixed edge change, prove that it stays near `Q` using the
+existing gap, estimate its energy shift, and use these estimates to
+control a long but weak edge pulse. Then use the *exact* `t`-eigenvector
+relations for phase adjustment. An explicit error bound must account for
+both leakage and accumulated phase error; none is established yet.
+
+This offers a **candidate for a future Palomar-selected theorem**:
+a quantitative, approximate two-control preparation protocol with a
+precise edge-only impossibility statement. It requires full proof and
+an independent novelty assessment. The
 [existing registered selection](../PALOMAR.md), its ID, and its
 Challenge/Comparator files are deliberately left unchanged.
