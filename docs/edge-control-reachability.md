@@ -133,6 +133,16 @@ control a long but weak edge pulse. Then use the *exact* `t`-eigenvector
 relations for phase adjustment. An explicit error bound must account for
 both leakage and accumulated phase error; none is established yet.
 
+One possible **future theorem statement**, deliberately still conjectural,
+is: for any normalized complex target `α A + β B` and any chosen
+accuracy `η > 0`, there are finite, piecewise-constant edge and
+eight-site-control pulses, both returned to their crossing values at
+the end, whose unitary evolution maps `A` to within distance `η`
+of that target **up to a global phase**. The error estimate would include
+every unwanted mode of the infinite system. Alongside it, a no-go
+statement would rule out an arbitrary target under edge-only control,
+using conservation of the dark occupation.
+
 This offers a **candidate for a future Palomar-selected theorem**:
 a quantitative, approximate two-control preparation protocol with a
 precise edge-only impossibility statement. It requires full proof and
