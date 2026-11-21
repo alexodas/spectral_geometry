@@ -2808,7 +2808,7 @@ For unit-norm `x`, if `‖χ‖²≤η`, the total weight in
 the compact-mode plane is at least `1-η`. The proof makes **no**
 assumption that the transient edge operator preserves this plane.
 It also does not prove that the *individual* amplitudes have the
-requested values. The module still requires full Lean CI verification.
+requested values. The new declarations require full Lean CI verification.
 
 A second theorem records what *is* guaranteed by restoring the
 original operator `K_*` after the pulse:
@@ -2820,6 +2820,39 @@ K_*p=E_*p.
 This is a genuine natural-domain eigenvector equation for the compact
 part of any final state; it is **not** a claim that `χ=0` or that
 switching the pulse off erases the leakage.
+
+**Exact static obstruction to an ideal two-level edge action.** The
+same Lean module now computes the full-space edge response of the
+original compact mode `a`. It proves
+
+```math
+\|Wa\|^2=2,\quad
+\|PWa\|^2=\tfrac14,\quad
+\|(I-P)Wa\|^2=\tfrac74>0,
+```
+
+where `P` is the orthogonal projection onto `span{a,b}`. For the
+normalized mode `A=a/√8`, the corresponding external response is
+
+```math
+\|(I-P)WA\|^2=\tfrac7{32}.
+```
+
+Thus the single-edge perturbation **really does couple A to modes
+outside the qubit plane**. This is much stronger than merely saying
+that leakage is possible: it is an exact nonzero numerical certificate
+in the complete infinite graph, not a truncated finite model. The
+new exact calculation awaits CI verification.
+
+**Careful distinction:** this number measures the *off-plane
+component of the perturbation vector*, not leakage probability
+after any particular pulse. Under a future complex unitary
+Schrödinger model, it predicts a short-time leakage probability
+`(7/32) ε² τ² + o(τ²)` for a constant edge pulse from A. That
+short-time asymptotic is **not yet formalized in Lean**.
+It does **not** rule out cancellation of external amplitudes at
+a specially chosen final time, nor does it establish a universal
+lower bound on final pulse leakage.
 
 **Next stage: complex quantum dynamics.** Complexify the Hilbert space,
 normalize the modes as `A=a/√8, B=b/√8`, and define orthogonal
