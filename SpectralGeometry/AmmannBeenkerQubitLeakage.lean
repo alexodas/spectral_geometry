@@ -235,5 +235,59 @@ theorem crossingEdge_compactA_leakage_ne_zero :
   rw [h, norm_zero] at he
   norm_num at he
 
+/-- The two-mode projection respects real scalar multiplication. -/
+theorem crossingCoeffA_smul (k : ℝ) (ψ : TileHilbert Vertex) :
+    crossingCoeffA (k • ψ) = k * crossingCoeffA ψ := by
+  unfold crossingCoeffA
+  rw [real_inner_smul_right]
+  ring
+
+theorem crossingCoeffB_smul (k : ℝ) (ψ : TileHilbert Vertex) :
+    crossingCoeffB (k • ψ) = k * crossingCoeffB ψ := by
+  unfold crossingCoeffB
+  rw [real_inner_smul_right]
+  ring
+
+theorem crossingQubitPart_smul (k : ℝ) (ψ : TileHilbert Vertex) :
+    crossingQubitPart (k • ψ) = k • crossingQubitPart ψ := by
+  simp only [crossingQubitPart, crossingCoeffA_smul, crossingCoeffB_smul,
+    mul_smul, smul_add]
+
+theorem crossingLeakage_smul (k : ℝ) (ψ : TileHilbert Vertex) :
+    crossingLeakage (k • ψ) = k • crossingLeakage ψ := by
+  simp only [crossingLeakage, crossingQubitPart_smul, smul_sub]
+
+/-- The edge response of a compact-mode combination depends only
+on its unnormalized amplitude difference. -/
+theorem crossingEdge_two_mode_action (r s : ℝ) :
+    crossingEdge (r • compactA + s • compactB) =
+      (r - s) • crossingEdge compactA := by
+  have hsite :
+      (r • compactA + s • compactB) compactSiteA -
+        (r • compactA + s • compactB) compactSiteB = r - s := by
+    change (r * compactA compactSiteA + s * compactB compactSiteA) -
+      (r * compactA compactSiteB + s * compactB compactSiteB) = r - s
+    simp only [compactA_siteA, compactA_siteB, compactB_siteA, compactB_siteB]
+    ring
+  calc
+    crossingEdge (r • compactA + s • compactB) =
+        ((r • compactA + s • compactB) compactSiteA -
+          (r • compactA + s • compactB) compactSiteB) •
+          infiniteEdgeVector compactSiteA compactSiteB := crossingEdge_apply _
+    _ = (r - s) • infiniteEdgeVector compactSiteA compactSiteB := by rw [hsite]
+    _ = (r - s) • crossingEdge compactA := by
+      rw [crossingEdge_compactA_eq_edgeVector]
+
+/-- On the entire two-mode plane, the exact squared size of the external
+edge response is 7/4 times the squared amplitude imbalance. In
+particular, only the equal-amplitude dark direction has no direct
+off-plane response under the edge perturbation. -/
+theorem crossingEdge_two_mode_leakage_norm_sq (r s : ℝ) :
+    ‖crossingLeakage (crossingEdge (r • compactA + s • compactB))‖ ^ 2 =
+      (7 / 4 : ℝ) * (r - s) ^ 2 := by
+  rw [crossingEdge_two_mode_action, crossingLeakage_smul, norm_smul, mul_pow,
+    Real.norm_eq_abs, sq_abs, crossingEdge_compactA_leakage_norm_sq]
+  ring
+
 end
 end SpectralGeometry.AmmannBeenker
