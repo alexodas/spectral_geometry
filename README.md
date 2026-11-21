@@ -1,30 +1,62 @@
 # Spectral Geometry
 
-**A mathematical research program in Lean 4 and Mathlib connecting local
-geometric operators, compact eigenstates, finite-coordinate observation, and the response of zeros
-on a prescribed complex line.**
+**A research program in Lean 4 and Mathlib studying how local changes to
+operators on infinite geometric graphs affect their energy levels and the
+zeros of analytic functions built from those levels.**
 
-## Current status
+## Executive summary
 
-The selected Palomar result is the **exact multiplicity of a crossing of two
-compact states on the infinite confined octagonal graph** (§4.78). The
-intervention acts on the eight neighbors of the origin. At
-$t_*=17/16+\sqrt2$, the entire real eigenspace at $E_*=13/4+\sqrt2$ is spanned
-by the two alternating ring states. Every eigenvector is determined by its
-amplitudes at two specified vertices; no central-support hypothesis is needed.
-Section 4.79 also certifies a **conservative quantitative real spectral
-gap** for the same infinite natural-domain operator: no other real spectral
-point lies within distance $1/128$ of $E_*$. This does not determine the
-exact nearest-level distance.
+**Overall objective.** The long-term goal is to obtain rigorous, quantitative
+predictions for how a specified local geometric change affects an infinite
+operator's spectrum and the zeros of its associated canonical product.
+The program aims to connect exact infinite-system results with certified
+finite calculations. Several steps are already proved; the full
+relative-product and finite-patch program remains open (§6).
 
-Sections 4.68–4.72 also prove complete ordered spectra, exact full-product
-zero multiplicities and a nine-level response for an intervention on the
-radius-two sector. Sections 4.73–4.77 sharpen its radial bound and identify
-the compact modes, the 17-vertex central sector, its sixteen boundary edges
-and its central kernel. A state stays fixed when one edge weight changes;
-§4.79 proves an explicit real spectral isolation interval using
-central/exterior estimates and compact-resolvent spectral completeness.
-A quantitative bound for the other level after an edge change remains open.
+**An important intermediate result, already proved.** During this work,
+the project established a separate result for a specified infinite,
+confined Ammann–Beenker cut-and-project vertex graph. By tuning a
+perturbation acting on the eight neighbors of the origin, two compact
+localized modes reach the same nonzero energy. The proof shows more than
+the existence of two modes: **they span the entire eigenspace at that
+energy, whose dimension is exactly two**. No other eigenstate at that
+energy can extend into the rest of the infinite graph (§§4.75–4.78).
+A separate theorem also establishes that this energy is isolated from
+every other point of the real spectrum by a certified distance of
+`1/128` (§4.79); this is a lower bound, not the exact nearest-level distance.
+
+**Palomar Registry.** The exact-multiplicity theorem and its companion
+description of all eigenvectors at the crossing were registered as
+**PALOMAR-2026-11-06-000012 (version 1)** on **2026-11-06**
+([Palomar selection and proof scope](PALOMAR.md), §4.78). The separately proved
+spectral-gap theorem was **not** part of the Comparator-selected
+registration. Formal verification and registration do not by themselves
+establish mathematical priority or physical implementation.
+
+**Why this merits further investigation.** Having two exactly degenerate,
+localized modes raises a concrete question: which coherent superpositions
+can be prepared by changing the weight of the **single edge connecting
+their rings**, starting from one mode alone? The edge does couple the two
+modes, but one equal-amplitude combination remains an exact eigenstate
+for every edge weight. In a unitary time-dependent quantum interpretation,
+its occupation probability must therefore remain constant: this prevents
+an edge-only pulse from preparing *every* desired superposition.
+This dynamical obstruction is not yet a Lean theorem.
+
+This **coherent-control question is now the first stand-alone research
+priority** (§6.4): characterize which states are reachable with the edge
+alone, then investigate a two-step protocol using the edge to mix
+amplitudes and the original eight-site parameter `t` to set the
+relative phase. A candidate theorem would establish a quantitative
+preparation error for the infinite graph, together with the edge-only
+obstruction. Detuning `t` does not by itself create amplitude in the
+other mode. Such time-dependent phase control is not yet formalized in the
+current real Lean model. The project's original long-term goal concerning
+spectral products and their zeros **does not change**.
+
+## Current status and verified milestones
+
+The table below separates proved results from remaining research tasks.
 
 | Part of the program | Status |
 | --- | --- |
@@ -47,39 +79,18 @@ A quantitative bound for the other level after an edge change remains open.
 | Complete central crossing kernel and supported eigenvectors | Formalized in §4.77; the central-support hypothesis remains explicit |
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
+| Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
-The research objective is an end-to-end statement relating an explicitly defined
-local geometric modification to a quantitatively controlled change in a
-spectral product and its zeros. The observation theorem of §4.40 supplies a
-finite observation sector for this program. The subsequent abstract spectral
-response is now proved separately. The analytic product is entire and records
-the exact full spectral multiplicities under the stated positivity and
-summability hypotheses. The indexed zero-response bridge is now proved for positive finite-sector
-perturbations in the sufficient abstract setting. A bounded-operator-error
-certificate now controls separated zero clusters, with exact multiplicity
-counts. Proper onsite sublevels now supply the required sorted site bijection.
-For nonnegative interactions, the positive onsite gap and a sharper indexed
-response are proved without requiring that gap to exceed the interaction norm.
-Scalar analytic errors now yield local zero certificates, with the actual
-zero multiplicity determining the power in the location bound. A proved
-Rouché theorem conserves the total zero multiplicity in a disk under a
-strict boundary error. An explicit inverse-square tail controls finite
-truncations of a fixed canonical product and eventually certifies their
-exact local counts. A worked linear onsite model now has a numerical
-cofactor bound, isolation radius and truncation cutoff. Linear spectral
-growth gives an explicit tail rate, also for that onsite potential with a
-symmetric nonnegative bounded interaction. An explicit octagonal vertex graph
-now supplies a concrete spectral application: at least nine ordered levels
-are controlled by a finite onsite intervention, with positive gap preserved.
-Its planar counting bound, onsite and full-spectrum inverse-square
-summability, and exact entire-product zero-response instantiation are now
-proved. Geometric cofactor/radius certificates, finite-patch approximation
-and statistical results remain open. Counting on arbitrary noncircular contours is not
-formalized. The Palomar selection concerns the same graph under a first-ring
-intervention: §4.78 classifies its entire crossing eigenspace and §4.79
-proves its explicit real spectral isolation. Section 6.8 records the
-precise scope and verification requirements.
+The program already has formal results on infinite-operator spectral
+enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
+spectral response, and zeros of canonical products. The explicit octagonal
+graph supplies concrete examples, including the crossing described above.
+The more ambitious geometric cofactor certificates, relative-product
+identity and certified finite-patch comparisons remain open (§6).
+The registered crossing result (§4.78), the separately proved gap (§4.79),
+the new exact algebraic control lemmas (§4.80), and the proposed dynamical
+coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
 Originality and research significance must come from the geometric and spectral
@@ -2707,9 +2718,67 @@ the exact-multiplicity statements of §4.78; the gap theorems are
 included in the full Lean/Mathlib build, not separately selected as
 Comparator challenge declarations.
 
+### 4.80. First exact algebraic results for controlling the two compact modes
+
+This new step connects the crossing (§§4.75, 4.78), its certified spectral
+isolation (§4.79), and the proposed coherent-control problem (§6.4).
+The modules
+[`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
+and
+[`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
+extend the previously proved natural-domain equations. Both modules are
+imported by the main Lean library and checked in the full CI proof build.
+The statements here are exact static identities, not yet a dynamical
+control or state-preparation theorem.
+
+Let `a` and `b` be the original compact modes (each of squared norm
+eight), let `W` be the actual one-edge Laplacian perturbation, and write
+`D = (a + b)/4` for their **unit** equal-amplitude combination.
+The edge has an exact nonzero cross-mode matrix element. More generally,
+its bilinear form on two combinations is
+
+```math
+\langle r a+s b,\,W(u a+v b)\rangle=(r-s)(u-v).
+```
+
+This is an exact statement about the full infinite Hilbert space, **not**
+a claim that the two-dimensional mode plane is invariant under `W`.
+The new lemmas also show that `D` has unit norm and `W D=0`.
+Building on `crossing_dark_eigenvector` (§4.75), they express its
+stationarity as a **normalized, natural-domain eigenvector theorem**:
+for every real edge change `ε`, the full perturbed operator still has
+`D` at the original crossing energy.
+
+The second module proves that the compact-mode plane stays exactly
+invariant under any detuning and adds the energy response for `t=t_*+δ`:
+
+```math
+K_{t_*+\delta}a=(E_*+\delta)a,\qquad
+K_{t_*+\delta}b=E_*b.
+```
+
+When the two controls are allowed together, the operator acts on the
+dark state by the exact identity
+
+```math
+(K_{t_*+\delta}+\varepsilon W)D
+=E_*D+\frac{\delta}{4}a.
+```
+
+Thus the edge alone leaves the dark direction fixed, while detuning
+`t` changes it within the compact-mode plane. Neither identity asserts
+a controlled quantum evolution. The crucial open work is to establish a
+complex unitary dynamics and bound the excitation of the rest of the
+infinite spectrum under a finite edge pulse.
+
+See [the edge-control research note](docs/edge-control-reachability.md) for
+the proposed two-pulse strategy, the predicted obstruction to edge-only
+universal preparation, and its currently unproved dynamical requirements.
+This new work is **not** part of the previous Palomar-registered theorem.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **92 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and seventy-seven infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **94 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and seventy-nine infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -2797,7 +2866,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (15):**
+- **Explicit octagonal geometry, operator and spectral products (17):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -2807,6 +2876,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerCompactModes.lean`](SpectralGeometry/AmmannBeenkerCompactModes.lean)
   - [`AmmannBeenkerCompactStates.lean`](SpectralGeometry/AmmannBeenkerCompactStates.lean)
   - [`AmmannBeenkerCompactCrossing.lean`](SpectralGeometry/AmmannBeenkerCompactCrossing.lean)
+  - [`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
+  - [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -2842,7 +2913,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **92 mathematical source modules**, including the
+build covers all **94 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -2892,9 +2963,9 @@ and P4 denote research phases, not theorem numbers.
 
 **Active dependency path.** Abstract spectral response (§6.2), the analytic
 bridge (§6.3), and the explicit geometric full-product application (§6.4)
-are proved. The next numerical task is a scalar cofactor/isolation-radius
-certificate for this interacting geometric product, followed by a certified
-truncation cutoff. The planar finite-residue code already supplies the
+are proved. For the original spectral-product program, the next numerical task is a
+scalar cofactor/isolation-radius certificate for this interacting geometric
+product, followed by a certified truncation cutoff. The planar finite-residue code already supplies the
 summability input. Uniform separation is a separate geometric refinement.
 For the first-ring intervention, §4.78 determines the full crossing
 eigenspace and §4.79 certifies a conservative real spectral exclusion
@@ -2902,6 +2973,20 @@ radius of $1/128$. The one-edge splitting and remainder estimates
 remain open (§6.4). The complex Green-matrix interface in §6.1
 serves relative determinants in §6.5. Finite-patch operator errors belong
 to the approximation problem in §6.6.
+
+**New first research priority — a stand-alone goal.** Investigate how a
+controlled, time-dependent change to the single edge joining the two compact
+rings can mix the localized modes, starting from one mode alone. A shared
+dark eigenstate limits what the edge can prepare by itself; a subsequent
+change to `t` may supply the missing relative-phase control. The aim is
+to characterize reachable states and provide a concrete preparation
+procedure with a rigorous bound on excitation of other modes, or prove
+its limits. This is an **open question**, not a
+consequence of the existing crossing and gap theorems. It can yield a useful
+result on its own, before the remaining analytic work on spectral products.
+The central objective of the project stated above is unchanged, and coherent
+state preparation is not a prerequisite for that objective. The detailed
+steps appear in §6.4.
 
 ### 6.1. P2 — Spectral foundations and the complex-resolvent interface
 
@@ -3159,7 +3244,7 @@ The relation to the standard Ammann–Beenker construction is documented in
   $|d|\tau/2$ and $|d|\tau$ for nine slots on each reflected branch,
   including both interval endpoints (§4.72).
 
-**Next application tasks**
+**Established ingredients for the next steps**
 
 - [x] Strengthen the existing nine-level response to coefficient
   $4\sqrt2-5$ on $0\le\tau\le3+2\sqrt2$ using the next-shell barrier (§4.73).
@@ -3179,8 +3264,69 @@ The relation to the standard Ammann–Beenker construction is documented in
   $|E-E_*|\le1/128$ around the exact multiplicity-two crossing, with no
   other point of the full real bounded-inverse spectrum (§4.79).
   This is a conservative bound, not the exact nearest-level spacing.
-- [ ] Use that gap to control the moving eigenvalue after the one-edge
-  change on an explicit parameter interval, including a remainder bound.
+
+**First priority: controlled preparation of two-mode superpositions (open)**
+
+The eight-site parameter `t` already gives a simple, exact energy response:
+moving `t` away from `t_*` shifts one compact mode's energy and leaves the
+other unchanged. Under a time-dependent quantum interpretation, this could
+change the relative phase of a **pre-existing** coherent superposition; the
+phase difference would remain after returning to `t_*`. Because the same two
+modes remain eigenvectors for every `t`, changing `t` alone cannot create
+the missing mode amplitude when starting in only one mode. Quantum time
+evolution and phase control are not yet formalized in this real Lean model.
+
+A change to the weight of the single edge between the two rings is a more
+promising candidate for mixing the amplitudes. The original code already
+proves that one combination remains an exact eigenstate after this edge
+change, and that the complementary direction has an exact energy
+expectation. The new [edge-control research note](docs/edge-control-reachability.md)
+explains the nonzero coupling and a further constraint: in unitary dynamics
+with only this edge varied, the common eigenstate's occupation is conserved.
+Thus an edge-only pulse cannot reach every superposition from a single
+initial mode. Two new Lean modules
+[`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
+and
+[`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
+build directly on the crossing equations, adding the exact coupling,
+the normalized dark eigenstate and the response to detuning (§4.80).
+Their exact operator identities have passed the full Lean build; the
+dynamic no-go theorem and any successful preparation protocol remain open.
+The dynamic obstruction and any successful preparation protocol remain open.
+
+- [ ] **Understand the edge response beyond the exact algebra (§4.80).** Use the certified gap to
+  estimate how the other eigenvalue and its eigenstate behave under a small
+  single-edge change, on an explicit parameter interval and with an error
+  bound. Do not treat an energy expectation as an eigenvalue formula.
+- [ ] **Define the controlled dynamics.** Extend the relevant setting to
+  complex quantum states and a time-dependent edge weight, while keeping
+  the underlying infinite operator and its domain well defined. Determine
+  how the two compact-mode amplitudes interact with the remaining modes.
+- [ ] **Characterize reachability and test a two-control protocol.**
+  Prove the conserved dark-state occupation for edge-only time-dependent
+  dynamics. Starting from one compact mode, test a weak edge pulse to
+  change the amplitudes, then restore the edge and detune `t` to
+  adjust their relative phase. Seek an explicit bound on preparation
+  error and leakage into other energy levels; determine whether this
+  achieves arbitrary targets in the compact plane up to a chosen error.
+  See [the research note](docs/edge-control-reachability.md) for the
+  proposed protocol and its limitations.
+- [ ] **Check what persists after control.** When the edge is restored and
+  the operator returns to the crossing configuration, show how much of the
+  prepared state stays in the two-mode eigenspace and whether its relative
+  phase remains stable. Distinguish exact preparation from approximate
+  preparation with a certified error.
+
+This is intended as a self-contained result with a possible physical
+interpretation, **not** a claim that a laboratory implementation exists.
+The spectral-product program below remains the project's long-term goal.
+A future theorem combining a proved reachability limitation with a
+quantitative preparation protocol could be proposed as a **new Palomar
+selection**, after complete Lean and independent verification. The
+existing registration, Challenge and Comparator remain unchanged now.
+
+**Remaining tasks for the original spectral-product program**
+
 - [ ] Derive an isolation radius and a nonzero analytic-cofactor lower
   certificate for a specified geometric spectral level or cluster.
   Account for multiplicity; do not assume simple spectrum.
@@ -3201,10 +3347,12 @@ The relation to the standard Ammann–Beenker construction is documented in
 
 The radius-two intervention gives the nine-level full-product response of
 §4.72. The first-ring intervention gives the exact crossing eigenspace of
-§4.78 and the conservative real spectral gap of §4.79. The next crossing
-task is a quantitative bound on how the other level moves after one edge
-weight changes; the certified unperturbed isolation does not itself
-supply that perturbation estimate.
+§4.78 and the conservative real spectral gap of §4.79. The new first
+research priority begins with a quantitative study of the one-edge change
+and then asks whether it can prepare a coherent superposition with controlled
+leakage. The certified unperturbed isolation does not itself supply either
+the edge-response estimate or the dynamical preparation result. The
+spectral-product and relative-determinant objectives remain unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
 

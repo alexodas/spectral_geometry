@@ -1,4 +1,10 @@
-# Palomar candidate — exact multiplicity of a compact crossing on an infinite octagonal graph
+# Registered Palomar result — exact multiplicity of a compact crossing on an infinite octagonal graph
+
+**Registration:** `PALOMAR-2026-11-06-000012` (version 1), 2026-11-06.
+This document records the **previously registered** result; the exploratory
+coherent-control work in [README §4.80](README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+and [§6.4](README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+is separate and has not been submitted as a new Palomar statement.
 
 The principal theorem is `SpectralGeometry.AmmannBeenker.crossingEigenspace_finrank`.
 The companion `SpectralGeometry.AmmannBeenker.crossing_eigenvector_representation`
@@ -120,5 +126,7 @@ lake build SpectralGeometry Challenge Solution
 bash scripts/verify-comparator.sh
 ```
 
-Use a public immutable commit SHA with all checks passing. Preparing the
-package does not submit or register a result.
+The registration above refers to the earlier, independently verified
+selection at its original immutable commit. Any future replacement or
+additional Palomar submission needs its own verified immutable commit;
+preparing a package or passing CI does not by itself register a new result.
