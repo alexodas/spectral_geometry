@@ -80,9 +80,10 @@ The table below separates proved results from remaining research tasks.
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
-| Qubit/leakage bookkeeping and control response | §4.81: orthogonal real-space decomposition, exact squared-norm budget, restored eigenstate and two-control off-plane formula; the new extension is pending CI |
-| Uniform leakage estimate from nearby invariant planes | §4.82: generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Explicit gap-to-eigenvector stability reduction | §4.83: exact infinite-graph edge norm 2, perturbation residual identity and conditional bound `‖Qx‖≤512|ε|‖x‖`; §4.84 derives the residual inequality from a complete crossing eigenbasis and symmetry; graph-specific basis instantiation and cluster projection remain open |
+| Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
+| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
+| Pulse leakage from conserved energy residual | §4.85: submitted conditional duration-independent bound `‖Qy‖≤512|ε|‖x‖` from the actual crossing gap and exact edge norm; complex pulse dynamics and rotation remain open |
+| Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -2810,7 +2811,7 @@ For unit-norm `x`, if `‖χ‖²≤η`, the total weight in
 the compact-mode plane is at least `1-η`. The proof makes **no**
 assumption that the transient edge operator preserves this plane.
 It also does not prove that the *individual* amplitudes have the
-requested values. The new declarations require full Lean CI verification.
+requested values. The §4.81 declarations have now passed the full Lean CI verification.
 
 A second theorem records what *is* guaranteed by restoring the
 original operator `K_*` after the pulse:
@@ -2856,7 +2857,7 @@ Thus the single-edge perturbation **really does couple A to modes
 outside the qubit plane**. This is much stronger than merely saying
 that leakage is possible: it is an exact nonzero numerical certificate
 in the complete infinite graph, not a truncated finite model. The
-new exact calculation awaits CI verification.
+exact calculation has passed Lean CI verification.
 
 **Full two-control response.** The latest Lean extension also
 treats the complete natural-domain action of both available controls,
@@ -3018,8 +3019,7 @@ The graph's real spectral exclusion within radius `g` is already
 certified (§4.79). The latest new lemma
 `crossingReducedGapResidualEstimate_full` now also derives
 this norm inequality from the previously proved full eigenbasis
-existence and operator symmetry (§4.84); **the latest
-declarations are awaiting Lean CI verification**.
+existence and operator symmetry (§4.84); **these graph-specific declarations passed Lean CI before the new §4.85 extension**.
 
 **Quantitative theorem, with the gap hypothesis now discharged
 in source:** the latest declaration derives
@@ -3044,7 +3044,7 @@ state against weak edge coupling.
 
 **Two important boundaries:** the graph-specific residual inequality
 has now been derived in source from complete-basis and gap theorems,
-pending CI. The **perturbed eigenvalue-shift window** remains
+Lean-verified. The **perturbed eigenvalue-shift window** remains
 an explicit hypothesis for the selected nearby cluster. Also, an inequality on individual perturbed
 eigenvectors is **not yet** an operator-norm estimate
 `‖P_ε-P‖` for the whole perturbed two-dimensional spectral
@@ -3105,7 +3105,7 @@ onsite potential, and supplies symmetry via
 `finiteSectorCorrection_symmetric`. Hence the full reduced-gap
 inequality is now a **proposed unconditional theorem for the
 actual infinite graph**, not merely a new hypothesis.
-**The latest Lean CI must still verify the code.**
+**The gap-to-residual Lean code has passed CI.**
 
 Consequently, the latest `crossingEdge_perturbed_eigenvector_gap_bound_full`
 states without any *additional* gap assumption that
@@ -3119,7 +3119,7 @@ for **every real perturbed full-domain eigenvector** at `λ`.
 The related `crossingEdge_nearby_eigenvector_leakage_le_full`
 gives `‖(I-P)x‖≤512|ε|‖x‖` whenever the
 energy-window hypothesis `|λ-E_*|≤2|ε|` holds. These are
-proposed mathematical statements pending CI, *not* a spectral
+Lean-verified mathematical statements, *not* a spectral
 projector or time-evolution result.
 
 Even that eigenvector estimate does not yet prove
