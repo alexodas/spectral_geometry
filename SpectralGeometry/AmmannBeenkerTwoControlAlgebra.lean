@@ -37,6 +37,17 @@ theorem ring_compactB_detuning (δ : ℝ) :
       domainCompactB = crossingEnergy • compactB :=
   ring_compactB _
 
+/-- Every detuning preserves the entire two-dimensional span of the
+compact eigenvectors. This uses the exact infinite-domain equations,
+not an effective two-level approximation. -/
+theorem detuning_two_mode_action (δ r s : ℝ) :
+    onsitePlusBounded potential (ringInteraction (crossingParameter + δ))
+      (r • domainCompactA + s • domainCompactB) =
+        (crossingEnergy + δ) • (r • compactA) +
+          crossingEnergy • (s • compactB) := by
+  simp only [map_add, map_smul, ring_compactA_detuning, ring_compactB_detuning]
+  module
+
 /-- Although edge control alone leaves the dark vector stationary, an
 eight-site detuning changes its direction within the compact plane.
 The result is an exact equation for the infinite natural-domain operator. -/
