@@ -100,6 +100,7 @@ public import SpectralGeometry.AmmannBeenkerCrossingGapOrthogonality
 public import SpectralGeometry.AmmannBeenkerNearCrossingEigenvectors
 public import SpectralGeometry.AmmannBeenkerPulseResidualBound
 public import SpectralGeometry.AmmannBeenkerPulseIntertwining
+public import SpectralGeometry.AmmannBeenkerPulseSelfAdjoint
 
 public section
 
