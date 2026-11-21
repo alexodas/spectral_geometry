@@ -259,12 +259,21 @@ then combines that result with the **already proved** exact
 two-dimensional `E_*` eigenspace and the spectral exclusion
 within `1/128`.
 
-It remains to construct/supply the complete crossing eigenbasis
-and the symmetry proof in the new graph-specific declaration,
-using the existing general compact-resolvent/eigenbasis tools.
-The new files and the specialization require Lean CI checking;
-none of these new conditional statements claims that the
-perturbed spectral projector has yet been constructed.
+The latest source now additionally declares
+`crossingReducedGapResidualEstimate_full`, which **builds the
+complete crossing eigenbasis** with the repository's existing
+`onsitePlusBounded_exists_orderedEigenbasis` theorem and obtains
+operator symmetry using `finiteSectorCorrection_symmetric`.
+It therefore proposes the reduced-gap norm inequality as a
+theorem of the **actual infinite graph, with no extra gap
+hypothesis**. This is a new code change and **requires Lean CI**.
+
+The latest `crossingEdge_perturbed_eigenvector_gap_bound_full`
+then applies the unconditional gap statement to every genuine
+edge-perturbed eigenvector. Its `512|ε|` specialization still
+requires the displayed energy-window condition for the selected
+perturbed eigenvalue; the perturbed spectral projector is not
+yet constructed.
 
 The eigenvector bound is a **one-sided** closeness result for
 individual perturbed eigenvectors. Completing the desired
