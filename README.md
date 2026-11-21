@@ -2892,9 +2892,9 @@ and P4 denote research phases, not theorem numbers.
 
 **Active dependency path.** Abstract spectral response (§6.2), the analytic
 bridge (§6.3), and the explicit geometric full-product application (§6.4)
-are proved. The next numerical task is a scalar cofactor/isolation-radius
-certificate for this interacting geometric product, followed by a certified
-truncation cutoff. The planar finite-residue code already supplies the
+are proved. For the original spectral-product program, the next numerical task is a
+scalar cofactor/isolation-radius certificate for this interacting geometric
+product, followed by a certified truncation cutoff. The planar finite-residue code already supplies the
 summability input. Uniform separation is a separate geometric refinement.
 For the first-ring intervention, §4.78 determines the full crossing
 eigenspace and §4.79 certifies a conservative real spectral exclusion
@@ -2902,6 +2902,18 @@ radius of $1/128$. The one-edge splitting and remainder estimates
 remain open (§6.4). The complex Green-matrix interface in §6.1
 serves relative determinants in §6.5. Finite-patch operator errors belong
 to the approximation problem in §6.6.
+
+**New first research priority — a stand-alone goal.** Investigate whether a
+controlled, time-dependent change to the single edge joining the two compact
+rings can prepare a coherent superposition, starting from just one of the two
+localized modes. The aim is a concrete preparation procedure with a rigorous
+bound on unwanted excitation of other modes, or a clear proof of what this
+particular control cannot achieve. This is an **open question**, not a
+consequence of the existing crossing and gap theorems. It can yield a useful
+result on its own, before the remaining analytic work on spectral products.
+The central objective of the project stated above is unchanged, and coherent
+state preparation is not a prerequisite for that objective. The detailed
+steps appear in §6.4.
 
 ### 6.1. P2 — Spectral foundations and the complex-resolvent interface
 
@@ -3159,7 +3171,7 @@ The relation to the standard Ammann–Beenker construction is documented in
   $|d|\tau/2$ and $|d|\tau$ for nine slots on each reflected branch,
   including both interval endpoints (§4.72).
 
-**Next application tasks**
+**Established ingredients for the next steps**
 
 - [x] Strengthen the existing nine-level response to coefficient
   $4\sqrt2-5$ on $0\le\tau\le3+2\sqrt2$ using the next-shell barrier (§4.73).
@@ -3179,8 +3191,50 @@ The relation to the standard Ammann–Beenker construction is documented in
   $|E-E_*|\le1/128$ around the exact multiplicity-two crossing, with no
   other point of the full real bounded-inverse spectrum (§4.79).
   This is a conservative bound, not the exact nearest-level spacing.
-- [ ] Use that gap to control the moving eigenvalue after the one-edge
-  change on an explicit parameter interval, including a remainder bound.
+
+**First priority: controlled preparation of two-mode superpositions (open)**
+
+The eight-site parameter `t` already gives a simple, exact energy response:
+moving `t` away from `t_*` shifts one compact mode's energy and leaves the
+other unchanged. Under a time-dependent quantum interpretation, this could
+change the relative phase of a **pre-existing** coherent superposition; the
+phase difference would remain after returning to `t_*`. Because the same two
+modes remain eigenvectors for every `t`, changing `t` alone cannot create
+the missing mode amplitude when starting in only one mode. Quantum time
+evolution and phase control are not yet formalized in this real Lean model.
+
+A change to the weight of the single edge between the two rings is a more
+promising candidate for mixing the amplitudes. The code already proves that
+one combination of the compact modes remains an exact eigenstate after this
+edge change, and that the complementary direction has an exact energy
+expectation. Those facts do **not** yet prove a moving eigenvalue law,
+dynamical state preparation, or freedom from transitions to other modes.
+
+- [ ] **Understand the edge response first.** Use the certified gap to
+  estimate how the other eigenvalue and its eigenstate behave under a small
+  single-edge change, on an explicit parameter interval and with an error
+  bound. Do not treat an energy expectation as an eigenvalue formula.
+- [ ] **Define the controlled dynamics.** Extend the relevant setting to
+  complex quantum states and a time-dependent edge weight, while keeping
+  the underlying infinite operator and its domain well defined. Determine
+  how the two compact-mode amplitudes interact with the remaining modes.
+- [ ] **Test a concrete preparation protocol.** Starting from either one
+  of the compact modes, investigate whether an explicit edge-control pulse
+  can produce a chosen coherent superposition. Prove a quantitative bound
+  on preparation error and leakage into other energy levels, or establish
+  the limitation if this single control is insufficient.
+- [ ] **Check what persists after control.** When the edge is restored and
+  the operator returns to the crossing configuration, show how much of the
+  prepared state stays in the two-mode eigenspace and whether its relative
+  phase remains stable. Distinguish exact preparation from approximate
+  preparation with a certified error.
+
+This is intended as a self-contained result with a possible physical
+interpretation, **not** a claim that a laboratory implementation exists.
+The spectral-product program below remains the project's long-term goal.
+
+**Remaining tasks for the original spectral-product program**
+
 - [ ] Derive an isolation radius and a nonzero analytic-cofactor lower
   certificate for a specified geometric spectral level or cluster.
   Account for multiplicity; do not assume simple spectrum.
@@ -3201,10 +3255,12 @@ The relation to the standard Ammann–Beenker construction is documented in
 
 The radius-two intervention gives the nine-level full-product response of
 §4.72. The first-ring intervention gives the exact crossing eigenspace of
-§4.78 and the conservative real spectral gap of §4.79. The next crossing
-task is a quantitative bound on how the other level moves after one edge
-weight changes; the certified unperturbed isolation does not itself
-supply that perturbation estimate.
+§4.78 and the conservative real spectral gap of §4.79. The new first
+research priority begins with a quantitative study of the one-edge change
+and then asks whether it can prepare a coherent superposition with controlled
+leakage. The certified unperturbed isolation does not itself supply either
+the edge-response estimate or the dynamical preparation result. The
+spectral-product and relative-determinant objectives remain unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
 
