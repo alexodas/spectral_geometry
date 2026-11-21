@@ -153,5 +153,87 @@ theorem crossingQubitPart_restored_eigenvector (ψ : TileHilbert Vertex) :
   simpa [crossingQubitPart] using
     (detuning_two_mode_action 0 (crossingCoeffA ψ) (crossingCoeffB ψ))
 
+/-- The edge endpoints are different, as certified by their different
+compact-A amplitudes. -/
+theorem crossingEdge_endpoints_ne : compactSiteA ≠ compactSiteB := by
+  intro he
+  have h := congrArg compactA he
+  have hbad : (1 : ℝ) = 0 := by
+    simpa only [compactA_siteA, compactA_siteB] using h
+  norm_num at hbad
+
+/-- On the original unnormalized compact-A mode the selected rank-one edge
+acts as its unit edge vector. -/
+theorem crossingEdge_compactA_eq_edgeVector :
+    crossingEdge compactA = infiniteEdgeVector compactSiteA compactSiteB := by
+  rw [crossingEdge_apply]
+  simp only [compactA_siteA, compactA_siteB, sub_zero, one_smul]
+
+theorem crossingEdge_compactA_siteA :
+    (crossingEdge compactA) compactSiteA = 1 := by
+  rw [crossingEdge_compactA_eq_edgeVector]
+  simp [infiniteEdgeVector, lp.coeFn_sub, lp.single_apply,
+    Pi.single_apply, crossingEdge_endpoints_ne]
+
+theorem crossingEdge_compactA_siteB :
+    (crossingEdge compactA) compactSiteB = -1 := by
+  rw [crossingEdge_compactA_eq_edgeVector]
+  simp [infiniteEdgeVector, lp.coeFn_sub, lp.single_apply,
+    Pi.single_apply, crossingEdge_endpoints_ne]
+
+/-- Exact norm of the edge action on the unnormalized first compact
+mode, computed in the full infinite Hilbert space. -/
+theorem crossingEdge_compactA_norm_sq :
+    ‖crossingEdge compactA‖ ^ 2 = 2 := by
+  rw [← real_inner_self_eq_norm_sq, crossingEdge_inner]
+  rw [crossingEdge_compactA_siteA, crossingEdge_compactA_siteB]
+  simp only [compactA_siteA, compactA_siteB]
+  norm_num
+
+/-- The edge response has a fixed first compact-mode coefficient. -/
+theorem crossingCoeffA_edge_compactA :
+    crossingCoeffA (crossingEdge compactA) = 1 / 8 := by
+  unfold crossingCoeffA
+  rw [crossingEdge_inner]
+  norm_num only [compactA_siteA, compactA_siteB]
+
+/-- The edge response has a fixed second compact-mode coefficient. -/
+theorem crossingCoeffB_edge_compactA :
+    crossingCoeffB (crossingEdge compactA) = -(1 / 8) := by
+  unfold crossingCoeffB
+  rw [crossingEdge_inner]
+  norm_num only [compactA_siteA, compactA_siteB,
+    compactB_siteA, compactB_siteB]
+
+/-- Of the total squared norm 2 of W a, only 1/4 lies in the
+compact-mode plane; the remainder lies in the full orthogonal
+complement. This is a static, exact infinite-space calculation. -/
+theorem crossingEdge_compactA_qubit_norm_sq :
+    ‖crossingQubitPart (crossingEdge compactA)‖ ^ 2 = 1 / 4 := by
+  rw [crossingQubitPart_norm_sq, crossingCoeffA_edge_compactA,
+    crossingCoeffB_edge_compactA]
+  norm_num
+
+/-- A nonzero edge perturbation genuinely drives the first compact
+mode outside the two-mode eigenspace: the total squared norm in
+all external directions is exactly 7/4 for the unnormalized mode a.
+For the normalized mode A=a/sqrt(8), the coefficient is 7/32.
+This statement concerns the perturbation vector W a, NOT the
+time-evolved state after a pulse. -/
+theorem crossingEdge_compactA_leakage_norm_sq :
+    ‖crossingLeakage (crossingEdge compactA)‖ ^ 2 = 7 / 4 := by
+  have h := crossingQubitPart_leakage_norm_sq (crossingEdge compactA)
+  rw [crossingEdge_compactA_norm_sq,
+    crossingEdge_compactA_qubit_norm_sq] at h
+  linarith
+
+/-- In particular, W a is not confined to the original qubit plane. -/
+theorem crossingEdge_compactA_leakage_ne_zero :
+    crossingLeakage (crossingEdge compactA) ≠ 0 := by
+  intro h
+  have he := crossingEdge_compactA_leakage_norm_sq
+  rw [h, norm_zero] at he
+  norm_num at he
+
 end
 end SpectralGeometry.AmmannBeenker
