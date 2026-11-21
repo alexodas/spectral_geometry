@@ -1,7 +1,7 @@
 # Single-edge control of the compact crossing: research note
 
 **Status:** exploratory analysis and first Lean algebraic lemmas, **not** a
-certified quantum control protocol. This note complements [README §6.4](../README.md#64-p4--explicit-geometric-full-product-application)
+certified quantum control protocol. This note complements [README §6.4](../README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
 and does not change the selected [Palomar result](../PALOMAR.md).
 
 ## Starting point: an infinite-graph theorem, not a two-site model
