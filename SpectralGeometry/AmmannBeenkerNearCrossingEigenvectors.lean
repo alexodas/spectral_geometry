@@ -81,7 +81,7 @@ theorem crossingEdge_apply_norm_le_two (x : TileHilbert Vertex) :
 step. This is a proposition, not asserted to hold by definition.
 The current gap theorem isolates the real spectrum but does not
 yet identify this quantitative inequality in Lean. -/
-def CrossingReducedGapResidualEstimate : Prop :=
+@[expose] def CrossingReducedGapResidualEstimate : Prop :=
   ∀ x : infiniteOnsiteDomain potential,
     crossingGapCandidate *
         ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
