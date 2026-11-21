@@ -153,6 +153,65 @@ a later exact return of all external amplitudes to zero for a
 specially shaped pulse. Arbitrarily accurate preparation and
 exact zero final leakage remain separate open questions.
 
+## A route to uniformly small leakage under long, weak pulses
+
+An important issue is that a **weak** edge pulse may have to last
+time proportional to `1/|ε|` to produce a useful two-mode rotation.
+Therefore a crude bound proportional to `|ε| × pulse duration`
+does not show that final leakage tends to zero.
+
+The new abstract Lean module
+[`QubitLeakagePulseBound.lean`](../SpectralGeometry/QubitLeakagePulseBound.lean)
+isolates a stronger and more useful mechanism: **stability of an
+isolated spectral cluster**. If `P` projects onto the original
+two-mode eigenspace, `S` onto a nearby invariant perturbed
+two-dimensional subspace, and `U` is any norm-preserving linear
+evolution commuting with `S`, then an initial `x` with `Px=x`
+satisfies
+
+```text
+If  ‖(P-S)y‖ ≤ d ‖y‖  for every y,
+then ‖(I-P) U x‖ ≤ 2 d ‖x‖ .
+```
+
+For a normalized state, the **squared norm** of leakage is
+`≤4d²` (provided `d≥0`). There is **no pulse-duration
+factor** in this estimate; the result is a direct consequence
+of the triangle inequality and invariance of the perturbed
+spectral plane. The generic real normed-space lemma is submitted
+for Lean CI; it neither constructs `S` nor identifies `U`
+with the actual infinite-graph Schrödinger propagator.
+
+**Remaining graph-specific theorem obligations:**
+
+1. Prove the isolated two-dimensional spectral cluster survives
+   sufficiently weak edge changes and construct its orthogonal
+   spectral projection `P_ε` on the complexified graph Hilbert space.
+2. Use the already proved gap at `E_*` to derive an explicit
+   bound `‖P_ε-P‖≤d(ε)`, where `d(ε)→0` as `ε→0`.
+3. Define the true unitary `U_ε(T)` of the unbounded
+   natural-domain Hamiltonian, prove it commutes with `P_ε`,
+   and instantiate the generic lemma. This would control **all**
+   external modes throughout a long weak pulse and at switch-off.
+4. Separately prove a **nontrivial desired rotation** inside
+   the qubit plane, and then use detuning to adjust the complex
+   relative phase. Small leakage by itself is not state preparation.
+
+The new full natural-domain two-control *static* identity in
+[`AmmannBeenkerQubitLeakage.lean`](../SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
+also gives the exact off-plane Hamiltonian response for a
+real input `ra+sb`:
+
+```text
+‖(I-P) (K_(t_*+δ) + εW) (r a+s b)‖²
+    = (7/4) ε² (r-s)² .
+```
+
+The detuning `δ` has **zero direct off-plane effect**.
+But this equality is about the instantaneous operator action,
+not the accumulated leakage under a pulse, and does not
+supersede the spectral-projector stability proof.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
