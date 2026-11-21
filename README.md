@@ -82,7 +82,7 @@ The table below separates proved results from remaining research tasks.
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Pulse leakage from conserved energy residual | §4.85: Lean-verified conditional duration-independent bound `‖Qy‖≤512|ε|‖x‖` from the crossing gap and edge norm; §4.86 additionally derives residual conservation from an intertwining isometry, pending CI; complex pulse dynamics and rotation remain open |
+| Pulse leakage from conserved energy residual | §4.85: Lean-verified conditional duration-independent bound `‖Qy‖≤512|ε|‖x‖`; §4.86 derives residual conservation from intertwining, and §4.87 proves real self-adjointness of the selected-edge pulse operator, both newly submitted; complex pulse dynamics and rotations remain open |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -3253,9 +3253,64 @@ leakage conclusion.
 a fresh full Lean check; §4.85 had already passed the previous
 green Action. Nothing here certifies state preparation yet.
 
+### 4.87. The actual selected-edge pulse Hamiltonian is self-adjoint on its natural real domain
+
+The next step specializes the existing genuine Mathlib
+`LinearPMap` self-adjointness theorem to the **same physical
+selected edge** used throughout §§4.80–4.86.
+
+The new
+[`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
+defines the full unbounded partial operator `crossingEdgePulsePMap ε`
+on the real infinite-graph Hilbert space. Its exact domain
+is `infiniteOnsiteDomain potential`; for every real `ε`,
+its action there is
+
+```math
+K_\varepsilon x=(K_*+\varepsilon W)x.
+```
+
+The source derives self-adjointness by using a zero-color
+matching family, the known self-adjointness machinery for a
+proper natural onsite domain, the symmetry of the original
+bounded ring interaction, and the exact symmetry of the
+rank-one selected-edge perturbation:
+
+```math
+\langle Wx,y\rangle=\langle x,Wy\rangle.
+```
+
+The newly proposed theorem
+
+```lean
+crossingEdgePulsePMap_isSelfAdjoint (ε : ℝ) :
+  IsSelfAdjoint (crossingEdgePulsePMap ε)
+```
+
+has **no small-ε restriction**: the perturbed operator
+is self-adjoint for any real edge weight on its original
+natural domain. The self-adjointness and exact-domain
+statements concern the **full infinite operator**, not
+an effective 2×2 matrix or a finite graph.
+
+**Limitations:** this is self-adjointness over **ℝ**
+in Mathlib's partial-linear-map API. Constructing the
+physical complex Hilbert-space counterpart and its
+strongly continuous unitary Schrödinger propagator,
+including `U_ε(τ)D(K_ε)⊆D(K_ε)` and
+`K_εU_ε(τ)=U_ε(τ)K_ε`, is still a separate task.
+The §4.86 implication from these conditions to
+residual conservation and the leakage estimate does
+not by itself supply that physical evolution.
+
+**CI status:** this new self-adjointness specialization
+has been submitted with §4.86 for Lean checking.
+Prior §4.85 was already green. The designated Palomar
+theorem and Challenge/Comparator files are unchanged.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **100 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-four infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **101 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-five infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3343,7 +3398,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (22):**
+- **Explicit octagonal geometry, operator and spectral products (23):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3361,6 +3416,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerNearCrossingEigenvectors.lean`](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
   - [`AmmannBeenkerPulseResidualBound.lean`](SpectralGeometry/AmmannBeenkerPulseResidualBound.lean)
   - [`AmmannBeenkerPulseIntertwining.lean`](SpectralGeometry/AmmannBeenkerPulseIntertwining.lean)
+  - [`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3396,7 +3452,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **100 mathematical source modules**, including the
+build covers all **101 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3795,7 +3851,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.86).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.87).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
