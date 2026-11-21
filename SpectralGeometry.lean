@@ -86,6 +86,7 @@ public import SpectralGeometry.AmmannBeenkerRadialGap
 public import SpectralGeometry.AmmannBeenkerCompactModes
 public import SpectralGeometry.AmmannBeenkerCompactStates
 public import SpectralGeometry.AmmannBeenkerCompactCrossing
+public import SpectralGeometry.AmmannBeenkerEdgeControl
 public import SpectralGeometry.AmmannBeenkerCentralPatch
 public import SpectralGeometry.AmmannBeenkerCentralKernel
 public import SpectralGeometry.AmmannBeenkerCrossingMultiplicity
