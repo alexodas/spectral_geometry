@@ -34,18 +34,20 @@ registration. Formal verification and registration do not by themselves
 establish mathematical priority or physical implementation.
 
 **Why this merits further investigation.** Having two exactly degenerate,
-localized modes raises a concrete question: can changing the weight of
-the **single edge connecting their rings** prepare a chosen coherent
-superposition, starting from one mode alone? The existing Lean proofs
-identify an unchanged combination under that edge change and an exact
-energy expectation for a complementary direction. They do **not** yet
-show dynamical preparation, a complete eigenvalue-splitting law, or
-protection from unwanted excitation of other energy levels.
+localized modes raises a concrete question: which coherent superpositions
+can be prepared by changing the weight of the **single edge connecting
+their rings**, starting from one mode alone? The edge does couple the two
+modes, but one equal-amplitude combination remains an exact eigenstate
+for every edge weight. In a unitary time-dependent quantum interpretation,
+its occupation probability must therefore remain constant: this prevents
+an edge-only pulse from preparing *every* desired superposition.
+This dynamical obstruction is not yet a Lean theorem.
 
 This **coherent-control question is now the first stand-alone research
-priority** (§6.4): understand the edge perturbation, introduce the
-necessary time-dependent dynamics, and seek a preparation protocol with
-a certified error bound, or a proof of its limitations. Changing the
+priority** (§6.4): characterize the reachable states and the obstruction,
+seek an explicit preparation protocol for an allowed superposition with a
+certified error bound, and determine whether a second control is necessary
+for arbitrary targets. Changing the
 original eight-site parameter `t` can instead control the relative
 phase of an already prepared superposition in a quantum dynamical
 interpretation; it cannot by itself create amplitude in the other
@@ -2914,9 +2916,9 @@ to the approximation problem in §6.6.
 **New first research priority — a stand-alone goal.** Investigate whether a
 controlled, time-dependent change to the single edge joining the two compact
 rings can prepare a coherent superposition, starting from just one of the two
-localized modes. The aim is a concrete preparation procedure with a rigorous
-bound on unwanted excitation of other modes, or a clear proof of what this
-particular control cannot achieve. This is an **open question**, not a
+localized modes. The aim is to characterize the states that can and cannot be reached,
+then find a concrete preparation procedure with a rigorous bound on
+unwanted excitation of other modes, if the control permits one. This is an **open question**, not a
 consequence of the existing crossing and gap theorems. It can yield a useful
 result on its own, before the remaining analytic work on spectral products.
 The central objective of the project stated above is unchanged, and coherent
@@ -3212,11 +3214,18 @@ the missing mode amplitude when starting in only one mode. Quantum time
 evolution and phase control are not yet formalized in this real Lean model.
 
 A change to the weight of the single edge between the two rings is a more
-promising candidate for mixing the amplitudes. The code already proves that
-one combination of the compact modes remains an exact eigenstate after this
-edge change, and that the complementary direction has an exact energy
-expectation. Those facts do **not** yet prove a moving eigenvalue law,
-dynamical state preparation, or freedom from transitions to other modes.
+promising candidate for mixing the amplitudes. The original code already
+proves that one combination remains an exact eigenstate after this edge
+change, and that the complementary direction has an exact energy
+expectation. The new [edge-control research note](docs/edge-control-reachability.md)
+explains the nonzero coupling and a further constraint: in unitary dynamics
+with only this edge varied, the common eigenstate's occupation is conserved.
+Thus an edge-only pulse cannot reach every superposition from a single
+initial mode. A new Lean module
+[`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
+begins formalizing the exact coupling and dark-state algebra; it must pass
+the full Lean build before these new declarations are considered verified.
+The dynamic obstruction and any successful preparation protocol remain open.
 
 - [ ] **Understand the edge response first.** Use the certified gap to
   estimate how the other eigenvalue and its eigenstate behave under a small
@@ -3226,11 +3235,13 @@ dynamical state preparation, or freedom from transitions to other modes.
   complex quantum states and a time-dependent edge weight, while keeping
   the underlying infinite operator and its domain well defined. Determine
   how the two compact-mode amplitudes interact with the remaining modes.
-- [ ] **Test a concrete preparation protocol.** Starting from either one
-  of the compact modes, investigate whether an explicit edge-control pulse
-  can produce a chosen coherent superposition. Prove a quantitative bound
-  on preparation error and leakage into other energy levels, or establish
-  the limitation if this single control is insufficient.
+- [ ] **Characterize reachability and test a protocol.** Prove the
+  conserved dark-state occupation for edge-only time-dependent dynamics.
+  Starting from one compact mode, identify targets not excluded by that
+  conservation law and test an explicit pulse. Bound preparation error
+  and leakage into other energy levels, or establish a further limitation.
+  Investigate whether detuning `t` supplies the additional control needed
+  for more general target superpositions.
 - [ ] **Check what persists after control.** When the edge is restored and
   the operator returns to the crossing configuration, show how much of the
   prepared state stays in the two-mode eigenspace and whether its relative
