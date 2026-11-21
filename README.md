@@ -82,7 +82,7 @@ The table below separates proved results from remaining research tasks.
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Pulse leakage from conserved energy residual | §4.85: submitted conditional duration-independent bound `‖Qy‖≤512|ε|‖x‖` from the actual crossing gap and exact edge norm; complex pulse dynamics and rotation remain open |
+| Pulse leakage from conserved energy residual | §4.85: Lean-verified conditional duration-independent bound `‖Qy‖≤512|ε|‖x‖` from the crossing gap and edge norm; §4.86 additionally derives residual conservation from an intertwining isometry, pending CI; complex pulse dynamics and rotation remain open |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -3188,14 +3188,74 @@ A protocol with changing `t` and/or piecewise-constant `ε`
 also needs segment-by-segment analysis; conservation of
 `R_ε` applies only during a segment with a fixed Hamiltonian.
 
-**Lean status:** the new module and its full-library import were
-submitted after the previously successful Action; CI verification
-of these additional statements is pending. The Palomar selection
+**Lean status:** this §4.85 module and its full-library import passed
+Action #246. The new §4.86 intertwining declarations require a
+separate CI check. The Palomar selection
 is unchanged.
+
+### 4.86. Residual conservation follows from Hamiltonian intertwining
+
+Section 4.85 established a time-uniform edge-pulse leakage inequality
+under **two conservation hypotheses** for the full graph. The next
+formal step removes the *independent* shifted-residual-conservation
+assumption: it is a consequence of the operator intertwining identity.
+
+The new
+[`AmmannBeenkerPulseIntertwining.lean`](SpectralGeometry/AmmannBeenkerPulseIntertwining.lean)
+takes a continuous real-linear map `U` on the full infinite-graph
+Hilbert space and requires:
+
+- **Isometry:** `‖Uz‖ = ‖z‖` for every full-space vector `z`.
+- **Natural-domain invariance:** `Ux` lies in the onsite domain
+  whenever `x` does.
+- **Hamiltonian intertwining on that domain:**
+
+  ```math
+  (K_*+\varepsilon W)Ux=U(K_*+\varepsilon W)x.
+  ```
+
+The new lemma `crossingPulseResidual_intertwines` proves, by
+linearity and commutation, the **exact vector identity**
+
+```math
+R_\varepsilon(Ux)=U R_\varepsilon(x),
+\quad R_\varepsilon=K_*+\varepsilon W-E_*.
+```
+
+Therefore `crossingPulseResidual_norm_conserved` proves
+`‖R_ε(Ux)‖=‖R_ε(x)‖` from isometry; it is **no longer
+a separate assumption**. Applying the §4.85 graph-specific
+gap estimate gives, for every initial crossing eigenvector,
+the new proposed theorem
+
+```math
+\boxed{\|(I-P)Ux\|\le512|\varepsilon|\,\|x\|.}
+```
+
+The same module also proves the statement for a supplied family
+`U_ε(τ)` for **all real `τ`**, plus the squared-norm bound
+`‖(I-P)U_ε(τ)x‖²≤(512|ε|)²` when `‖x‖=1`.
+There is no elapsed-time factor and no perturbed spectral
+projection in these statements. The graph and the selected
+connecting edge remain unchanged.
+
+**Crucial remaining distinction:** the family `U_ε(τ)` is
+supplied as a hypothesis. This new real-Hilbert-space result
+does *not* construct the physical complex Schrödinger unitary
+`e^{-iτ(K_*+εW)}`, establish its generator or domain
+invariance, or demonstrate a useful A/B rotation. Nor does
+it assert a group law or continuity in time for the supplied
+family. It simply proves that these concrete operator-theoretic
+properties are **sufficient** for the previously certified
+leakage conclusion.
+
+**CI status:** the new intertwining module is submitted for
+a fresh full Lean check; §4.85 had already passed the previous
+green Action. Nothing here certifies state preparation yet.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **99 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-three infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **100 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-four infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3283,7 +3343,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (21):**
+- **Explicit octagonal geometry, operator and spectral products (22):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3300,6 +3360,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`DomainEigenbasisGapResidual.lean`](SpectralGeometry/DomainEigenbasisGapResidual.lean)
   - [`AmmannBeenkerNearCrossingEigenvectors.lean`](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
   - [`AmmannBeenkerPulseResidualBound.lean`](SpectralGeometry/AmmannBeenkerPulseResidualBound.lean)
+  - [`AmmannBeenkerPulseIntertwining.lean`](SpectralGeometry/AmmannBeenkerPulseIntertwining.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3335,7 +3396,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **99 mathematical source modules**, including the
+build covers all **100 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3734,7 +3795,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.85).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.86).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
