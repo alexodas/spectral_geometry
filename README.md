@@ -79,7 +79,7 @@ The table below separates proved results from remaining research tasks.
 | Complete central crossing kernel and supported eigenvectors | Formalized in §4.77; the central-support hypothesis remains explicit |
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
-| Exact edge and detuning control algebra | New declarations in §4.80 and two Lean modules: two-mode coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities; full CI verification required |
+| Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -2726,8 +2726,10 @@ The modules
 [`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
 and
 [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
-extend the previously proved natural-domain equations. Their new declarations
-are subject to the complete Lean CI check before being reported as verified.
+extend the previously proved natural-domain equations. Both modules are
+imported by the main Lean library and checked in the full CI proof build.
+The statements here are exact static identities, not yet a dynamical
+control or state-preparation theorem.
 
 Let `a` and `b` be the original compact modes (each of squared norm
 eight), let `W` be the actual one-edge Laplacian perturbation, and write
@@ -3288,8 +3290,8 @@ and
 [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
 build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
-The new declarations must pass the full Lean build before being
-considered verified.
+Their exact operator identities have passed the full Lean build; the
+dynamic no-go theorem and any successful preparation protocol remain open.
 The dynamic obstruction and any successful preparation protocol remain open.
 
 - [ ] **Understand the edge response beyond the exact algebra (§4.80).** Use the certified gap to
