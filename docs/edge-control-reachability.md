@@ -1,8 +1,8 @@
 # Single-edge control of the compact crossing: research note
 
-**Status:** exploratory analysis and exact static algebra in two new
-Lean modules (pending full CI verification), **not** a certified quantum
-control protocol. This note complements [README §4.80](../README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+**Status:** exact static algebra in two Lean modules, checked by the
+full Lean/Mathlib build, and an exploratory dynamical research proposal.
+This is **not** a certified quantum-control or state-preparation protocol. This note complements [README §4.80](../README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
 and the [roadmap in §6.4](../README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
 without changing the selected [Palomar result](../PALOMAR.md).
 
