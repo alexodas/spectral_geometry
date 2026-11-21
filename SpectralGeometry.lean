@@ -99,6 +99,7 @@ public import SpectralGeometry.AmmannBeenkerCrossingGapFinite
 public import SpectralGeometry.AmmannBeenkerCrossingGapOrthogonality
 public import SpectralGeometry.AmmannBeenkerNearCrossingEigenvectors
 public import SpectralGeometry.AmmannBeenkerPulseResidualBound
+public import SpectralGeometry.AmmannBeenkerPulseIntertwining
 
 public section
 
