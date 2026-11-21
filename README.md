@@ -80,6 +80,7 @@ The table below separates proved results from remaining research tasks.
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
+| Qubit/leakage population budget and restored operator | New real-space source in §4.81: orthogonal decomposition, exact squared-norm identity and restored-eigenstate theorem (pending Lean CI); no dynamic control theorem yet |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -2776,9 +2777,86 @@ the proposed two-pulse strategy, the predicted obstruction to edge-only
 universal preparation, and its currently unproved dynamical requirements.
 This new work is **not** part of the previous Palomar-registered theorem.
 
+### 4.81. Exact qubit/leakage bookkeeping after a temporary pulse
+
+The control goal has three phases: prepare an initial compact mode at the
+crossing, apply a temporary edge pulse (and optionally detune `t`), and
+restore both controls. Restoring the original operator restores the original
+eigenvalues, eigenspaces and certified gap. **It does not restore the
+initial state**: any amplitude transferred to unwanted modes can remain.
+
+The new
+[`AmmannBeenkerQubitLeakage.lean`](SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
+imports §4.80 and defines a decomposition for *every* state `x` in
+the **full real infinite-graph Hilbert space**. Using the original
+orthogonal compact eigenvectors `a,b`, each of squared norm eight, put
+
+```math
+r=\langle a,x\rangle/8,\quad s=\langle b,x\rangle/8,
+\qquad p=ra+sb,\quad\chi=x-p.
+```
+
+The new source proves `⟨a,χ⟩=⟨b,χ⟩=0`; thus `p` is
+the true orthogonal two-mode component, and `χ` captures **all**
+other modes, not only a hypothetical third one. Its exact norm identity is
+
+```math
+\|x\|^2=8(r^2+s^2)+\|\chi\|^2.
+```
+
+For unit-norm `x`, if `‖χ‖²≤η`, the total weight in
+the compact-mode plane is at least `1-η`. The proof makes **no**
+assumption that the transient edge operator preserves this plane.
+It also does not prove that the *individual* amplitudes have the
+requested values. The module still requires full Lean CI verification.
+
+A second theorem records what *is* guaranteed by restoring the
+original operator `K_*` after the pulse:
+
+```math
+K_*p=E_*p.
+```
+
+This is a genuine natural-domain eigenvector equation for the compact
+part of any final state; it is **not** a claim that `χ=0` or that
+switching the pulse off erases the leakage.
+
+**Next stage: complex quantum dynamics.** Complexify the Hilbert space,
+normalize the modes as `A=a/√8, B=b/√8`, and define orthogonal
+projections `P` onto their two-dimensional span and `Q=I-P`.
+For normalized quantum states the corresponding probability budget is
+
+```math
+|\langle A,\psi\rangle|^2+
+|\langle B,\psi\rangle|^2+\|Q\psi\|^2=1.
+```
+
+Construct the restored self-adjoint Hamiltonian's unitary evolution
+`U_0(τ)` and prove `P U_0(τ)=U_0(τ)P`. It would then follow that
+`‖Q U_0(τ)ψ‖²=‖Qψ‖²`: **leakage already present
+when the pulse is switched off persists**, while the two-mode part
+only acquires a common phase. These time-evolution results are not
+yet in the Lean library.
+
+Finally construct the piecewise-constant edge/`t` pulse propagators
+and seek a bound, up to a physically irrelevant global phase,
+
+```math
+\inf_{\theta\in\mathbb R}
+\|U_{\mathrm{pulse}} A-e^{i\theta}(\alpha A+\beta B)\|
+\le\eta,\qquad |\alpha|^2+|\beta|^2=1.
+```
+
+This **full-state error** would imply `‖Q U_pulse A‖≤η`
+and hence leakage probability at most `η²`, while also
+certifying the desired complex amplitudes and relative phase.
+The existing real spectral gap is a possible input for such an
+estimate, not proof of it. See §6.4 and
+[the research note](docs/edge-control-reachability.md).
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **94 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and seventy-nine infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **95 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -2866,7 +2944,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (17):**
+- **Explicit octagonal geometry, operator and spectral products (18):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -2878,6 +2956,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerCompactCrossing.lean`](SpectralGeometry/AmmannBeenkerCompactCrossing.lean)
   - [`AmmannBeenkerEdgeControl.lean`](SpectralGeometry/AmmannBeenkerEdgeControl.lean)
   - [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
+  - [`AmmannBeenkerQubitLeakage.lean`](SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -2913,7 +2992,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **94 mathematical source modules**, including the
+build covers all **95 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3311,11 +3390,14 @@ The dynamic obstruction and any successful preparation protocol remain open.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Check what persists after control.** When the edge is restored and
-  the operator returns to the crossing configuration, show how much of the
-  prepared state stays in the two-mode eigenspace and whether its relative
-  phase remains stable. Distinguish exact preparation from approximate
-  preparation with a certified error.
+- [ ] **Certify leakage and post-pulse dynamics (§4.81).** The new
+  real-Hilbert-space module defines the full orthogonal qubit/leakage
+  decomposition and restores the exact eigenvector equation for the
+  compact-mode part (Lean CI pending). Next construct the complex
+  unitary dynamics and prove that leakage present at switch-off
+  persists after restoring the operator, while the compact-mode
+  component stays coherent. Bound the leakage created *during* the
+  pulse and certify the target amplitudes and relative phase.
 
 This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
