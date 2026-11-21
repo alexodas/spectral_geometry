@@ -402,6 +402,39 @@ certify any A/B rotation or universal qubit control. The
 new module awaits its own Lean CI check; the underlying
 §4.85 conserved-residual theorem already passed.
 
+## The real pulse Hamiltonian is itself self-adjoint
+
+The new
+[`AmmannBeenkerPulseSelfAdjoint.lean`](../SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
+specializes the repository's existing Mathlib
+`LinearPMap` self-adjointness theory to the actual
+connecting edge `u=(1,0,0,0)`, `v=(1,1,0,0)`.
+It packages
+
+```text
+K_ε = onsitePlusBounded potential
+         (ringInteraction crossingParameter + ε • crossingEdge)
+```
+
+as a partially defined real-linear operator with exactly
+the original natural onsite domain. It then proves, for
+every `ε∈ℝ`, the symmetry of the bounded correction
+and the stated `IsSelfAdjoint` property of the full
+infinite-graph partial operator.
+
+This real self-adjointness theorem has **no weak-pulse
+assumption**, uses no finite graph, and is stronger than
+merely observing that all displayed eigenvalues are real.
+
+It is an analytic input toward constructing physical
+complex unitary dynamics. However, real self-adjointness
+in the current representation is **not itself** a
+constructed complex Schrödinger propagator.
+Complexification, the one-parameter unitary group,
+natural-domain invariance and commutation with its
+generator remain explicitly open. The new declaration
+must pass its first CI check.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
