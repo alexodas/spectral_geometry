@@ -44,14 +44,13 @@ an edge-only pulse from preparing *every* desired superposition.
 This dynamical obstruction is not yet a Lean theorem.
 
 This **coherent-control question is now the first stand-alone research
-priority** (§6.4): characterize the reachable states and the obstruction,
-seek an explicit preparation protocol for an allowed superposition with a
-certified error bound, and determine whether a second control is necessary
-for arbitrary targets. Changing the
-original eight-site parameter `t` can instead control the relative
-phase of an already prepared superposition in a quantum dynamical
-interpretation; it cannot by itself create amplitude in the other
-mode. Such time-dependent phase control is not yet formalized in the
+priority** (§6.4): characterize which states are reachable with the edge
+alone, then investigate a two-step protocol using the edge to mix
+amplitudes and the original eight-site parameter `t` to set the
+relative phase. A candidate theorem would establish a quantitative
+preparation error for the infinite graph, together with the edge-only
+obstruction. Detuning `t` does not by itself create amplitude in the
+other mode. Such time-dependent phase control is not yet formalized in the
 current real Lean model. The project's original long-term goal concerning
 spectral products and their zeros **does not change**.
 
@@ -2913,12 +2912,14 @@ remain open (§6.4). The complex Green-matrix interface in §6.1
 serves relative determinants in §6.5. Finite-patch operator errors belong
 to the approximation problem in §6.6.
 
-**New first research priority — a stand-alone goal.** Investigate whether a
+**New first research priority — a stand-alone goal.** Investigate how a
 controlled, time-dependent change to the single edge joining the two compact
-rings can prepare a coherent superposition, starting from just one of the two
-localized modes. The aim is to characterize the states that can and cannot be reached,
-then find a concrete preparation procedure with a rigorous bound on
-unwanted excitation of other modes, if the control permits one. This is an **open question**, not a
+rings can mix the localized modes, starting from one mode alone. A shared
+dark eigenstate limits what the edge can prepare by itself; a subsequent
+change to `t` may supply the missing relative-phase control. The aim is
+to characterize reachable states and provide a concrete preparation
+procedure with a rigorous bound on excitation of other modes, or prove
+its limits. This is an **open question**, not a
 consequence of the existing crossing and gap theorems. It can yield a useful
 result on its own, before the remaining analytic work on spectral products.
 The central objective of the project stated above is unchanged, and coherent
@@ -3235,13 +3236,15 @@ The dynamic obstruction and any successful preparation protocol remain open.
   complex quantum states and a time-dependent edge weight, while keeping
   the underlying infinite operator and its domain well defined. Determine
   how the two compact-mode amplitudes interact with the remaining modes.
-- [ ] **Characterize reachability and test a protocol.** Prove the
-  conserved dark-state occupation for edge-only time-dependent dynamics.
-  Starting from one compact mode, identify targets not excluded by that
-  conservation law and test an explicit pulse. Bound preparation error
-  and leakage into other energy levels, or establish a further limitation.
-  Investigate whether detuning `t` supplies the additional control needed
-  for more general target superpositions.
+- [ ] **Characterize reachability and test a two-control protocol.**
+  Prove the conserved dark-state occupation for edge-only time-dependent
+  dynamics. Starting from one compact mode, test a weak edge pulse to
+  change the amplitudes, then restore the edge and detune `t` to
+  adjust their relative phase. Seek an explicit bound on preparation
+  error and leakage into other energy levels; determine whether this
+  achieves arbitrary targets in the compact plane up to a chosen error.
+  See [the research note](docs/edge-control-reachability.md) for the
+  proposed protocol and its limitations.
 - [ ] **Check what persists after control.** When the edge is restored and
   the operator returns to the crossing configuration, show how much of the
   prepared state stays in the two-mode eigenspace and whether its relative
