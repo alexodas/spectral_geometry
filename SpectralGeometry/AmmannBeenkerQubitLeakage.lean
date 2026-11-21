@@ -190,6 +190,21 @@ theorem crossingEdge_compactA_norm_sq :
   simp only [compactA_siteA, compactA_siteB]
   norm_num
 
+/-- The physical single-edge operator has *exact* operator norm two
+on the full infinite graph. It is rank-one, with edge vector of
+squared norm two; this is not a finite-volume approximation. -/
+theorem crossingEdge_opNorm : ‖crossingEdge‖ = 2 := by
+  have hu :
+      ‖infiniteEdgeVector compactSiteA compactSiteB‖ ^ 2 = 2 := by
+    rw [← crossingEdge_compactA_eq_edgeVector]
+    exact crossingEdge_compactA_norm_sq
+  change
+    ‖InnerProductSpace.rankOne ℝ
+      (infiniteEdgeVector compactSiteA compactSiteB)
+      (infiniteEdgeVector compactSiteA compactSiteB)‖ = 2
+  rw [InnerProductSpace.norm_rankOne]
+  simpa only [pow_two] using hu
+
 /-- The edge response has a fixed first compact-mode coefficient. -/
 theorem crossingCoeffA_edge_compactA :
     crossingCoeffA (crossingEdge compactA) = 1 / 8 := by
