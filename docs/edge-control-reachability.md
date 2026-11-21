@@ -282,6 +282,81 @@ two-dimensional perturbed spectral cluster, its orthogonal
 projector `P_ε`, an operator norm bound
 `‖P_ε-P‖→0`, and an actual complex unitary pulse propagator.
 
+## A direct time-uniform bound from energy-residual conservation
+
+There is now a route to small leakage that **does not require
+constructing the perturbed two-dimensional spectral projector**.
+It uses the full crossing reduced-gap inequality already proved
+in Lean in §4.84:
+
+```text
+(1/128) ‖(I-P)y‖ ≤ ‖(K_* - E_*)y‖ .
+```
+
+For a fixed edge strength `ε`, introduce the *perturbed
+crossing-energy residual*
+
+```text
+R_ε(y) := (K_* + εW - E_*)y .
+```
+
+Suppose `x` is an exact initial crossing eigenstate,
+`K_* x = E_* x`, and `y` is the full final state of a
+constant-strength pulse, both in the natural domain.
+The two central conservation laws are
+
+```text
+‖y‖ = ‖x‖
+‖R_ε(y)‖ = ‖R_ε(x)‖ .
+```
+
+They are the familiar invariants of unitary evolution under a
+fixed self-adjoint Hamiltonian, but a full complex Schrödinger
+propagator for our graph has **not yet been constructed in Lean**.
+The new module
+[`AmmannBeenkerPulseResidualBound.lean`](../SpectralGeometry/AmmannBeenkerPulseResidualBound.lean)
+therefore takes these two conservation laws as explicit hypotheses
+and derives
+
+```text
+‖(I-P)y‖ ≤ 512 |ε| ‖x‖ .
+```
+
+For `‖x‖=1`, the squared external norm is at most
+`(512|ε|)^2`. The key calculation is
+
+```text
+(1/128) ‖(I-P)y‖
+    ≤ ‖(K_* - E_*)y‖
+    ≤ ‖R_ε(y)‖ + |ε| ‖Wy‖
+    = ‖R_ε(x)‖ + |ε| ‖Wy‖
+    = |ε| (‖Wx‖ + ‖Wy‖)
+    ≤ 4|ε| ‖x‖ .
+```
+
+The edge norm `‖W‖=2` is exact for the infinite graph.
+There is **no pulse-duration factor** in the final estimate,
+and we have avoided constructing any perturbed projector.
+
+The missing dynamics is now particularly focused: show that
+the fixed real-operator calculation extends appropriately to
+the complexified self-adjoint graph Hamiltonian; construct the
+unitary `U_ε(T)`, prove it preserves the natural domain,
+norm, and `R_ε)-norm, and instantiate the new theorem with
+`y=U_ε(T)x`. To claim arbitrary target preparation we
+must **separately** prove controllable transfer and complex
+relative phase inside A/B; even a perfect leakage estimate
+does not imply a useful rotation. The new declaration is
+submitted for CI and is not yet certified.
+
+The nearby-projector approach above remains independently
+valuable for tracking the moving spectral subspace and
+its effective two-level dynamics. The conserved-residual
+approach is a shortcut *specifically for bounding leakage*
+during a fixed-Hamiltonian segment. When switching between
+several controls, residual conservation has to be addressed
+piece by piece.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
