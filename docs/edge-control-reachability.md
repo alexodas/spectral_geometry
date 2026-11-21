@@ -58,6 +58,64 @@ of `W` on an invariant two-level system. In general, `W` also couples
 a compact mode to states outside this eigenspace. The gap at the
 unperturbed crossing does not by itself bound such leakage under control.
 
+## What it means to return the Hamiltonian to its initial value
+
+An ideal control cycle is **initial operator → temporary edge pulse →
+original operator again**. At the end of the cycle, the original
+crossing eigenvectors and their eigenvalues are restored, as is the
+certified gap about `E_*`. But switching the pulse off **does not undo
+the state evolution**. A mode `C` at a different energy can have
+nonzero amplitude after the pulse even though the original gap and
+spectrum have returned. Energy separation alone does not force its
+amplitude to vanish.
+
+Instead of following a single hypothetical `C`, define the entire
+orthogonal remainder `χ`. The new Lean source
+[`AmmannBeenkerQubitLeakage.lean`](../SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
+extracts the exact compact-mode component `p` of any real graph state
+`x` using the already verified norms `‖a‖²=‖b‖²=8`:
+
+```text
+r = ⟨a,x⟩ / 8
+s = ⟨b,x⟩ / 8
+p = r a + s b
+χ = x - p
+‖x‖² = 8(r² + s²) + ‖χ‖² .
+```
+
+Here `χ` is orthogonal to both compact modes, with no restriction on
+the number of external modes. For a unit real state, a leakage bound
+`‖χ‖² ≤ η` certifies at least `1-η` squared weight in the
+two-mode plane. At the restored crossing operator, the source also
+proves the exact eigenvalue equation `K_* p = E_* p` on the
+natural domain. These are algebraic facts, **not proofs of pulse
+existence or unitary dynamics** (the new module's CI is pending).
+
+**Complex probability and persistence obligation.** Define the
+complex orthogonal projection `P` onto normalized `A,B` and
+`Q=I-P`. For normalized `ψ`, the physically relevant budget is
+`|⟨A,ψ⟩|² + |⟨B,ψ⟩|² + ‖Qψ‖² = 1`.
+A future theorem must show that restored evolution
+`U_0(τ)=exp(-iτK_*)` is well-defined, commutes with `P`,
+and therefore preserves `‖Qψ‖²`. Thus **leakage already
+present at the end of the pulse remains present**, while the two-mode
+part acquires only a common phase. The mathematical fact that the
+operator has been restored is not a method of removing `χ`.
+
+A successful *preparation* result must control **two different errors**:
+
+1. The total undesired probability `‖Q U_pulse A‖²`, counting *all*
+   non-qubit modes of the infinite graph.
+2. The fidelity or full-state distance, up to global phase, to the
+   requested complex target `αA+βB`. Small leakage alone cannot
+   choose the individual amplitudes or their relative phase.
+
+A practical theorem specification is a full-state error at most `η`,
+for every chosen `η>0`, with controls restored to the crossing values.
+It implies leakage norm at most `η` and leakage probability at most
+`η²`. A weak-pulse perturbation and the certified unperturbed gap
+are candidates for proving this estimate; **it has not been proved**.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
