@@ -125,6 +125,16 @@ theorem crossingProbability_leakage_eq (ψ : TileHilbert Vertex)
   have h := crossingProbability_budget ψ hunit
   linarith
 
+/-- A leakage threshold turns into a rigorous lower bound on the
+total squared weight of the two selected compact modes. -/
+theorem crossingProbability_qubit_at_least (ψ : TileHilbert Vertex)
+    (hunit : ‖ψ‖ = 1) (η : ℝ)
+    (hleak : ‖crossingLeakage ψ‖ ^ 2 ≤ η) :
+    1 - η ≤
+      8 * (crossingCoeffA ψ ^ 2 + crossingCoeffB ψ ^ 2) := by
+  have h := crossingProbability_budget ψ hunit
+  linarith
+
 /-- No leakage is equivalent to the state lying exactly in its
 two-mode projection. -/
 theorem crossingLeakage_eq_zero_iff (ψ : TileHilbert Vertex) :
