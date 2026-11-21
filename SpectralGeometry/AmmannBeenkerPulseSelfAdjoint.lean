@@ -70,7 +70,7 @@ theorem crossingEdge_symmetric_full :
     ∀ x y : TileHilbert Vertex,
       inner ℝ (crossingEdge x) y = inner ℝ x (crossingEdge y) := by
   intro x y
-  rw [real_inner_comm (crossingEdge x) y, crossingEdge_inner,
+  rw [real_inner_comm y (crossingEdge x), crossingEdge_inner,
     crossingEdge_inner]
   ring
 
@@ -94,7 +94,7 @@ theorem crossingEdgePulseCorrection_symmetric (ε : ℝ) :
         inner ℝ ((ε • crossingEdge) x) y =
           inner ℝ x ((ε • crossingEdge) y) := by
     intro x y
-    simp only [ContinuousLinearMap.smul_apply,
+    simp only [smul_apply,
       real_inner_smul_left, real_inner_smul_right]
     rw [crossingEdge_symmetric_full x y]
   exact boundedCorrection_add_symmetric
