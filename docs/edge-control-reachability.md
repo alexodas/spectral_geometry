@@ -47,8 +47,9 @@ and its **full natural-domain eigenvector equation for any edge weight**.
 These results explicitly build on `crossing_dark_eigenvector` in the
 previous crossing module. The second module,
 [`AmmannBeenkerTwoControlAlgebra.lean`](../SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean),
-makes the detuning response exact and records that, with both controls
-available, the infinite operator sends `D` to
+makes the detuning response exact, shows that the **entire two-mode
+span remains invariant for every detuning**, and records that, with both
+controls available, the infinite operator sends `D` to
 `E_* D + (δ/4) a` regardless of the edge weight. Both modules are
 included in the root `SpectralGeometry.lean` import list.
 
