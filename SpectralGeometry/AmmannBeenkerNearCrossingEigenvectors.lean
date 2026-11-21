@@ -2,6 +2,7 @@ module
 
 public import SpectralGeometry.AmmannBeenkerQubitLeakage
 public import SpectralGeometry.AmmannBeenkerCrossingGapOrthogonality
+public import SpectralGeometry.DomainEigenbasisGapResidual
 
 public section
 
@@ -86,6 +87,95 @@ def CrossingReducedGapResidualEstimate : Prop :=
         ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
       ‖onsitePlusBounded potential (ringInteraction crossingParameter) x -
         crossingEnergy • (x : TileHilbert Vertex)‖
+
+/-- The *already certified* exclusion of other crossing eigenvalues,
+together with a complete symmetric real domain eigenbasis of the
+original operator, implies the reduced-gap residual estimate
+for the actual original two-mode projector.
+
+This theorem does NOT assume the desired residual inequality. It
+derives it from the graph's proved 1/128 eigenvalue exclusion and
+exact representation of every crossing eigenvector. Constructing
+the corresponding complete basis/symmetry input for this concrete
+operator is the remaining instantiation obligation. -/
+theorem crossingReducedGapResidualEstimate_of_domainEigenbasis
+    {ι : Type*} {ev : ι → ℝ}
+    (b : DomainEigenbasis
+      (infiniteOnsiteDomain potential)
+      (onsitePlusBounded potential (ringInteraction crossingParameter)) ev)
+    (hsymm : ∀ x y : infiniteOnsiteDomain potential,
+      inner ℝ
+          (onsitePlusBounded potential (ringInteraction crossingParameter) x)
+          (y : TileHilbert Vertex) =
+        inner ℝ (x : TileHilbert Vertex)
+          (onsitePlusBounded potential (ringInteraction crossingParameter) y)) :
+    CrossingReducedGapResidualEstimate := by
+  have hseparated (i : ι) (hne : ev i ≠ crossingEnergy) :
+      crossingGapCandidate ≤ |ev i - crossingEnergy| := by
+    by_contra hn
+    have hnear :
+        |ev i - crossingEnergy| ≤ crossingGapCandidate :=
+      le_of_lt (lt_of_not_ge hn)
+    apply (crossingGapCandidate_no_other_full_eigenvector
+      (ev i) hne hnear)
+    exact ⟨⟨b.basis i, b.mem_domain i⟩,
+      b.basis.orthonormal.ne_zero i, b.eigen i⟩
+  intro x
+  let pdom : infiniteOnsiteDomain potential :=
+    crossingCoeffA (x : TileHilbert Vertex) • domainCompactA +
+      crossingCoeffB (x : TileHilbert Vertex) • domainCompactB
+  let qdom : infiniteOnsiteDomain potential := x - pdom
+  have hqcoe :
+      (qdom : TileHilbert Vertex) =
+        crossingLeakage (x : TileHilbert Vertex) := by
+    simp only [qdom, pdom, crossingLeakage, crossingQubitPart,
+      Submodule.coe_sub, Submodule.coe_add, Submodule.coe_smul]
+  have hp :
+      onsitePlusBounded potential (ringInteraction crossingParameter) pdom =
+        crossingEnergy • (pdom : TileHilbert Vertex) := by
+    simpa only [pdom, crossingQubitPart, Submodule.coe_add,
+      Submodule.coe_smul] using
+        (crossingQubitPart_restored_eigenvector (x : TileHilbert Vertex))
+  have hres :
+      onsitePlusBounded potential (ringInteraction crossingParameter) qdom -
+          crossingEnergy • (qdom : TileHilbert Vertex) =
+        onsitePlusBounded potential (ringInteraction crossingParameter) x -
+          crossingEnergy • (x : TileHilbert Vertex) := by
+    have he :
+        onsitePlusBounded potential (ringInteraction crossingParameter) qdom =
+          onsitePlusBounded potential (ringInteraction crossingParameter) x -
+            crossingEnergy • (pdom : TileHilbert Vertex) := by
+      change onsitePlusBounded potential (ringInteraction crossingParameter)
+          (x - pdom) = _
+      rw [map_sub, hp]
+    rw [he]
+    change
+      (onsitePlusBounded potential (ringInteraction crossingParameter) x -
+        crossingEnergy • (pdom : TileHilbert Vertex)) -
+          crossingEnergy •
+            ((x : TileHilbert Vertex) - (pdom : TileHilbert Vertex)) =
+      onsitePlusBounded potential (ringInteraction crossingParameter) x -
+        crossingEnergy • (x : TileHilbert Vertex)
+    rw [smul_sub]
+    abel
+  have hsupport (i : ι) (hi : ev i = crossingEnergy) :
+      inner ℝ (b.basis i) (qdom : TileHilbert Vertex) = 0 := by
+    have he :
+        onsitePlusBounded potential (ringInteraction crossingParameter)
+            ⟨b.basis i, b.mem_domain i⟩ =
+          crossingEnergy • b.basis i := by
+      simpa only [hi] using b.eigen i
+    have hrepr := crossing_eigenvector_representation
+      ⟨b.basis i, b.mem_domain i⟩ he
+    rw [hqcoe, hrepr]
+    simp only [inner_add_left, real_inner_smul_left,
+      crossingLeakage_inner_compactA, crossingLeakage_inner_compactB]
+    ring
+  have hq := DomainEigenbasis.norm_le_residual_of_gap
+      b hsymm crossingEnergy crossingGapCandidate
+      crossingGapCandidate_pos hseparated qdom hsupport
+  rw [hqcoe, hres] at hq
+  exact hq
 
 /-- Assuming the reduced-gap residual estimate, the external norm
 of *every* perturbed full-domain eigenvector is controlled by the
