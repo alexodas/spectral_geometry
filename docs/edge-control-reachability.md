@@ -212,6 +212,67 @@ But this equality is about the instantaneous operator action,
 not the accumulated leakage under a pulse, and does not
 supersede the spectral-projector stability proof.
 
+## Making the crossing gap into an actual stability inequality
+
+The gap `g=1/128` and the exact **rank-one edge norm**
+`‖W‖=2` permit an explicit perturbative calculation in the
+original infinite real Hilbert space. For any full-domain
+eigenvector `x` of `K_*+εW` at energy `λ`, the exact identity
+
+```text
+(K_* - E_*) x = (λ-E_*) x - ε W x
+```
+
+holds. If the reduced-gap residual inequality
+
+```text
+g ‖(1-P)x‖ ≤ ‖(K_* - E_*)x‖
+```
+
+is available, the triangle inequality gives
+
+```text
+g ‖(1-P)x‖ ≤ (|λ-E_*| + 2|ε|) ‖x‖ .
+```
+
+In particular, if `|λ-E_*|≤2|ε|`,
+
+```text
+‖(1-P)x‖ ≤ 512|ε| ‖x‖ .
+```
+
+The module
+[`AmmannBeenkerNearCrossingEigenvectors.lean`](../SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
+proposes this precise eigenvector bound, **conditional on the
+residual inequality and the eigenvalue window**. No dynamical
+claim is involved.
+
+**Why the residual inequality should follow from the proved gap.**
+The separate
+[`DomainEigenbasisGapResidual.lean`](../SpectralGeometry/DomainEigenbasisGapResidual.lean)
+uses a complete real domain eigenbasis and Parseval to prove a
+generic gap-to-residual theorem: on vectors having no component
+at energy `E_*`, the norm of `(K-E_*)x` is at least
+`g‖x‖`. The graph-specific lemma
+`crossingReducedGapResidualEstimate_of_domainEigenbasis`
+then combines that result with the **already proved** exact
+two-dimensional `E_*` eigenspace and the spectral exclusion
+within `1/128`.
+
+It remains to construct/supply the complete crossing eigenbasis
+and the symmetry proof in the new graph-specific declaration,
+using the existing general compact-resolvent/eigenbasis tools.
+The new files and the specialization require Lean CI checking;
+none of these new conditional statements claims that the
+perturbed spectral projector has yet been constructed.
+
+The eigenvector bound is a **one-sided** closeness result for
+individual perturbed eigenvectors. Completing the desired
+uniform-in-time leakage theorem additionally requires the
+two-dimensional perturbed spectral cluster, its orthogonal
+projector `P_ε`, an operator norm bound
+`‖P_ε-P‖→0`, and an actual complex unitary pulse propagator.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
