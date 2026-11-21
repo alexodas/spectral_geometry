@@ -3128,9 +3128,74 @@ cluster with corresponding orthogonal spectral projector and the
 full complex unitary evolution to invoke the time-uniform pulse
 bound of §4.82.
 
+### 4.85. Uniform post-pulse leakage without a perturbed spectral projector
+
+The verified §4.84 reduced-gap inequality gives a more direct route
+to controlling **all** external modes during a constant-strength
+connecting-edge pulse, without first constructing the perturbed
+two-dimensional spectral projector.
+
+The new
+[`AmmannBeenkerPulseResidualBound.lean`](SpectralGeometry/AmmannBeenkerPulseResidualBound.lean)
+introduces the *shifted perturbed-Hamiltonian residual*
+
+```math
+R_\varepsilon(x)=(K_*+\varepsilon W-E_*)x.
+```
+
+Let `x` be an exact initial crossing eigenvector
+(`K_*x=E_*x`) and `y` a possible state after the pulse,
+both in the original infinite-graph natural domain.
+If the final state satisfies the two explicit conservation laws
+
+```math
+\|y\|=\|x\|,\qquad
+\|R_\varepsilon(y)\|=\|R_\varepsilon(x)\|,
+```
+
+then the new Lean theorem aims to certify
+
+```math
+\boxed{\|(I-P)y\|\le512|\varepsilon|\,\|x\|.}
+```
+
+For normalized initial states, this yields the corresponding
+**squared-norm** bound `‖(I-P)y‖²≤(512|ε|)²`.
+The proof combines the exact edge norm `‖W‖=2` and
+the established infinite-graph reduced gap `g=1/128`:
+
+```math
+g\,\|(I-P)y\|
+\le\|(K_*-E_*)y\|
+\le\|R_\varepsilon(y)\|+2|\varepsilon|\,\|y\|
+\le4|\varepsilon|\,\|x\|.
+```
+
+Crucially, **there is no factor depending on the elapsed pulse
+time**. For a genuine unitary propagator of the *fixed*
+self-adjoint Hamiltonian `K_*+εW`, the two conservation laws
+follow from norm preservation, invariance of the natural domain,
+and commutation with its own generator. The real-space Lean
+statement deliberately assumes exactly these consequences:
+**it does not yet construct a complex Schrödinger propagator**.
+
+This bound sidesteps the need for a perturbed spectral projector
+when the only goal is small external leakage from a constant
+edge pulse. It does **not** assert that the pulse transfers the
+requested amplitudes between A and B, controls their complex
+relative phase, or achieves arbitrary-state preparation.
+A protocol with changing `t` and/or piecewise-constant `ε`
+also needs segment-by-segment analysis; conservation of
+`R_ε` applies only during a segment with a fixed Hamiltonian.
+
+**Lean status:** the new module and its full-library import were
+submitted after the previously successful Action; CI verification
+of these additional statements is pending. The Palomar selection
+is unchanged.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **98 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-two infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **99 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-three infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3218,7 +3283,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (20):**
+- **Explicit octagonal geometry, operator and spectral products (21):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3234,6 +3299,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`QubitLeakagePulseBound.lean`](SpectralGeometry/QubitLeakagePulseBound.lean)
   - [`DomainEigenbasisGapResidual.lean`](SpectralGeometry/DomainEigenbasisGapResidual.lean)
   - [`AmmannBeenkerNearCrossingEigenvectors.lean`](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
+  - [`AmmannBeenkerPulseResidualBound.lean`](SpectralGeometry/AmmannBeenkerPulseResidualBound.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3269,7 +3335,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **98 mathematical source modules**, including the
+build covers all **99 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3668,7 +3734,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.84).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.85).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
