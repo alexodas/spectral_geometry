@@ -357,6 +357,51 @@ during a fixed-Hamiltonian segment. When switching between
 several controls, residual conservation has to be addressed
 piece by piece.
 
+## Intertwining replaces the residual-conservation assumption
+
+The new
+[`AmmannBeenkerPulseIntertwining.lean`](../SpectralGeometry/AmmannBeenkerPulseIntertwining.lean)
+makes the needed dynamics more explicit, while still **not**
+constructing it. Consider a real-linear isometry `U` acting
+on the complete infinite-graph Hilbert space, with:
+
+- `U(D(K_ε))⊆D(K_ε)` for the full natural domain; and
+- `K_ε Ux = U K_ε x` for every `x∈D(K_ε)`,
+  where `K_ε=K_*+εW` uses exactly the selected edge.
+
+Then the residual identity and norm conservation follow
+**as theorems rather than assumptions**:
+
+```text
+R_ε(Ux) = U R_ε(x)
+‖R_ε(Ux)‖ = ‖R_ε(x)‖
+R_ε = K_ε - E_*
+```
+
+For initial `K_* x=E_* x`, the earlier gap argument gives
+
+```text
+‖(I-P)Ux‖ ≤ 512 |ε| ‖x‖ .
+```
+
+For any *supplied* time family `U_ε(τ)` satisfying the
+same three operator conditions at every time, this bound
+is uniform over all `τ∈ℝ`, and its squared-norm version
+holds for unit initial states.
+
+**What this changes:** we no longer have to independently
+verify conservation of the residual norm *once* domain
+invariance, Hamiltonian commutation, and isometry have been
+established. These three obligations are explicit.
+
+**What is still open:** the physical complex Schrödinger
+unitary group and its domain invariance are not constructed.
+An arbitrary real-linear isometry is not automatically the
+physical quantum evolution, and this theorem does not
+certify any A/B rotation or universal qubit control. The
+new module awaits its own Lean CI check; the underlying
+§4.85 conserved-residual theorem already passed.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
