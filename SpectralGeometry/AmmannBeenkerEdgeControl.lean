@@ -86,5 +86,40 @@ theorem crossingDark_inner_compactB :
     compactA_inner_compactB, compactB_inner_self]
   norm_num
 
+
+/-- The edge acts trivially on the normalized dark state, not merely
+after compression to the two-dimensional compact-mode space. -/
+theorem crossingEdge_dark_zero : crossingEdge crossingDark = 0 := by
+  simp only [crossingDark, map_smul, crossingEdge_dark, smul_zero]
+
+/-- The dark vector belongs to the original natural onsite domain. -/
+@[expose] def domainCrossingDark : infiniteOnsiteDomain potential :=
+  (1 / 4 : ℝ) • (domainCompactA + domainCompactB)
+
+/-- The normalized dark state is a genuine infinite-domain eigenstate
+for every real edge perturbation. This upgrades the prior unnormalized
+`crossing_dark_eigenvector` and is *not* a two-mode approximation. -/
+theorem crossingDark_full_eigenvector (ε : ℝ) :
+    onsitePlusBounded potential (ringInteraction crossingParameter + ε • crossingEdge)
+      domainCrossingDark = crossingEnergy • crossingDark := by
+  simp only [domainCrossingDark, map_smul, crossing_dark_eigenvector, crossingDark]
+  module
+
+/-- The exact edge energy of any combination of the two compact modes
+depends only on their amplitude difference. -/
+theorem crossingEdge_two_mode_energy (r s : ℝ) :
+    inner ℝ (r • compactA + s • compactB)
+      (crossingEdge (r • compactA + s • compactB)) =
+      (r - s) ^ 2 := by
+  rw [crossingEdge_two_mode_form]
+  ring
+
+/-- The edge quadratic form is nonnegative on the compact-mode plane. -/
+theorem crossingEdge_two_mode_nonneg (r s : ℝ) :
+    0 ≤ inner ℝ (r • compactA + s • compactB)
+      (crossingEdge (r • compactA + s • compactB)) := by
+  rw [crossingEdge_two_mode_energy]
+  exact sq_nonneg _
+
 end
 end SpectralGeometry.AmmannBeenker
