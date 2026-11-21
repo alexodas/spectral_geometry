@@ -2838,6 +2838,18 @@ normalized mode `A=a/√8`, the corresponding external response is
 \|(I-P)WA\|^2=\tfrac7{32}.
 ```
 
+More generally, the same source computes the off-plane response of
+**every real combination** of the unnormalized compact modes:
+
+```math
+\|(I-P)W(ra+sb)\|^2=\tfrac74(r-s)^2.
+```
+
+In particular, the direct edge-induced off-plane response vanishes
+for equal amplitudes `r=s` (the protected dark direction), but is
+strictly positive whenever `r≠s`. The control cannot be modeled
+as a closed exact two-level interaction on the entire qubit plane.
+
 Thus the single-edge perturbation **really does couple A to modes
 outside the qubit plane**. This is much stronger than merely saying
 that leakage is possible: it is an exact nonzero numerical certificate
