@@ -82,7 +82,7 @@ The table below separates proved results from remaining research tasks.
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: orthogonal real-space decomposition, exact squared-norm budget, restored eigenstate and two-control off-plane formula; the new extension is pending CI |
 | Uniform leakage estimate from nearby invariant planes | §4.82: generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Explicit gap-to-eigenvector stability reduction | §4.83: exact infinite-graph edge norm 2, perturbation residual identity and conditional bound `‖Qx‖≤512|ε|‖x‖`; the reduced-gap residual inequality and cluster projection still need proof |
+| Explicit gap-to-eigenvector stability reduction | §4.83: exact infinite-graph edge norm 2, perturbation residual identity and conditional bound `‖Qx‖≤512|ε|‖x‖`; §4.84 derives the residual inequality from a complete crossing eigenbasis and symmetry; graph-specific basis instantiation and cluster projection remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -3051,15 +3051,72 @@ cluster, including its dimension, before §4.82's duration-independent
 pulse estimate can be applied. This is *not* a proof of arbitrary
 state preparation.
 
-The next Lean task is to derive the residual-norm consequence
-from the verified real spectral gap and complete eigenbasis,
-then prove stability of the rank-two perturbed cluster and
-its spectral projector. Only after these steps do we obtain
+The next Lean task is to instantiate the complete real crossing
+basis and symmetry in the spectral-gap-to-residual implication
+(§4.84), then prove stability of the rank-two perturbed cluster
+and its spectral projector. Only after these steps do we obtain
 a graph-specific leakage bound uniform in pulse duration.
+
+### 4.84. Why spectral isolation yields a residual bound: infinite-dimensional Parseval
+
+The next link in the proof is now represented by two additional Lean
+theorem statements.
+
+**Generic complete-basis theorem.** The new
+[`DomainEigenbasisGapResidual.lean`](SpectralGeometry/DomainEigenbasisGapResidual.lean)
+starts with a genuine complete real *domain eigenbasis* `b_i`
+of a symmetric (possibly unbounded) operator `K`, with energies
+`E_i`. Suppose every energy other than `E_*` has distance at
+least `g>0` from `E_*`. For every natural-domain vector `y`
+having zero coefficient in all eigendirections with `E_i=E_*`,
+Parseval and the eigenvector equation give
+
+```math
+g\,\|y\|\le\|(K-E_*)y\|.
+```
+
+This does not assume finite dimension or a bounded Hamiltonian.
+In words: if an off-qubit vector has significant size, its
+`(K-E_*)` residual cannot be tiny, because *every* frequency
+participating in it is separated from `E_*`.
+
+**Specialization to the real Ammann–Beenker crossing.**
+The new `crossingReducedGapResidualEstimate_of_domainEigenbasis`
+in
+[`AmmannBeenkerNearCrossingEigenvectors.lean`](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
+uses the previously established theorem that the **entire**
+`E_*` eigenspace is `span{a,b}`, plus the explicit
+`1/128` exclusion of every other eigenvalue. It derives the
+missing residual estimate of §4.83 from **a supplied complete
+domain eigenbasis and a symmetry proof for the original crossing
+operator**:
+
+```math
+\tfrac1{128}\|(I-P)x\|\le\|(K_*-E_*)x\|.
+```
+
+Thus the needed spectral inference is no longer a vague appeal
+to general perturbation theory: its analytical core has been
+isolated into a complete-basis theorem and its graph-specific
+instantiation. **These declarations are newly submitted and
+must pass Lean CI before they can be described as certified.**
+
+What remains before claiming unconditional graph-specific
+`‖(I-P)x‖≤512|ε|‖x‖` is to supply a complete
+crossing eigenbasis and symmetry for this concrete operator, and
+the suitable perturbed eigenvalue window. The repository already
+contains generic compact-resolvent/eigenbasis machinery, but its
+application here is not completed merely by stating the new lemma.
+
+Even that eigenvector estimate does not yet prove
+`‖P_ε-P‖→0`. We still need a stable two-dimensional
+cluster with corresponding orthogonal spectral projector and the
+full complex unitary evolution to invoke the time-uniform pulse
+bound of §4.82.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **97 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-two infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **98 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-two infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3161,6 +3218,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerTwoControlAlgebra.lean`](SpectralGeometry/AmmannBeenkerTwoControlAlgebra.lean)
   - [`AmmannBeenkerQubitLeakage.lean`](SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
   - [`QubitLeakagePulseBound.lean`](SpectralGeometry/QubitLeakagePulseBound.lean)
+  - [`DomainEigenbasisGapResidual.lean`](SpectralGeometry/DomainEigenbasisGapResidual.lean)
   - [`AmmannBeenkerNearCrossingEigenvectors.lean`](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
@@ -3197,7 +3255,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **97 mathematical source modules**, including the
+build covers all **98 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3596,7 +3654,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.83).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.84).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
