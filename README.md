@@ -28,7 +28,7 @@ every other point of the real spectrum by a certified distance of
 **Palomar Registry.** The exact-multiplicity theorem and its companion
 description of all eigenvectors at the crossing were registered as
 **PALOMAR-2026-11-06-000012 (version 1)** on **2026-11-06**
-([registration details](PALOMAR.md), §4.78). The separately proved
+([Palomar selection and proof scope](PALOMAR.md), §4.78). The separately proved
 spectral-gap theorem was **not** part of the Comparator-selected
 registration. Formal verification and registration do not by themselves
 establish mathematical priority or physical implementation.
@@ -56,6 +56,7 @@ spectral products and their zeros **does not change**.
 ## Current status and verified milestones
 
 The table below separates proved results from remaining research tasks.
+
 | Part of the program | Status |
 | --- | --- |
 | Natural-domain operators, bounded matching interactions, conditional self-adjointness and compact resolvents | Formalized under the explicit hypotheses documented in §4 |
