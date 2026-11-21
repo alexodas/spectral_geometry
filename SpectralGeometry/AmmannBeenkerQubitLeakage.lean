@@ -99,7 +99,7 @@ theorem crossingQubitPart_leakage_norm_sq (ψ : TileHilbert Vertex) :
     ‖ψ‖ ^ 2 = inner ℝ ψ ψ := by rw [real_inner_self_eq_norm_sq]
     _ = inner ℝ (crossingQubitPart ψ + crossingLeakage ψ)
         (crossingQubitPart ψ + crossingLeakage ψ) := by
-          rw [crossingQubitPart_add_leakage]
+          simp only [crossingQubitPart_add_leakage]
     _ = ‖crossingQubitPart ψ‖ ^ 2 + ‖crossingLeakage ψ‖ ^ 2 := by
           simp only [inner_add_left, inner_add_right,
             crossingQubitPart_inner_leakage, hcomm,
