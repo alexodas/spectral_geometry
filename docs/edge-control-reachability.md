@@ -628,3 +628,57 @@ precise edge-only impossibility statement. It requires full proof and
 an independent novelty assessment. The
 [existing registered selection](../PALOMAR.md), its ID, and its
 Challenge/Comparator files are deliberately left unchanged.
+
+## Draft bright-amplitude forcing identity (new §4.91)
+
+**New source, pending Lean/Comparator CI.** The branch adds
+[`AmmannBeenkerBrightAmplitude.lean`](../SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
+This does not change any established theorem or convert a conditional
+pulse estimate into a time-dependent propagator.
+
+For every real full-domain `x`, with the original two-mode projection
+`P`, `Q = I-P`, and the very same chosen edge, the draft theorem
+`crossingBright_pulse_amplitude` asserts
+
+```math
+\langle F,(K_*+\varepsilon W)x\rangle
+=(E_*+\varepsilon/4)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle.
+```
+
+The proposed `crossingBright_pulse_amplitude_error_bound` bounds the
+absolute forcing by `2|ε|‖Qx‖`; the draft
+`crossingDark_pulse_amplitude` has no forcing term.
+These are exact **generator-level** identities on the original
+infinite graph, not the assumption that the bright is an exact
+perturbed eigenvector.
+
+For a future complex natural-domain Schrödinger solution with
+bright amplitude `f(τ)=⟨F,ψ(τ)⟩`, this suggests the conditional
+inhomogeneous scalar equation
+
+```math
+i f'(\tau)=(E_*+\varepsilon/4) f(\tau)
+ +\varepsilon\langle F,WQ\psi(\tau)\rangle
+```
+
+for a constant real pulse. If one later proves a compatible
+complex leakage estimate `‖Qψ(τ)‖≤512|ε|‖ψ(0)‖`,
+the forcing magnitude would be at most
+`1024 ε² ‖ψ(0)‖`. Accumulated phase error requires an
+**additional time integral**, and thus can grow for long pulses;
+the displayed instantaneous inequality alone is not a
+duration-independent phase guarantee. No such complex scalar ODE
+or integrated estimate is currently claimed as Lean-verified.
+
+For smooth switching `ε(τ)` the static formula is valid at each
+parameter value if the state remains in the common domain, but the
+previous constant-pulse residual conservation cannot be used
+unchanged. An adiabatic argument must explicitly handle the twofold
+eigenvalue at both endpoints `ε=0`, as well as the time-dependent
+spectral subspace and domain requirements. Restoring `K_*` is
+not equivalent to showing `Qψ(T)=0`.
+
+The former 103-module checkpoint is verified by the user's
+reported green CI for merged PR #85. The new 104th module is
+**unverified until this draft PR passes full CI**.
