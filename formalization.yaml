@@ -101,7 +101,7 @@
     "divergences": "The theorem concerns one explicitly defined infinite, centered Ammann–Beenker vertex graph with a quadratic confining potential, not every possible quasicrystal or tiling. The mathematics uses real square-summable states and the natural domain of an unbounded operator. The intervention changes one specified connecting edge, not every connection in the graph. The dark state remains an exact eigenstate; the bright-state formula includes a contribution from the rest of the infinite system. Its coefficient of one quarter of the edge change is not a proven eigenvalue shift. The theorem does not construct a general complex quantum evolution, prove a quantum control protocol, or describe an experiment. The earlier exact-multiplicity theorem and separate spectral-gap result are established background, not newly selected conclusions."
   },
   "review": {
-    "status": "The original component theorems have been checked in Lean. Final Lean and independent comparison checks for the newly combined Palomar selection are still pending. No independent human mathematical review or priority assessment has been completed.",
+    "status": "The theorem statements are formalized in Lean. Independent human mathematical peer review and assessment of originality have not been completed; mechanical verification is recorded separately for each checked commit.",
     "reviewers": [],
     "notes": "The possible mathematical audience includes researchers in spectral theory, functional analysis, discrete Schrödinger operators and finite-rank perturbations. Possible physical audiences include researchers studying quasicrystals, compact localized states, flat bands and photonic lattice models. The central point is that the dark state is exactly protected while the bright state interacts with the rest of the infinite system. Similar localized states and perturbation techniques are known, and no general claim of novelty or experimental realization is made."
   },
@@ -154,7 +154,7 @@
         "source": "README §§4.91–4.92",
         "lean": "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse",
         "module": "SpectralGeometry.AmmannBeenkerBrightAmplitude",
-        "status": "Proved in the substantive Lean source; independent comparison of the proposed selection remains to be completed.",
+        "status": "Formally stated and proved in the substantive Lean source; external acceptance depends on the independent verification record for the submitted commit.",
         "note": "The one proposed scientific conclusion: exact dark protection, full bright response and a quantitative bound on the external contribution."
       }
     ]
