@@ -480,6 +480,50 @@ real Hilbert space; we do not yet have the physical
 complex Schrödinger group or constructive state
 preparation. The new module awaits its first Lean CI run.
 
+## Exact dark-state quantum phase as a real/imaginary Schrödinger solution
+
+The module
+[`AmmannBeenkerDarkSchrodinger.lean`](../SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
+starts a genuinely **complex-phase** dynamical construction
+without postulating the general quantum evolution.
+
+We already know exactly that the normalized dark vector
+`dark=(compactA+compactB)/4` is an eigenvector of the
+complete selected-edge Hamiltonian `K_ε=K_*+εW`
+at energy `E_*` for every real `ε`.
+
+Therefore its explicit complex Schrödinger trajectory is
+
+```text
+ψ(τ) = exp(-i E_* τ) dark ,
+Re ψ(τ) = cos(E_* τ) dark ,
+Im ψ(τ) = -sin(E_* τ) dark .
+```
+
+We formalize both components in the full real
+infinite-graph Hilbert space, provide their lifts
+to the original unbounded operator domain,
+and prove the **derivative** identities
+
+```text
+∂τ(Re ψ) = K_ε(Im ψ) ,
+∂τ(Im ψ) = -K_ε(Re ψ) .
+```
+
+These are exactly the real and imaginary equations
+of `i ∂τ ψ=K_ε ψ` for the particular dark trajectory.
+Its initial state is dark, its total complex squared norm
+`‖Re ψ‖²+‖Im ψ‖²` is one at every time, and
+both components have **zero A/B leakage** at every time.
+
+This is not a generic complex unitary group,
+nor a solution for arbitrary superpositions, nor
+a proof of nontrivial A/B controllability.
+It does show that one exact complex-phase trajectory
+with physical Schrödinger sign conventions is already
+accessible from the certified real eigenstate.
+The new module requires CI verification.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
