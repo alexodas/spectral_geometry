@@ -2739,10 +2739,10 @@ the isolation radius**, not the exact spectral spacing or an optimal
 constant. This theorem does not assert stability of the twofold
 crossing under arbitrary perturbations, identify the moving eigenvalue
 after the one-edge change, or provide a derivative, remainder or
-finite-patch zero certificate. The Comparator submission still selects
-the exact-multiplicity statements of §4.78; the gap theorems are
-included in the full Lean/Mathlib build, not separately selected as
-Comparator challenge declarations.
+finite-patch zero certificate. The **historical first Palomar registration** selected the
+exact-multiplicity statements of §4.78. The gap theorems are not
+selected in the new candidate Comparator (§4.92), but remain included
+in the full Lean/Mathlib source build.
 
 ### 4.80. First exact algebraic results for controlling the two compact modes
 
@@ -3217,7 +3217,8 @@ also needs segment-by-segment analysis; conservation of
 **Lean status:** §§4.85–4.89, including this module and the
 subsequent intertwining and switch-off statements, have passed
 the reported full Lean Action. Section 4.85 initially passed
-Action #246. The Palomar selection is unchanged.
+Action #246. At that historical checkpoint the first Palomar selection
+was unchanged; §4.92 describes the subsequent second candidate.
 
 ### 4.86. Residual conservation follows from Hamiltonian intertwining
 
@@ -3331,9 +3332,10 @@ residual conservation and the leakage estimate does
 not by itself supply that physical evolution.
 
 **Lean status:** this full-graph real self-adjointness theorem
-and §4.86 have passed the full Lean verification. The
-designated Palomar theorem and Challenge/Comparator files
-are unchanged.
+and §4.86 have passed the full Lean verification. At that checkpoint, the original Palomar selection and its
+Challenge/Comparator files were unchanged; they have since been
+retargeted for the proposed second candidate (§4.92), while the
+first registration remains immutable.
 
 ### 4.88. A controlled pulse followed by free evolution after switching the edge off
 
