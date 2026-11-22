@@ -27,10 +27,10 @@ Already formalized: `crossingEigenspace_finrank`,
 The last theorem supplies `|μ_n − λ_n| ≤ ‖εW‖ = 2|ε|` for the
 ordered eigenvalues of H₀ and Hε.
 
-A direct specialization of the proved two-mode leakage identity gives
-`‖QWF‖² = 7/16`, where Q is the orthogonal projection onto the
-complement of span(D,F). It remains useful to name this specialization
-as a small standalone Lean lemma.
+The two-mode leakage identity gives `‖QWF‖² = 7/16`, where Q is
+the orthogonal projection onto the complement of span(D,F).
+`AmmannBeenkerBrightSpectralSplitting.lean` now includes an explicit
+Lean statement of this specialization, pending CI.
 
 ## 2. Intended main theorem — NOT YET PROVED
 
@@ -60,7 +60,7 @@ Because W has rank one and its overlap with a is nonzero,
 The exact representation by a,b and the one-edge formula
 force equal coefficients. Two Lean source declarations are added
 in `AmmannBeenkerNearCrossingEigenvectors.lean`: the edge-zero lemma
-and the dark-only conclusion. **Pending CI; no green claimed.**
+and the dark-only conclusion. **L1 verified** by both PR #88 workflows on commit `464bee37d3477a20f24c3ac48ac116e748fdfd01`.
 
 **L2 — Moving-level existence using ordered eigenvalues.**
 Construct complete monotone eigenbases of H₀ and Hε from the
@@ -70,8 +70,10 @@ baseline spectrum. Norm stability then places both corresponding
 perturbed slots within 2|ε| of E*. When 4|ε|<g, all other slots
 stay away. L1 ensures that only one of the two slots can equal E*,
 so the other corresponds to a new simple bright-derived level.
-The critical new work is the bridge from `finrank=2` to the
-indices of a complete ordered eigenbasis; do not assume it.
+The new module packages existence of both complete ordered eigenbases
+and the explicit 2|ε| indexwise stability bound; it is pending CI.
+The critical new work remains the bridge from `finrank=2` to exactly
+two consecutive indices of a complete ordered eigenbasis.
 
 **L3 — External leakage of an actual moving eigenvector.**
 Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
@@ -103,10 +105,9 @@ interest before changing any formalization/comparison package.
 
 ## 4. Efficient Lean development sequence
 
-1. Compile the L1 declarations on the research branch first.
-2. Reuse `onsitePlusBounded_exists_orderedEigenbasis` for both
-   operators and `onsitePlusBounded_ordered_perturbation_bound`
-   for their matched levels; do not introduce a new resolvent API.
+1. **L1 green**: the dark-only source declarations are Lean verified.
+2. **L2a pending CI**: check the ordered-eigenbasis and external-edge
+   specializations in `AmmannBeenkerBrightSpectralSplitting.lean`.
 3. Prove the complete-eigenbasis/multiplicity-index bridge.
 4. Then perform the L3–L4 algebra and domain checks; save the
    more speculative dynamical-control questions for later.

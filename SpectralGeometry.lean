@@ -104,6 +104,7 @@ public import SpectralGeometry.AmmannBeenkerPulseSelfAdjoint
 public import SpectralGeometry.AmmannBeenkerPostpulseSwitchOff
 public import SpectralGeometry.AmmannBeenkerDarkSchrodinger
 public import SpectralGeometry.AmmannBeenkerBrightAmplitude
+public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
 
 public section
 

@@ -3684,7 +3684,7 @@ proposal.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-nine infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **105 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3772,7 +3772,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (27):**
+- **Explicit octagonal geometry, operator and spectral products (28):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3794,6 +3794,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
   - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
+  - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(ordered-eigenvalue stability and exact external bright edge force; pending CI)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3833,7 +3834,7 @@ The source code still proves the original exact-multiplicity theorems and
 the §4.79 spectral gap, but they are **not newly selected** in this
 proposed second comparison. The first registered Comparator selection is
 preserved at its original immutable commit and is not overwritten by
-a registry submission. The separate full-project build covers all **104
+a registry submission. The separate full-project build covers all **105
 mathematical source modules**; the **new** comparison must be verified
 by Lean, NanoDa and con-ron on the immutable commit chosen for submission.
 
@@ -4211,14 +4212,15 @@ ordered-eigenbasis construction, norm-stability theorem and reduced-gap
 residual estimate offer a route without developing a new general
 resolvent calculus. See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
 
-- [ ] **L1 — Dark simplicity at the original energy.** Show that
-  for every ε ≠ 0 the perturbed crossing-energy eigenspace is precisely
-  the dark line. The initial source proof is on this research branch;
-  it must pass Lean CI before being marked as verified.
+- [x] **L1 — Dark simplicity at the original energy (Lean verified).**
+  For every ε ≠ 0 the perturbed crossing-energy eigenspace is exactly
+  the dark line. The two source lemmas passed both PR #88 workflows
+  on commit `464bee3`.
 - [ ] **L2 — Persistence of the two-level spectral cluster.**
-  Link the verified multiplicity-two theorem to the two consecutive
-  indices in a complete ordered eigenbasis, and apply the existing
-  bound |μₙ − λₙ| ≤ 2|ε| to prove existence of a distinct simple level.
+  A new source module packages complete ordered eigenbases for both
+  Hamiltonians and the explicit bound |μₙ − λₙ| ≤ 2|ε|; this addition
+  awaits CI. We still must show that the exact crossing occupies
+  precisely two consecutive indices and deduce the moving simple level.
 - [ ] **L3 — Quantitative bright eigenvector.** Use the already
   certified reduced gap to control the external component and show
   that the new eigenvector has a nonzero bright amplitude.
