@@ -37,10 +37,19 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
-      # Idempotent: on a warm workspace this finds no missing artifacts;
-      # on cold/missing/corrupt entries it fetches the pinned Mathlib cache.
-      - name: Verify or download pinned Mathlib cache
-        run: lake exe cache get
+      # Mathlib's cache client stores downloaded .ltar archives in
+      # ~/.cache/mathlib (outside .lake). A restored compiled Mathlib
+      # workspace is already sufficient for the full Lake build; do not
+      # re-download ~9000 archives just to populate that external cache.
+      # A cold or incomplete workspace still fetches pinned Mathlib.
+      - name: Ensure pinned Mathlib artifacts
+        run: |
+          if test -f .lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean; then
+            echo "Restored compiled Mathlib: skipping redundant archive download"
+          else
+            echo "Mathlib build absent: fetching pinned cache artifacts"
+            lake exe cache get
+          fi
       - name: Compile and kernel-check Lean proof
         run: lake build SpectralGeometry Challenge Solution
       - name: Cache verified source build for subsequent Comparator iterations

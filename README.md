@@ -3977,12 +3977,16 @@ running `lake exe cache get` and recompiling/checking its targets.
 The newer `lean-workspace-v3` cache stores the entire `.lake`
 workspace, including Mathlib and other pinned package sources and build
 artifacts under `.lake/packages`, rather than only `.lake/build`.
-The Mathlib cache command remains in place: it fetches missing artifacts
-when needed and does not weaken the proof build or independent
-Lean/NanoDa/con-ron comparison. The first v3 cache run must populate
-its archive; actual speed improvements and cache size require checking
-the associated Action logs after CI. No separate quick Comparator
-workflow is used.
+Because Mathlib's `lake exe cache get` also downloads compressed
+archives into `~/.cache/mathlib` (outside `.lake`), each job now
+checks for the restored compiled Mathlib root module before calling
+that client. A warm complete workspace skips the redundant archive
+download; on a cold or missing build the official pinned Mathlib cache
+is still fetched. **Both jobs retain the full Lake build**, and the
+Comparator retains independent Lean/NanoDa/con-ron checks. The first
+v3 cache run must populate its archive; actual speed improvements and
+cache size require checking the corresponding Action logs. No separate
+quick Comparator workflow is used.
 
 ## 6. Roadmap: proof status and next steps
 
