@@ -49,16 +49,17 @@ jobs:
           done
           exit 1
 
-      # The same exact cache key is produced by the full Lean job. The
-      # Challenge and Solution are deliberately omitted from the key; Lake
-      # recompiles them as needed while reusing unchanged source .olean files.
-      # Changing any substantive Lean source or dependency invalidates the key.
+      # Restore only. The full proof job is the sole cache writer,
+      # avoiding races with this fast comparator. Lake checks all inputs
+      # and rebuilds changed modules after a compatible partial hit.
       - name: Restore compiled substantive Lean modules
         id: project-olean-cache
         uses: actions/cache/restore@v4
         with:
           path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
 
       - name: Check Comparator inputs and metadata
         run: |
@@ -70,14 +71,6 @@ jobs:
       - name: Build Challenge and Solution incrementally
         run: lake build Challenge Solution
 
-      # Save before the Comparator step: a statement mismatch may fail the
-      # comparison, but compilation results are still valid for the next fix.
-      - name: Save compiled project modules for next comparison
-        if: steps.project-olean-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
       - name: Compare with the bundled independent kernels
         id: comparator
         run: |

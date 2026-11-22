@@ -23,15 +23,18 @@ jobs:
             sleep $((5 * attempt))
           done
           exit 1
-      # The key intentionally excludes Challenge/Solution. When only the
-      # Palomar packaging changes, compiled substantive modules are reusable.
-      # Exact source and dependency hashes invalidate the cache automatically.
+      # Toolchain/dependency digest isolates compatible caches.
+      # Restore the last compatible build on source edits; Lake recompiles
+      # only changed modules and their dependents. Challenge/Solution are
+      # tracked by Lake separately. This is the only project cache writer.
       - name: Restore compiled project modules
         id: project-olean-cache
         uses: actions/cache/restore@v4
         with:
           path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
       - name: Download pinned Mathlib cache
         run: lake exe cache get
       - name: Compile and kernel-check Lean proof
@@ -41,4 +44,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}

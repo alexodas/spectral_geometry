@@ -41,6 +41,15 @@ jobs:
           python3 scripts/check-no-proof-holes.py
       - name: Fetch Mathlib cache
         run: lake exe cache get
+      # The earlier full Lean job completed successfully and is the sole
+      # cache writer. Reuse its .olean files on this separate runner.
+      - name: Restore verified project build
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
       - name: Build complete mathematical library and Comparator modules
         run: lake build SpectralGeometry Challenge Solution
       - name: Compare dark/bright one-edge result with bundled kernels
