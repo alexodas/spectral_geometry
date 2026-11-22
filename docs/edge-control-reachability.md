@@ -7,8 +7,10 @@ and an exploratory dynamical program. This is **not** a certified
 quantum-control or state-preparation protocol. This note complements
 [README §§4.80–4.92](../README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
 and [§6.4](../README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention).
-The **first** Palomar registration is unaffected; the current
-[second candidate](../PALOMAR.md) is not registered.
+The **first** Palomar registration is unaffected and is described in
+[README §4.78](../README.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing).
+The [second candidate](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+is not registered.
 
 ## Starting point: an infinite-graph theorem, not a two-site model
 
@@ -691,7 +693,7 @@ The historical 103-module PR #85 and the subsequently added 104th
 module on PR #86 have each been reported green by the maintainer.
 The new `crossingOneEdgeDarkBrightResponse` theorem bundles three
 exact full-graph conclusions into the **single scientific statement**
-selected in [the proposed Palomar package](../PALOMAR.md).
+selected in [the proposed second Palomar package](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback).
 Its new Challenge, Comparator and metadata remain **pending a
 fresh independent CI/Comparator run**. The old registered result and
 its historical snapshot have not been rewritten.
