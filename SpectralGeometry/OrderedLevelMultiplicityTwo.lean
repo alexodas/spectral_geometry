@@ -52,10 +52,9 @@ theorem ordered_levelMultiplicity_two_consecutive
         exact Set.mem_univ _
       simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hmem
       rcases hmem with hu | hv
-      · have heq := congrArg Subtype.val hu
+      · have hbad : u.1 + 1 = u.1 := congrArg Subtype.val hu
         omega
-      · have heq := congrArg Subtype.val hv
-        omega
+      · exact congrArg Subtype.val hv
     refine ⟨u.1, u.property, hmid, ?_⟩
     intro k hk
     have hmem :
@@ -70,6 +69,7 @@ theorem ordered_levelMultiplicity_two_consecutive
   rcases lt_or_gt_of_ne hindices with hij | hji
   · exact hordered i j hij hcover
   · apply hordered j i hji
-    rw [Set.insert_comm j i]
-    exact hcover
+    calc
+      ({j, i} : Set {n : ℕ // ev n = r}) = {i, j} := Set.pair_comm j i
+      _ = Set.univ := hcover
 end SpectralGeometry
