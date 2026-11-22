@@ -1,6 +1,7 @@
 module
 
 public import SpectralGeometry.AmmannBeenkerBrightAmplitude
+public import SpectralGeometry.AmmannBeenkerNearCrossingEigenvectors
 public import SpectralGeometry.InfiniteBoundedSpectralStability
 public import SpectralGeometry.OrderedLevelMultiplicityTwo
 
@@ -224,6 +225,98 @@ theorem crossing_exists_ordered_eigenbasis_consecutive_pair :
   obtain ⟨n, hn, hnext, hunique⟩ :=
     ordered_levelMultiplicity_two_consecutive ev crossingEnergy hmono hcount
   exact ⟨ev, b, hmono, n, hn, hnext, hunique⟩
+
+
+/-- For every nonzero one-edge perturbation, at least one of the two
+perturbed spectral slots arising from the exact crossing is a genuine
+*distinct* infinite-operator eigenvalue within the global operator-norm
+bound. This statement needs no small-epsilon assumption.
+
+The ordered sequences used in the multiplicity theorem and the
+perturbation theorem are identified via their complete eigenbases;
+the two perturbed eigenvectors cannot both lie in the one-dimensional
+dark eigenspace. Simplicity of the moving eigenvalue and its sharp
+asymptotic expansion are separate obligations. -/
+theorem crossing_exists_distinct_perturbed_level_near
+    (ε : ℝ) (hε : ε ≠ 0) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) := by
+  obtain ⟨ev, b, hev, n, hn, hnext, _⟩ :=
+    crossing_exists_ordered_eigenbasis_consecutive_pair
+  obtain ⟨baseline, μ, b0, bt, hbaseline, _, hstab⟩ :=
+    crossingEdge_exists_ordered_eigenbases_and_stability ε
+  have hring :
+      ∀ x y : TileHilbert Vertex,
+        inner ℝ ((ringInteraction crossingParameter) x) y =
+          inner ℝ x ((ringInteraction crossingParameter) y) := by
+    simpa only [ringInteraction] using
+      (finiteSectorCorrection_symmetric interaction interaction_symmetric
+        (neighbors origin) crossingParameter)
+  have heq : ev = baseline :=
+    DomainEigenbasis.ordered_levels_unique b b0
+      (onsitePlusBounded_symmetric potential
+        (ringInteraction crossingParameter) hring)
+      hev hbaseline
+  have hbase_n : baseline n = crossingEnergy := by
+    rw [← heq]
+    exact hn
+  have hbase_next : baseline (n + 1) = crossingEnergy := by
+    rw [← heq]
+    exact hnext
+  have hnotboth :
+      μ n ≠ crossingEnergy ∨ μ (n + 1) ≠ crossingEnergy := by
+    by_contra h
+    push_neg at h
+    obtain ⟨c, hc⟩ :=
+      crossingPerturbedEnergy_dark_only ε hε
+        ⟨bt.basis n, bt.mem_domain n⟩
+        (by simpa only [h.1] using bt.eigen n)
+    obtain ⟨d, hd⟩ :=
+      crossingPerturbedEnergy_dark_only ε hε
+        ⟨bt.basis (n + 1), bt.mem_domain (n + 1)⟩
+        (by simpa only [h.2] using bt.eigen (n + 1))
+    change bt.basis n = c • crossingDark at hc
+    change bt.basis (n + 1) = d • crossingDark at hd
+    have hnorm_n : ‖bt.basis n‖ = 1 :=
+      bt.basis.orthonormal.norm_eq_one n
+    have hnorm_next : ‖bt.basis (n + 1)‖ = 1 :=
+      bt.basis.orthonormal.norm_eq_one (n + 1)
+    rw [hc, norm_smul, Real.norm_eq_abs, crossingDark_norm_one,
+      mul_one] at hnorm_n
+    rw [hd, norm_smul, Real.norm_eq_abs, crossingDark_norm_one,
+      mul_one] at hnorm_next
+    have hc0 : c ≠ 0 := by
+      intro hz
+      rw [hz, abs_zero] at hnorm_n
+      norm_num at hnorm_n
+    have hd0 : d ≠ 0 := by
+      intro hz
+      rw [hz, abs_zero] at hnorm_next
+      norm_num at hnorm_next
+    have hD : inner ℝ crossingDark crossingDark = 1 := by
+      rw [real_inner_self_eq_norm_sq, crossingDark_norm_one]
+      norm_num
+    have horth :
+        inner ℝ (bt.basis n) (bt.basis (n + 1)) = 0 :=
+      bt.basis.orthonormal.inner_eq_zero (by omega)
+    rw [hc, hd, real_inner_smul_left, real_inner_smul_right, hD] at horth
+    have hcd : c * d = 0 := by nlinarith only [horth]
+    exact (mul_ne_zero hc0 hd0) hcd
+  rcases hnotboth with hmove | hmove
+  · refine ⟨μ n, ⟨bt.basis n, bt.mem_domain n⟩, hmove, ?_, ?_, ?_⟩
+    · simpa only [hbase_n] using hstab n
+    · exact bt.basis.orthonormal.ne_zero n
+    · exact bt.eigen n
+  · refine ⟨μ (n + 1), ⟨bt.basis (n + 1), bt.mem_domain (n + 1)⟩,
+      hmove, ?_, ?_, ?_⟩
+    · simpa only [hbase_next] using hstab (n + 1)
+    · exact bt.basis.orthonormal.ne_zero (n + 1)
+    · exact bt.eigen (n + 1)
 
 end
 end SpectralGeometry.AmmannBeenker

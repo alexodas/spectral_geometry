@@ -29,8 +29,8 @@ ordered eigenvalues of H₀ and Hε.
 
 The two-mode leakage identity gives `‖QWF‖² = 7/16`, where Q is
 the orthogonal projection onto the complement of span(D,F).
-`AmmannBeenkerBrightSpectralSplitting.lean` now includes an explicit
-Lean statement of this specialization, pending CI.
+`AmmannBeenkerBrightSpectralSplitting.lean` includes the verified
+specialization, alongside the ordered-eigenbasis stability result.
 
 ## 2. Intended main theorem — NOT YET PROVED
 
@@ -72,8 +72,17 @@ stay away. L1 ensures that only one of the two slots can equal E*,
 so the other corresponds to a new simple bright-derived level.
 The new module packages existence of both complete ordered eigenbases
 and the explicit 2|ε| indexwise stability bound; both are **Lean verified** on commit `bcc0d2971f5c310743c012935ce3547db021b141` (Action #313).
-The critical new work remains the bridge from `finrank=2` to exactly
-two consecutive indices of a complete ordered eigenbasis.
+The exact-double count passed Action #316, and the generic
+consecutive-index theorem plus its concrete crossing corollary passed
+both the full Lean build and independent Comparator in Action #319
+(commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`).
+The next L2c source candidate uses `DomainEigenbasis.ordered_levels_unique`
+to identify the sequences used for counting and stability, then
+uses L1 and orthonormality to exhibit a *genuine nonzero* perturbed
+eigenvector with a distinct energy inside the `2|ε|` window.
+This new L2c declaration remains unverified until its own CI passes.
+Simplicity of the moving level and exhaustion of the small spectral
+window remain to be proved separately.
 
 **L3 — External leakage of an actual moving eigenvector.**
 Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
@@ -108,11 +117,15 @@ interest before changing any formalization/comparison package.
 1. **L1 green**: the dark-only source declarations are Lean verified.
 2. **L2a green**: the ordered-eigenbasis stability and external-edge
    specializations passed Action #313.
-3. **L2b count green**: Action #316 certified the exact-double
-   multiplicity-tag theorem. **Consecutive-slot proof pending CI**;
-   after it passes, derive moving-level existence.
-4. Then perform the L3–L4 algebra and domain checks; save the
-   more speculative dynamical-control questions for later.
+3. **L2b fully green**: Action #316 certified exact-double
+   multiplicity, and Action #319 certified consecutive spectral slots
+   with both Lean and the independent Comparator.
+4. **L2c source candidate**: a true distinct perturbed level and
+   eigenvector, with the `2|ε|` bound, are being submitted for CI.
+   Do not call L2c verified before its own run is green.
+5. After L2c verification, prove window uniqueness/simplicity and
+   perform the L3–L4 algebra and domain checks; save the more
+   speculative dynamical-control questions for later.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,
 `comparator.json`, `palomar/dark-bright/comparator.json`,
