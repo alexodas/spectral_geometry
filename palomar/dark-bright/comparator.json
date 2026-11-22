@@ -1,0 +1,19 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SpectralGeometry.AmmannBeenker.admitted_zero",
+    "SpectralGeometry.AmmannBeenker.mate_involutive",
+    "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactSiteA_admitted",
+    "SpectralGeometry.AmmannBeenker.compactSiteB_admitted",
+    "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
