@@ -888,7 +888,7 @@ theorem crossingBright_edge_leakage_inner
   calc
     inner ℝ crossingBright (crossingEdge (crossingLeakage ψ)) =
         inner ℝ (crossingEdge crossingBright) (crossingLeakage ψ) :=
-      crossingEdge_symmetric_full crossingBright (crossingLeakage ψ)
+      (crossingEdge_symmetric_full crossingBright (crossingLeakage ψ)).symm
     _ = inner ℝ (crossingLeakage (crossingEdge crossingBright))
           (crossingLeakage ψ) := hsplit.symm
 
