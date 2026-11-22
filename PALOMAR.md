@@ -87,7 +87,7 @@ realization remain unestablished.**
 ## Independent Challenge and next verification
 
 The new `Challenge.lean` imports **only Mathlib** and is about
-**484 lines, approximately 15 KiB** (below Palomar's 1,000-line and
+**488 lines, approximately 15 KiB** (below Palomar's 1,000-line and
 100-KiB hard caps). Its selected theorem names include **one
 scientific conclusion** and six **model-construction proposition
 witnesses**: `admitted_zero`, `mate_involutive`,
