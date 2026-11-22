@@ -788,7 +788,7 @@ theorem crossing_moving_eigenvector_sharp_leakage
         norm_add_le _ _
       _ = |c| * ‖v‖ + ‖crossingLeakage (crossingEdge q)‖ := by
         simp only [norm_smul, Real.norm_eq_abs]
-      _ ≤ |c| * ‖v‖ + 2 * ‖q‖ := add_le_add_left hWq _
+      _ ≤ |c| * ‖v‖ + 2 * ‖q‖ := add_le_add_right hWq _
   have hresnorm :
       ‖crossingResidual x‖ ≤
         |energy - crossingEnergy| * ‖q‖ +
@@ -806,7 +806,7 @@ theorem crossing_moving_eigenvector_sharp_leakage
         simp only [norm_smul, Real.norm_eq_abs]
       _ ≤ |energy - crossingEnergy| * ‖q‖ +
           |ε| * (|c| * ‖v‖ + 2 * ‖q‖) :=
-        add_le_add_left
+        add_le_add_right
           (mul_le_mul_of_nonneg_left hforce (abs_nonneg ε)) _
   have hgap :
       crossingGapCandidate * ‖q‖ ≤ ‖crossingResidual x‖ :=
