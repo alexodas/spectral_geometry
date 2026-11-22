@@ -6,38 +6,38 @@ zeros of analytic functions built from those levels.**
 
 ## Executive summary
 
-**What this project studies.** Spectral Geometry uses Lean 4 to investigate how
-small, local changes affect the energy levels of mathematical operators on
-infinite geometric networks. Its broader goal is to connect exact results
-about these infinite systems with reliable estimates and finite calculations.
+**Purpose.** Spectral Geometry uses Lean 4 to study how small, local changes
+affect energy levels on infinite geometric networks. Its long-term goal
+is to connect exact results about infinite systems with reliable
+quantitative predictions and finite calculations.
 
-**What the first Palomar submission established.** The registered theorem
-**PALOMAR-2026-11-06-000012 (version 1)** proves that, in one explicitly
-defined infinite Ammann–Beenker octagonal graph, two localized wave patterns
-account for **every state at a particular energy**. There are exactly two
-independent states at that energy; none can extend unnoticed into the rest
-of the graph. Subsequent work also established a quantitative gap to the
-other energy levels, but that gap was **not part of the first submission**.
+**First Palomar result — already registered.** For a specific infinite
+Ammann–Beenker octagonal graph, the project proved that two localized
+wave patterns account for **all states at a chosen energy**. There are
+exactly two independent states at that energy, with none hidden elsewhere
+in the infinite graph. This result was registered as
+**PALOMAR-2026-11-06-000012 (version 1)**. Later work established a
+quantitative separation from other energies, but this was **not** part
+of the first submission.
 
-**What this new proposal proves.** We change the weight of just **one edge**
-connecting the two localized patterns. One combination, called the **dark
-mode**, remains an exact eigenstate at the same energy for any real change
-in that edge's weight. The other, the **bright mode**, responds to the change
-and can couple to states elsewhere in the infinite graph. The proof
-identifies this extra influence exactly and gives a bound on its size.
-Thus a two-state approximation is not confused with the complete system.
-The individual results have passed Lean verification; the **new combined
-Palomar statement and its independent comparison still need verification**
-and have **not been registered**.
+**New result proposed here.** Changing the weight of **one edge**
+connecting the two patterns leaves one combination, the **dark mode**,
+at exactly the same energy. The other, the **bright mode**, can also
+interact with states outside the original pair. The theorem identifies
+this effect exactly and bounds its size, so the infinite graph is not
+mistaken for a perfectly isolated two-state system. The underlying
+results have passed Lean checks; the new combined theorem and its
+independent Palomar comparison still need verification. **This second
+result has not been registered.**
 
-**Why it matters and what remains open.** The result may interest
-mathematicians studying spectra and local perturbations, and physicists
-studying quasicrystals and localized waves. It does not yet prove a general
-quantum-control or state-preparation method. Alessandro Odasso, who is
-not a mathematician, directs the project to explore the scientific
-capabilities of large language models. According to his account, AI
-generated the mathematical theorems and Lean formalizations under his
-direction. Formal proof checking does not by itself establish novelty.
+**Significance and provenance.** The result may interest mathematicians
+studying spectra and physicists studying quasicrystals and localized
+waves. General quantum-state control remains unproved. Alessandro
+Odasso, who is not a mathematician, directs the project to explore
+what large language models can achieve in scientific research.
+According to his account, AI generated the theorems and Lean
+formalizations under his direction. Formal verification does not
+by itself establish scientific novelty.
 
 ## Table of contents
 
