@@ -4780,8 +4780,19 @@ claimed.
 - [ ] Continue the separate scalar cofactor and finite-patch
   certificates required in §§6.3, 6.5 and 6.6.
 
-**Maintenance rule:** append new verified results to §4 and the roadmap,
-keep the canonical §5 module list current, preserve historical
-registration records, and mark new theorem/Comparator packages
-independently verified only after the relevant exact commit passes
-all required checks.
+**Maintenance rules:** append each new verified result to §4 and to the
+roadmap **without deleting earlier results or historical registrations**;
+update the canonical §5 module list whenever source imports change;
+update the **table of contents** whenever sections are added, renamed
+or reorganized; and review the entire README for **obsolete statements**,
+revising old status sentences and open-problem descriptions when later
+theorems resolve them without erasing their historical context.
+
+Keep the **executive summary scientific, concise and durable**:
+**never include references to pull requests, PR numbers, GitHub Actions,
+Action numbers or commit identifiers in the executive summary**. Put
+operational provenance, exact commits, CI checks and independent
+Comparator outcomes only in the relevant technical verification
+sections and roadmap. Never mark a new theorem or Comparator package
+independently verified until all required checks have passed on the
+exact referenced source commit.

@@ -128,7 +128,7 @@ infinite natural domain. Lean and the independent Comparator passed
 Action #328 (commit `0590eb7`); the norm-relative preliminary
 bound `‖Qx‖ ≤ 512|ε|‖x‖` passed Action #326.
 
-**L4 — Quadratic spectral error, not merely a Rayleigh quotient.**
+**L4 — Quadratic spectral error, not merely a Rayleigh quotient (source candidate, CI pending).**
 The existing exact bright pairing yields
 `(δ−ε/4)c = ε⟨v,q⟩`. Apply Cauchy–Schwarz and L3 to get
 
@@ -136,6 +136,18 @@ The existing exact bright pairing yields
 
 The formula must be attached to the *actual eigenvalue*
 constructed in L2; an energy expectation alone is insufficient.
+
+The full L4 candidate is now in
+`AmmannBeenkerBrightSpectralSplitting.lean`:
+`crossingBright_edge_leakage_inner` identifies the exact
+external feedback `⟨QWF,Qx⟩`,
+`crossing_abs_inner_le_norm_mul` supplies Cauchy–Schwarz, and
+`crossing_moving_energy_quadratic_bound` obtains the proposed
+`112ε²` from the already verified L3 norm and
+`‖QWF‖²=7/16`. Its existential corollary
+`crossing_exists_moving_level_quadratic_bound` attaches this
+bound to the *actual unique simple* moving point-spectrum energy.
+**This new source candidate is not yet Lean/Comparator verified.**
 
 **L5 — Combine into the final infinite-graph theorem.**
 Uniqueness and simplicity in the isolated point-spectrum window

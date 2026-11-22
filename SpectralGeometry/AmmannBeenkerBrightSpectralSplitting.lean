@@ -856,5 +856,138 @@ theorem crossing_exists_moving_bright_sharp_leakage
   · exact crossing_moving_eigenvector_sharp_leakage
       ε energy x heigen hmove hnear hsmall
 
+/-!
+## L4: true quadratic shift from the full bright eigenvector
+
+The previously verified L3 bound controls the actual external part
+of the unique moving eigenvector. Pairing the *exact* infinite-domain
+eigenvector equation with bright and retaining the exact external
+force v = Q W F yields the sharp 112 ε² energy bound, rather than
+a mere Rayleigh-quotient estimate on the unperturbed bright mode.
+-/
+
+/-- The bright-to-exterior edge feedback is exactly the pairing
+of the full projected edge force with the full exterior state.
+The proof uses real symmetry and true orthogonality to the original
+two-dimensional crossing eigenspace. -/
+theorem crossingBright_edge_leakage_inner
+    (ψ : TileHilbert Vertex) :
+    inner ℝ crossingBright (crossingEdge (crossingLeakage ψ)) =
+      inner ℝ (crossingLeakage (crossingEdge crossingBright))
+        (crossingLeakage ψ) := by
+  have hp :
+      inner ℝ (crossingQubitPart (crossingEdge crossingBright))
+        (crossingLeakage ψ) = 0 := by
+    simp only [crossingQubitPart, inner_add_left, real_inner_smul_left,
+      crossingLeakage_inner_compactA, crossingLeakage_inner_compactB]
+    ring
+  have hsplit := congrArg
+    (fun z : TileHilbert Vertex => inner ℝ z (crossingLeakage ψ))
+    (crossingQubitPart_add_leakage (crossingEdge crossingBright))
+  rw [inner_add_left, hp, zero_add] at hsplit
+  calc
+    inner ℝ crossingBright (crossingEdge (crossingLeakage ψ)) =
+        inner ℝ (crossingEdge crossingBright) (crossingLeakage ψ) :=
+      crossingEdge_symmetric_full crossingBright (crossingLeakage ψ)
+    _ = inner ℝ (crossingLeakage (crossingEdge crossingBright))
+          (crossingLeakage ψ) := hsplit.symm
+
+/-- Real Cauchy–Schwarz in absolute-value form without a unit-norm
+assumption; used for the exact external coupling, not the total edge
+operator norm. -/
+theorem crossing_abs_inner_le_norm_mul
+    (u v : TileHilbert Vertex) :
+    |inner ℝ u v| ≤ ‖u‖ * ‖v‖ := by
+  have hu : inner ℝ u v ≤ ‖u‖ * ‖v‖ :=
+    real_inner_le_norm u v
+  have hl : -(inner ℝ u v) ≤ ‖u‖ * ‖v‖ := by
+    have h := real_inner_le_norm u (-v)
+    simpa only [inner_neg_right, norm_neg] using h
+  exact abs_le.mpr ⟨by linarith only [hl], hu⟩
+
+/-- Sharp L4 bound on a *genuine* moving eigenvalue.
+A nonzero bright coefficient is supplied, rather than dividing
+through a possibly zero amplitude. All spectral, residual and
+external-force estimates were previously kernel-verified. -/
+theorem crossing_moving_energy_quadratic_bound
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex))
+    (hne : energy ≠ crossingEnergy)
+    (hnear : |energy - crossingEnergy| ≤ 2 * |ε|)
+    (hsmall : |ε| ≤ 1 / 1024)
+    (hbright : inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0) :
+    |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2 := by
+  let c : ℝ := inner ℝ crossingBright (x : TileHilbert Vertex)
+  let q : TileHilbert Vertex :=
+    crossingLeakage (x : TileHilbert Vertex)
+  let v : TileHilbert Vertex :=
+    crossingLeakage (crossingEdge crossingBright)
+  have hidentity :
+      (energy - (crossingEnergy + ε / 4)) * c =
+        ε * inner ℝ v q := by
+    have hp := crossingBright_pulse_amplitude ε x
+    rw [heigen, real_inner_smul_right,
+      crossingBright_edge_leakage_inner] at hp
+    change energy * c = (crossingEnergy + ε / 4) * c +
+      ε * inner ℝ v q at hp
+    nlinarith only [hp]
+  have habs := congrArg abs hidentity
+  rw [abs_mul, abs_mul] at habs
+  have hcoupling :
+      |energy - (crossingEnergy + ε / 4)| * |c| ≤
+        (|ε| * ‖v‖) * ‖q‖ := by
+    calc
+      |energy - (crossingEnergy + ε / 4)| * |c| =
+          |ε| * |inner ℝ v q| := habs
+      _ ≤ |ε| * (‖v‖ * ‖q‖) :=
+        mul_le_mul_of_nonneg_left
+          (crossing_abs_inner_le_norm_mul v q) (abs_nonneg ε)
+      _ = (|ε| * ‖v‖) * ‖q‖ := by ring
+  have hsharp :=
+    crossing_moving_eigenvector_sharp_leakage
+      ε energy x heigen hne hnear hsmall
+  change ‖q‖ ≤ 256 * |ε| * |c| * ‖v‖ at hsharp
+  have hscaled :
+      (|ε| * ‖v‖) * ‖q‖ ≤
+        (|ε| * ‖v‖) * (256 * |ε| * |c| * ‖v‖) :=
+    mul_le_mul_of_nonneg_left hsharp
+      (mul_nonneg (abs_nonneg ε) (norm_nonneg v))
+  have hv : ‖v‖ ^ 2 = 7 / 16 := crossingBright_external_edge_norm_sq
+  have htotal :
+      |energy - (crossingEnergy + ε / 4)| * |c| ≤
+        112 * ε ^ 2 * |c| := by
+    calc
+      |energy - (crossingEnergy + ε / 4)| * |c| ≤
+          (|ε| * ‖v‖) * ‖q‖ := hcoupling
+      _ ≤ (|ε| * ‖v‖) * (256 * |ε| * |c| * ‖v‖) := hscaled
+      _ = 256 * |ε| ^ 2 * |c| * ‖v‖ ^ 2 := by ring
+      _ = 112 * ε ^ 2 * |c| := by
+        rw [hv, sq_abs]
+        ring
+  exact (mul_le_mul_iff_of_pos_right (abs_pos.mpr hbright)).mp htotal
+
+/-- A true moving level, its nonzero natural-domain eigenvector,
+and the sharp second-order eigenvalue bound all exist simultaneously.
+The level is the unique non-crossing simple level in the L2d window. -/
+theorem crossing_exists_moving_level_quadratic_bound
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
+      |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2 := by
+  obtain ⟨energy, x, hmove, hnear, hxne, heigen, _, hbright, _⟩ :=
+    crossing_exists_moving_bright_sharp_leakage ε hε hsmall
+  refine ⟨energy, x, hmove, hnear, hxne, heigen, hbright, ?_⟩
+  exact crossing_moving_energy_quadratic_bound
+    ε energy x heigen hmove hnear hsmall hbright
+
 end
 end SpectralGeometry.AmmannBeenker
