@@ -3588,9 +3588,63 @@ replaced by this documentary checkpoint.
 This README update itself requires the standard
 pull-request verification before merging.
 
+### 4.91. Draft bright-amplitude generator identity with explicit leakage forcing
+
+**Verification status: new on draft branch; Lean CI has not yet been reported.**
+The statements in this section are candidate declarations, not an addition
+to the 103 modules previously certified on PR #85. The new source is
+[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean),
+imported by the root module for the next full CI run.
+
+For the same selected lattice edge, write
+`H_ε=K_*+εW`, let `P` be the exact orthogonal projection onto
+the normalized compact-mode plane, and let `Q=I-P`.
+For every **real** state `x` in the full natural onsite domain,
+the proposed Lean theorem gives the **exact** bright matrix element:
+
+```math
+\langle F,H_\varepsilon x\rangle
+=\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle.
+```
+
+The term `ε⟨F,WQx⟩` is the *feedback from the entire orthogonal
+complement*. In particular, this is **not** the eigenvalue equation
+`H_ε F=(E_*+ε/4)F`; that assertion would be false for nonzero ε
+because the edge excites external modes. The new module's second
+quantitative target, using the previously certified exact edge norm, is
+
+```math
+\left|\langle F,H_\varepsilon x\rangle
+-\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle\right|
+\le 2|\varepsilon|\,\|Qx\|.
+```
+
+The corresponding dark identity is simpler and exact:
+
+```math
+\langle D,H_\varepsilon x\rangle
+=E_*\langle D,x\rangle.
+```
+
+**Dynamical interpretation and limits.** Once a general complex
+Schrödinger evolution on the common domain is constructed, these
+matrix elements yield equations for the bright and dark amplitudes.
+The forcing term can then be integrated against a proven leakage
+bound to estimate phase error. This section **does not yet** construct
+a propagator, integrate the amplitude equations, assert adiabatic
+following, prove final return to the compact plane, or transfer
+constant-pulse bounds to a smooth ramp. At ε=0 the original
+twofold dark/bright degeneracy is preserved; no nondegenerate
+adiabatic theorem is being invoked.
+
+The new declarations will be described as Lean-verified only after
+the user reports a green full Lean/Comparator Action for the draft PR.
+The previous mathematical results and Palomar selection are unchanged.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **103 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-seven infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules** (including one new draft module awaiting CI): twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-eight infinite geometry/operator/spectral modules (including domain-generic interfaces). The previous 103-module root was user-reported green on PR #85; the new full root has not yet been verified.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3678,7 +3732,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (25):**
+- **Explicit octagonal geometry, operator and spectral products (26):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3699,6 +3753,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
+  - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(draft; CI pending)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4151,6 +4206,11 @@ theorem, not the conditional pulse-error bounds themselves.
   at every time for any real strength of the selected edge.
   This is **one solution**, not a constructed complex
   propagator on the full space.
+- [ ] **Validate the bright-amplitude forcing bridge (§4.91; draft).**
+  Run the full Lean/Comparator Action on the new root import; until it
+  passes, the exact generator and forcing-bound declarations remain
+  unverified. Next construct scalar Schrödinger amplitude equations and
+  integrated phase/leakage errors without assuming invariant A/B dynamics.
 - [ ] **Construct general complex dynamics and prepare controlled
   A/B superpositions.** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
