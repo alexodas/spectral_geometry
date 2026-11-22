@@ -25,10 +25,10 @@ connecting the two patterns leaves one combination, the **dark mode**,
 at exactly the same energy. The other, the **bright mode**, can also
 interact with states outside the original pair. The theorem identifies
 this effect exactly and bounds its size, so the infinite graph is not
-mistaken for a perfectly isolated two-state system. The underlying
-results have passed Lean checks; the new combined theorem and its
-independent Palomar comparison still need verification. **This second
-result has not been registered.**
+mistaken for a perfectly isolated two-state system. The underlying identities have Lean proofs. The proposed
+Palomar package must be checked against the exact commit submitted
+for independent verification. **This second result has not been
+registered.**
 
 **Significance and provenance.** The result may interest mathematicians
 studying spectra and physicists studying quasicrystals and localized
@@ -88,7 +88,7 @@ The table below separates proved results from remaining research tasks.
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
-| Exact bright generator response and selected-edge Palomar candidate | §4.91: 14 source theorems reported Lean green on PR #86, including the exact bright identity, dark amplitude and external-feedback bound. §4.92: one combined candidate theorem and independently specified Mathlib-only Challenge/Comparator package, awaiting its own CI verification |
+| Exact bright generator response and selected-edge Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92: a single combined theorem with an independent Mathlib-only Challenge/Comparator package. The verification result for this package is tied to the exact commit checked, not to a statement in the README |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -3579,12 +3579,13 @@ candidate. This §4.90 snapshot is retained for provenance.
 
 ### 4.91. Verified bright-amplitude generator identity with explicit leakage forcing
 
-**Verification status: the maintainer reports the 104-module Lean Action
-green on PR #86 for the original 14 new theorems.** The source is
+**Verification provenance.** The maintainer reported a successful
+104-module Lean Action for the original fourteen theorems in
 [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
-The additional combined Palomar-candidate theorem and revised independent
-Comparator package introduced after that green result still need their own
-CI verification.
+The source also includes the combined candidate theorem. Independent
+verification of its Challenge/Comparator package is determined by the
+checks on the exact candidate commit; this section does not substitute
+for those checks.
 
 For the same selected lattice edge, write
 `H_ε=K_*+εW`, let `P` be the exact orthogonal projection onto
@@ -3628,11 +3629,11 @@ constant-pulse bounds to a smooth ramp. At ε=0 the original
 twofold dark/bright degeneracy is preserved; no nondegenerate
 adiabatic theorem is being invoked.
 
-The original fourteen generator-level declarations were reported
-Lean-verified by the maintainer after the PR #86 correction. The new
-combined conjunction and its Comparator packaging are separate,
-not yet verified on the current branch. The prior registered theorem
-continues to hold at its original immutable commit.
+The fourteen generator-level declarations were reported Lean-verified
+by the maintainer. Their combined conjunction is a separate Palomar
+selection for independent statement comparison; the corresponding
+verification record belongs to the actual checked commit. The prior
+registered theorem continues to hold at its original immutable commit.
 
 ### 4.92. One new Palomar candidate: exact dark protection and bright feedback
 
@@ -3698,14 +3699,15 @@ All model definitions must be compared transitively, with
 `definition_names=[]`; these witnesses are not six more proposed
 discoveries. The Challenge is kept below 300 lines if possible, but
 the present independently explicit model requires 488 lines, well
-below Palomar's hard 1,000-line/100-KiB limit. The complete new
-Comparator/metadata audit must pass on an immutable commit before
-this draft could be submitted. The first Palomar registration described in §4.78 remains historically
-intact and is not replaced by the second proposal.
+below Palomar's hard 1,000-line/100-KiB limit. The complete
+Comparator/metadata audit must pass for the exact immutable commit
+used in a submission. The first Palomar registration described in
+§4.78 remains historically intact and is not replaced by the second
+proposal.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-nine infinite geometry/operator/spectral modules (including domain-generic interfaces). The 104-module build containing the original fourteen bright lemmas was reported green by the maintainer on PR #86; this later packaging revision adds a fifteenth theorem and revised Challenge/Comparator files, not another module, and requires new CI verification.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-nine infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3814,7 +3816,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
-  - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 foundational theorems reported Lean green; new combined theorem pending CI)*
+  - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3855,8 +3857,8 @@ the §4.79 spectral gap, but they are **not newly selected** in this
 proposed second comparison. The first registered Comparator selection is
 preserved at its original immutable commit and is not overwritten by
 a registry submission. The separate full-project build covers all **104
-mathematical source modules**; Lean, NanoDa and con-ron must still verify
-the **new** comparison at a future immutable candidate commit.
+mathematical source modules**; the **new** comparison must be verified
+by Lean, NanoDa and con-ron on the immutable commit chosen for submission.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -4283,11 +4285,12 @@ theorem, not the conditional pulse-error bounds themselves.
   The maintainer reports the PR #86 Action green for the original fourteen
   bright generator declarations. The exact forcing term and bound are
   static, full-infinite-graph identities, not integrated dynamical control.
-- [ ] **Verify the single new Palomar candidate (§4.92).**
-  The conjunction theorem, independent Mathlib-only Challenge, Comparator,
-  metadata, and tests are prepared on the draft branch. Require a new
-  successful full Lean and independent kernel audit on the exact commit.
-  Then assess novelty and possible submission separately.
+- [x] **Prepare the single new Palomar candidate (§4.92).**
+  The conjunction theorem, independent Mathlib-only Challenge, Comparator
+  configuration and metadata describe one scientific result. The required
+  full Lean and independent kernel audit is an external acceptance condition
+  for the exact submitted commit, not a manually maintained roadmap status.
+  Scientific novelty and possible submission are assessed separately.
 - [ ] **Construct general complex dynamics and prepare controlled
   A/B superpositions.** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
@@ -4298,10 +4301,10 @@ theorem, not the conditional pulse-error bounds themselves.
 This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
 The spectral-product program below remains the project's long-term goal.
-The present draft already proposes a **second, narrower Palomar
+The current package proposes a **second, narrower Palomar
 selection** (§4.92): exact dark protection and bright external forcing.
-It does not wait for a complete control protocol, and it must pass its
-own independent Comparator audit before any submission. A later
+It does not wait for a complete control protocol; any submission must
+use a commit that passes the independent Comparator audit. A later
 reachability-and-preparation theorem could be a third research
 milestone, not an unproved component of the second candidate.
 The immutable first Palomar registration remains unchanged.
@@ -4466,9 +4469,11 @@ the first registration.
 - [x] Retarget root Solution, comparator.json and formalization.yaml
   to the second *candidate*, without rewriting the historical first
   registration or pretending it has already been submitted.
-- [ ] Obtain green **new** full-Lean + independent Comparator results
-  (Lean, NanoDa and con-ron) on the final candidate commit; then pin
-  an immutable public 40-character SHA in all submission references.
+**Final-submission requirement:** use a public immutable 40-character
+commit SHA whose complete Lean and independent Comparator checks (including
+NanoDa and con-ron) passed. The machine-verification result is read from
+that commit's checks, rather than recorded as a changing checklist item
+or status sentence in this README.
 
 **Potential research interest, without a priority claim.** The compact
 A/B patterns are known in quasicrystal tight-binding research
