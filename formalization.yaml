@@ -1,8 +1,8 @@
 {
   "version": "v0.4",
   "project": {
-    "name": "Exact dark-state protection and bright-mode forcing under a single-edge perturbation of an infinite octagonal graph",
-    "description": "We study how changing the weight of one edge affects two compact localized modes on a concrete infinite, quadratically confined Ammann–Beenker octagonal graph. An earlier Palomar-registered theorem proved that these modes span the entire two-dimensional eigenspace at one energy; that theorem is not being resubmitted. Here the graph, edge and unbounded operator are fixed explicitly, and the state space consists of real square-summable functions on all graph vertices. We prove one combined theorem for every real edge-weight change and every state in the operator's natural domain. First, the normalized equal-amplitude 'dark' combination remains an exact eigenstate of the full operator at the original energy, whatever the edge strength. Second, the complementary 'bright' combination has an exact response: its unperturbed energy coefficient increases by one quarter of the edge-weight change, but an additional term depends on the part of the state outside the original two-mode plane. Third, the absolute size of that correction is at most twice the magnitude of the edge-weight change times the norm of the external part. Thus the theorem distinguishes a truly protected mode from a mode with explicit, quantitatively bounded coupling to the rest of an infinite graph, without assuming that a two-state approximation is invariant. This may interest mathematicians studying spectral theory, discrete Schrödinger operators and rank-one perturbations, as well as physicists studying localized modes in quasicrystals, flat-band networks and photonic analogues. No finite-size truncation, time-dependent quantum propagator, eigenvalue-splitting formula, state-preparation protocol or mathematical priority is claimed.",
+    "name": "Protected and coupled localized modes under a single-edge change in an infinite octagonal graph",
+    "description": "This project uses rigorous mathematics and computer-checked proofs to study how small, local changes can affect waves on an infinite geometric network. The network is a specific octagonal Ammann–Beenker quasicrystal model, with an added confining potential. It has two compact localized states, each supported on eight vertices. An earlier theorem, already registered with Palomar, proved that these two states account for the entire eigenspace at a particular energy: there are no additional states at that energy elsewhere on the infinite graph. The current result asks what happens when the weight of just one edge connecting the two rings is changed.\n\nThe new theorem gives a precise contrast between two combinations of the localized states. The equal-amplitude combination, called the dark mode, stays an exact eigenstate at the same energy for every real change of that edge weight. The opposite combination, called the bright mode, responds to the change and also couples to states outside the original pair. The theorem identifies that extra contribution exactly and bounds its size by twice the magnitude of the edge change times the size of the external part of the state. These statements concern the entire infinite graph, not a finite numerical approximation.\n\nThe distinction matters because treating the two localized states as an isolated two-state system would miss their coupling to the rest of the graph. The result may interest mathematicians studying spectral theory, discrete operators and local perturbations, and physicists studying quasicrystals, compact localized states, flat bands and photonic networks. It does not establish a general time-dependent quantum evolution, a shifted bright eigenvalue or a state-preparation method. The research builds on known localized-state patterns and is developed in Lean with AI assistance under the direction of the project maintainer. Its mathematical originality has not yet been independently assessed.",
     "authors": [
       "Alessandro Odasso"
     ],
@@ -26,14 +26,14 @@
   },
   "sources": [
     {
-      "title": "Exact single-edge dark/bright response in the confined octagonal vertex graph",
+      "title": "Formal proof of the single-edge dark and bright response on the infinite octagonal graph",
       "authors": [
         "Alessandro Odasso"
       ],
       "type": "original-proof",
       "relationship": "other",
-      "id": "https://github.com/alexodas/spectral_geometry/blob/research/bright-amplitude-forcing-20261122/SpectralGeometry/AmmannBeenkerBrightAmplitude.lean",
-      "note": "The first presentation of the proposed combined result is in this substantial Lean proof module. This branch URL must be pinned to the final verified 40-character commit before submission; the 2026 crossing-multiplicity registration remains unchanged. The individual dark and bright lemmas were proved earlier in this same formal development."
+      "id": "https://github.com/alexodas/spectral_geometry",
+      "note": "The project's original formal proof development. Alessandro Odasso directed the research and is responsible for the presentation; ChatGPT assisted with the mathematical formalization and documentation. This designation describes the provenance of the proof, not a claim of priority."
     },
     {
       "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
@@ -76,7 +76,7 @@
     }
   ],
   "status": {
-    "scope": "One proposed new scientific theorem, crossingOneEdgeDarkBrightResponse, combining exact dark eigenstate protection, the full bright matrix-element identity with external feedback, and its norm bound. The independent Challenge also contains six proposition witnesses (admitted_zero, mate_involutive, compactA_mem_domain, compactB_mem_domain, compactSiteA_admitted, compactSiteB_admitted) used only to construct and compare the concrete model; they are not six additional scientific claims. Challenge imports Mathlib only, and its placeholders are confined to these seven selected propositions. The substantive 104-module library passed the latest green Action as reported by the maintainer; the new wrapper and revised Comparator package require their own independent CI and kernel checks before submission.",
+    "scope": "The proposed result is one theorem about a single-edge change on the full infinite graph: exact protection of the dark state, an exact bright response retaining the effect of all other states, and a bound on that extra effect. Six supporting propositions describe the concrete graph and its compact states. They are technical ingredients, not separate research claims. The rest of the project also includes an earlier registered exact-multiplicity theorem and a separately proved spectral gap.",
     "sorry_count": 0,
     "sorry_in_definitions": 0,
     "axioms": [
@@ -93,20 +93,20 @@
           "OpenAI ChatGPT GPT-6"
         ],
         "framework": "ChatGPT",
-        "tool_setup": "The assistant helped develop the Lean proofs and repository documentation throughout the GitHub project.",
-        "prompting_notes": "Alessandro Odasso supplied the original informal research idea and directed the work. The prompt history and individual proof contributions remain unaudited."
+        "tool_setup": "ChatGPT assisted with the Lean formalization, development of proofs, and preparation of mathematical explanations. The maintainer directed the research and reviewed the evolving project.",
+        "prompting_notes": "Alessandro Odasso supplied the original research direction and guided the investigation. Precise individual contributions to particular proofs have not been independently audited."
       }
     ],
     "spend_usd": "not tracked",
-    "notes": "This account of the workflow comes from the maintainer, who describes himself as a non-mathematician interested in how language models can assist scientific research."
+    "notes": "The maintainer directs the research and takes responsibility for the mathematical claims and submission. The development used AI assistance, but no independent human mathematical peer review is claimed."
   },
   "fidelity": {
-    "divergences": "The model is one specified centered open-window Ammann–Beenker vertex graph with a quadratic confining potential, a fixed eight-neighbor tuning and an edge between the lattice lifts (1,0,0,0) and (1,1,0,0). The Hilbert space is real l2, not a completed complex dynamical model; the operator acts on its natural unbounded onsite domain. The edge modification is a rank-one graph-Laplacian term, not an arbitrary potential or a change of every bond. The dark equation is exact; the bright equation retains a generally nonzero coupling to the orthogonal complement, so its nominal shift epsilon/4 is not asserted to be an eigenvalue shift or physical rotation frequency. No Schrödinger unitary group, pulse propagation, adiabatic passage, target-state preparation, or full-quasicrystal-hull uniformity is claimed. The exact multiplicity result registered in 2026 and the separately certified 1/128 spectral gap are background, not new Comparator-selected conclusions."
+    "divergences": "The theorem concerns one explicitly defined infinite, centered Ammann–Beenker vertex graph with a quadratic confining potential, not every possible quasicrystal or tiling. The mathematics uses real square-summable states and the natural domain of an unbounded operator. The intervention changes one specified connecting edge, not every connection in the graph. The dark state remains an exact eigenstate; the bright-state formula includes a contribution from the rest of the infinite system. Its coefficient of one quarter of the edge change is not a proven eigenvalue shift. The theorem does not construct a general complex quantum evolution, prove a quantum control protocol, or describe an experiment. The earlier exact-multiplicity theorem and separate spectral-gap result are established background, not newly selected conclusions."
   },
   "review": {
-    "status": "New Palomar candidate; substantive results user-reported Lean green, candidate wrapper and independent comparison pending; no human mathematical peer review or established priority",
+    "status": "AI-assisted formalization; independent evaluation of novelty and scientific interest remains open",
     "reviewers": [],
-    "notes": "Potential mathematical audience: functional analysts and mathematical physicists studying self-adjoint discrete Schrödinger operators, local rank-one perturbations, compact localized eigenvectors and quantitative error bounds on infinite graphs. Potential physics audience: quasicrystal tight-binding researchers, flat-band/local-symmetry theorists, and photonic or coupled-resonator lattice researchers interested in robust dark combinations and bright-mode coupling. The reason for interest is the exact distinction between a completely protected dark eigenvector and a bright vector with unavoidable external-mode feedback on a fully specified infinite graph, quantified without assuming a closed two-level subsystem. Compact localized states and rank-one perturbations are already known; originality for this model remains to be assessed independently."
+    "notes": "The possible mathematical audience includes researchers in spectral theory, functional analysis, discrete Schrödinger operators and finite-rank perturbations. Possible physical audiences include researchers studying quasicrystals, compact localized states, flat bands and photonic lattice models. The central point is that the dark state is exactly protected while the bright state interacts with the rest of the infinite system. Similar localized states and perturbation techniques are known, and no general claim of novelty or experimental realization is made."
   },
   "alignment": {
     "namespace": "SpectralGeometry.AmmannBeenker",
@@ -115,59 +115,59 @@
         "source": "README §§4.68, 4.69; concrete octagonal model",
         "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
         "module": "SpectralGeometry.AmmannBeenkerCutProject",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "Origin lift lies inside the open octagonal acceptance window."
       },
       {
         "source": "README §4.69; concrete infinite graph",
         "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
         "module": "SpectralGeometry.AmmannBeenkerGraph",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "Matching involutions used to define the infinite graph Laplacian."
       },
       {
         "source": "README §4.74; compact first-ring mode",
         "lean": "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "Compact first-ring mode belongs to the natural domain of the confining operator."
       },
       {
         "source": "README §4.74; compact second-ring mode",
         "lean": "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "Compact second-ring mode belongs to the natural domain."
       },
       {
         "source": "README §4.75; selected geometric edge",
         "lean": "SpectralGeometry.AmmannBeenker.compactSiteA_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCompactStates",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "First endpoint is a genuine vertex in the acceptance window."
       },
       {
         "source": "README §4.75; selected geometric edge",
         "lean": "SpectralGeometry.AmmannBeenker.compactSiteB_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCompactStates",
-        "status": "Proved model witness; Challenge placeholder only.",
+        "status": "Proved supporting statement for the independent model description.",
         "note": "Second endpoint is a genuine vertex in the acceptance window."
       },
       {
-        "source": "README §4.91–4.92; PALOMAR.md new candidate",
+        "source": "README §§4.91–4.92",
         "lean": "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse",
         "module": "SpectralGeometry.AmmannBeenkerBrightAmplitude",
-        "status": "New conjunction proved from existing lemmas in source; candidate packaging and Comparator not yet CI-checked.",
-        "note": "SOLE new scientific selection: exact dark eigenvector under the selected edge perturbation, full bright response retaining external feedback, and the quantitative compression-error bound."
+        "status": "Proved in the substantive Lean source; independent comparison of the proposed selection remains to be completed.",
+        "note": "The one proposed scientific conclusion: exact dark protection, full bright response and a quantitative bound on the external contribution."
       }
     ]
   },
-  "acknowledgements": "The project uses Lean and Mathlib for formalization and PalomarTemplate for the verification workflow. The maintainer is responsible for the submission.",
+  "acknowledgements": "The project uses Lean and Mathlib for machine-checked mathematical proofs. Alessandro Odasso directs the research and takes responsibility for the presentation. OpenAI ChatGPT assisted in the formal development. Palomar provides the independent statement-verification framework.",
   "related_formalizations": [
     {
       "id": "PALOMAR-2026-11-06-000012",
       "relationship": "builds-on",
-      "note": "Earlier independently verified registered result on exact multiplicity two and eigenvector classification at the unperturbed crossing. Its immutable registration is unaffected by this new draft."
+      "note": "Earlier registered theorem proving exact multiplicity two and classification of the compact crossing eigenspace. The new theorem studies what happens when the weight of one connecting edge is changed."
     }
   ]
 }
