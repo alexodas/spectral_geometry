@@ -90,6 +90,39 @@ variable {Tile : Type*}
 
 end
 
+-- Source module: SpectralGeometry.InfiniteOnsiteDensity
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+-- A small Mathlib-only proof of the domain membership of a single-site
+-- state, needed to reconstruct the source's domainLatticeSingle definition.
+-- This is a supporting proof, not an additional Palomar selection.
+section
+
+variable {Tile : Type*} [DecidableEq Tile]
+
+theorem infiniteOnsiteDomain_single
+    (V : Tile → ℝ) (i : Tile) (a : ℝ) :
+    lp.single (2 : ENNReal) i a ∈ infiniteOnsiteDomain V := by
+  classical
+  have heq :
+      (fun t : Tile => V t *
+        (lp.single (2 : ENNReal) i a : TileHilbert Tile) t) =
+        (fun t : Tile =>
+          (lp.single (2 : ENNReal) i (V i * a) : TileHilbert Tile) t) := by
+    funext t
+    by_cases hti : t = i
+    · subst t
+      simp
+    · simp only [lp.single_apply, Pi.single_eq_of_ne hti, mul_zero]
+  have hmem : Memℓp
+      (fun t : Tile => V t *
+        (lp.single (2 : ENNReal) i a : TileHilbert Tile) t) 2 := by
+    rw [heq]
+    exact (lp.single (2 : ENNReal) i (V i * a) : TileHilbert Tile).property
+  exact hmem
+
+end
+
 -- Source module: SpectralGeometry.InfiniteOnsiteCompactResolvent
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
@@ -339,6 +372,13 @@ open scoped Classical
 @[expose] def latticeSingle (n : Lattice) : TileHilbert Vertex :=
   if h : Admitted n then lp.single (α := Vertex) (E := fun _ => ℝ) (2 : ENNReal) (⟨n, h⟩ : Vertex) 1 else 0
 
+theorem latticeSingle_mem_domain (n : Lattice) :
+    latticeSingle n ∈ infiniteOnsiteDomain potential := by
+  unfold latticeSingle
+  split_ifs
+  · exact infiniteOnsiteDomain_single _ _ _
+  · exact Submodule.zero_mem _
+
 @[expose] def compactA : TileHilbert Vertex :=
   latticeSingle ![1, 0, 0, 0]
     - latticeSingle ![0, 1, 0, 0]
@@ -375,6 +415,9 @@ section
 open scoped Classical
 
 @[expose] def latticeVertex (n : Lattice) (hn : Admitted n) : Vertex := ⟨n, hn⟩
+
+@[expose] def domainLatticeSingle (n : Lattice) : infiniteOnsiteDomain potential :=
+  ⟨latticeSingle n, latticeSingle_mem_domain n⟩
 
 theorem compactSiteA_admitted : Admitted (![1, 0, 0, 0] : Lattice) := by
   sorry
