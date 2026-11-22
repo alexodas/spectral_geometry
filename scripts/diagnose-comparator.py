@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 
 root = Path(__file__).resolve().parent.parent
-config = json.loads((root / "comparator.json").read_text())
+config = json.loads((root / "palomar/signed-bright-splitting/comparator.json").read_text())
 targets = set(config["theorem_names"])
 namespaces = []
 names = []

@@ -5,21 +5,26 @@ public import Mathlib
 public section
 
 /-!
-# One-edge dark protection and exact bright response on an infinite octagonal graph
+# Signed splitting of two localized energies on an infinite octagonal graph
 
-This Mathlib-only Challenge independently describes a fixed confined,
-infinite Ammann--Beenker vertex graph and an edge joining the two compact
-crossing rings. The single proposed scientific theorem states that the
-normalized dark vector remains an exact eigenstate for every real
-edge-strength change; it gives the *full* bright matrix element, retaining
-the contribution of external modes, and bounds the resulting compression
-error. The result is on the real Hilbert space and the natural domain.
+This Mathlib-only Challenge defines the same concrete infinite
+Ammann--Beenker vertex graph, confining potential, two compact localized
+modes and one selected edge as the verified proof library.
 
-The six other proposition placeholders are concrete model witnesses
-needed to construct the graph, compact-domain vectors and edge endpoints.
-They are not six additional submitted scientific results. No definition
-is replaced by a placeholder. Source-module boundaries reset only
-Lean's auxiliary-proof naming cache for independent comparison.
+The one selected scientific theorem states that a sufficiently small
+nonzero change to this edge leaves the dark eigenvalue and its simple
+eigenspace fixed while producing exactly one other simple eigenvalue in
+a precisely stated neighborhood. It gives the sign and quantitative
+second-order error of the moving energy and controls its true
+infinite-dimensional eigenvector outside the original localized plane.
+
+All conclusions concern real eigenvalues and the original natural
+domain of the full infinite operator. No complex quantum evolution,
+two-state approximation or state-preparation theorem is asserted.
+
+Six supporting proposition placeholders are needed to define the
+concrete graph and its compact modes; they are not additional selected
+scientific results. All definitions remain concrete, with no holes.
 -/
 
 namespace SpectralGeometry
@@ -493,34 +498,56 @@ section
 
 end
 
--- Source module: SpectralGeometry.AmmannBeenkerBrightAmplitude
+-- Source module: SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
 section
 
-/-- A single new scientific conclusion: one-edge dark protection, the
-exact bright generator matrix element with external-mode feedback,
-and the quantitative bound on the two-mode compression error.
-The six other Challenge placeholders are model witnesses, not
-additional candidate discoveries. -/
-theorem crossingOneEdgeDarkBrightResponse (ε : ℝ)
-    (x : infiniteOnsiteDomain potential) :
-    onsitePlusBounded potential
-        (ringInteraction crossingParameter + ε • crossingEdge)
-        domainCrossingDark = crossingEnergy • crossingDark ∧
-      (inner ℝ crossingBright
-          (onsitePlusBounded potential
-            (ringInteraction crossingParameter + ε • crossingEdge) x) =
-        (crossingEnergy + ε / 4) *
-            inner ℝ crossingBright (x : TileHilbert Vertex) +
-          ε * inner ℝ crossingBright
-            (crossingEdge (crossingLeakage (x : TileHilbert Vertex)))) ∧
-      |inner ℝ crossingBright
-          (onsitePlusBounded potential
-            (ringInteraction crossingParameter + ε • crossingEdge) x) -
-        (crossingEnergy + ε / 4) *
-          inner ℝ crossingBright (x : TileHilbert Vertex)| ≤
-        2 * |ε| * ‖crossingLeakage (x : TileHilbert Vertex)‖ := by
+/-- The proposed scientific theorem: a small change to one edge of the
+specified infinite octagonal graph preserves one simple localized energy
+and produces one other simple nearby energy. The new energy moves in the
+direction of the edge change, with an explicit quadratic error bound;
+the true moving eigenvector has a nonzero bright part and a controlled
+exterior component. All claims concern the original infinite operator
+and its natural domain. The six other selected propositions are
+necessary model witnesses, not separate scientific submissions. -/
+theorem crossing_final_signed_bright_spectral_splitting
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      (0 < ε → crossingEnergy < energy) ∧
+      (ε < 0 → energy < crossingEnergy) ∧
+      |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2 ∧
+      inner ℝ crossingDark (x : TileHilbert Vertex) = 0 ∧
+      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
+      crossingQubitPart (x : TileHilbert Vertex) =
+        (inner ℝ crossingBright (x : TileHilbert Vertex)) • crossingBright ∧
+      ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+        256 * |ε| *
+          |inner ℝ crossingBright (x : TileHilbert Vertex)| *
+          ‖crossingLeakage (crossingEdge crossingBright)‖ ∧
+      (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
+        (y : TileHilbert Vertex) ≠ 0 →
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          t • (y : TileHilbert Vertex) →
+        |t - crossingEnergy| ≤ 1 / 256 →
+        t = crossingEnergy ∨ t = energy) ∧
+      (∀ y : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          energy • (y : TileHilbert Vertex) →
+        ∃ c : ℝ, (y : TileHilbert Vertex) = c • (x : TileHilbert Vertex)) ∧
+      (∀ y : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          crossingEnergy • (y : TileHilbert Vertex) →
+        ∃ c : ℝ, (y : TileHilbert Vertex) = c • crossingDark) := by
   sorry
 
 end

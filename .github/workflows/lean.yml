@@ -23,22 +23,38 @@ jobs:
             sleep $((5 * attempt))
           done
           exit 1
-      # The key intentionally excludes Challenge/Solution. When only the
-      # Palomar packaging changes, compiled substantive modules are reusable.
-      # Exact source and dependency hashes invalidate the cache automatically.
+      # Cache the complete Lake workspace, not just the project's .lake/build:
+      # Mathlib/dependency sources and their compiled objects live under
+      # .lake/packages. Restoring them avoids downloading ~9000 artifacts
+      # again on each disposable runner. The manifest/toolchain isolate
+      # incompatible dependencies; Lake still validates and builds all
+      # targets. This job is the only cache writer.
       - name: Restore compiled project modules
         id: project-olean-cache
         uses: actions/cache/restore@v4
         with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
-      - name: Download pinned Mathlib cache
-        run: lake exe cache get
+          path: .lake
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+      # Mathlib's cache client stores downloaded .ltar archives in
+      # ~/.cache/mathlib (outside .lake). A restored compiled Mathlib
+      # workspace is already sufficient for the full Lake build; do not
+      # re-download ~9000 archives just to populate that external cache.
+      # A cold or incomplete workspace still fetches pinned Mathlib.
+      - name: Ensure pinned Mathlib artifacts
+        run: |
+          if test -f .lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean; then
+            echo "Restored compiled Mathlib: skipping redundant archive download"
+          else
+            echo "Mathlib build absent: fetching pinned cache artifacts"
+            lake exe cache get
+          fi
       - name: Compile and kernel-check Lean proof
         run: lake build SpectralGeometry Challenge Solution
       - name: Cache verified source build for subsequent Comparator iterations
         if: steps.project-olean-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          path: .lake
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}

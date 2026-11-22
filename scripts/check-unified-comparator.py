@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Check that one auditable Mathlib-only Challenge backs the second Palomar candidate.
+"""Audit the active Mathlib-only Challenge and per-theorem Palomar configs.
 
-This is only a static packaging gate: Lean and Comparator perform the actual
-type checking, independent statement comparison, and kernel verification.
+This is a static packaging gate; the full Lean build and Comparator
+perform actual kernel checking and independent statement comparison.
+The prior unsubmitted dark/bright package is preserved as an archive.
 """
 import json
 import pathlib
@@ -13,8 +14,8 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "comparator.json"
-submission_config_path = root / "palomar/dark-bright/comparator.json"
+config_path = root / "palomar/signed-bright-splitting/comparator.json"
+archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
     config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -24,26 +25,38 @@ except (OSError, UnicodeError, ValueError) as error:
     print(f"Comparator packaging error: {error}", file=sys.stderr)
     sys.exit(1)
 
-# The new scientific result must have an identity separate from the first
-# registered Palomar result, which used the root comparator.json path.
-# Keep the dedicated submission config byte-identical to the CI-tested one.
+# Each candidate keeps its Comparator in its own Palomar directory.
+# The root Comparator is intentionally absent.
+if (root / "comparator.json").exists():
+    errors.append("Root comparator.json must not exist")
+per_theorem_configs = sorted(path.relative_to(root).as_posix()
+    for path in (root / "palomar").glob("*/comparator.json"))
+if per_theorem_configs != [
+    "palomar/dark-bright/comparator.json",
+    "palomar/signed-bright-splitting/comparator.json",
+]:
+    errors.append("Expected exactly the archival and active per-theorem Comparators")
 try:
-    submission_config = submission_config_path.read_bytes()
-    root_config = config_path.read_bytes()
-    if submission_config != root_config:
-        errors.append(
-            "Dedicated dark-bright Comparator must exactly mirror root comparator.json"
-        )
-except OSError as error:
-    errors.append(f"Cannot read dedicated Comparator configuration: {error}")
+    archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
+    old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
+    if archived_config.get("theorem_names", [])[-1:] != [old_target]:
+        errors.append("Historical dark-bright Comparator target must be preserved")
+    if archived_config.get("challenge_module") != "Challenge" or archived_config.get("solution_module") != "Solution":
+        errors.append("Historical dark-bright Comparator module names changed")
+    if not (root / "palomar/dark-bright/Challenge.lean").is_file():
+        errors.append("Historical dark-bright Challenge snapshot is missing")
+    if not (root / "palomar/dark-bright/Solution.lean").is_file():
+        errors.append("Historical dark-bright Solution snapshot is missing")
+except (OSError, UnicodeError, ValueError) as error:
+    errors.append(f"Cannot inspect historical Comparator archive: {error}")
 
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerBrightAmplitude"
+proof_module = "SpectralGeometry.AmmannBeenkerBrightSpectralSplitting"
 # Six auxiliary proposition witnesses are selected only because their
 # proofs inhabit concrete model definitions inside the independent Challenge.
-# The sole new scientific conclusion is crossingOneEdgeDarkBrightResponse.
+# The sole selected scientific conclusion is the final signed splitting theorem.
 expected_sources = {
     f"{namespace}.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     f"{namespace}.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
@@ -51,11 +64,11 @@ expected_sources = {
     f"{namespace}.compactB_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
     f"{namespace}.compactSiteA_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
     f"{namespace}.compactSiteB_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
-    f"{namespace}.crossingOneEdgeDarkBrightResponse": proof_module,
+    f"{namespace}.crossing_final_signed_bright_spectral_splitting": proof_module,
 }
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the one dark/bright conclusion and six required model witnesses")
+    errors.append("Select the one signed-splitting conclusion and six required model witnesses")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):
@@ -101,8 +114,8 @@ for key, kind in (("theorem_names", "theorem"), ("definition_names", "definition
             errors.append(f"{name}: missing standalone {kind} declaration in Challenge")
 
 files = sorted(path.name for path in root.glob("comparator*.json"))
-if files != ["comparator.json"]:
-    errors.append(f"Expected one root Comparator config, found {files}")
+if files:
+    errors.append(f"No root Comparator config is allowed, found {files}")
 
 for error in errors:
     print("Comparator coverage error:", error, file=sys.stderr)

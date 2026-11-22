@@ -143,6 +143,56 @@ theorem energy_ge_of_support (x : d) (E : ℝ)
   · rw [hs i (lt_of_not_ge hi)]
     simp
 
+
+/-- An eigenvalue of a symmetric domain operator can only contribute
+Hilbert coordinates at positions carrying the same eigenvalue. -/
+theorem eigenvector_coefficient_zero_of_ne
+    (x : d) (E : ℝ)
+    (hx : A x = E • (x : H)) (i : ι) (hi : ev i ≠ E) :
+    inner ℝ (b.basis i) (x : H) = 0 := by
+  have hcoord := b.inner_image hA x i
+  rw [hx, real_inner_smul_right] at hcoord
+  have hmul : (ev i - E) * inner ℝ (b.basis i) (x : H) = 0 := by
+    nlinarith only [hcoord]
+  exact (mul_eq_zero.mp hmul).resolve_left (sub_ne_zero.mpr hi)
+
+/-- Every genuine nonzero natural-domain eigenvector has its eigenvalue
+among the indices of any complete domain eigenbasis. -/
+theorem eigenvalue_occurs (b : DomainEigenbasis d A ev)
+    (x : d) (E : ℝ) (hxne : (x : H) ≠ 0)
+    (hx : A x = E • (x : H)) :
+    ∃ i : ι, ev i = E := by
+  by_contra hn
+  push_neg at hn
+  have hz (i : ι) : inner ℝ (b.basis i) (x : H) = 0 :=
+    b.eigenvector_coefficient_zero_of_ne hA x E hx i (hn i)
+  have heq : b.basis.repr (x : H) = b.basis.repr (0 : H) := by
+    ext i
+    rw [HilbertBasis.repr_apply_apply, HilbertBasis.repr_apply_apply,
+      hz i, inner_zero_right]
+  exact hxne (b.basis.repr.injective heq)
+
+/-- If exactly one Hilbert-basis index carries an eigenvalue, every
+eigenvector for that value is a scalar multiple of that basis vector.
+In particular, the corresponding geometric eigenspace is a line. -/
+theorem eigenvector_eq_smul_of_unique_level
+    (E : ℝ) (i : ι) (hi : ev i = E)
+    (hunique : ∀ j : ι, ev j = E → j = i)
+    (x : d) (hx : A x = E • (x : H)) :
+    (x : H) = (inner ℝ (b.basis i) (x : H)) • b.basis i := by
+  apply b.basis.repr.injective
+  ext j
+  rw [HilbertBasis.repr_apply_apply, HilbertBasis.repr_apply_apply]
+  by_cases hj : j = i
+  · subst j
+    rw [real_inner_smul_right, real_inner_self_eq_norm_sq,
+      b.basis.orthonormal.norm_eq_one, one_pow, mul_one]
+  · have hne : ev j ≠ E := by
+      intro he
+      exact hj (hunique j he)
+    rw [b.eigenvector_coefficient_zero_of_ne hA x E hx j hne,
+      real_inner_smul_right, b.basis.orthonormal.2 hj, mul_zero]
+
 end DomainEigenbasis
 end
 end SpectralGeometry
