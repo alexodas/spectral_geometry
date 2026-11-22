@@ -5,17 +5,21 @@ public import Mathlib
 public section
 
 /-!
-# Exact multiplicity of a compact crossing on the infinite octagonal graph
+# One-edge dark protection and exact bright response on an infinite octagonal graph
 
-The checked statements concern the full natural-domain eigenspace at the
-first-ring crossing: its real dimension is two, and each vector is recovered
-from two site amplitudes in the alternating compact states. No support
-condition or spectral-gap assumption is imposed on the vector.
+This Mathlib-only Challenge independently describes a fixed confined,
+infinite Ammann--Beenker vertex graph and an edge joining the two compact
+crossing rings. The single proposed scientific theorem states that the
+normalized dark vector remains an exact eigenstate for every real
+edge-strength change; it gives the *full* bright matrix element, retaining
+the contribution of external modes, and bounds the resulting compression
+error. The result is on the real Hilbert space and the natural domain.
 
-Each block states model data independently of Solution. Only the two
-conclusions and three proposition witnesses have Challenge placeholders.
-Resetting Lean's module-local auxiliary-proof cache at source boundaries
-reproduces the names of generated proofs; all definitions are compared.
+The six other proposition placeholders are concrete model witnesses
+needed to construct the graph, compact-domain vectors and edge endpoints.
+They are not six additional submitted scientific results. No definition
+is replaced by a placeholder. Source-module boundaries reset only
+Lean's auxiliary-proof naming cache for independent comparison.
 -/
 
 namespace SpectralGeometry
