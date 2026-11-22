@@ -82,7 +82,7 @@ The table below separates proved results from remaining research tasks.
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Pulse leakage from conserved energy residual | §§4.85–4.87: certified conditional duration-uniform leakage, derived residual conservation and full real pulse self-adjointness; §4.88 newly submitted: switching the selected edge OFF before free evolution retains the same bound; complex dynamics and rotations remain open |
+| Pulse leakage from conserved energy residual | §§4.85–4.88: certified real full-graph estimates including edge ON/OFF pulse; §4.89 newly submitted: explicit normalized dark-state solution of the real/imaginary Schrödinger equations for the same edge, without a general complex propagator or arbitrary A/B rotation |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -3379,9 +3379,73 @@ physical dynamics.
 submitted and require the next Action check.
 §§4.85–4.87 passed the preceding green Actions.
 
+### 4.89. An exact complex-phase Schrödinger trajectory for the dark mode
+
+The selected edge has an exceptional *exact* eigenvector:
+the normalized equal-amplitude combination
+`crossingDark=(compactA+compactB)/4` is an eigenvector at
+`E_*` for **every** real selected-edge strength `ε`;
+the rank-one edge acts as zero on this vector.
+
+The new
+[`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
+constructs an explicit time-dependent solution, for every
+real `τ`, in the full graph's natural domain:
+
+```math
+\psi_\varepsilon(\tau)=
+e^{-i E_*\tau}\,\mathrm{dark}
+=\underbrace{\cos(E_*\tau)\,\mathrm{dark}}_{\operatorname{Re}\psi}
+-i\underbrace{\sin(E_*\tau)\,\mathrm{dark}}_{-\operatorname{Im}\psi}.
+```
+
+The source works with its real and imaginary parts as
+**two full real Hilbert-space vectors**, each with an
+explicit natural-domain lift. This representation avoids
+assuming a yet-unconstructed complex infinite-graph
+Hamiltonian. Using Mathlib's trigonometric derivative
+lemmas and the **full** eigenvector identity, it verifies
+the real and imaginary Schrödinger equations:
+
+```math
+\frac{d}{d\tau}\operatorname{Re}\psi
+=(K_*+\varepsilon W)\operatorname{Im}\psi,
+\qquad
+\frac{d}{d\tau}\operatorname{Im}\psi
+=-(K_*+\varepsilon W)\operatorname{Re}\psi.
+```
+
+Together these say `i∂_τψ=K_εψ` for this particular
+phase trajectory. The module additionally establishes
+
+```math
+\operatorname{Re}\psi(0)=\mathrm{dark},
+\quad \operatorname{Im}\psi(0)=0,
+\quad
+\|\operatorname{Re}\psi(\tau)\|^2+
+\|\operatorname{Im}\psi(\tau)\|^2=1,
+```
+
+and zero leakage from **both** components for all times.
+There is no small-`ε` restriction: the dark state
+remains completely decoupled from this one edge at any
+strength.
+
+**Important limitation:** this verifies a *single explicit*
+solution of the Schrödinger equation. It is not a
+construction of the general complex unitary propagator,
+does not prove its uniqueness or group law, and does not
+show a nontrivial `A\leftrightarrow B` rotation. The
+imaginary/real pair is a representation of this complex
+trajectory, not yet a complete complex Hilbert-space
+construction or generic dynamics theorem.
+
+**CI status:** this new module is submitted for the
+next Lean Action; §4.88 and earlier results passed.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **102 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-six infinite geometry/operator/spectral modules (including domain-generic interfaces).
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **103 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-seven infinite geometry/operator/spectral modules (including domain-generic interfaces).
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3469,7 +3533,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (24):**
+- **Explicit octagonal geometry, operator and spectral products (25):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -3489,6 +3553,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPulseIntertwining.lean`](SpectralGeometry/AmmannBeenkerPulseIntertwining.lean)
   - [`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
+  - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3524,7 +3589,7 @@ and `centralLift_admitted`. Definitions of the graph, natural-domain
 operator, compact states, sites and eigenspace are compared transitively;
 there are no definition holes. Lean, NanoDa and con-ron must verify the
 comparison on the exact submission commit. The separate full-project Lean
-build covers all **102 mathematical source modules**, including the
+build covers all **103 mathematical source modules**, including the
 §4.79 gap certificates (which are not additional Comparator-selected statements).
 
 Challenge mirrors the source module boundaries when generating auxiliary
@@ -3923,7 +3988,7 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.88).** The new
+- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.89).** The new
   real-Hilbert-space module defines the full orthogonal qubit/leakage
   decomposition and restores the exact eigenvector equation for the
   compact-mode part (Lean CI pending). Next construct the complex
