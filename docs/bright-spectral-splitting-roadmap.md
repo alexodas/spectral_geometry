@@ -62,7 +62,7 @@ force equal coefficients. Two Lean source declarations are added
 in `AmmannBeenkerNearCrossingEigenvectors.lean`: the edge-zero lemma
 and the dark-only conclusion. **L1 verified** by both PR #88 workflows on commit `464bee37d3477a20f24c3ac48ac116e748fdfd01`.
 
-**L2 — Moving-level existence using ordered eigenvalues.**
+**L2 — Moving-level existence using ordered eigenvalues (in progress).**
 Construct complete monotone eigenbases of H₀ and Hε from the
 existing generic Lean theorem. Show that the multiplicity-two
 crossing occupies *exactly two consecutive positions* in the
@@ -71,7 +71,7 @@ perturbed slots within 2|ε| of E*. When 4|ε|<g, all other slots
 stay away. L1 ensures that only one of the two slots can equal E*,
 so the other corresponds to a new simple bright-derived level.
 The new module packages existence of both complete ordered eigenbases
-and the explicit 2|ε| indexwise stability bound; it is pending CI.
+and the explicit 2|ε| indexwise stability bound; both are **Lean verified** on commit `bcc0d2971f5c310743c012935ce3547db021b141` (Action #313).
 The critical new work remains the bridge from `finrank=2` to exactly
 two consecutive indices of a complete ordered eigenbasis.
 
@@ -106,9 +106,10 @@ interest before changing any formalization/comparison package.
 ## 4. Efficient Lean development sequence
 
 1. **L1 green**: the dark-only source declarations are Lean verified.
-2. **L2a pending CI**: check the ordered-eigenbasis and external-edge
-   specializations in `AmmannBeenkerBrightSpectralSplitting.lean`.
-3. Prove the complete-eigenbasis/multiplicity-index bridge.
+2. **L2a green**: the ordered-eigenbasis stability and external-edge
+   specializations passed Action #313.
+3. **L2b pending CI**: check the exact-double multiplicity-tag bridge;
+   then derive consecutive indices and moving-level existence.
 4. Then perform the L3–L4 algebra and domain checks; save the
    more speculative dynamical-control questions for later.
 
