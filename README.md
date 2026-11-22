@@ -25,6 +25,20 @@ A separate theorem also establishes that this energy is isolated from
 every other point of the real spectrum by a certified distance of
 `1/128` (§4.79); this is a lower bound, not the exact nearest-level distance.
 
+**Further certified qubit-control results (still not universal state preparation).**
+Using the *same single edge* between the two rings, §§4.80–4.89 now
+prove its exact rank-one norm `2`, the full real qubit/leakage
+decomposition, the reduced-gap residual inequality, conditional
+duration-independent leakage estimates for fixed and switched-off
+pulses, real self-adjointness of the complete pulse Hamiltonian,
+and an explicit dark-state Schrödinger phase trajectory.
+The latter is a particular normalized solution written as real
+and imaginary components, not a general complex propagator.
+All 103 imported Lean modules, including these developments,
+passed the latest user-reported green pull-request Action.
+The distinction between these proved results and the still-open
+arbitrary-state qubit-control problem is summarized in §4.90.
+
 **Palomar Registry.** The exact-multiplicity theorem and its companion
 description of all eigenvectors at the crossing were registered as
 **PALOMAR-2026-11-06-000012 (version 1)** on **2026-11-06**
@@ -41,7 +55,9 @@ modes, but one equal-amplitude combination remains an exact eigenstate
 for every edge weight. In a unitary time-dependent quantum interpretation,
 its occupation probability must therefore remain constant: this prevents
 an edge-only pulse from preparing *every* desired superposition.
-This dynamical obstruction is not yet a Lean theorem.
+The exact dark eigenstate and its one-state Schrödinger trajectory are
+Lean-verified (§§4.80, 4.89); the general time-dependent **no-go theorem**
+about occupation conservation is not yet proved in Lean.
 
 This **coherent-control question is now the first stand-alone research
 priority** (§6.4): characterize which states are reachable with the edge
@@ -82,7 +98,8 @@ The table below separates proved results from remaining research tasks.
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
-| Pulse leakage from conserved energy residual | §§4.85–4.88: certified real full-graph estimates including edge ON/OFF pulse; §4.89 newly submitted: explicit normalized dark-state solution of the real/imaginary Schrödinger equations for the same edge, without a general complex propagator or arbitrary A/B rotation |
+| Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
+| Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -3053,16 +3070,20 @@ cluster, including its dimension, before §4.82's duration-independent
 pulse estimate can be applied. This is *not* a proof of arbitrary
 state preparation.
 
-The next Lean task is to certify the completed gap-to-residual
-instantiation (§4.84), then prove stability and dimension two of
-the perturbed spectral cluster, including its eigenvalue window
-and spectral projector. Only after these steps do we obtain
-a graph-specific leakage bound uniform in pulse duration.
+The full graph-specific gap-to-residual instantiation is **already
+Lean-verified** (§4.84). Sections 4.85–4.88 also obtain a
+**different**, conditional graph-specific leakage bound uniform
+in pulse duration directly from residual conservation, without a
+perturbed spectral projector. The stable perturbed spectral
+cluster and the operator-norm projector estimate of §4.82
+remain open as a separate, potentially sharper route; the
+physical complex quantum propagator and nontrivial rotation
+also remain open.
 
 ### 4.84. Why spectral isolation yields a residual bound: infinite-dimensional Parseval
 
-The next link in the proof is now represented by two additional Lean
-theorem statements.
+The following link in the proof is represented by two
+Lean-verified theorem packages.
 
 **Generic complete-basis theorem.** The new
 [`DomainEigenbasisGapResidual.lean`](SpectralGeometry/DomainEigenbasisGapResidual.lean)
@@ -3103,8 +3124,8 @@ eigenbasis** by invoking the repository's earlier
 `onsitePlusBounded_exists_orderedEigenbasis` theorem for the proper
 onsite potential, and supplies symmetry via
 `finiteSectorCorrection_symmetric`. Hence the full reduced-gap
-inequality is now a **proposed unconditional theorem for the
-actual infinite graph**, not merely a new hypothesis.
+inequality is an **unconditional Lean-verified theorem for the
+actual infinite graph**, not merely a supplied hypothesis.
 **The gap-to-residual Lean code has passed CI.**
 
 Consequently, the latest `crossingEdge_perturbed_eigenvector_gap_bound_full`
@@ -3188,10 +3209,10 @@ A protocol with changing `t` and/or piecewise-constant `ε`
 also needs segment-by-segment analysis; conservation of
 `R_ε` applies only during a segment with a fixed Hamiltonian.
 
-**Lean status:** this §4.85 module and its full-library import passed
-Action #246. The new §4.86 intertwining declarations require a
-separate CI check. The Palomar selection
-is unchanged.
+**Lean status:** §§4.85–4.89, including this module and the
+subsequent intertwining and switch-off statements, have passed
+the reported full Lean Action. Section 4.85 initially passed
+Action #246. The Palomar selection is unchanged.
 
 ### 4.86. Residual conservation follows from Hamiltonian intertwining
 
@@ -3226,7 +3247,7 @@ Therefore `crossingPulseResidual_norm_conserved` proves
 `‖R_ε(Ux)‖=‖R_ε(x)‖` from isometry; it is **no longer
 a separate assumption**. Applying the §4.85 graph-specific
 gap estimate gives, for every initial crossing eigenvector,
-the new proposed theorem
+the Lean-verified theorem
 
 ```math
 \boxed{\|(I-P)Ux\|\le512|\varepsilon|\,\|x\|.}
@@ -3249,9 +3270,10 @@ family. It simply proves that these concrete operator-theoretic
 properties are **sufficient** for the previously certified
 leakage conclusion.
 
-**CI status:** the new intertwining module is submitted for
-a fresh full Lean check; §4.85 had already passed the previous
-green Action. Nothing here certifies state preparation yet.
+**Lean status:** this intertwining module and its root import
+have passed the full Lean verification. The statement remains
+conditional on the supplied real isometry and domain/commutation
+hypotheses; it does not certify state preparation.
 
 ### 4.87. The actual selected-edge pulse Hamiltonian is self-adjoint on its natural real domain
 
@@ -3280,7 +3302,7 @@ rank-one selected-edge perturbation:
 \langle Wx,y\rangle=\langle x,Wy\rangle.
 ```
 
-The newly proposed theorem
+The Lean-verified theorem
 
 ```lean
 crossingEdgePulsePMap_isSelfAdjoint (ε : ℝ) :
@@ -3303,10 +3325,10 @@ The §4.86 implication from these conditions to
 residual conservation and the leakage estimate does
 not by itself supply that physical evolution.
 
-**CI status:** this new self-adjointness specialization
-has been submitted with §4.86 for Lean checking.
-Prior §4.85 was already green. The designated Palomar
-theorem and Challenge/Comparator files are unchanged.
+**Lean status:** this full-graph real self-adjointness theorem
+and §4.86 have passed the full Lean verification. The
+designated Palomar theorem and Challenge/Comparator files
+are unchanged.
 
 ### 4.88. A controlled pulse followed by free evolution after switching the edge off
 
@@ -3375,9 +3397,8 @@ certifies the consequences of the two segment-wise
 conservation laws, **not** the existence of the
 physical dynamics.
 
-**CI status:** §4.88 and its root import are newly
-submitted and require the next Action check.
-§§4.85–4.87 passed the preceding green Actions.
+**Lean status:** §4.88 and its root import have passed the
+full Lean verification, along with §§4.85–4.87.
 
 ### 4.89. An exact complex-phase Schrödinger trajectory for the dark mode
 
@@ -3440,8 +3461,132 @@ imaginary/real pair is a representation of this complex
 trajectory, not yet a complete complex Hilbert-space
 construction or generic dynamics theorem.
 
-**CI status:** this new module is submitted for the
-next Lean Action; §4.88 and earlier results passed.
+**Lean status:** this dark-state Schrödinger module, including
+the correction to its proof tactics, has passed the
+user-reported full Lean Action; all prior §§4.80–4.88
+control declarations remain in the verified import chain.
+
+### 4.90. Consolidated verified control checkpoint and outstanding dynamics
+
+This section consolidates **previously proved and CI-checked** facts.
+It does not introduce an additional Lean theorem and does not
+replace §§4.75–4.89 or any earlier spectral-product results.
+
+**Exact infinite-graph geometry and spectrum (§§4.74–4.79).**
+At `t_*=17/16+√2`, two orthogonal eight-site compact
+modes `a,b` have squared norm `8` and common energy
+`E_*=13/4+√2`. They span the **entire real eigenspace**
+at that energy, of dimension exactly two. The complete
+real spectrum has no other point within the closed radius
+`g=1/128` around `E_*`. These are properties of the
+**full infinite graph**, not a finite truncation.
+
+**One fixed control edge (§§4.80–4.83).**
+We retain the actual adjacent lattice vertices
+`u=(1,0,0,0)` and `v=(1,1,0,0)`; the bounded rank-one
+edge operator is `W=|δ_u-δ_v⟩⟨δ_u-δ_v|` with
+exact full-space norm `‖W‖=2`.
+The normalized modes `A=a/√8` and `B=b/√8`
+define the orthogonal projection `P` onto their span,
+with leakage projection `Q=I-P`. The edge has
+a nonzero A/B coupling and a **nonzero external
+response**, so the two-mode plane is not asserted
+to be invariant while the edge is on. The normalized
+dark vector `D=(A+B)/√2=(a+b)/4` satisfies
+`WD=0` and is an exact full-domain eigenvector of
+`K_*+εW` at `E_*` for **all real ε**.
+
+**Gap, perturbed eigenvectors and duration-independent
+conditional pulse bounds (§§4.83–4.88).**
+The complete eigenbasis and certified gap imply, for
+every `x∈Dom K_*`,
+
+```math
+\frac1{128}\|Qx\|\le\|(K_*-E_*)x\|.
+```
+
+For any perturbed eigenvector of `K_*+εW` at `λ`,
+the full graph obeys
+
+```math
+\frac1{128}\|Qx\|\le
+  (|\lambda-E_*|+2|\varepsilon|)\|x\|.
+```
+
+In particular, the additional **eigenvalue-window**
+assumption `|λ-E_*|≤2|ε|` gives
+`‖Qx‖≤512|ε|‖x‖`. This does not by itself
+construct a nearby perturbed rank-two projector.
+
+For an initial crossing eigenvector `x`, if
+a constant-strength pulse has a final state `y`
+with `‖y‖=‖x‖` and with its **perturbed**
+residual norm `‖(K_*+εW-E_*)y‖` conserved,
+then `‖Qy‖≤512|ε|‖x‖`. If the edge is then
+switched **off** and the following free segment
+conserves the **unperturbed** residual norm, the
+same bound holds at every such final state `z`:
+
+```math
+\boxed{\|Qz\|\le512|\varepsilon|\,\|x\|.}
+```
+
+The results also derive these residual conservation
+laws for **supplied real-linear isometries** that
+preserve the original natural domain and intertwine
+the corresponding fixed generator. Both segment
+durations are arbitrary. The full real unbounded
+pulse operator is separately proved self-adjoint on
+that domain for every `ε∈ℝ`. These are **conditional
+evolution estimates**; no actual general complex
+unitary propagator has yet been constructed.
+
+**One exact complex-phase dark trajectory (§4.89).**
+Writing the complex wavefunction as a pair of real
+Hilbert vectors, Lean verifies the full-domain
+solution
+
+```math
+\psi_D(\tau)=e^{-iE_*\tau}D,
+\qquad
+\frac{d}{d\tau}\operatorname{Re}\psi_D
+ =(K_*+\varepsilon W)\operatorname{Im}\psi_D,
+\qquad
+\frac{d}{d\tau}\operatorname{Im}\psi_D
+ =-(K_*+\varepsilon W)\operatorname{Re}\psi_D.
+```
+
+It has complex squared norm one and **zero leakage**
+at every time, for any real selected-edge strength.
+This is **one explicit Schrödinger solution**,
+not a full complex unitary group, and contains no
+bright-mode rotation.
+
+**Open obligations.** Construct the complexified
+self-adjoint Hamiltonian and its strongly continuous
+unitary Schrödinger group, prove domain invariance
+and generator commutation, control the bright-mode
+response and external leakage, and then determine
+which `αA+βB` targets are reachable using the
+same edge and the existing `t` detuning.
+The static dark eigenstate indicates an edge-only
+reachability obstruction, but the general
+time-dependent quantum no-go theorem and a complete
+two-control preparation protocol are **not yet
+Lean-certified**. The original relative-product and
+finite-patch objectives (§§6.5–6.6) remain separate
+and open.
+
+**Verification and provenance.** All of the
+underlying control declarations in §§4.80–4.89
+are included in the **103-module** root import and
+passed the latest user-reported green full
+Lean/Comparator Action on PR #85. The Palomar
+registered theorem, Challenge statement, Comparator
+selection and the existing mathematics have not been
+replaced by this documentary checkpoint.
+This README update itself requires the standard
+pull-request verification before merging.
 
 ## 5. Building and verification
 
@@ -3968,8 +4113,14 @@ build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
 Their exact operator identities have passed the full Lean build; the
 dynamic no-go theorem and any successful preparation protocol remain open.
-Section 4.81 adds an exact qubit/leakage decomposition; the complex unitary
-control and quantitative pulse-error bounds are still to be established.
+Sections 4.81–4.89 now add an exact qubit/leakage decomposition,
+the reduced-gap and exact-edge norm, quantitative **conditional**
+time-uniform bounds for a selected-edge pulse and subsequent
+free evolution, real pulse-Hamiltonian self-adjointness, and
+one exact dark-state Schrödinger trajectory. What remains
+open is construction of the general **complex** unitary
+propagator and a quantitative **target-state preparation**
+theorem, not the conditional pulse-error bounds themselves.
 
 - [ ] **Understand the edge response beyond the exact algebra (§4.80).** Use the certified gap to
   estimate how the other eigenvalue and its eigenstate behave under a small
@@ -3988,14 +4139,24 @@ control and quantitative pulse-error bounds are still to be established.
   achieves arbitrary targets in the compact plane up to a chosen error.
   See [the research note](docs/edge-control-reachability.md) for the
   proposed protocol and its limitations.
-- [ ] **Certify leakage and post-pulse dynamics (§§4.81–4.89).** The new
-  real-Hilbert-space module defines the full orthogonal qubit/leakage
-  decomposition and restores the exact eigenvector equation for the
-  compact-mode part (Lean CI pending). Next construct the complex
-  unitary dynamics and prove that leakage present at switch-off
-  persists after restoring the operator, while the compact-mode
-  component stays coherent. Bound the leakage created *during* the
-  pulse and certify the target amplitudes and relative phase.
+- [x] **Certify full real-space qubit/leakage and conditional ON/OFF
+  pulse bounds (§§4.81–4.88).** The orthogonal decomposition,
+  certified gap and edge norm, exact-domain real self-adjointness,
+  residual-conservation implications and duration-uniform
+  `512|ε|` leakage estimate (under the explicit evolution
+  hypotheses) have all passed Lean CI.
+- [x] **Verify one exact complex-phase Schrödinger trajectory (§4.89).**
+  The normalized dark mode has a real/imaginary solution of the
+  coupled Schrödinger equations with norm one and zero leakage
+  at every time for any real strength of the selected edge.
+  This is **one solution**, not a constructed complex
+  propagator on the full space.
+- [ ] **Construct general complex dynamics and prepare controlled
+  A/B superpositions.** Build the genuine complex-Hilbert-space
+  unitary evolution with natural-domain invariance and generator
+  commutation, apply the proved leakage bounds to it, and then
+  certify nontrivial bright-mode mixing, target amplitudes,
+  relative phase and reachability limitations.
 
 This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
