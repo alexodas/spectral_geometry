@@ -30,45 +30,46 @@ theorem ordered_levelMultiplicity_two_consecutive
   have hindices : i.1 ≠ j.1 := by
     intro h
     exact hne (Subtype.ext h)
-  have hordered (i j : {n : ℕ // ev n = r})
-      (hij : i.1 < j.1)
-      (hcover : ({i, j} : Set {n : ℕ // ev n = r}) = Set.univ) :
+  have hordered (u v : {n : ℕ // ev n = r})
+      (huv : u.1 < v.1)
+      (hcoverUV : ({u, v} : Set {n : ℕ // ev n = r}) = Set.univ) :
       ∃ n : ℕ,
         ev n = r ∧ ev (n + 1) = r ∧
           ∀ k : ℕ, ev k = r → k = n ∨ k = n + 1 := by
-    have hmid : ev (i.1 + 1) = r := by
+    have hmid : ev (u.1 + 1) = r := by
       apply le_antisymm
       · calc
-          ev (i.1 + 1) ≤ ev j.1 := hmono (Nat.succ_le_of_lt hij)
-          _ = r := j.property
+          ev (u.1 + 1) ≤ ev v.1 := hmono (Nat.succ_le_of_lt huv)
+          _ = r := v.property
       · calc
-          r = ev i.1 := i.property.symm
-          _ ≤ ev (i.1 + 1) := hmono (Nat.le_succ _)
-    have hsucc : i.1 + 1 = j.1 := by
+          r = ev u.1 := u.property.symm
+          _ ≤ ev (u.1 + 1) := hmono (Nat.le_succ _)
+    have hsucc : u.1 + 1 = v.1 := by
       have hmem :
-          (⟨i.1 + 1, hmid⟩ : {n : ℕ // ev n = r}) ∈
-            ({i, j} : Set {n : ℕ // ev n = r}) := by
-        rw [hcover]
+          (⟨u.1 + 1, hmid⟩ : {n : ℕ // ev n = r}) ∈
+            ({u, v} : Set {n : ℕ // ev n = r}) := by
+        rw [hcoverUV]
         exact Set.mem_univ _
       simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hmem
-      rcases hmem with hi | hj
-      · have hh := congrArg Subtype.val hi
+      rcases hmem with hu | hv
+      · have heq := congrArg Subtype.val hu
         omega
-      · exact congrArg Subtype.val hj
-    refine ⟨i.1, i.property, hmid, ?_⟩
+      · have heq := congrArg Subtype.val hv
+        omega
+    refine ⟨u.1, u.property, hmid, ?_⟩
     intro k hk
     have hmem :
         (⟨k, hk⟩ : {n : ℕ // ev n = r}) ∈
-          ({i, j} : Set {n : ℕ // ev n = r}) := by
-      rw [hcover]
+          ({u, v} : Set {n : ℕ // ev n = r}) := by
+      rw [hcoverUV]
       exact Set.mem_univ _
     simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hmem
-    rcases hmem with hi | hj
-    · exact Or.inl (congrArg Subtype.val hi)
-    · exact Or.inr ((congrArg Subtype.val hj).trans hsucc.symm)
+    rcases hmem with hu | hv
+    · exact Or.inl (congrArg Subtype.val hu)
+    · exact Or.inr ((congrArg Subtype.val hv).trans hsucc.symm)
   rcases lt_or_gt_of_ne hindices with hij | hji
   · exact hordered i j hij hcover
   · apply hordered j i hji
-    simpa only [Set.insert_comm] using hcover
-
+    rw [Set.insert_comm j i]
+    exact hcover
 end SpectralGeometry
