@@ -149,7 +149,7 @@ theorem crossingDarkPhase_real_Schrodinger (ε τ : ℝ) :
         (domainCrossingDarkPhaseImag τ)) τ := by
   have h := crossingDarkPhaseReal_hasDerivAt τ
   simpa only [crossingDarkPhaseImag_eigen, crossingDarkPhaseImag,
-    smul_smul] using h
+    smul_smul, mul_comm] using h
 
 /-- The IMAGINARY part of the Schrödinger equation:
 ∂_τ Im ψ = - K_ε Re ψ. Together with the preceding theorem
@@ -161,7 +161,7 @@ theorem crossingDarkPhase_imag_Schrodinger (ε τ : ℝ) :
         (domainCrossingDarkPhaseReal τ))) τ := by
   have h := crossingDarkPhaseImag_hasDerivAt τ
   simpa only [crossingDarkPhaseReal_eigen, crossingDarkPhaseReal,
-    smul_smul, neg_smul] using h
+    smul_smul, neg_smul, mul_comm] using h
 
 /-- The two-mode projection fixes the normalized dark eigenstate. -/
 theorem crossingDark_qubitPart_eq :
@@ -170,10 +170,11 @@ theorem crossingDark_qubitPart_eq :
     simp only [crossingCoeffA, crossingDark, real_inner_smul_right,
       inner_add_right, compactA_inner_self, compactA_inner_compactB]
     norm_num
+  have hba : inner ℝ compactB compactA = 0 := by
+    rw [real_inner_comm, compactA_inner_compactB]
   have hb : crossingCoeffB crossingDark = 1 / 4 := by
     simp only [crossingCoeffB, crossingDark, real_inner_smul_right,
-      inner_add_right, compactB_inner_self, real_inner_comm,
-      compactA_inner_compactB]
+      inner_add_right, compactB_inner_self, hba]
     norm_num
   simp only [crossingQubitPart, ha, hb, crossingDark, smul_add]
 
