@@ -75,7 +75,7 @@
     }
   ],
   "status": {
-    "scope": "Main theorem: crossingEigenspace_finrank. Companion: crossing_eigenvector_representation. They determine the geometric multiplicity and all crossing eigenvectors on the infinite natural domain. Three additional proposition witnesses are compared: admitted_zero, mate_involutive and centralLift_admitted. All five are proved in the source; only Challenge uses a statement placeholder for each. No definitions are holed. The zero proof-hole counts refer to the substantive library, whose root imports all 94 mathematical modules.",
+    "scope": "Main theorem: crossingEigenspace_finrank. Companion: crossing_eigenvector_representation. They determine the geometric multiplicity and all crossing eigenvectors on the infinite natural domain. Three additional proposition witnesses are compared: admitted_zero, mate_involutive and centralLift_admitted. All five are proved in the source; only Challenge uses a statement placeholder for each. No definitions are holed. The zero proof-hole counts refer to the substantive library, whose root imports all 103 mathematical modules.",
     "sorry_count": 0,
     "sorry_in_definitions": 0,
     "axioms": [
