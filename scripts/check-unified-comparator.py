@@ -14,6 +14,7 @@ errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
 config_path = root / "comparator.json"
+submission_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
     config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -22,6 +23,19 @@ try:
 except (OSError, UnicodeError, ValueError) as error:
     print(f"Comparator packaging error: {error}", file=sys.stderr)
     sys.exit(1)
+
+# The new scientific result must have an identity separate from the first
+# registered Palomar result, which used the root comparator.json path.
+# Keep the dedicated submission config byte-identical to the CI-tested one.
+try:
+    submission_config = submission_config_path.read_bytes()
+    root_config = config_path.read_bytes()
+    if submission_config != root_config:
+        errors.append(
+            "Dedicated dark-bright Comparator must exactly mirror root comparator.json"
+        )
+except OSError as error:
+    errors.append(f"Cannot read dedicated Comparator configuration: {error}")
 
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
