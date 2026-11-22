@@ -3719,7 +3719,7 @@ this draft could be submitted. The first Palomar registration
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-eight infinite geometry/operator/spectral modules (including domain-generic interfaces). The 104-module build containing the original fourteen bright lemmas was reported green by the maintainer on PR #86; this later packaging revision adds a fifteenth theorem and revised Challenge/Comparator files, not another module, and requires new CI verification.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and eighty-nine infinite geometry/operator/spectral modules (including domain-generic interfaces). The 104-module build containing the original fourteen bright lemmas was reported green by the maintainer on PR #86; this later packaging revision adds a fifteenth theorem and revised Challenge/Comparator files, not another module, and requires new CI verification.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3807,7 +3807,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (26):**
+- **Explicit octagonal geometry, operator and spectral products (27):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
