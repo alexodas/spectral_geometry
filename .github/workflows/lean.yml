@@ -23,7 +23,22 @@ jobs:
             sleep $((5 * attempt))
           done
           exit 1
+      # The key intentionally excludes Challenge/Solution. When only the
+      # Palomar packaging changes, compiled substantive modules are reusable.
+      # Exact source and dependency hashes invalidate the cache automatically.
+      - name: Restore compiled project modules
+        id: project-olean-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
       - name: Download pinned Mathlib cache
         run: lake exe cache get
       - name: Compile and kernel-check Lean proof
         run: lake build SpectralGeometry Challenge Solution
+      - name: Cache verified source build for subsequent Comparator iterations
+        if: steps.project-olean-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-source-v1-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}

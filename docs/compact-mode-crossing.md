@@ -51,9 +51,11 @@ does not determine the motion of a second eigenvalue.
 - `AmmannBeenkerCrossingMultiplicity.lean` removes the central-support
   hypothesis, constructs a linear equivalence of the full eigenspace with
   two real coordinates, and proves that its dimension is exactly two.
-  The selected declarations are `crossingEigenspace_finrank` and
-  `crossing_eigenvector_representation`; see [PALOMAR.md](../PALOMAR.md)
-  for the independent statements and model witnesses.
+  The historically registered declarations are `crossingEigenspace_finrank`
+  and `crossing_eigenvector_representation`; see
+  [README §4.78](../README.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
+  for their statements and the original registration reference. The current
+  independent Challenge instead targets the later dark/bright theorem.
 - An explicit isolation interval and a quantitative estimate for the
   moving level remain open. Transferring any such new estimates to product
   zeros would require checking the exact-divisor hypotheses for this ring

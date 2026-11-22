@@ -1,10 +1,16 @@
 # Single-edge control of the compact crossing: research note
 
-**Status:** exact static algebra in two Lean modules, checked by the
-full Lean/Mathlib build, and an exploratory dynamical research proposal.
-This is **not** a certified quantum-control or state-preparation protocol. This note complements [README §4.80](../README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
-and the [roadmap in §6.4](../README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
-without changing the selected [Palomar result](../PALOMAR.md).
+**Status:** exact static operator results in the full 104-module Lean
+development, including a reported green PR #86 Action for the original
+bright-amplitude lemmas, plus an **unverified new combined Palomar candidate**
+and an exploratory dynamical program. This is **not** a certified
+quantum-control or state-preparation protocol. This note complements
+[README §§4.80–4.92](../README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+and [§6.4](../README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention).
+The **first** Palomar registration is unaffected and is described in
+[README §4.78](../README.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing).
+The [second candidate](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+is not registered.
 
 ## Starting point: an infinite-graph theorem, not a two-site model
 
@@ -14,7 +20,7 @@ compact modes, `a` and `b`. Each has squared norm 8. Write the normalized
 modes as `A = a / √8` and `B = b / √8`, and define
 
 - **Dark:** `D = (A + B) / √2 = (a + b) / 4`
-- **Bright:** `Q = (A - B) / √2 = (a - b) / 4`
+- **Bright:** `F = (A - B) / √2 = (a - b) / 4`
 
 Both are unit vectors. The original operator acts on this plane as the
 crossing energy times the identity. Its real spectrum is known to contain no
@@ -37,7 +43,7 @@ P W P  =  1/8 [         ] .
 ```
 
 Equivalently, the compressed operator has the dark direction `D` with
-coefficient zero and the bright direction `Q` with coefficient 1/4.
+coefficient zero and the bright direction `F` with coefficient 1/4.
 
 The module
 [`AmmannBeenkerEdgeControl.lean`](../SpectralGeometry/AmmannBeenkerEdgeControl.lean)
@@ -544,7 +550,7 @@ eigenvector at all times, its occupation probability is conserved:
 
 Starting from `ψ(0) = A`, the conserved value is exactly **1/2**.
 Therefore **an edge-only pulse cannot prepare `D` from `A`**, nor
-can it prepare the bright state `Q` from `A`, irrespective of
+can it prepare the bright state `F` from `A`, irrespective of
 how the pulse is shaped. This holds even if the evolution temporarily
 excites other energy levels.
 
@@ -572,8 +578,8 @@ until that is accomplished.
 ## Candidate protocol and the next theorem
 
 In the **projected** two-mode model, a constant edge pulse separates
-the phases of `D` and `Q` at the rate `ε/4` in units `ℏ = 1`.
-An initial `A = (D + Q)/√2` acquires a relative phase, suggesting
+the phases of `D` and `F` at the rate `ε/4` in units `ℏ = 1`.
+An initial `A = (D + F)/√2` acquires a relative phase, suggesting
 reachable superpositions with a relative factor of `i`, as well as
 transfer towards `B`. These formulas are **not** automatically exact
 for the full infinite graph.
@@ -606,7 +612,7 @@ can rotate the relative phase to make `(A + B)/√2`. This **does not**
 prove that the first pulse is an accurate operation in the infinite graph.
 
 A possible rigorous method is to isolate the moving bright eigenstate
-under a small fixed edge change, prove that it stays near `Q` using the
+under a small fixed edge change, prove that it stays near `F` using the
 existing gap, estimate its energy shift, and use these estimates to
 control a long but weak edge pulse. Then use the *exact* `t`-eigenvector
 relations for phase adjustment. An explicit error bound must account for
@@ -622,9 +628,72 @@ every unwanted mode of the infinite system. Alongside it, a no-go
 statement would rule out an arbitrary target under edge-only control,
 using conservation of the dark occupation.
 
-This offers a **candidate for a future Palomar-selected theorem**:
-a quantitative, approximate two-control preparation protocol with a
-precise edge-only impossibility statement. It requires full proof and
-an independent novelty assessment. The
-[existing registered selection](../PALOMAR.md), its ID, and its
-Challenge/Comparator files are deliberately left unchanged.
+This remains a **separate, longer-term candidate** for a possible
+future result about approximate two-control preparation and edge-only
+impossibility. It has not been proved and is **not** the presently
+proposed second Palomar selection. The narrower second candidate in
+[README §4.92](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+concerns only exact operator-level dark protection and bright forcing.
+The original 2026 registration remains intact at its immutable commit.
+
+## Verified bright-amplitude generator identity (§4.91) and one proposed Palomar theorem (§4.92)
+
+**Green base source, new packaging awaiting verification.** The
+maintainer reports that the original fourteen results in
+[`AmmannBeenkerBrightAmplitude.lean`](../SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
+passed the PR #86 full Lean Action. The additional combined theorem and
+its Mathlib-only Challenge/Comparator files have not yet passed their
+independent verification. None of these assertions constructs a
+time-dependent propagator.
+
+For every real full-domain `x`, with the original two-mode projection
+`P`, `Q = I-P`, and the very same chosen edge, the proved theorem
+`crossingBright_pulse_amplitude` states
+
+```math
+\langle F,(K_*+\varepsilon W)x\rangle
+=(E_*+\varepsilon/4)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle.
+```
+
+The verified `crossingBright_pulse_amplitude_error_bound` bounds the
+absolute forcing by `2|ε|‖Qx‖`; the verified
+`crossingDark_pulse_amplitude` has no forcing term.
+These are exact **generator-level** identities on the original
+infinite graph, not the assumption that the bright is an exact
+perturbed eigenvector.
+
+For a future complex natural-domain Schrödinger solution with
+bright amplitude `f(τ)=⟨F,ψ(τ)⟩`, this suggests the conditional
+inhomogeneous scalar equation
+
+```math
+i f'(\tau)=(E_*+\varepsilon/4) f(\tau)
+ +\varepsilon\langle F,WQ\psi(\tau)\rangle
+```
+
+for a constant real pulse. If one later proves a compatible
+complex leakage estimate `‖Qψ(τ)‖≤512|ε|‖ψ(0)‖`,
+the forcing magnitude would be at most
+`1024 ε² ‖ψ(0)‖`. Accumulated phase error requires an
+**additional time integral**, and thus can grow for long pulses;
+the displayed instantaneous inequality alone is not a
+duration-independent phase guarantee. No such complex scalar ODE
+or integrated estimate is currently claimed as Lean-verified.
+
+For smooth switching `ε(τ)` the static formula is valid at each
+parameter value if the state remains in the common domain, but the
+previous constant-pulse residual conservation cannot be used
+unchanged. An adiabatic argument must explicitly handle the twofold
+eigenvalue at both endpoints `ε=0`, as well as the time-dependent
+spectral subspace and domain requirements. Restoring `K_*` is
+not equivalent to showing `Qψ(T)=0`.
+
+The historical 103-module PR #85 and the subsequently added 104th
+module on PR #86 have each been reported green by the maintainer.
+The new `crossingOneEdgeDarkBrightResponse` theorem bundles three
+exact full-graph conclusions into the **single scientific statement**
+selected in [the proposed second Palomar package](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback).
+Its new Challenge, Comparator and metadata remain **pending a
+fresh independent CI/Comparator run**. The old registered result and
+its historical snapshot have not been rewritten.

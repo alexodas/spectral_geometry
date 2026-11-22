@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that one auditable Mathlib-only Challenge backs the single Palomar config.
+"""Check that one auditable Mathlib-only Challenge backs the second Palomar candidate.
 
 This is only a static packaging gate: Lean and Comparator perform the actual
 type checking, independent statement comparison, and kernel verification.
@@ -26,17 +26,22 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerCrossingMultiplicity"
+proof_module = "SpectralGeometry.AmmannBeenkerBrightAmplitude"
+# Six auxiliary proposition witnesses are selected only because their
+# proofs inhabit concrete model definitions inside the independent Challenge.
+# The sole new scientific conclusion is crossingOneEdgeDarkBrightResponse.
 expected_sources = {
     f"{namespace}.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     f"{namespace}.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
-    f"{namespace}.centralLift_admitted": "SpectralGeometry.AmmannBeenkerCentralPatch",
-    f"{namespace}.crossing_eigenvector_representation": proof_module,
-    f"{namespace}.crossingEigenspace_finrank": proof_module,
+    f"{namespace}.compactA_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
+    f"{namespace}.compactB_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
+    f"{namespace}.compactSiteA_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
+    f"{namespace}.compactSiteB_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
+    f"{namespace}.crossingOneEdgeDarkBrightResponse": proof_module,
 }
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select both crossing conclusions and the three model witnesses")
+    errors.append("Select the one dark/bright conclusion and six required model witnesses")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):

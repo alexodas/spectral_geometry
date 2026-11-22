@@ -5,17 +5,21 @@ public import Mathlib
 public section
 
 /-!
-# Exact multiplicity of a compact crossing on the infinite octagonal graph
+# One-edge dark protection and exact bright response on an infinite octagonal graph
 
-The checked statements concern the full natural-domain eigenspace at the
-first-ring crossing: its real dimension is two, and each vector is recovered
-from two site amplitudes in the alternating compact states. No support
-condition or spectral-gap assumption is imposed on the vector.
+This Mathlib-only Challenge independently describes a fixed confined,
+infinite Ammann--Beenker vertex graph and an edge joining the two compact
+crossing rings. The single proposed scientific theorem states that the
+normalized dark vector remains an exact eigenstate for every real
+edge-strength change; it gives the *full* bright matrix element, retaining
+the contribution of external modes, and bounds the resulting compression
+error. The result is on the real Hilbert space and the natural domain.
 
-Each block states model data independently of Solution. Only the two
-conclusions and three proposition witnesses have Challenge placeholders.
-Resetting Lean's module-local auxiliary-proof cache at source boundaries
-reproduces the names of generated proofs; all definitions are compared.
+The six other proposition placeholders are concrete model witnesses
+needed to construct the graph, compact-domain vectors and edge endpoints.
+They are not six additional submitted scientific results. No definition
+is replaced by a placeholder. Source-module boundaries reset only
+Lean's auxiliary-proof naming cache for independent comparison.
 -/
 
 namespace SpectralGeometry
@@ -83,6 +87,39 @@ variable {Tile : Type*}
     funext t
     change V t * (a * f.1 t) = a * (V t * f.1 t)
     ring
+
+end
+
+-- Source module: SpectralGeometry.InfiniteOnsiteDensity
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+-- A small Mathlib-only proof of the domain membership of a single-site
+-- state, needed to reconstruct the source's domainLatticeSingle definition.
+-- This is a supporting proof, not an additional Palomar selection.
+section
+
+variable {Tile : Type*} [DecidableEq Tile]
+
+theorem infiniteOnsiteDomain_single
+    (V : Tile → ℝ) (i : Tile) (a : ℝ) :
+    lp.single (2 : ENNReal) i a ∈ infiniteOnsiteDomain V := by
+  classical
+  have heq :
+      (fun t : Tile => V t *
+        (lp.single (2 : ENNReal) i a : TileHilbert Tile) t) =
+        (fun t : Tile =>
+          (lp.single (2 : ENNReal) i (V i * a) : TileHilbert Tile) t) := by
+    funext t
+    by_cases hti : t = i
+    · subst t
+      simp
+    · simp only [lp.single_apply, Pi.single_eq_of_ne hti, mul_zero]
+  have hmem : Memℓp
+      (fun t : Tile => V t *
+        (lp.single (2 : ENNReal) i a : TileHilbert Tile) t) 2 := by
+    rw [heq]
+    exact (lp.single (2 : ENNReal) i (V i * a) : TileHilbert Tile).property
+  exact hmem
 
 end
 
@@ -220,6 +257,19 @@ variable {Tile : Type*} [DecidableEq Tile]
 
 end
 
+-- Source module: SpectralGeometry.InfiniteFiniteEdgeInteraction
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+variable {Tile : Type*} [DecidableEq Tile]
+
+@[expose] noncomputable def infiniteEdgeVector (a b : Tile) : TileHilbert Tile :=
+  lp.single (2 : ENNReal) a (1 : ℝ) -
+    lp.single (2 : ENNReal) b (1 : ℝ)
+
+end
+
 -- Source module: SpectralGeometry.DomainSpectralSubspace
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
@@ -322,6 +372,13 @@ open scoped Classical
 @[expose] def latticeSingle (n : Lattice) : TileHilbert Vertex :=
   if h : Admitted n then lp.single (α := Vertex) (E := fun _ => ℝ) (2 : ENNReal) (⟨n, h⟩ : Vertex) 1 else 0
 
+theorem latticeSingle_mem_domain (n : Lattice) :
+    latticeSingle n ∈ infiniteOnsiteDomain potential := by
+  unfold latticeSingle
+  split_ifs
+  · exact infiniteOnsiteDomain_single _ _ _
+  · exact Submodule.zero_mem _
+
 @[expose] def compactA : TileHilbert Vertex :=
   latticeSingle ![1, 0, 0, 0]
     - latticeSingle ![0, 1, 0, 0]
@@ -342,6 +399,12 @@ open scoped Classical
     + latticeSingle ![0, 0, -1, -1]
     - latticeSingle ![1, 0, 0, -1]
 
+theorem compactA_mem_domain : compactA ∈ infiniteOnsiteDomain potential := by
+  sorry
+
+theorem compactB_mem_domain : compactB ∈ infiniteOnsiteDomain potential := by
+  sorry
+
 end
 
 -- Source module: SpectralGeometry.AmmannBeenkerCompactStates
@@ -352,6 +415,27 @@ section
 open scoped Classical
 
 @[expose] def latticeVertex (n : Lattice) (hn : Admitted n) : Vertex := ⟨n, hn⟩
+
+@[expose] def domainLatticeSingle (n : Lattice) : infiniteOnsiteDomain potential :=
+  ⟨latticeSingle n, latticeSingle_mem_domain n⟩
+
+theorem compactSiteA_admitted : Admitted (![1, 0, 0, 0] : Lattice) := by
+  sorry
+
+theorem compactSiteB_admitted : Admitted (![1, 1, 0, 0] : Lattice) := by
+  sorry
+
+@[expose] def domainCompactA : infiniteOnsiteDomain potential :=
+  ⟨compactA, compactA_mem_domain⟩
+
+@[expose] def domainCompactB : infiniteOnsiteDomain potential :=
+  ⟨compactB, compactB_mem_domain⟩
+
+@[expose] def compactSiteA : Vertex :=
+  latticeVertex ![1, 0, 0, 0] compactSiteA_admitted
+
+@[expose] def compactSiteB : Vertex :=
+  latticeVertex ![1, 1, 0, 0] compactSiteB_admitted
 
 end
 
@@ -367,62 +451,76 @@ section
 
 @[expose] def crossingEnergy : ℝ := 13 / 4 + 2 * alpha
 
+@[expose] def crossingEdge : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
+  InnerProductSpace.rankOne ℝ
+    (infiniteEdgeVector compactSiteA compactSiteB)
+    (infiniteEdgeVector compactSiteA compactSiteB)
+
+@[expose] def crossingBright : TileHilbert Vertex :=
+  (1 / 4 : ℝ) • (compactA - compactB)
+
 end
 
--- Source module: SpectralGeometry.AmmannBeenkerCentralPatch
+-- Source module: SpectralGeometry.AmmannBeenkerEdgeControl
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
 section
 
-@[expose] def centralLift (i : Fin 17) : Lattice :=
-  ![![0, 0, 0, 0],
-    ![1, 0, 0, 0],
-    ![0, 1, 0, 0],
-    ![0, 0, 1, 0],
-    ![0, 0, 0, 1],
-    ![-1, 0, 0, 0],
-    ![0, -1, 0, 0],
-    ![0, 0, -1, 0],
-    ![0, 0, 0, -1],
-    ![1, 1, 0, 0],
-    ![0, 1, 1, 0],
-    ![0, 0, 1, 1],
-    ![-1, 0, 0, 1],
-    ![-1, -1, 0, 0],
-    ![0, -1, -1, 0],
-    ![0, 0, -1, -1],
-    ![1, 0, 0, -1]] i
+@[expose] def crossingDark : TileHilbert Vertex :=
+  (1 / 4 : ℝ) • (compactA + compactB)
 
-theorem centralLift_admitted (i : Fin 17) : Admitted (centralLift i) := by
-  sorry
-
-@[expose] def centralVertex (i : Fin 17) : Vertex :=
-  latticeVertex (centralLift i) (centralLift_admitted i)
+@[expose] def domainCrossingDark : infiniteOnsiteDomain potential :=
+  (1 / 4 : ℝ) • (domainCompactA + domainCompactB)
 
 end
 
--- Source module: SpectralGeometry.AmmannBeenkerCrossingMultiplicity
+-- Source module: SpectralGeometry.AmmannBeenkerQubitLeakage
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
 section
 
-open scoped Classical
+@[expose] def crossingCoeffA (ψ : TileHilbert Vertex) : ℝ :=
+  inner ℝ compactA ψ / 8
 
-/-- The amplitudes at the first site on each ring determine every crossing eigenvector. -/
-theorem crossing_eigenvector_representation (x : infiniteOnsiteDomain potential)
-    (he : onsitePlusBounded potential (ringInteraction crossingParameter) x =
-      crossingEnergy • (x : TileHilbert Vertex)) :
-    (x : TileHilbert Vertex) =
-      x.1 (centralVertex 1) • compactA + x.1 (centralVertex 9) • compactB := by
-  sorry
+@[expose] def crossingCoeffB (ψ : TileHilbert Vertex) : ℝ :=
+  inner ℝ compactB ψ / 8
 
-/-- The kernel on the full natural domain of the confined operator. -/
-@[expose] def crossingEigenspace : Submodule ℝ (infiniteOnsiteDomain potential) :=
-  domainEigenspace (infiniteOnsiteDomain potential)
-    (onsitePlusBounded potential (ringInteraction crossingParameter)) crossingEnergy
+@[expose] def crossingQubitPart (ψ : TileHilbert Vertex) : TileHilbert Vertex :=
+  crossingCoeffA ψ • compactA + crossingCoeffB ψ • compactB
 
-/-- The real geometric multiplicity of the crossing is exactly two. -/
-theorem crossingEigenspace_finrank : Module.finrank ℝ crossingEigenspace = 2 := by
+@[expose] def crossingLeakage (ψ : TileHilbert Vertex) : TileHilbert Vertex :=
+  ψ - crossingQubitPart ψ
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerBrightAmplitude
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+/-- A single new scientific conclusion: one-edge dark protection, the
+exact bright generator matrix element with external-mode feedback,
+and the quantitative bound on the two-mode compression error.
+The six other Challenge placeholders are model witnesses, not
+additional candidate discoveries. -/
+theorem crossingOneEdgeDarkBrightResponse (ε : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge)
+        domainCrossingDark = crossingEnergy • crossingDark ∧
+      (inner ℝ crossingBright
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) x) =
+        (crossingEnergy + ε / 4) *
+            inner ℝ crossingBright (x : TileHilbert Vertex) +
+          ε * inner ℝ crossingBright
+            (crossingEdge (crossingLeakage (x : TileHilbert Vertex)))) ∧
+      |inner ℝ crossingBright
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) x) -
+        (crossingEnergy + ε / 4) *
+          inner ℝ crossingBright (x : TileHilbert Vertex)| ≤
+        2 * |ε| * ‖crossingLeakage (x : TileHilbert Vertex)‖ := by
   sorry
 
 end
