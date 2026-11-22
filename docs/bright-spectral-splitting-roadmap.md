@@ -2,7 +2,7 @@
 
 **Research branch:** `research/bright-spectral-splitting-20261122`
 **Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
-**Status:** L1–L2d and L3 are fully Lean/Mathlib and independent Comparator verified, including the nonzero bright coefficient and the sharp full-exterior norm bound `‖Qx‖≤256|ε||c|‖QWF‖`. The full L4 quadratic energy law for the true non-dark eigenvalue also passed both CI jobs in Action #331 (commit `e03f7cf`): `|E_b-(E_*+ε/4)|≤112ε²` for `0<|ε|≤1/1024`. The remaining L5 task is to formalize the signed shift and consolidate uniqueness, simplicity, domain and quantitative estimates; a physical control protocol is separate. Existing Palomar registrations and packaging remain unchanged.
+**Status:** **L1–L5 are verified** by the full Lean 4/Mathlib build and the independent Comparator. L1–L2d prove fixed dark simplicity and one unique simple genuine moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`. L3 proves the full-exterior bound `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`; L4 proves `|E_b-(E_*+ε/4)|≤112ε²`. **L5 certifies the strict sign of the moving shift and combines all these results into one natural-domain theorem** (full Lean and Comparator in Action #333, source commit `fbd2503d33280d7d0c2fe5306ea2739806628b20`). Separate dynamics, analytic spectral products and independent scientific assessment remain open. No Palomar packaging or historical registration has been changed.
 
 ## 1. Established starting point
 
@@ -32,7 +32,7 @@ the orthogonal projection onto the complement of span(D,F).
 `AmmannBeenkerBrightSpectralSplitting.lean` includes the verified
 specialization, alongside the ordered-eigenbasis stability result.
 
-## 2. Quantitative spectral splitting: L1–L4 verified, L5 remains
+## 2. Quantitative real point-spectrum splitting: L1–L5 verified
 
 For `0 < |ε| ≤ 1/1024`, **L2d already proves existence and
 uniqueness of one simple** real eigenvalue `E_b(ε) ≠ E_*`
@@ -49,10 +49,15 @@ The **second-order formula is now verified in L4**:
 The moving eigenvector's exterior component and nonzero
 bright amplitude were previously bounded in L3, with constant
 `256` and exact edge-force norm `‖QWF‖²=7/16`.
-The remaining *formalization* goals are a named signed-shift
-corollary and one consolidated L5 theorem. This concerns
-the actual infinite graph,
-not a two-state approximation or time-dependent control protocol.
+The final L5 theorems now additionally prove that
+`ε>0 → E_b>E_*` and `ε<0 → E_b<E_*`, and consolidate
+fixed dark simplicity, moving-level uniqueness and simplicity,
+genuine natural-domain eigenpairs, bright amplitude,
+sharp exterior leakage and the `112ε²` energy remainder
+under the same hypotheses. This concerns the actual infinite
+graph's real point spectrum, not a two-state approximation,
+independent complex-spectrum theorem or time-dependent
+control protocol.
 
 ## 3. Proof milestones, ordered by dependency
 
@@ -150,14 +155,26 @@ Both the complete Lean build and independent Comparator passed
 [Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
 at commit `e03f7cfc88b933fe9c2a635d33016927e6d64709`.
 
-**L5 — Combine into the final infinite-graph theorem.**
-Uniqueness and simplicity in the isolated point-spectrum window
-are already L2d conclusions. Formalize the sign of the moving shift, then combine
-the **already verified** L2d uniqueness and simplicity, L3
-external eigenvector estimate, and L4 quadratic remainder
-with their exact common domain and parameter hypotheses.
-After full Lean verification, independently assess mathematical
-interest before changing any formalization/comparison package.
+**L5 — Strict signed shift and final full-domain theorem (verified).**
+Theorem `crossing_moving_energy_shift_sign` derives a strict
+upward shift for positive ε and downward shift for negative ε:
+`112ε² ≤ (7/64)|ε| < |ε|/4` under the already verified
+parameter bounds. The theorem
+`crossing_final_signed_bright_spectral_splitting`
+packages a genuine nonzero eigenvector at the one moving
+energy, the `2|ε|` and `112ε²` energy bounds, the
+strict shift sign, exact dark orthogonality and nonzero bright
+amplitude, the projected equality `x=cF+Qx`, the sharp
+full-exterior leakage bound, exhaustive two-level real point
+spectrum in the closed `1/256` window, and simple dark
+and moving eigenspaces. The exact common hypotheses are
+`ε≠0`, `|ε|≤1/1024` and the original infinite
+natural domain. Both full Lean and independent Comparator
+passed [Action #333](https://github.com/alexodas/spectral_geometry/actions/runs/45060461341)
+on source commit `fbd2503d33280d7d0c2fe5306ea2739806628b20`.
+Independent research-interest assessment and the distinct
+complex-dynamics or spectral-product programs remain open;
+none is claimed in this theorem. No comparison package changed.
 
 ## 4. Efficient Lean development sequence
 
@@ -197,10 +214,17 @@ interest before changing any formalization/comparison package.
    real Cauchy–Schwarz argument and quantitative `112ε²`
    spectral-level estimate passed complete Lean and Comparator
    CI in Action #331.
-9. **L5 remaining**: formalize the shift sign and assemble
-   the dark/bright simplicity, uniqueness, full-domain
-   eigenvector leakage and quadratic energy law in a single theorem. Dynamic control remains a
-   separate downstream research topic.
+9. **L5 fully green**: Action #333 certifies
+   `crossing_moving_energy_shift_sign` and
+   `crossing_final_signed_bright_spectral_splitting`,
+   combining sign, complete isolated real point-spectrum
+   count, simplicity, sharp energy law and full-exterior
+   eigenvector control on the original natural domain.
+   Both full Lean and the independent Comparator passed.
+10. **Separate open questions**: independent novelty and
+    significance assessment, general complex dynamics,
+    state-preparation reachability, and the analytic-product
+    research program. They are not implied by L5.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,
 `comparator.json`, `palomar/dark-bright/comparator.json`,
