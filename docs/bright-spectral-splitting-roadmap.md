@@ -2,7 +2,7 @@
 
 **Research branch:** `research/bright-spectral-splitting-20261122`
 **Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
-**Status:** L1–L2d have passed full Lean 4/Mathlib checks. L2d also passed the independent Comparator in Action #324 (commit `180f1d8`). In particular, the simple dark level and one unique simple moving real eigenvalue are the only genuine natural-domain point-spectrum energies in the closed `1/256` window for `0 < |ε| ≤ 1/1024`. The remaining open tasks are the quantitative bright-eigenvector bound, sign and `112ε²` remainder (L3–L5). A new declaration is never called verified before its own CI passes. Existing Palomar packaging is unchanged.
+**Status:** L1–L2d are fully Lean/Comparator verified (Actions #319–#324), and the initial L3 bright-amplitude and exterior-norm bound passed both jobs in Action #326. The sharp L3 full-operator bound `‖Qx‖≤256|ε||c|‖QWF‖` also passed the full Lean and independent Comparator jobs in Action #328 (commit `0590eb7`), with `‖QWF‖²=7/16`. The open objectives are the sign and `112ε²` eigenvalue remainder and final consolidation (L4–L5). No change to existing Palomar packaging is required.
 
 ## 1. Established starting point
 
@@ -47,10 +47,12 @@ second-order formula
 
 `|E_b(ε) − E_* − ε/4| ≤ 112 ε²`
 
-and a bound showing the moving eigenvector remains close to the
-original two-mode plane (including sign of the moving shift).
-The `112` and eigenvector constants are proposed targets, not
-established results. This concerns the actual infinite graph,
+and the sign of the moving shift. The moving eigenvector's
+external component and nonzero bright amplitude have already
+been quantitatively bounded in L3, with constant `256` and the
+exact edge-force norm `‖QWF‖²=7/16`. Only the `112` remainder
+constant and the shift sign remain proposed targets.
+This concerns the actual infinite graph,
 not a two-state approximation or time-dependent control protocol.
 
 ## 3. Proof milestones, ordered by dependency
@@ -107,7 +109,7 @@ on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
 The theorem establishes **point-spectrum** coverage, not a
 new standalone assertion about the complex spectrum.
 
-**L3 — External leakage of an actual moving eigenvector.**
+**L3 — External leakage of an actual moving eigenvector (verified).**
 Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
 Use the already proved reduced-gap estimate, the fact that the
 unperturbed residual is zero on the F direction, and
@@ -117,7 +119,14 @@ For `δ = E_b−E_*` and the L2 interval `|δ|≤2|ε|`, obtain
 `(g−|δ|−2|ε|) ‖q‖ ≤ |ε| |c| ‖v‖`.
 
 With `|ε|≤1/1024`, the left coefficient is at least `1/256`,
-so `‖q‖ ≤ 256|ε| |c| ‖v‖`. Prove c≠0 for x≠0.
+so `‖q‖ ≤ 256|ε| |c| ‖v‖`. The new theorems
+`crossing_moving_eigenvector_sharp_leakage`,
+`crossing_moving_eigenvector_bright_nonzero` and
+`crossing_exists_moving_bright_sharp_leakage` certify the entire
+statement, including `c≠0` and dark orthogonality, in the actual
+infinite natural domain. Lean and the independent Comparator passed
+Action #328 (commit `0590eb7`); the norm-relative preliminary
+bound `‖Qx‖ ≤ 512|ε|‖x‖` passed Action #326.
 
 **L4 — Quadratic spectral error, not merely a Rayleigh quotient.**
 The existing exact bright pairing yields
@@ -164,14 +173,13 @@ interest before changing any formalization/comparison package.
    Thus the genuine moving eigenvector is orthogonal to the
    dark direction, has nonzero bright amplitude, and satisfies
    `‖Qx‖ ≤ 512|ε|‖x‖` for `0<|ε|≤1/1024`.
-7. **L3b source candidate (CI pending)**: project the actual
-   full-operator residual onto the original crossing complement,
-   prove its edge-force decomposition, and target the *sharp*
-   `‖Qx‖ ≤ 256|ε||c|‖QWF‖`, where
-   `c=⟨F,x⟩` and `‖QWF‖²=7/16`. In the new candidate,
-   `crossing_moving_eigenvector_sharp_leakage` is not called
-   verified until its full Lean/Comparator workflow passes.
-8. **L3–L5 remaining**: perform the quantitative external-component
+7. **L3b fully green**: Action #328 verified the exact
+   full-operator projected residual, nonexpansiveness of `Q`,
+   edge-force decomposition, and the sharp inequality
+   `‖Qx‖ ≤ 256|ε||c|‖QWF‖`, with `c=⟨F,x⟩≠0`
+   and `‖QWF‖²=7/16`. The full Lean build and independent
+   Comparator passed at commit `0590eb7`.
+8. **L4–L5 remaining**: perform the quantitative exterior-to-energy
    argument, the `112ε²` spectral remainder and sign, then
    consolidate the final estimates. Dynamic control remains a
    separate downstream research topic.
