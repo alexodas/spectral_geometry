@@ -3684,7 +3684,7 @@ proposal.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **105 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **106 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-one infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3834,7 +3834,7 @@ The source code still proves the original exact-multiplicity theorems and
 the §4.79 spectral gap, but they are **not newly selected** in this
 proposed second comparison. The first registered Comparator selection is
 preserved at its original immutable commit and is not overwritten by
-a registry submission. The separate full-project build covers all **105
+a registry submission. The separate full-project build covers all **106
 mathematical source modules**; the **new** comparison must be verified
 by Lean, NanoDa and con-ron on the immutable commit chosen for submission.
 
@@ -4217,10 +4217,10 @@ resolvent calculus. See the [research roadmap](docs/bright-spectral-splitting-ro
   the dark line. The two source lemmas passed both PR #88 workflows
   on commit `464bee3`.
 - [ ] **L2 — Persistence of the two-level spectral cluster.**
-  A new source module packages complete ordered eigenbases for both
-  Hamiltonians and the explicit bound |μₙ − λₙ| ≤ 2|ε|; this addition
-  awaits CI. We still must show that the exact crossing occupies
-  precisely two consecutive indices and deduce the moving simple level.
+  Complete ordered eigenbases, the bound |μₙ − λₙ| ≤ 2|ε|, and
+  the *exactly two* crossing spectral occurrences are now Lean verified.
+  A generic consecutive-index lemma and its concrete crossing corollary
+  have been committed for the next CI run. The moving level is still open.
 - [ ] **L3 — Quantitative bright eigenvector.** Use the already
   certified reduced gap to control the external component and show
   that the new eigenvector has a nonzero bright amplitude.

@@ -108,8 +108,9 @@ interest before changing any formalization/comparison package.
 1. **L1 green**: the dark-only source declarations are Lean verified.
 2. **L2a green**: the ordered-eigenbasis stability and external-edge
    specializations passed Action #313.
-3. **L2b pending CI**: check the exact-double multiplicity-tag bridge;
-   then derive consecutive indices and moving-level existence.
+3. **L2b count green**: Action #316 certified the exact-double
+   multiplicity-tag theorem. **Consecutive-slot proof pending CI**;
+   after it passes, derive moving-level existence.
 4. Then perform the L3–L4 algebra and domain checks; save the
    more speculative dynamical-control questions for later.
 

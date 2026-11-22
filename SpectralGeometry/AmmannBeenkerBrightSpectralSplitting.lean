@@ -2,7 +2,7 @@ module
 
 public import SpectralGeometry.AmmannBeenkerBrightAmplitude
 public import SpectralGeometry.InfiniteBoundedSpectralStability
-public import SpectralGeometry.InfiniteFullSpectralProduct
+public import SpectralGeometry.OrderedLevelMultiplicityTwo
 
 public section
 
@@ -201,6 +201,29 @@ theorem crossing_exists_ordered_eigenbasis_exact_double :
           (onsitePlusBounded potential
             (infiniteLocalBoundedCorrection 0 σ w B 1 0))
           (fun n => (ofLex (seq n)).1)) from ⟨b⟩)
+
+
+/-- Exact geometric multiplicity two becomes a genuinely consecutive
+pair of spectral slots for the original infinite Hamiltonian.
+This identifies the two slots but does not yet construct the moving
+eigenvalue of the perturbed Hamiltonian. -/
+theorem crossing_exists_ordered_eigenbasis_consecutive_pair :
+    ∃ (ev : ℕ → ℝ)
+      (b : DomainEigenbasis
+        (infiniteOnsiteDomain potential)
+        (onsitePlusBounded potential
+          (ringInteraction crossingParameter)) ev),
+      Monotone ev ∧
+        ∃ n : ℕ,
+          ev n = crossingEnergy ∧
+          ev (n + 1) = crossingEnergy ∧
+          ∀ k : ℕ, ev k = crossingEnergy →
+            k = n ∨ k = n + 1 := by
+  obtain ⟨ev, hmono, ⟨b⟩, hcount⟩ :=
+    crossing_exists_ordered_eigenbasis_exact_double
+  obtain ⟨n, hn, hnext, hunique⟩ :=
+    ordered_levelMultiplicity_two_consecutive ev crossingEnergy hmono hcount
+  exact ⟨ev, b, hmono, n, hn, hnext, hunique⟩
 
 end
 end SpectralGeometry.AmmannBeenker
