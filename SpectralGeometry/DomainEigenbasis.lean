@@ -158,7 +158,7 @@ theorem eigenvector_coefficient_zero_of_ne
 
 /-- Every genuine nonzero natural-domain eigenvector has its eigenvalue
 among the indices of any complete domain eigenbasis. -/
-theorem eigenvalue_occurs
+theorem eigenvalue_occurs (b : DomainEigenbasis d A ev)
     (x : d) (E : ℝ) (hxne : (x : H) ≠ 0)
     (hx : A x = E • (x : H)) :
     ∃ i : ι, ev i = E := by
