@@ -17,7 +17,6 @@
   "classification": {
     "arxiv": [
       "math.SP",
-      "math.FA",
       "cond-mat.mes-hall"
     ],
     "msc2020": [
@@ -34,7 +33,7 @@
       "type": "original-proof",
       "relationship": "other",
       "id": "https://github.com/alexodas/spectral_geometry/blob/research/bright-amplitude-forcing-20261122/SpectralGeometry/AmmannBeenkerBrightAmplitude.lean",
-      "note": "Substantive Lean proof module on the proposed branch. Replace the branch URL with a verified immutable commit before any registry submission; the earlier exact-multiplicity registration is not being revised."
+      "note": "The first presentation of the proposed combined result is in this substantial Lean proof module. This branch URL must be pinned to the final verified 40-character commit before submission; the 2026 crossing-multiplicity registration remains unchanged. The individual dark and bright lemmas were proved earlier in this same formal development."
     },
     {
       "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
@@ -167,7 +166,7 @@
   "related_formalizations": [
     {
       "id": "PALOMAR-2026-11-06-000012",
-      "relationship": "extends",
+      "relationship": "builds-on",
       "note": "Earlier independently verified registered result on exact multiplicity two and eigenvector classification at the unperturbed crossing. Its immutable registration is unaffected by this new draft."
     }
   ]
