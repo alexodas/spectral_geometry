@@ -6,73 +6,58 @@ zeros of analytic functions built from those levels.**
 
 ## Executive summary
 
-**Overall research objective.** Spectral Geometry studies infinite geometric
-operators and the zeros of their canonical spectral products using Lean 4
-and Mathlib. Quantitative relative-product and finite-patch certification
-remain long-term open goals (§§6.5–6.6).
+**What this project studies.** Spectral Geometry uses Lean 4 to investigate how
+small, local changes affect the energy levels of mathematical operators on
+infinite geometric networks. Its broader goal is to connect exact results
+about these infinite systems with reliable estimates and finite calculations.
 
-**First registered Palomar result: exact crossing multiplicity.** On one
-explicit infinite, quadratically confined Ammann–Beenker cut-and-project
-vertex graph, two compact eight-site modes span the **entire** eigenspace
-at `E_* = 13/4 + √2`: its real dimension is exactly two, with no
-additional eigenstate extending into the infinite exterior. This is the
-immutable original registration **PALOMAR-2026-11-06-000012 (version 1)**,
-not a claim newly selected by the present draft (§4.78). A separate
-certified theorem isolates this level from the rest of the real spectrum
-by the conservative distance `1/128` (§4.79).
+**What the first Palomar submission established.** The registered theorem
+**PALOMAR-2026-11-06-000012 (version 1)** proves that, in one explicitly
+defined infinite Ammann–Beenker octagonal graph, two localized wave patterns
+account for **every state at a particular energy**. There are exactly two
+independent states at that energy; none can extend unnoticed into the rest
+of the graph. Subsequent work also established a quantitative gap to the
+other energy levels, but that gap was **not part of the first submission**.
 
-**Second result: exact response to changing one edge.** For a fixed
-edge connecting the compact rings, write `H_ε = K_* + εW`, where
-`W=|δ_u-δ_v⟩⟨δ_u-δ_v|` is a rank-one edge Laplacian of norm `2`.
-The normalized dark and bright combinations are `D=(a+b)/4` and
-`F=(a-b)/4`. For **every real ε**, `D` remains an **exact
-full-domain eigenstate** at `E_*`. For every real domain vector `x`,
-the exact bright matrix element is
+**What this new proposal proves.** We change the weight of just **one edge**
+connecting the two localized patterns. One combination, called the **dark
+mode**, remains an exact eigenstate at the same energy for any real change
+in that edge's weight. The other, the **bright mode**, responds to the change
+and can couple to states elsewhere in the infinite graph. The proof
+identifies this extra influence exactly and gives a bound on its size.
+Thus a two-state approximation is not confused with the complete system.
+The individual results have passed Lean verification; the **new combined
+Palomar statement and its independent comparison still need verification**
+and have **not been registered**.
 
-```math
-\langle F,H_\varepsilon x\rangle
-=\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle
- +\varepsilon\langle F,WQx\rangle,\qquad
-|\varepsilon\langle F,WQx\rangle|
-\le 2|\varepsilon|\,\|Qx\|.
-```
+**Why it matters and what remains open.** The result may interest
+mathematicians studying spectra and local perturbations, and physicists
+studying quasicrystals and localized waves. It does not yet prove a general
+quantum-control or state-preparation method. Alessandro Odasso, who is
+not a mathematician, directs the project to explore the scientific
+capabilities of large language models. According to his account, AI
+generated the mathematical theorems and Lean formalizations under his
+direction. Formal proof checking does not by itself establish novelty.
 
-Here `Q` is the orthogonal complement of the original two-mode
-plane. **The external-feedback term is generally nonzero.**
-The displayed shift `ε/4` is a matrix-element coefficient, **not**
-an asserted perturbed eigenvalue or rotation frequency (§§4.80–4.92).
+## Table of contents
 
-**What is verified, and what is still a candidate.** The previous
-103-module checkpoint (§4.90) and the subsequently added
-`AmmannBeenkerBrightAmplitude.lean` module (104 modules in all,
-originally with 14 new declarations) have passed the full Lean Action
-according to the maintainer's report on PR #86. This branch now adds
-one **15th, combined theorem** packaging the dark/bright statements
-for a possible second Palomar selection, plus a revised independent
-Challenge/Comparator package. **That new package has not yet been
-CI/Comparator verified**. The original Palomar registration remains
-unchanged; the new candidate is not registered (§4.92).
-
-**Why researchers might care.** The mathematics gives an exact
-protected-versus-coupled decomposition for a **concrete infinite**
-aperiodic graph, not a finite simulation and not a presumed invariant
-two-state approximation. A plausible mathematical audience includes
-spectral theorists, operator theorists and mathematical physicists
-studying local rank-one perturbations and localized eigenvectors.
-A plausible physics audience includes researchers in quasicrystal
-tight-binding models, compact localized states, flat-band systems,
-and photonic or resonator arrays. Earlier compact-state patterns are
-known (Oktel 2021); mathematical novelty and priority of this
-specific combined statement remain **unassessed** (§4.92, §6.8).
-
-**Limits and next steps.** Real self-adjointness and an explicit
-dark-state real/imaginary Schrödinger trajectory are established.
-Conditional ON/OFF leakage bounds are also formalized, but a general
-complex unitary propagator, an integrated bright-phase error estimate,
-a time-dependent edge-only no-go theorem and a complete state-preparation
-protocol remain open (§§4.85–4.92, §6.4). The long-term spectral-product
-research program is unchanged.
-
+- [Current status and verified milestones](#current-status-and-verified-milestones)
+- [1. Research program and geometric model](#1-research-program-and-geometric-model)
+- [2. Canonical products and analytic foundations](#2-canonical-product-and-analytic-foundations)
+- [3. Finite-dimensional geometric operators](#3-finite-dimensional-geometric-operators)
+- [4. Infinite-dimensional operators and spectral theory](#4-infinite-dimensional-geometric-operators-and-spectral-theory)
+  - [4.68. The octagonal graph](#468-an-explicit-octagonal-cut-and-project-vertex-set)
+  - [4.74. Compact localized states](#474-compact-eigenvectors-on-the-infinite-natural-domain)
+  - [4.78. First Palomar result: exact multiplicity](#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
+  - [4.79. Certified spectral gap](#479-a-conservative-quantitative-real-spectral-gap-at-the-crossing)
+  - [4.80. Single-edge control and dark mode](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+  - [4.89. Exact dark-state Schrödinger trajectory](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
+  - [4.91. Exact bright response and external feedback](#491-verified-bright-amplitude-generator-identity-with-explicit-leakage-forcing)
+  - [4.92. Proposed second Palomar theorem](#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+- [5. Building and verification](#5-building-and-verification)
+- [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
+  - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - [6.8. Independent verification and scientific interest](#68-independent-statement-verification-and-research-interest-assessment)
 ## Current status and verified milestones
 
 The table below separates proved results from remaining research tasks.
