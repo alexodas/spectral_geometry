@@ -989,5 +989,121 @@ theorem crossing_exists_moving_level_quadratic_bound
   exact crossing_moving_energy_quadratic_bound
     ε energy x heigen hmove hnear hsmall hbright
 
+/-!
+## L5: signed spectral shift and one full infinite-operator theorem
+
+The already verified quadratic remainder is smaller than the
+first-order shift in the stated epsilon range:
+112 ε² ≤ (7/64)|ε| < |ε|/4.
+Thus the sign of the genuine moving eigenvalue's displacement
+agrees with the sign of epsilon. No monotonicity claim about a
+time-dependent propagator is being made.
+-/
+
+/-- The verified quadratic remainder forces the *true* moving
+energy to shift strictly upward for a positive edge correction,
+and strictly downward for a negative correction. This is a
+pure numerical consequence of |ε| ≤ 1/1024 and the actual
+full-eigenvalue bound; it is not a matrix approximation. -/
+theorem crossing_moving_energy_shift_sign
+    (ε energy : ℝ) (hsmall : |ε| ≤ 1 / 1024)
+    (hquad :
+      |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2) :
+    (0 < ε → crossingEnergy < energy) ∧
+    (ε < 0 → energy < crossingEnergy) := by
+  have hprod :
+      |ε| * |ε| ≤ (1 / 1024 : ℝ) * |ε| :=
+    mul_le_mul_of_nonneg_right hsmall (abs_nonneg ε)
+  have herr :
+      112 * ε ^ 2 ≤ (7 / 64 : ℝ) * |ε| := by
+    rw [← sq_abs]
+    nlinarith only [hprod]
+  have hb := abs_le.mp hquad
+  constructor
+  · intro hpos
+    have habs : |ε| = ε := abs_of_pos hpos
+    rw [habs] at herr
+    have hstrict : (0 : ℝ) < (9 / 64 : ℝ) * ε :=
+      mul_pos (by norm_num) hpos
+    linarith only [hb.1, herr, hstrict]
+  · intro hneg
+    have habs : |ε| = -ε := abs_of_neg hneg
+    rw [habs] at herr
+    have hstrict : (9 / 64 : ℝ) * ε < (0 : ℝ) :=
+      mul_neg_of_pos_of_neg (by norm_num) hneg
+    linarith only [hb.2, herr, hstrict]
+
+/-- L5: a self-contained package for the *real natural-domain
+point spectrum* of the genuine infinite Ammann–Beenker Hamiltonian.
+
+For each nonzero |ε| ≤ 1/1024, the dark line remains a simple,
+fixed eigenspace; there is exactly one other, simple eigenvalue
+in the closed 1/256 window; its sign follows epsilon, its error
+about E*+ε/4 is at most 112 ε², and each moving eigenvector
+is bright with controlled full exterior component.
+
+Every claim uses the original infinite domain, not a two-level
+restriction. Complex spectrum and quantum propagators are not
+claimed by this theorem. -/
+theorem crossing_final_signed_bright_spectral_splitting
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      (0 < ε → crossingEnergy < energy) ∧
+      (ε < 0 → energy < crossingEnergy) ∧
+      |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2 ∧
+      inner ℝ crossingDark (x : TileHilbert Vertex) = 0 ∧
+      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
+      crossingQubitPart (x : TileHilbert Vertex) =
+        (inner ℝ crossingBright (x : TileHilbert Vertex)) • crossingBright ∧
+      ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+        256 * |ε| *
+          |inner ℝ crossingBright (x : TileHilbert Vertex)| *
+          ‖crossingLeakage (crossingEdge crossingBright)‖ ∧
+      (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
+        (y : TileHilbert Vertex) ≠ 0 →
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          t • (y : TileHilbert Vertex) →
+        |t - crossingEnergy| ≤ 1 / 256 →
+        t = crossingEnergy ∨ t = energy) ∧
+      (∀ y : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          energy • (y : TileHilbert Vertex) →
+        ∃ c : ℝ, (y : TileHilbert Vertex) = c • (x : TileHilbert Vertex)) ∧
+      (∀ y : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          crossingEnergy • (y : TileHilbert Vertex) →
+        ∃ c : ℝ, (y : TileHilbert Vertex) = c • crossingDark) := by
+  obtain ⟨energy, x, hmove, hnear, hxne, heigen, hunique, hsimple⟩ :=
+    crossing_perturbed_isolated_pair_simple ε hε hsmall
+  have hbright :=
+    crossing_moving_eigenvector_bright_nonzero
+      ε energy x heigen hmove hnear hsmall hxne
+  have hquad :=
+    crossing_moving_energy_quadratic_bound
+      ε energy x heigen hmove hnear hsmall hbright
+  have hsign := crossing_moving_energy_shift_sign ε energy hsmall hquad
+  have horth :=
+    crossing_moving_eigenvector_dark_orthogonal
+      ε energy x heigen hmove
+  have hproj :=
+    crossingQubitPart_eq_bright_smul_of_dark_orthogonal
+      (x : TileHilbert Vertex) horth
+  have hsharp :=
+    crossing_moving_eigenvector_sharp_leakage
+      ε energy x heigen hmove hnear hsmall
+  refine ⟨energy, x, hmove, hnear, hxne, heigen, hsign.1, hsign.2,
+    hquad, horth, hbright, hproj, hsharp, hunique, hsimple, ?_⟩
+  intro y hyeigen
+  exact crossingPerturbedEnergy_dark_only ε hε y hyeigen
+
 end
 end SpectralGeometry.AmmannBeenker
