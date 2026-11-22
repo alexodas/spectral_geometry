@@ -1,10 +1,121 @@
-# Registered Palomar result — exact multiplicity of a compact crossing on an infinite octagonal graph
+# Second Palomar candidate — exact protection of a dark mode and bright-mode feedback on an infinite octagonal graph
+
+**Status: draft candidate; not submitted or registered.** The first
+Palomar registration `PALOMAR-2026-11-06-000012` (v1, 2026-11-06)
+remains historically unchanged. This repository's current
+[`Challenge.lean`](Challenge.lean), [`Solution.lean`](Solution.lean),
+[`comparator.json`](comparator.json), and
+[`formalization.yaml`](formalization.yaml) prepare a **new
+scientific selection**. The full 104-module source containing the
+original 14 bright-amplitude lemmas was reported Lean green by the
+maintainer on PR #86; the newly bundled theorem and its independent
+Comparator configuration have **not yet been verified**.
+
+## The proposed one-theorem statement
+
+The source declaration is
+`SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
+in [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
+It conjoins **three related clauses** about one and the same rank-one
+edge perturbation. They form one new selected scientific theorem, not
+three separately registered statements.
+
+Use the concrete infinite, centered, open-window Ammann–Beenker
+cut-and-project vertex graph with quadratic confinement
+`V(v)=1+|p(v)|²`. The natural domain is
+`D(V)={x∈ℓ²:Vx∈ℓ²}`; the physical graph Laplacian has weight `1/16`
+per edge and an eight-neighbor tuning `t_*=17/16+√2`.
+At energy `E_*=13/4+√2`, let `a,b` be the two already classified
+alternating eight-site compact modes (squared norms `8`).
+Choose the actual adjacent endpoints
+`u=(1,0,0,0)`, `v=(1,1,0,0)` and
+`W=|δ_u-δ_v⟩⟨δ_u-δ_v|`. Write
+`H_ε=K_*+εW`, `D=(a+b)/4`, `F=(a-b)/4`, and let `Q`
+project orthogonally away from `span{a,b}`.
+
+**For every real edge strength `ε` and every `x∈D(V)`,**
+the candidate asserts
+
+```math
+H_\varepsilon D=E_*D,\qquad
+\langle F,H_\varepsilon x\rangle
+=\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle,
+```
+
+and the explicit compression-error inequality
+
+```math
+\left|\langle F,H_\varepsilon x\rangle
+ -\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle\right|
+\le2|\varepsilon|\,\|Qx\|.
+```
+
+These are **full-space real operator statements**. The dark state is
+an exact eigenvector for all strengths, not a consequence of
+truncating to two levels. The bright matrix element has a generally
+nonzero coupling to the external modes. In particular, the coefficient
+`ε/4` is **not** claimed to be a shifted eigenvalue, and the theorem
+does **not** construct a complex Schrödinger propagator, prove
+adiabatic dynamics, or establish state preparation.
+
+## Why it might interest researchers
+
+For **mathematical spectral and functional analysis**, the notable
+feature is a quantitative, exactly defined protected/coupled
+decomposition for a local rank-one perturbation of an unbounded
+self-adjoint operator on a concrete infinite graph, including an
+explicit external-mode error. This may be relevant to mathematical
+physicists working on discrete Schrödinger operators, localized
+eigenvectors, perturbation theory and aperiodic geometry.
+
+For **theoretical condensed-matter and photonic lattice physics**,
+the result distinguishes a robust dark compact mode from a bright
+combination that can excite modes outside a two-level truncation.
+Potential audiences include Ammann–Beenker quasicrystal
+tight-binding specialists, compact localized state and flat-band
+researchers, and theorists of resonator or photonic networks.
+Relevant antecedents include
+[M. Ö. Oktel, *Phys. Rev. B* 104, 014204 (2021)](https://doi.org/10.1103/PhysRevB.104.014204)
+and
+[M. Röntgen, C. V. Morfonios and P. Schmelcher, *Phys. Rev. B* 97, 035161 (2018)](https://doi.org/10.1103/PhysRevB.97.035161).
+The patterns, dark-state phenomena and elementary rank-one
+perturbation methods are not claimed as newly discovered.
+**Novelty, priority, independent research interest and experimental
+realization remain unestablished.**
+
+## Independent Challenge and next verification
+
+The new `Challenge.lean` imports **only Mathlib** and is about
+**484 lines, approximately 15 KiB** (below Palomar's 1,000-line and
+100-KiB hard caps). Its selected theorem names include **one
+scientific conclusion** and six **model-construction proposition
+witnesses**: `admitted_zero`, `mate_involutive`,
+`compactA_mem_domain`, `compactB_mem_domain`,
+`compactSiteA_admitted`, and `compactSiteB_admitted`.
+Those witnesses allow definition of the actual graph, natural-domain
+vectors and edge endpoints; they are not six more research claims.
+The Challenge intentionally uses proposition placeholders, while the
+substantive source contains no new `sorry` or axioms. Definitions
+are to be compared transitively, with no definition holes.
+
+Before any actual Palomar submission we must obtain a green
+**full Lean build and independent Comparator verification**, including
+the mandatory kernels, on this precise new package, then pin an
+immutable public 40-character commit. A green build on the
+**earlier fourteen-lemma source** does not establish that the newly
+prepared Challenge/Comparator selection passes. Palomar registration
+requires a separate submitter action after review.
+
+---
+
+# Historical Palomar registration — exact multiplicity of a compact crossing on an infinite octagonal graph
 
 **Registration:** `PALOMAR-2026-11-06-000012` (version 1), 2026-11-06.
-This document records the **previously registered** result; the exploratory
-coherent-control work in [README §4.80](README.md#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
-and [§6.4](README.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
-is separate and has not been submitted as a new Palomar statement.
+The following historical record describes the **previously registered** result.
+The distinct one-edge dark/bright result has since been proposed as a **new
+candidate**, not submitted or registered. The old proof and its original
+registry record remain unchanged.
 
 The principal theorem is `SpectralGeometry.AmmannBeenker.crossingEigenspace_finrank`.
 The companion `SpectralGeometry.AmmannBeenker.crossing_eigenvector_representation`
@@ -103,13 +214,16 @@ sources and correspondence between the statements and the Lean declarations.
 
 ## Independent statement verification
 
-[Challenge](Challenge.lean) imports only Mathlib and specifies the graph,
-operator, domain, two compact modes, sites and eigenspace. [Solution](Solution.lean)
-imports the substantive proof module. [Comparator](comparator.json) selects
-the two conclusions above and three proposition witnesses used to define
-the model: `admitted_zero`, `mate_involutive` and `centralLift_admitted`.
-Only these five statements have placeholders in Challenge; all are proved
-in the source. Definitions are compared transitively with no definition
+The [pre-change Challenge](https://github.com/alexodas/spectral_geometry/blob/d6234b0d0d4f06827fb741599a492449d9265ee2/Challenge.lean)
+imports only Mathlib and specifies the graph, operator, domain, compact
+modes, sites and eigenspace. The corresponding
+[pre-change Solution](https://github.com/alexodas/spectral_geometry/blob/d6234b0d0d4f06827fb741599a492449d9265ee2/Solution.lean)
+imports the old substantive proof module. The
+[pre-change Comparator](https://github.com/alexodas/spectral_geometry/blob/d6234b0d0d4f06827fb741599a492449d9265ee2/comparator.json)
+selects the two crossing conclusions and three model witnesses
+used to define the model: `admitted_zero`, `mate_involutive` and `centralLift_admitted`.
+Only these five statements had placeholders in the historical Challenge;
+all are proved in the source. Definitions are compared transitively with no definition
 holes. Challenge groups declarations by source module to preserve the names
 of Lean's generated proof terms. The independent checks use Lean and the
 bundled NanoDa and con-ron kernels; the full library is built separately.
@@ -126,7 +240,9 @@ lake build SpectralGeometry Challenge Solution
 bash scripts/verify-comparator.sh
 ```
 
-The registration above refers to the earlier, independently verified
-selection at its original immutable commit. Any future replacement or
-additional Palomar submission needs its own verified immutable commit;
-preparing a package or passing CI does not by itself register a new result.
+This historical verification package is shown at the **post-PR #85
+pre-change project checkpoint** above; its commit is not asserted to be the
+original Palomar registration commit. The 2026 registered selection remains
+at the immutable commit retained by Palomar. The current root
+Challenge/Solution/Comparator files prepare a **different selection**;
+passing CI or preparing files does not register it.
