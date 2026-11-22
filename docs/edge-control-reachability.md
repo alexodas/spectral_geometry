@@ -435,6 +435,51 @@ natural-domain invariance and commutation with its
 generator remain explicitly open. The new declaration
 must pass its first CI check.
 
+## Switching the selected edge OFF: a two-segment leakage estimate
+
+[`AmmannBeenkerPostpulseSwitchOff.lean`](../SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
+addresses the first *piecewise-constant* protocol in the
+original infinite graph.
+
+Fix the same connecting edge `W` and a pulse strength `ε`.
+Let `x` be a crossing eigenvector and `y` the state after
+a constant-strength pulse. Suppose the pulse preserves its
+norm and the `K_ε-E_*` residual norm:
+
+```text
+‖y‖ = ‖x‖,
+‖(K_ε-E_*)y‖ = ‖(K_ε-E_*)x‖,
+K_ε = K_* + εW .
+```
+
+At the instant the control is turned off, the important
+quantity for **free** evolution is the *other* residual
+`(K_*-E_*)y`. Its exact estimate is
+
+```text
+‖(K_*-E_*)y‖ ≤ 4|ε|‖x‖ .
+```
+
+If the subsequent unperturbed segment preserves the
+norm of this unperturbed residual, then for *any* later
+state `z` in the natural domain,
+
+```text
+‖(I-P)z‖ ≤ 512|ε|‖x‖ .
+```
+
+This is proved with the actual gap `1/128`, without
+supposing the two segment Hamiltonians share their
+residual conservation law. The new source also has
+theorems for supplied norm-preserving, domain-preserving
+intertwining maps, with **both segment durations**
+arbitrary. No time factor appears.
+
+All evolution families are still **hypotheses** on the
+real Hilbert space; we do not yet have the physical
+complex Schrödinger group or constructive state
+preparation. The new module awaits its first Lean CI run.
+
 ## An obstruction to edge-only state preparation
 
 The original repository proves this for the unnormalized vector
