@@ -3711,7 +3711,7 @@ origin, graph matchings, compact-domain vectors and edge endpoints.
 All model definitions must be compared transitively, with
 `definition_names=[]`; these witnesses are not six more proposed
 discoveries. The Challenge is kept below 300 lines if possible, but
-the present independently explicit model requires 484 lines, well
+the present independently explicit model requires 488 lines, well
 below Palomar's hard 1,000-line/100-KiB limit. The complete new
 Comparator/metadata audit must pass on an immutable commit before
 this draft could be submitted. The first Palomar registration
@@ -4466,7 +4466,7 @@ Comparator and immutable commit remain accessible through
 - [x] Preserve the full source proof and add
   `crossingOneEdgeDarkBrightResponse`, combining exact dark eigenstate,
   exact bright forcing and its explicit exterior-error bound.
-- [x] Prepare a short Mathlib-only Challenge: 484 lines and about 15 KiB,
+- [x] Prepare a short Mathlib-only Challenge: 488 lines and about 15 KiB,
   below the submission hard limits; one scientific theorem and six
   required concrete-model proposition witnesses, no definition holes.
 - [x] Retarget root Solution, comparator.json and formalization.yaml
