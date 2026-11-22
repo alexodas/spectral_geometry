@@ -269,5 +269,33 @@ theorem crossingBright_pulse_amplitude_error_bound (ε : ℝ)
           (crossingEdge_apply_norm_le_two _) (abs_nonneg ε)
     _ = 2 * |ε| * ‖crossingLeakage (x : TileHilbert Vertex)‖ := by ring
 
+/-- One compact full-graph control theorem selected for a possible
+second Palomar comparison. The first clause is an exact eigenstate,
+the second retains full exterior feedback, and the third bounds the
+generator-level error from replacing the bright response by its
+two-mode compression. No time evolution or spectral splitting is
+claimed. -/
+theorem crossingOneEdgeDarkBrightResponse (ε : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge)
+        domainCrossingDark = crossingEnergy • crossingDark ∧
+      (inner ℝ crossingBright
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) x) =
+        (crossingEnergy + ε / 4) *
+            inner ℝ crossingBright (x : TileHilbert Vertex) +
+          ε * inner ℝ crossingBright
+            (crossingEdge (crossingLeakage (x : TileHilbert Vertex)))) ∧
+      |inner ℝ crossingBright
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) x) -
+        (crossingEnergy + ε / 4) *
+          inner ℝ crossingBright (x : TileHilbert Vertex)| ≤
+        2 * |ε| * ‖crossingLeakage (x : TileHilbert Vertex)‖ := by
+  exact ⟨crossingDark_full_eigenvector ε,
+    crossingBright_pulse_amplitude ε x,
+    crossingBright_pulse_amplitude_error_bound ε x⟩
+
 end
 end SpectralGeometry.AmmannBeenker
