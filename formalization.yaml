@@ -43,7 +43,7 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.104.014204",
-      "note": "Section IV describes the type-A and type-B patterns for the vertex tight-binding model. We use these known patterns; our theorem asks whether they exhaust a level of the graph Laplacian with quadratic confinement and a first-ring intervention."
+      "note": "Section IV gives the known type-A and type-B compact localized patterns on the octagonal vertex tight-binding graph. This is geometric and physical background for our two compact modes; the present selected theorem concerns the response to a particular rank-one edge change in a separately specified quadratically confined operator, not a claim to discover those patterns."
     },
     {
       "title": "Compact localized states and flat bands from local symmetry partitioning",
@@ -55,7 +55,7 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.97.035161",
-      "note": "Background on producing and tuning compact states by local symmetries; a construction of localized states alone does not determine the full eigenspace in this confined model."
+      "note": "Background on constructing and tuning compact localized states using local symmetry, and on flat-band settings in which protected and coupled mode combinations matter. It does not establish the full infinite-graph dark/bright response quantified by this candidate theorem."
     },
     {
       "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
@@ -65,7 +65,7 @@
       "type": "other",
       "relationship": "background",
       "id": "https://pure.tue.nl/ws/files/4269555/253166.pdf",
-      "note": "Geometric background. Polygonal coverage and aperiodicity are not conclusions of the selected graph theorem."
+      "note": "Geometric origin of square-rhombus octagonal tiling models. The present theorem concerns one centered admitted-vertex graph and does not claim polygonal coverage, aperiodicity of the hull, or validity for every Ammann–Beenker realization."
     },
     {
       "title": "Mathlib4 — Lean mathematical library",
