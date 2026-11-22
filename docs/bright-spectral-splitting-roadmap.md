@@ -226,6 +226,47 @@ none is claimed in this theorem. No comparison package changed.
     state-preparation reachability, and the analytic-product
     research program. They are not implied by L5.
 
-**Unchanged:** `Challenge.lean`, `Solution.lean`,
-`comparator.json`, `palomar/dark-bright/comparator.json`,
-`formalization.yaml` and the first registered theorem.
+## 5. Palomar candidate packaging after L5
+
+The newly selected scientific result is the single consolidated
+`crossing_final_signed_bright_spectral_splitting` theorem (§4.97),
+not the earlier generator-response conclusion (§4.92).
+The active Mathlib-only `Challenge.lean` and
+`Solution.lean` now state and prove that exact selected
+theorem, with the six necessary concrete-model witnesses.
+
+The active Comparator is kept **per theorem** at
+[`palomar/signed-bright-splitting/comparator.json`](../palomar/signed-bright-splitting/comparator.json).
+The previous **unsubmitted** generator-response candidate
+is archived under [`palomar/dark-bright/`](../palomar/dark-bright/)
+with its original Comparator and snapshots of its Challenge and
+Solution. The redundant root `comparator.json` was deleted;
+the static checks, comparator runner, diagnosis script and
+CI workflow now use the dedicated active configuration.
+
+The project description in [`formalization.yaml`](../formalization.yaml)
+states the theorem in plain English: one simple energy remains
+fixed while exactly one other simple energy moves in the direction
+of a small one-edge change, with explicit bounds for its value
+and its wave pattern. It does not contain workflow,
+pull-request or commit details.
+
+The source theorem was proved in L5 and kernel/Comparator checked
+before preparing the independent package. The **new packaged
+candidate itself** has now passed the complete Lean build,
+static checks and independent NanoDa/con-ron verification in
+[Action #335](https://github.com/alexodas/spectral_geometry/actions/runs/45063053611)
+on exact package commit
+`0709981b15fc99cbf18f6e63856ae20860333b73`.
+The Comparator confirmed that the Solution was accepted.
+Preparing and committing the package does **not** mean that
+Palomar has accepted or registered a new theorem. A distinct
+external submission is still needed.
+
+**Protected historical registration:** the first Palomar record
+`PALOMAR-2026-11-06-000012` remains unchanged.
+The L1–L5 substantive proof source has not been altered by
+the new Palomar package; the changed files are the independent
+Challenge, Solution, formalization metadata, candidate-specific
+Comparator selection, and their supporting CI scripts.
+

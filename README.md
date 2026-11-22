@@ -14,6 +14,8 @@ zeros of analytic functions built from those levels.**
 
 **Consolidated spectral theorem.** For `0<|ε|≤1/1024`, the actual moving energy obeys `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²`, and **its strict shift has the same sign as ε**. A single full-infinite-operator theorem packages both simple eigenvalue energies, their uniqueness within the window, the exact dark line, and the moving eigenvector's bright/exterior decomposition (§4.97). These conclusions concern genuine real natural-domain eigenvectors, not an additional independently established theorem about the complex spectrum. General quantum propagation, state preparation and the program's separate analytic-product objectives remain research questions. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
 
+**In plain English.** In this particular infinite octagonal network, changing one edge by a sufficiently small nonzero amount leaves one nearby energy level fixed and moves exactly one other level. The moving level rises if the edge is strengthened and falls if it is weakened. Both levels have just one independent wave pattern, and the theorem gives numerical bounds on the moving energy and on how much of its wave extends beyond the two original localized patterns. This is an exact theorem for the infinite model, not a finite simulation or a quantum-control experiment.
+
 **Provenance and limits.** Alessandro Odasso, who is not a mathematician, conceived and directs this research into scientific work carried out with large language models. According to the maintainer, AI generated the theorem statements, mathematical proof development and Lean formalizations under his direction. Kernel verification tests formal correctness; novelty, research significance and physical applications require independent assessment.
 
 ## Table of contents
@@ -30,12 +32,13 @@ zeros of analytic functions built from those levels.**
   - [4.80. Single-edge control and dark mode](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
   - [4.89. Exact dark-state Schrödinger trajectory](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
   - [4.91. Exact bright response and external feedback](#491-verified-bright-amplitude-generator-identity-with-explicit-leakage-forcing)
-  - [4.92. Proposed second Palomar theorem](#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+  - [4.92. Earlier, unsubmitted Palomar candidate](#492-earlier-unsubmitted-palomar-candidate-exact-dark-protection-and-bright-feedback)
   - [4.93. Verified dark simplicity and distinct perturbed spectral level](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
   - [4.94. Two simple eigenvalues in a certified perturbed window](#494-two-simple-eigenvalues-in-a-certified-perturbed-window)
   - [4.95. Bright amplitude and quantitative exterior leakage](#495-bright-amplitude-and-quantitative-exterior-leakage)
   - [4.96. A sharp quadratic law for the actual moving level](#496-a-sharp-quadratic-law-for-the-actual-moving-level)
   - [4.97. Signed shift and consolidated infinite-operator splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
+  - [4.98. Palomar candidate: signed bright splitting](#498-palomar-candidate-signed-bright-splitting)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
@@ -70,13 +73,14 @@ The table below separates proved results from remaining research tasks.
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
-| Exact bright generator response and selected-edge Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92: a single combined theorem with an independent Mathlib-only Challenge/Comparator package. The verification result for this package is tied to the exact commit checked, not to a statement in the README |
+| Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The active candidate is the stronger theorem of §4.98 |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
 | Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320 |
 | Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Verified by full Lean and independent Comparator in Action #324 (commit `180f1d8`) |
 | Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328 |
 | True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`; complete Lean and independent Comparator verification in Action #331 |
 | Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts **strictly in the direction of ε**. The single theorem `crossing_final_signed_bright_spectral_splitting` bundles natural-domain existence, real point-spectrum window uniqueness, both simple eigenspaces, the quadratic `112ε²` bound and the bright/exterior eigenvector control. Full Lean and independent Comparator: Action #333 at its exact source commit |
+| New Palomar candidate: signed spectral splitting | §4.98: the Mathlib-only independent Challenge and substantive Solution now select the final L5 theorem. The active per-theorem Comparator is `palomar/signed-bright-splitting/comparator.json`, the older one is retained in its archive and the root Comparator is removed. Candidate packaging is distinct from submission or Palomar registration |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -3192,7 +3196,8 @@ also needs segment-by-segment analysis; conservation of
 subsequent intertwining and switch-off statements, have passed
 the reported full Lean Action. Section 4.85 initially passed
 Action #246. At that historical checkpoint the first Palomar selection
-was unchanged; §4.92 describes the subsequent second candidate.
+was unchanged; §4.92 documents a later, now archived,
+unsubmitted candidate. The current candidate is in §4.98.
 
 ### 4.86. Residual conservation follows from Hamiltonian intertwining
 
@@ -3307,9 +3312,10 @@ not by itself supply that physical evolution.
 
 **Lean status:** this full-graph real self-adjointness theorem
 and §4.86 have passed the full Lean verification. At that checkpoint, the original Palomar selection and its
-Challenge/Comparator files were unchanged; they have since been
-retargeted for the proposed second candidate (§4.92), while the
-first registration remains immutable.
+Challenge/Comparator files were unchanged. The later
+generator-response candidate is archived in §4.92, and the
+current stronger candidate is in §4.98. The first
+registration remains immutable.
 
 ### 4.88. A controlled pulse followed by free evolution after switching the edge off
 
@@ -3623,9 +3629,9 @@ selection for independent statement comparison; the corresponding
 verification record belongs to the actual checked commit. The prior
 registered theorem continues to hold at its original immutable commit.
 
-### 4.92. One new Palomar candidate: exact dark protection and bright feedback
+### 4.92. Earlier, unsubmitted Palomar candidate: exact dark protection and bright feedback
 
-**Proposal, not a second registration.** The new declaration
+**Earlier candidate, not a second registration; preserved for historical reference.** The declaration
 `SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
 in [AmmannBeenkerBrightAmplitude.lean](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
 combines previously established conclusions into **one** mathematical
@@ -3678,20 +3684,21 @@ and Röntgen–Morfonios–Schmelcher,
 These are literature links, **not endorsements or evidence of novelty**.
 A priority and expert-interest assessment remains open.
 
-**Small independent Challenge.** The new
-[`Challenge.lean`](Challenge.lean) states this single scientific theorem
+**Archived independent Challenge.** The historical
+[`Challenge.lean`](palomar/dark-bright/Challenge.lean) states this earlier scientific theorem
 without importing SpectralGeometry proofs. Six additional selected
 propositions are **technical model witnesses** needed to define the
 origin, graph matchings, compact-domain vectors and edge endpoints.
 All model definitions must be compared transitively, with
 `definition_names=[]`; these witnesses are not six more proposed
 discoveries. The Challenge is kept below 300 lines if possible, but
-the present independently explicit model requires 488 lines, well
-below Palomar's hard 1,000-line/100-KiB limit. The complete
-Comparator/metadata audit must pass for the exact immutable commit
-used in a submission. The first Palomar registration described in
-§4.78 remains historically intact and is not replaced by the second
-proposal.
+that earlier independently explicit model required 531 physical
+lines, well below Palomar's hard 1,000-line/100-KiB limit.
+Its [historical per-theorem Comparator](palomar/dark-bright/comparator.json)
+and root-file snapshots are preserved unchanged. The active
+candidate is now the stronger final spectral theorem (§4.98);
+the first Palomar registration described in §4.78 remains
+historically intact and is not replaced by either proposal.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -4081,6 +4088,76 @@ on exact source commit
 `fbd2503d33280d7d0c2fe5306ea2739806628b20`.
 This record refers to that source commit only.
 
+### 4.98. Palomar candidate: signed bright splitting
+
+**New proposed selection; not a new Palomar registration.** The
+new package selects the fully proved L5 statement
+`SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`
+from [AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean).
+Unlike the earlier generator-response candidate (§4.92), this
+theorem concerns a **genuine moving eigenvalue of the full infinite
+operator**, not just a matrix element calculated on the original
+two-dimensional plane.
+
+**Plain-language theorem.** If we slightly change one edge
+in the specified infinite octagonal network, one simple
+nearby energy level stays fixed and a second simple level
+moves up when the edge is strengthened or down when it is
+weakened. There are no other real eigenvector energies in
+the stated narrow window. The moving energy is within a
+proved quadratic error of a first-order prediction, and
+the theorem bounds the part of its wave pattern outside
+the original two localized states. The result concerns the
+entire infinite network and its natural domain; it is
+not a time-evolution or experimental-control result.
+
+**Independent submission package.** The root
+[`Challenge.lean`](Challenge.lean) imports **only Mathlib**
+and reconstructs the necessary concrete model without importing
+the source proofs. The challenge has **558 lines** (less than
+19 KiB) and one scientific theorem with a single proof
+placeholder. Six additional selected proposition placeholders
+are required to construct the origin, graph, compact states
+and selected edge. These are technical model witnesses, not
+six more scientific discoveries; all definitions are concrete.
+
+The root [`Solution.lean`](Solution.lean) imports the
+substantive module containing the verified proof and does
+not import Challenge. The **active theorem-specific**
+configuration is
+[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
+The previous candidate's
+[`Comparator`](palomar/dark-bright/comparator.json) and
+[`Challenge`](palomar/dark-bright/Challenge.lean) /
+[`Solution`](palomar/dark-bright/Solution.lean) snapshots
+are preserved as an archive. Each candidate has its own
+Comparator inside `palomar/`; there is deliberately
+**no `comparator.json` at repository root**.
+
+[`formalization.yaml`](formalization.yaml) retains its
+metadata structure and gives a self-contained,
+simple-English description of the new scientific theorem,
+with no workflow or commit details in its project
+description. The packaging scripts now read the
+active per-theorem Comparator and check that the old
+candidate remains archived.
+
+**Verification and submission status.** The L5 mathematical
+source was fully verified (§4.97). The independently
+assembled **Palomar package** passed its own full Lean
+and static configuration checks and the Comparator's
+bundled independent kernels (NanoDa and con-ron):
+[Action #335](https://github.com/alexodas/spectral_geometry/actions/runs/45063053611)
+on exact package commit
+`0709981b15fc99cbf18f6e63856ae20860333b73`.
+The Comparator reported that the Solution was accepted.
+The independently tested package is ready for separate
+submission, but preparing and committing files does **not**
+itself submit or register a new theorem at Palomar.
+The first registration `PALOMAR-2026-11-06-000012`
+is unchanged. Originality and scientific significance
+still require independent human assessment.
+
 ## 5. Building and verification
 
 The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **106 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-one infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
@@ -4220,34 +4297,44 @@ contains deliberate statement placeholders (`sorry`), and is judged
 against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
-**Palomar / independent statement verification:** the working tree has
-one root [`comparator.json`](comparator.json), one
-[`Challenge.lean`](Challenge.lean) and one [`Solution.lean`](Solution.lean),
-now prepared for **one new scientific selection**,
-`SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
-(§4.92). Six additional model witnesses are selected only to make the
-concrete Challenge definitions independently comparable. The Challenge
-imports only Mathlib; the Solution imports the substantive bright module.
-No definition has an intentional hole; the seven `sorry` placeholders
-exist **only in Challenge statements**, never in the substantive library.
-The source code still proves the original exact-multiplicity theorems and
-the §4.79 spectral gap, but they are **not newly selected** in this
-proposed second comparison. The first registered Comparator selection is
-preserved at its original immutable commit and is not overwritten by
-a registry submission. The separate full-project build covers all **106
-mathematical source modules**; the **new** comparison must be verified
-by Lean, NanoDa and con-ron on the immutable commit chosen for submission.
+**Palomar / independent statement verification:** the active
+[`Challenge.lean`](Challenge.lean) and
+[`Solution.lean`](Solution.lean) now select exactly one
+new scientific theorem,
+`SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`
+(§4.98). Their active **per-theorem Comparator** is
+[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
+The earlier, unsubmitted generator-response candidate and its
+dedicated Comparator plus original Challenge/Solution snapshots
+are preserved under [`palomar/dark-bright/`](palomar/dark-bright/).
+No root `comparator.json` exists.
 
-**Distinct Palomar registration identity.** The first registered result
-used the repository-root `comparator.json` path. To submit the dark/bright
-theorem as a **separate new result**, select
-[`palomar/dark-bright/comparator.json`](palomar/dark-bright/comparator.json)
-as the Comparator configuration, with the project directory at the repository
-root and the *existing Palomar ID* field left blank. This dedicated file is
-byte-identical to the root configuration used by the local CI checks;
-`scripts/check-unified-comparator.py` enforces that equality. The first
-Palomar registration remains associated with its original immutable commit
-and Comparator path, without being turned into a revised version.
+The active Challenge imports only Mathlib and the Solution
+imports the substantive bright-splitting proof module.
+Six extra proposition witnesses are necessary to reconstruct
+the concrete graph and its domain; those are not additional
+submitted scientific results. There are seven deliberate
+statement `sorry` placeholders only in Challenge, no
+definition holes and no proof holes in the full **106-module**
+substantive library. The first Palomar registration remains
+historical and unchanged. The active candidate's full Lean,
+static-package and independent NanoDa/con-ron checks
+**passed on its exact package commit** (Action #335).
+An eventual Palomar submission must use a publicly
+accessible immutable commit with successful checks.
+
+**Distinct Palomar registration identity.** The original
+registered theorem remains attached to its historical immutable
+revision and has **not** been revised or resubmitted. The earlier
+generator-response candidate is an unsubmitted archive under
+[`palomar/dark-bright/`](palomar/dark-bright/); its original
+Comparator and root-module snapshots are preserved for reproducibility.
+The **currently proposed** signed-splitting theorem instead uses
+[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
+The local CI and packaging checks now explicitly select this
+per-theorem path, never a root Comparator. An eventual separate
+submission must use a verified immutable source hash and must
+not reuse the earlier registered result's ID.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -4912,44 +4999,63 @@ theorem, and carries no asserted connection to the Riemann zeta function.
 
 ### 6.8. Independent statement verification and research-interest assessment
 
-**Historical first registration — preserved.** The 2026 Palomar record
-`PALOMAR-2026-11-06-000012` selected
+**Historical first registration — preserved.** The 2026 Palomar
+record `PALOMAR-2026-11-06-000012` selected
 `crossingEigenspace_finrank` and
-`crossing_eigenvector_representation`, plus three necessary model
-witnesses (§4.78). It proves that the entire full-natural-domain real
-crossing eigenspace is exactly two-dimensional, not merely spanned by
-two vectors in a finite truncation. This historical result is explained
-in §4.78 and remains associated with the original Palomar registration.
-The repository's current Challenge, Solution and Comparator instead
-prepare a different theorem (§4.92). No new submission has replaced
-the first registration.
+`crossing_eigenvector_representation`, plus three
+necessary model witnesses (§4.78). It proved the full
+infinite-operator crossing eigenspace was exactly
+two-dimensional. Neither this record nor its registration
+is being replaced.
 
-**One proposed second selection (§4.92).**
+**Earlier, unsubmitted candidate (§4.92).** The former
+generator-response candidate `crossingOneEdgeDarkBrightResponse`
+and its dedicated
+[`palomar/dark-bright/comparator.json`](palomar/dark-bright/comparator.json)
+are kept as an archive, with exact snapshots of its original
+Challenge and Solution. It has **not** been claimed as
+a separate registered Palomar theorem.
 
-- [x] Preserve the full source proof and add
-  `crossingOneEdgeDarkBrightResponse`, combining exact dark eigenstate,
-  exact bright forcing and its explicit exterior-error bound.
-- [x] Prepare a short Mathlib-only Challenge: 488 lines and about 15 KiB,
-  below the submission hard limits; one scientific theorem and six
-  required concrete-model proposition witnesses, no definition holes.
-- [x] Retarget root Solution, comparator.json and formalization.yaml
-  to the second *candidate*, without rewriting the historical first
-  registration or pretending it has already been submitted.
-**Final-submission requirement:** use a public immutable 40-character
-commit SHA whose complete Lean and independent Comparator checks (including
-NanoDa and con-ron) passed. The machine-verification result is read from
-that commit's checks, rather than recorded as a changing checklist item
-or status sentence in this README.
+**Current proposed selection (§4.98).** The active root
+Challenge and Solution now select the stronger theorem
+`crossing_final_signed_bright_spectral_splitting`.
+Its separate [Comparator file](palomar/signed-bright-splitting/comparator.json)
+lives under the candidate's own Palomar directory, **not**
+at the repository root. The one scientific theorem has
+six necessary concrete-model witnesses. The standalone
+Mathlib-only Challenge is 558 lines and under 19 KiB,
+within the submission size limits, with no definition holes.
+
+- [x] Preserve the exact published source theorem and the
+  earlier candidate's archive.
+- [x] Set the candidate's Challenge, Solution, metadata and
+  per-theorem Comparator to the same final L5 statement.
+- [x] Remove the redundant root Comparator and update
+  the repository's independent verification scripts.
+- [x] Confirm full Lean, static layout and independent
+  Comparator, including NanoDa and con-ron, on the
+  **exact package source commit** `0709981b15fc99cbf18f6e63856ae20860333b73`
+  (Action #335).
+- [ ] Submit the checked candidate to Palomar only through
+  an authorized submission process; the current work
+  is **preparation, not external registration**.
+
+**Registration boundary.** Creating a fully checked
+candidate is not itself a Palomar submission or registration.
+No external acceptance is asserted here. The original
+registration remains historical and unchanged.
 
 **Potential research interest, without a priority claim.** The compact
 A/B patterns are known in quasicrystal tight-binding research
 ([Oktel 2021](https://doi.org/10.1103/PhysRevB.104.014204)).
 Protected combinations and local rank-one perturbations are not novel
-mathematical primitives. What may merit further examination here is
-the exact contrast between a fully protected dark eigenstate and
-a bright matrix element with explicitly bounded but nonvanishing
-external feedback, **on the entire specified confined infinite graph**.
-This rules out an unjustified invariant two-level approximation.
+mathematical primitives. What may merit further examination is the **full infinite-system
+spectral statement**: a protected simple dark eigenstate, a second
+unique simple nearby energy whose shift sign and quadratic
+remainder are proved, and a moving eigenvector with quantified
+external coupling. These statements avoid the unjustified
+assumption that the two original localized states form an
+exactly invariant closed two-level system.
 
 A plausible **mathematical** audience is the spectral-theory,
 functional-analysis and discrete Schrödinger-operator community,
@@ -4976,6 +5082,9 @@ update the **table of contents** whenever sections are added, renamed
 or reorganized; and review the entire README for **obsolete statements**,
 revising old status sentences and open-problem descriptions when later
 theorems resolve them without erasing their historical context.
+For Palomar, preserve a separate Comparator inside each
+`palomar/<candidate>/` directory, preserve predecessor packages,
+and never place a redundant Comparator at the repository root.
 
 Keep the **executive summary scientific, concise and durable**:
 **never include references to pull requests, PR numbers, GitHub Actions,
