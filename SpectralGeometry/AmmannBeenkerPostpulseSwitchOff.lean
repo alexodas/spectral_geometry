@@ -186,7 +186,7 @@ theorem crossingEdgePulse_then_free_family_leakage_bound
   have hfree :
       ‖crossingEdgePulseResidual 0 z‖ =
         ‖crossingEdgePulseResidual 0 y‖ := by
-    rw [crossingEdgePulseResidual_zero, crossingEdgePulseResidual_zero]
+    simp only [crossingEdgePulseResidual_zero]
     change
       ‖onsitePlusBounded potential (ringInteraction crossingParameter)
           ⟨Ufree τ (y : TileHilbert Vertex), hdom τ y⟩ -
