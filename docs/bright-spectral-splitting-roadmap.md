@@ -132,11 +132,20 @@ interest before changing any formalization/comparison package.
    true distinct perturbed natural-domain eigenpair for every
    `ε ≠ 0`, with `|E_b − E_*| ≤ 2|ε|`. The independent
    Comparator also passed.
-5. **L2d open**: certify exactly two slots in the isolated window,
-   dark/moving separation and simplicity of the moving level.
-6. Then perform the L3–L4 external-component and quadratic-remainder
-   arguments and consolidate L5. Preserve the separate, speculative
-   dynamical-control research questions for later.
+5. **L2d source candidate awaiting CI**: the theorem
+   `crossing_perturbed_isolated_pair_simple` targets
+   `0 < |ε| ≤ 1/1024`. Using the original closed gap `1/128`,
+   the ordered `2|ε|` level stability and completeness of both
+   eigenbases, it aims to prove that the **actual natural-domain
+   point spectrum** inside the closed radius `1/256` consists
+   exactly of the fixed simple dark energy and one distinct
+   simple moving level. A new generic DomainEigenbasis interface
+   justifies both eigenvalue coverage and geometric simplicity
+   of a singly occurring ordered level. **This remains unverified
+   until the new workflow passes.**
+6. Once L2d is green, perform the L3–L4 external-component and
+   quadratic-remainder arguments and consolidate L5. Preserve
+   the separate, speculative dynamical-control research questions.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,
 `comparator.json`, `palomar/dark-bright/comparator.json`,

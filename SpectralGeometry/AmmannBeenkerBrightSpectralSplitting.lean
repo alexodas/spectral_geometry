@@ -318,5 +318,187 @@ theorem crossing_exists_distinct_perturbed_level_near
     · exact bt.basis.orthonormal.ne_zero (n + 1)
     · exact bt.eigen (n + 1)
 
+/-- For a nonzero selected-edge perturbation with |ε| ≤ 1/1024,
+the genuine infinite-operator point spectrum in the closed radius
+1/256 about E* consists of exactly two distinct, simple energies:
+the fixed dark energy E* and one moving energy. The moving eigenvalue
+lies within 2|ε|, and every natural-domain eigenvector at that
+energy is a scalar multiple of a fixed normalized eigenvector.
+
+This uses the full ordered eigenbases, not a two-state truncation.
+The quantitative bright shift and exterior component are still open. -/
+theorem crossing_perturbed_isolated_pair_simple
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
+        (y : TileHilbert Vertex) ≠ 0 →
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          t • (y : TileHilbert Vertex) →
+        |t - crossingEnergy| ≤ 1 / 256 →
+        t = crossingEnergy ∨ t = energy) ∧
+      (∀ y : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) y =
+          energy • (y : TileHilbert Vertex) →
+        ∃ c : ℝ, (y : TileHilbert Vertex) = c • (x : TileHilbert Vertex)) := by
+  obtain ⟨ev, b, hev, n, hn, hnext, hunique⟩ :=
+    crossing_exists_ordered_eigenbasis_consecutive_pair
+  obtain ⟨baseline, μ, b0, bt, hbaseline, _, hstab⟩ :=
+    crossingEdge_exists_ordered_eigenbases_and_stability ε
+  have hring :
+      ∀ u v : TileHilbert Vertex,
+        inner ℝ ((ringInteraction crossingParameter) u) v =
+          inner ℝ u ((ringInteraction crossingParameter) v) := by
+    simpa only [ringInteraction] using
+      (finiteSectorCorrection_symmetric interaction interaction_symmetric
+        (neighbors origin) crossingParameter)
+  have heq : ev = baseline :=
+    DomainEigenbasis.ordered_levels_unique b b0
+      (onsitePlusBounded_symmetric potential
+        (ringInteraction crossingParameter) hring)
+      hev hbaseline
+  have hbase_n : baseline n = crossingEnergy := by
+    rw [← heq]
+    exact hn
+  have hbase_next : baseline (n + 1) = crossingEnergy := by
+    rw [← heq]
+    exact hnext
+  have hsmallgap :
+      (1 / 256 : ℝ) + 2 * |ε| < crossingGapCandidate := by
+    dsimp only [crossingGapCandidate]
+    linarith only [hsmall]
+  have hfar (k : ℕ) (hk : ev k ≠ crossingEnergy) :
+      crossingGapCandidate < |ev k - crossingEnergy| := by
+    by_contra hnot
+    have hnear : |ev k - crossingEnergy| ≤ crossingGapCandidate :=
+      le_of_not_gt hnot
+    have hz := crossingGapCandidate_off_crossing_eigenvector_zero
+      ⟨b.basis k, b.mem_domain k⟩ (ev k) (b.eigen k) hk hnear
+    exact (b.basis.orthonormal.ne_zero k) hz
+  have houtside (k : ℕ) (hkn : k ≠ n) (hknext : k ≠ n + 1) :
+      (1 / 256 : ℝ) < |μ k - crossingEnergy| := by
+    have hne : ev k ≠ crossingEnergy := by
+      intro h
+      rcases hunique k h with hidx | hidx
+      · exact hkn hidx
+      · exact hknext hidx
+    have hg := hfar k hne
+    have hs : |μ k - ev k| ≤ 2 * |ε| := by
+      simpa only [← heq] using hstab k
+    have hs' : |ev k - μ k| ≤ 2 * |ε| := by
+      calc
+        |ev k - μ k| = |μ k - ev k| := abs_sub_comm _ _
+        _ ≤ 2 * |ε| := hs
+    have htri : |ev k - crossingEnergy| ≤
+        |ev k - μ k| + |μ k - crossingEnergy| :=
+      abs_sub_le (ev k) (μ k) crossingEnergy
+    by_contra hnot
+    have hnear : |μ k - crossingEnergy| ≤ (1 / 256 : ℝ) :=
+      le_of_not_gt hnot
+    linarith only [hg, hs', htri, hnear, hsmallgap]
+  have hslot (k : ℕ)
+      (hk : |μ k - crossingEnergy| ≤ (1 / 256 : ℝ)) :
+      k = n ∨ k = n + 1 := by
+    by_contra hnot
+    have hkn : k ≠ n := by
+      intro h
+      exact hnot (Or.inl h)
+    have hknext : k ≠ n + 1 := by
+      intro h
+      exact hnot (Or.inr h)
+    exact (not_lt_of_ge hk) (houtside k hkn hknext)
+  have hsym :
+      ∀ u v : infiniteOnsiteDomain potential,
+        inner ℝ
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) u)
+          (v : TileHilbert Vertex) =
+        inner ℝ (u : TileHilbert Vertex)
+          (onsitePlusBounded potential
+            (ringInteraction crossingParameter + ε • crossingEdge) v) :=
+    onsitePlusBounded_symmetric potential
+      (ringInteraction crossingParameter + ε • crossingEdge)
+      (crossingEdgePulseCorrection_symmetric ε)
+  obtain ⟨energy, x0, hmove, hnear, hxne, heigen⟩ :=
+    crossing_exists_distinct_perturbed_level_near ε hε
+  obtain ⟨j, hj⟩ := bt.eigenvalue_occurs hsym x0 energy hxne heigen
+  have hsmallnear : 2 * |ε| ≤ (1 / 256 : ℝ) := by
+    linarith only [hsmall]
+  have hjpair : j = n ∨ j = n + 1 := by
+    apply hslot
+    rw [hj]
+    exact hnear.trans hsmallnear
+  have hdarkne : (domainCrossingDark : TileHilbert Vertex) ≠ 0 := by
+    change crossingDark ≠ 0
+    intro hz
+    have hn0 := crossingDark_norm_one
+    rw [hz, norm_zero] at hn0
+    norm_num at hn0
+  obtain ⟨i, hi⟩ := bt.eigenvalue_occurs hsym
+    domainCrossingDark crossingEnergy hdarkne
+    (crossingDark_full_eigenvector ε)
+  have hipair : i = n ∨ i = n + 1 := by
+    apply hslot
+    rw [hi, sub_self, abs_zero]
+    norm_num
+  have hij : i ≠ j := by
+    intro he
+    apply hmove
+    calc
+      energy = μ j := hj.symm
+      _ = μ i := by rw [← he]
+      _ = crossingEnergy := hi
+  have hpair :
+      (i = n ∧ j = n + 1) ∨ (i = n + 1 ∧ j = n) := by
+    omega
+  have hslots (k : ℕ)
+      (hk : |μ k - crossingEnergy| ≤ (1 / 256 : ℝ)) :
+      k = i ∨ k = j := by
+    have hwhich := hslot k hk
+    omega
+  have hmoving_unique (k : ℕ) (hk : μ k = energy) : k = j := by
+    have hknear : |μ k - crossingEnergy| ≤ (1 / 256 : ℝ) := by
+      rw [hk]
+      exact hnear.trans hsmallnear
+    rcases hslots k hknear with hki | hkj
+    · have hbad : energy = crossingEnergy := by
+        calc
+          energy = μ k := hk.symm
+          _ = μ i := congrArg μ hki
+          _ = crossingEnergy := hi
+      exact (hmove hbad).elim
+    · exact hkj
+  refine ⟨μ j, ⟨bt.basis j, bt.mem_domain j⟩, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · simpa only [hj] using hmove
+  · simpa only [hj] using hnear
+  · exact bt.basis.orthonormal.ne_zero j
+  · exact bt.eigen j
+  · intro t y hyne hye hynear
+    obtain ⟨k, hk⟩ := bt.eigenvalue_occurs hsym y t hyne hye
+    rcases hslots k (by rw [hk]; exact hynear) with hki | hkj
+    · left
+      calc
+        t = μ k := hk.symm
+        _ = μ i := congrArg μ hki
+        _ = crossingEnergy := hi
+    · right
+      calc
+        t = μ k := hk.symm
+        _ = μ j := congrArg μ hkj
+  · intro y hye
+    refine ⟨inner ℝ (bt.basis j) (y : TileHilbert Vertex), ?_⟩
+    exact bt.eigenvector_eq_smul_of_unique_level hsym
+      (μ j) j rfl (by
+        intro k hk
+        exact hmoving_unique k (by simpa only [hj] using hk))
+      y (by simpa only [hj] using hye)
+
 end
 end SpectralGeometry.AmmannBeenker
