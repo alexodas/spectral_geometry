@@ -12,7 +12,7 @@ zeros of analytic functions built from those levels.**
 
 **Verified local-response and spectral-existence results.** Changing one edge preserves the normalized **dark** state exactly for every real perturbation; for each nonzero strength, the entire eigenspace at the original energy is precisely the dark line. The complementary **bright** direction has an exact generator-level response and nonzero exterior coupling, with `‖QWF‖² = 7/16`. Complete ordered natural-domain eigenbases satisfy `|μₙ − λₙ| ≤ 2|ε|`; the unperturbed crossing occupies exactly two consecutive positions. Crucially, **Action #320 verified that for every ε ≠ 0 there exists a genuine nonzero natural-domain eigenvector of the perturbed infinite operator at some energy distinct from the crossing, with `|E_b − E_*| ≤ 2|ε|`** (§4.93). This existence theorem is not merely a compressed bright expectation.
 
-**Current research direction.** The first existence step of the **genuine infinite-operator spectral splitting** has now passed Lean and the independent Comparator. What remains is to prove uniqueness and simplicity of the displaced level in the isolated small-perturbation window, its sign, the sharp first-order law `E_b(ε) = E_* + ε/4 + O(ε²)` with the explicit target `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²` for `0 < |ε| ≤ 1/1024`, and a quantitative external-eigenvector bound. No general propagator or state-preparation method has been proved. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
+**Current research direction.** The verified existence theorem (§4.93) is followed by an isolated-pair simplicity result (§4.94): for `0 < |ε| ≤ 1/1024`, the genuine **point spectrum** of the infinite perturbed operator inside the closed radius `1/256` of `E_*` consists precisely of `E_*` (the simple protected dark level) and one distinct, simple moving level `E_b`, which obeys `|E_b-E_*| ≤ 2|ε|`. The remaining objectives are the sign and sharp first-order law `E_b(ε) = E_* + ε/4 + O(ε²)`, specifically the target `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²`, and a quantitative external-eigenvector bound. The present result concerns genuine natural-domain eigenvectors; a separate full resolvent-spectrum identification and a general propagator or state-preparation method are not being asserted. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 **Provenance and limits.** Alessandro Odasso, who is not a mathematician, conceived and directs this research into scientific work carried out with large language models. According to the maintainer, AI generated the theorem statements, mathematical proof development and Lean formalizations under his direction. Kernel verification tests formal correctness; novelty, research significance and physical applications require independent assessment.
 
@@ -32,6 +32,7 @@ zeros of analytic functions built from those levels.**
   - [4.91. Exact bright response and external feedback](#491-verified-bright-amplitude-generator-identity-with-explicit-leakage-forcing)
   - [4.92. Proposed second Palomar theorem](#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
   - [4.93. Verified dark simplicity and distinct perturbed spectral level](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
+  - [4.94. Two simple eigenvalues in a certified perturbed window](#494-two-simple-eigenvalues-in-a-certified-perturbed-window)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
@@ -68,7 +69,8 @@ The table below separates proved results from remaining research tasks.
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
 | Exact bright generator response and selected-edge Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92: a single combined theorem with an independent Mathlib-only Challenge/Comparator package. The verification result for this package is tied to the exact commit checked, not to a statement in the README |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
-| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320. Uniqueness, moving-level simplicity, sign and quadratic error remain open |
+| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320 |
+| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Verified by full Lean and independent Comparator in Action #324 (commit `180f1d8`); sign, quadratic energy error and quantitative external-eigenvector estimate remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -3749,10 +3751,12 @@ The following **distinct** milestones have passed the full Lean build:
   [Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
   on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
 
-**What remains unproved.** The L2c theorem does **not** identify the
-moving eigenvector quantitatively with the original bright direction,
-assert its simplicity, exhaust the whole perturbed crossing window,
-or prove the sign of `E_b-E_*`. For `0 < |ε| ≤ 1/1024`, the
+**What remained after L2c.** The Action #320 theorem did **not**
+identify the moving eigenvector quantitatively with the original
+bright direction, assert its simplicity, or exhaust the perturbed
+crossing window. These latter two issues are addressed separately
+in §4.94; they were **not** part of the L2c proof. For
+`0 < |ε| ≤ 1/1024`, the
 target second-order law is still
 
 ```math
@@ -3765,6 +3769,66 @@ together with the proposed exterior-component control
 These are **future L3–L5 obligations**, not consequences already
 verified in L2c. No new Palomar candidature or registration has been
 created from this intermediate milestone.
+
+### 4.94. Two simple eigenvalues in a certified perturbed window
+
+This **L2d** milestone strengthens the genuine L2c eigenpair existence
+without replacing any older result. It applies to the full confined
+infinite Ammann–Beenker graph and the **actual natural-domain**
+Hamiltonian `Hε` of §4.93, for
+
+```math
+0<|\varepsilon|\le\frac1{1024}.
+```
+
+The theorem
+`SpectralGeometry.AmmannBeenker.crossing_perturbed_isolated_pair_simple`
+in
+[AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean)
+exhibits a nonzero natural-domain eigenvector `x_b` and energy
+`E_b≠E_*` with `Hε x_b=E_b x_b` and
+
+```math
+|E_b-E_*|\le2|\varepsilon|.
+```
+
+Moreover every **nonzero natural-domain eigenvector** `y` of `Hε`
+at any energy `t` satisfying `|t-E_*|≤1/256` has either
+`t=E_*` or `t=E_b`. Every eigenvector at the moving
+energy is a scalar multiple of `x_b`, so its geometric
+eigenspace is **one-dimensional**. Independently, the already
+proved dark-only result (L1) identifies the entire eigenspace at
+`E_*` with the **one-dimensional** dark line.
+
+**Why the proof is not a two-level approximation.** The complete,
+multiplicity-faithful Hilbert eigenbases for both true unbounded
+operators have indexwise stability `|μ_n−λ_n|≤2|ε|`. In the
+unperturbed sequence, only the two consecutive crossing indices
+have value `E_*`. Every other baseline eigenvector must lie
+**strictly beyond the certified gap** `1/128` by the existing
+no-other-eigenvector theorem. The norm bound `2|ε|` then keeps
+all other perturbed ordered positions outside `1/256`.
+A general Hilbert-basis argument shows that every genuine
+nonzero eigenvector's energy occurs among those ordered positions.
+L1 supplies the dark position and L2c the distinct moving position;
+these exhaust the two slots. A unique spectral index also yields the
+exact one-dimensional eigenvector representation. The support lemmas
+`DomainEigenbasis.eigenvalue_occurs` and
+`DomainEigenbasis.eigenvector_eq_smul_of_unique_level`
+make these completeness and simplicity inferences explicit in Lean.
+
+**Scope of the result.** This is an exhaustive description of
+**natural-domain real eigenvalues in the specified window**. It is
+not, by itself, a new statement about an independently defined
+resolvent or complex spectrum; it also does not establish the sign
+of the shift, the target `112ε²` remainder, or quantitative
+external eigenvector leakage. Those are L3–L5.
+
+**Verification.** The L2d theorem and its generic Hilbert-basis
+support passed the full Lean build and independent Comparator in
+[Action #324](https://github.com/alexodas/spectral_geometry/actions/runs/45054460160)
+on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
+The verification is scoped to this exact checked commit; subsequent documentation-only changes do not alter the proof.
 
 ## 5. Building and verification
 
@@ -4332,10 +4396,12 @@ quadratic law and external eigenvector estimate. See the
   For every ε ≠ 0 there is a nonzero natural-domain eigenvector
   with energy E_b ≠ E_* and |E_b − E_*| ≤ 2|ε|.
   Full Lean and Comparator passed Action #320.
-- [ ] **L2d — Complete the small spectral cluster count.**
-  For sufficiently small |ε| relative to the certified gap,
-  prove that the isolated pair consists of exactly the simple
-  dark level and one unique simple moving level.
+- [x] **L2d — Isolated simple point-spectrum pair (Action #324).**
+  For `0 < |ε| ≤ 1/1024`, the closed `1/256` window contains
+  exactly the simple dark energy and one distinct simple moving
+  eigenvalue, with `|E_b-E_*| ≤ 2|ε|` (§4.94). This is a
+  statement about all genuine natural-domain eigenvectors,
+  not an unproved claim about an alternate spectrum definition.
 - [ ] **L3 — Quantitative bright eigenvector.** Use the already
   certified reduced gap to control the external component and show
   that the new eigenvector has a nonzero bright amplitude.

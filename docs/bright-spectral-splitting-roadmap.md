@@ -2,7 +2,7 @@
 
 **Research branch:** `research/bright-spectral-splitting-20261122`
 **Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
-**Status:** L1, L2a, L2b and L2c have all passed full Lean 4/Mathlib CI; L2b and L2c also passed the independent Comparator in Actions #319 and #320. The remainder (small-window uniqueness and simplicity, bright eigenvector bounds, sign and quadratic remainder) is an open proof plan. A newly written Lean declaration is never called verified before its own CI succeeds. No change to existing Palomar packaging is needed.
+**Status:** L1–L2d have passed full Lean 4/Mathlib checks. L2d also passed the independent Comparator in Action #324 (commit `180f1d8`). In particular, the simple dark level and one unique simple moving real eigenvalue are the only genuine natural-domain point-spectrum energies in the closed `1/256` window for `0 < |ε| ≤ 1/1024`. The remaining open tasks are the quantitative bright-eigenvector bound, sign and `112ε²` remainder (L3–L5). A new declaration is never called verified before its own CI passes. Existing Palomar packaging is unchanged.
 
 ## 1. Established starting point
 
@@ -34,19 +34,24 @@ specialization, alongside the ordered-eigenbasis stability result.
 
 ## 2. Intended main theorem — NOT YET PROVED
 
-For `0 < |ε| ≤ 1/1024`, establish existence of a *unique simple*
-bright-derived real eigenvalue `E_b(ε) ≠ E_*`, with a nonzero
-natural-domain eigenvector and quantitative bounds
+For `0 < |ε| ≤ 1/1024`, **L2d already proves existence and
+uniqueness of one simple** real eigenvalue `E_b(ε) ≠ E_*`
+inside the `1/256` point-spectrum window, with a nonzero
+natural-domain eigenvector and the certified bound
 
-`|E_b(ε) − E_*| ≤ 2|ε|`
+`|E_b(ε) − E_*| ≤ 2|ε|`.
 
-`|E_b(ε) − E_* − ε/4| ≤ 112 ε²`.
+The original dark eigenspace is exactly one-dimensional.
+The **remaining main target**, still not proved, is the quantitative
+second-order formula
 
-The dark energy remains fixed and becomes simple, and the moving
-eigenvector must be quantitatively close to the original two-mode
-plane. The constants are proposed proof targets, not established
-results. This is a statement about the infinite graph, not a two-state
-approximation or a time-dependent control protocol.
+`|E_b(ε) − E_* − ε/4| ≤ 112 ε²`
+
+and a bound showing the moving eigenvector remains close to the
+original two-mode plane (including sign of the moving shift).
+The `112` and eigenvector constants are proposed targets, not
+established results. This concerns the actual infinite graph,
+not a two-state approximation or time-dependent control protocol.
 
 ## 3. Proof milestones, ordered by dependency
 
@@ -62,7 +67,7 @@ force equal coefficients. Two Lean source declarations are added
 in `AmmannBeenkerNearCrossingEigenvectors.lean`: the edge-zero lemma
 and the dark-only conclusion. **L1 verified** by both PR #88 workflows on commit `464bee37d3477a20f24c3ac48ac116e748fdfd01`.
 
-**L2 — Moving-level existence using ordered eigenvalues (in progress).**
+**L2 — Genuine isolated pair of simple point-spectrum energies (verified).**
 Construct complete monotone eigenbases of H₀ and Hε from the
 existing generic Lean theorem. Show that the multiplicity-two
 crossing occupies *exactly two consecutive positions* in the
@@ -85,12 +90,22 @@ It holds for **every ε ≠ 0**, without a smallness assumption.
 Both Lean and the independent Comparator passed
 [Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
 on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
-This is an existence theorem only: the new level has not yet
-been shown simple or unique in the small isolated window.
-**L2d remains:** use the full spectral gap and ordered stability
-to exclude other eigenvalue slots from the crossing window, show
-that exactly one of the two crossing slots stays at `E_*`,
-and establish the moving level's simplicity.
+L2c by itself is an existence theorem only. **L2d now proves the
+remaining small-window conclusions:** for `0 < |ε| ≤ 1/1024`,
+`crossing_perturbed_isolated_pair_simple` shows that every
+genuine nonzero natural-domain eigenvector of Hε with
+`|energy−E_*| ≤ 1/256` has energy `E_*` or the single
+distinct energy `E_b`. Each corresponding real eigenspace
+is exactly one-dimensional (L1 proves dark simplicity and
+L2d proves moving simplicity). The new
+`DomainEigenbasis.eigenvalue_occurs` and
+`DomainEigenbasis.eigenvector_eq_smul_of_unique_level`
+lemmas make completeness and geometric simplicity explicit.
+The complete Lean build and independent Comparator passed
+[Action #324](https://github.com/alexodas/spectral_geometry/actions/runs/45054460160)
+on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
+The theorem establishes **point-spectrum** coverage, not a
+new standalone assertion about the complex spectrum.
 
 **L3 — External leakage of an actual moving eigenvector.**
 Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
@@ -114,9 +129,10 @@ The formula must be attached to the *actual eigenvalue*
 constructed in L2; an energy expectation alone is insufficient.
 
 **L5 — Combine into the final infinite-graph theorem.**
-Establish the sign of the moving shift, uniqueness and
-simplicity in the isolated window, the exact domain and
-parameter hypotheses, and the quantitative eigenvector estimate.
+Uniqueness and simplicity in the isolated point-spectrum window
+are already L2d conclusions. Establish the sign of the moving
+shift, the sharp energy remainder, the full quantitative
+eigenvector estimate and all required domain/parameter details.
 After full Lean verification, independently assess mathematical
 interest before changing any formalization/comparison package.
 
@@ -132,20 +148,18 @@ interest before changing any formalization/comparison package.
    true distinct perturbed natural-domain eigenpair for every
    `ε ≠ 0`, with `|E_b − E_*| ≤ 2|ε|`. The independent
    Comparator also passed.
-5. **L2d source candidate awaiting CI**: the theorem
-   `crossing_perturbed_isolated_pair_simple` targets
-   `0 < |ε| ≤ 1/1024`. Using the original closed gap `1/128`,
-   the ordered `2|ε|` level stability and completeness of both
-   eigenbases, it aims to prove that the **actual natural-domain
-   point spectrum** inside the closed radius `1/256` consists
-   exactly of the fixed simple dark energy and one distinct
-   simple moving level. A new generic DomainEigenbasis interface
-   justifies both eigenvalue coverage and geometric simplicity
-   of a singly occurring ordered level. **This remains unverified
-   until the new workflow passes.**
-6. Once L2d is green, perform the L3–L4 external-component and
-   quadratic-remainder arguments and consolidate L5. Preserve
-   the separate, speculative dynamical-control research questions.
+5. **L2d fully green**: Action #324 certifies
+   `crossing_perturbed_isolated_pair_simple` on the actual infinite
+   operator for `0 < |ε| ≤ 1/1024`, showing the closed radius
+   `1/256` contains precisely two distinct simple
+   natural-domain point-spectrum energies, and the moving one is
+   within `2|ε|`. A generic complete DomainEigenbasis interface
+   establishes eigenvalue coverage and simplicity for unique slots.
+   Both the complete Lean and independent Comparator jobs passed.
+6. **L3–L5 open**: perform the quantitative external-component
+   argument, the `112ε²` spectral remainder and sign, then
+   consolidate the final estimates. Dynamic control remains a
+   separate downstream research topic.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,
 `comparator.json`, `palomar/dark-bright/comparator.json`,
