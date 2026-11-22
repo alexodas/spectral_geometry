@@ -6,69 +6,72 @@ zeros of analytic functions built from those levels.**
 
 ## Executive summary
 
-**Overall objective.** The long-term goal is to obtain rigorous, quantitative
-predictions for how a specified local geometric change affects an infinite
-operator's spectrum and the zeros of its associated canonical product.
-The program aims to connect exact infinite-system results with certified
-finite calculations. Several steps are already proved; the full
-relative-product and finite-patch program remains open (§6).
+**Overall research objective.** Spectral Geometry studies infinite geometric
+operators and the zeros of their canonical spectral products using Lean 4
+and Mathlib. Quantitative relative-product and finite-patch certification
+remain long-term open goals (§§6.5–6.6).
 
-**An important intermediate result, already proved.** During this work,
-the project established a separate result for a specified infinite,
-confined Ammann–Beenker cut-and-project vertex graph. By tuning a
-perturbation acting on the eight neighbors of the origin, two compact
-localized modes reach the same nonzero energy. The proof shows more than
-the existence of two modes: **they span the entire eigenspace at that
-energy, whose dimension is exactly two**. No other eigenstate at that
-energy can extend into the rest of the infinite graph (§§4.75–4.78).
-A separate theorem also establishes that this energy is isolated from
-every other point of the real spectrum by a certified distance of
-`1/128` (§4.79); this is a lower bound, not the exact nearest-level distance.
+**First registered Palomar result: exact crossing multiplicity.** On one
+explicit infinite, quadratically confined Ammann–Beenker cut-and-project
+vertex graph, two compact eight-site modes span the **entire** eigenspace
+at `E_* = 13/4 + √2`: its real dimension is exactly two, with no
+additional eigenstate extending into the infinite exterior. This is the
+immutable original registration **PALOMAR-2026-11-06-000012 (version 1)**,
+not a claim newly selected by the present draft (§4.78). A separate
+certified theorem isolates this level from the rest of the real spectrum
+by the conservative distance `1/128` (§4.79).
 
-**Further certified qubit-control results (still not universal state preparation).**
-Using the *same single edge* between the two rings, §§4.80–4.89 now
-prove its exact rank-one norm `2`, the full real qubit/leakage
-decomposition, the reduced-gap residual inequality, conditional
-duration-independent leakage estimates for fixed and switched-off
-pulses, real self-adjointness of the complete pulse Hamiltonian,
-and an explicit dark-state Schrödinger phase trajectory.
-The latter is a particular normalized solution written as real
-and imaginary components, not a general complex propagator.
-All 103 imported Lean modules, including these developments,
-passed the latest user-reported green pull-request Action.
-The distinction between these proved results and the still-open
-arbitrary-state qubit-control problem is summarized in §4.90.
+**Second result: exact response to changing one edge.** For a fixed
+edge connecting the compact rings, write `H_ε = K_* + εW`, where
+`W=|δ_u-δ_v⟩⟨δ_u-δ_v|` is a rank-one edge Laplacian of norm `2`.
+The normalized dark and bright combinations are `D=(a+b)/4` and
+`F=(a-b)/4`. For **every real ε**, `D` remains an **exact
+full-domain eigenstate** at `E_*`. For every real domain vector `x`,
+the exact bright matrix element is
 
-**Palomar Registry.** The exact-multiplicity theorem and its companion
-description of all eigenvectors at the crossing were registered as
-**PALOMAR-2026-11-06-000012 (version 1)** on **2026-11-06**
-([Palomar selection and proof scope](PALOMAR.md), §4.78). The separately proved
-spectral-gap theorem was **not** part of the Comparator-selected
-registration. Formal verification and registration do not by themselves
-establish mathematical priority or physical implementation.
+```math
+\langle F,H_\varepsilon x\rangle
+=\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle,\qquad
+|\varepsilon\langle F,WQx\rangle|
+\le 2|\varepsilon|\,\|Qx\|.
+```
 
-**Why this merits further investigation.** Having two exactly degenerate,
-localized modes raises a concrete question: which coherent superpositions
-can be prepared by changing the weight of the **single edge connecting
-their rings**, starting from one mode alone? The edge does couple the two
-modes, but one equal-amplitude combination remains an exact eigenstate
-for every edge weight. In a unitary time-dependent quantum interpretation,
-its occupation probability must therefore remain constant: this prevents
-an edge-only pulse from preparing *every* desired superposition.
-The exact dark eigenstate and its one-state Schrödinger trajectory are
-Lean-verified (§§4.80, 4.89); the general time-dependent **no-go theorem**
-about occupation conservation is not yet proved in Lean.
+Here `Q` is the orthogonal complement of the original two-mode
+plane. **The external-feedback term is generally nonzero.**
+The displayed shift `ε/4` is a matrix-element coefficient, **not**
+an asserted perturbed eigenvalue or rotation frequency (§§4.80–4.92).
 
-This **coherent-control question is now the first stand-alone research
-priority** (§6.4): characterize which states are reachable with the edge
-alone, then investigate a two-step protocol using the edge to mix
-amplitudes and the original eight-site parameter `t` to set the
-relative phase. A candidate theorem would establish a quantitative
-preparation error for the infinite graph, together with the edge-only
-obstruction. Detuning `t` does not by itself create amplitude in the
-other mode. Such time-dependent phase control is not yet formalized in the
-current real Lean model. The project's original long-term goal concerning
-spectral products and their zeros **does not change**.
+**What is verified, and what is still a candidate.** The previous
+103-module checkpoint (§4.90) and the subsequently added
+`AmmannBeenkerBrightAmplitude.lean` module (104 modules in all,
+originally with 14 new declarations) have passed the full Lean Action
+according to the maintainer's report on PR #86. This branch now adds
+one **15th, combined theorem** packaging the dark/bright statements
+for a possible second Palomar selection, plus a revised independent
+Challenge/Comparator package. **That new package has not yet been
+CI/Comparator verified**. The original Palomar registration remains
+unchanged; the new candidate is not registered (§4.92, PALOMAR.md).
+
+**Why researchers might care.** The mathematics gives an exact
+protected-versus-coupled decomposition for a **concrete infinite**
+aperiodic graph, not a finite simulation and not a presumed invariant
+two-state approximation. A plausible mathematical audience includes
+spectral theorists, operator theorists and mathematical physicists
+studying local rank-one perturbations and localized eigenvectors.
+A plausible physics audience includes researchers in quasicrystal
+tight-binding models, compact localized states, flat-band systems,
+and photonic or resonator arrays. Earlier compact-state patterns are
+known (Oktel 2021); mathematical novelty and priority of this
+specific combined statement remain **unassessed** (§4.92, §6.8).
+
+**Limits and next steps.** Real self-adjointness and an explicit
+dark-state real/imaginary Schrödinger trajectory are established.
+Conditional ON/OFF leakage bounds are also formalized, but a general
+complex unitary propagator, an integrated bright-phase error estimate,
+a time-dependent edge-only no-go theorem and a complete state-preparation
+protocol remain open (§§4.85–4.92, §6.4). The long-term spectral-product
+research program is unchanged.
 
 ## Current status and verified milestones
 
@@ -100,6 +103,7 @@ The table below separates proved results from remaining research tasks.
 | Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
+| Exact bright generator response and selected-edge Palomar candidate | §4.91: 14 source theorems reported Lean green on PR #86, including the exact bright identity, dark amplitude and external-feedback bound. §4.92: one combined candidate theorem and independently specified Mathlib-only Challenge/Comparator package, awaiting its own CI verification |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
@@ -110,8 +114,9 @@ graph supplies concrete examples, including the crossing described above.
 The more ambitious geometric cofactor certificates, relative-product
 identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
-the new exact algebraic control lemmas (§4.80), and the proposed dynamical
-coherent-control problem (§6.4) have distinct scopes.
+the certified dark/bright generator algebra (§§4.80–4.91), the one new
+Palomar candidate (§4.92), and the proposed dynamical coherent-control
+problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
 Originality and research significance must come from the geometric and spectral
@@ -3565,8 +3570,8 @@ bright-mode rotation.
 **Open obligations.** Construct the complexified
 self-adjoint Hamiltonian and its strongly continuous
 unitary Schrödinger group, prove domain invariance
-and generator commutation, control the bright-mode
-response and external leakage, and then determine
+and generator commutation, integrate the now-exact bright-mode
+response against a justified dynamic leakage estimate, and then determine
 which `αA+βB` targets are reachable using the
 same edge and the existing `t` detuning.
 The static dark eigenstate indicates an edge-only
@@ -3577,30 +3582,27 @@ Lean-certified**. The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
 
-**Verification and provenance.** All of the
-underlying control declarations in §§4.80–4.89
-are included in the **103-module** root import and
-passed the latest user-reported green full
-Lean/Comparator Action on PR #85. The Palomar
-registered theorem, Challenge statement, Comparator
-selection and the existing mathematics have not been
-replaced by this documentary checkpoint.
-This README update itself requires the standard
-pull-request verification before merging.
+**Historical verification checkpoint.** The §§4.80–4.89 results
+were already imported and verified in the **103-module** checkpoint
+(PR #85). The later 104-module PR #86 bright source was also
+reported Lean green; see §§4.91–4.92. The original 2026 Palomar
+registration and its immutable commit are unaffected by the new
+candidate. This §4.90 snapshot is retained for provenance.
 
-### 4.91. Draft bright-amplitude generator identity with explicit leakage forcing
+### 4.91. Verified bright-amplitude generator identity with explicit leakage forcing
 
-**Verification status: new on draft branch; Lean CI has not yet been reported.**
-The statements in this section are candidate declarations, not an addition
-to the 103 modules previously certified on PR #85. The new source is
-[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean),
-imported by the root module for the next full CI run.
+**Verification status: the maintainer reports the 104-module Lean Action
+green on PR #86 for the original 14 new theorems.** The source is
+[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
+The additional combined Palomar-candidate theorem and revised independent
+Comparator package introduced after that green result still need their own
+CI verification.
 
 For the same selected lattice edge, write
 `H_ε=K_*+εW`, let `P` be the exact orthogonal projection onto
 the normalized compact-mode plane, and let `Q=I-P`.
 For every **real** state `x` in the full natural onsite domain,
-the proposed Lean theorem gives the **exact** bright matrix element:
+the proved Lean theorem gives the **exact** bright matrix element:
 
 ```math
 \langle F,H_\varepsilon x\rangle
@@ -3611,8 +3613,8 @@ the proposed Lean theorem gives the **exact** bright matrix element:
 The term `ε⟨F,WQx⟩` is the *feedback from the entire orthogonal
 complement*. In particular, this is **not** the eigenvalue equation
 `H_ε F=(E_*+ε/4)F`; that assertion would be false for nonzero ε
-because the edge excites external modes. The new module's second
-quantitative target, using the previously certified exact edge norm, is
+because the edge excites external modes. The module's certified
+quantitative bound, using the previously certified exact edge norm, is
 
 ```math
 \left|\langle F,H_\varepsilon x\rangle
@@ -3638,13 +3640,84 @@ constant-pulse bounds to a smooth ramp. At ε=0 the original
 twofold dark/bright degeneracy is preserved; no nondegenerate
 adiabatic theorem is being invoked.
 
-The new declarations will be described as Lean-verified only after
-the user reports a green full Lean/Comparator Action for the draft PR.
-The previous mathematical results and Palomar selection are unchanged.
+The original fourteen generator-level declarations were reported
+Lean-verified by the maintainer after the PR #86 correction. The new
+combined conjunction and its Comparator packaging are separate,
+not yet verified on the current branch. The prior registered theorem
+continues to hold at its original immutable commit.
+
+### 4.92. One new Palomar candidate: exact dark protection and bright feedback
+
+**Proposal, not a second registration.** The new declaration
+`SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
+in [AmmannBeenkerBrightAmplitude.lean](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
+combines previously established conclusions into **one** mathematical
+statement on the full real infinite graph. Let
+`H_ε=K_*+εW` on `D(V)`, `D=(a+b)/4`, `F=(a-b)/4`,
+and `Qx=x-Px` for the orthogonal projection onto `span{a,b}`.
+It states, for all `ε∈ℝ` and `x∈D(V)`,
+
+```math
+H_\varepsilon D=E_*D,\qquad
+\langle F,H_\varepsilon x\rangle
+=\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle
+ +\varepsilon\langle F,WQx\rangle,
+```
+
+```math
+\left|\langle F,H_\varepsilon x\rangle
+-\left(E_*+\frac{\varepsilon}{4}\right)\langle F,x\rangle\right|
+\le 2|\varepsilon|\,\|Qx\|.
+```
+
+The first clause is a **full-operator eigenstate**, not merely a
+two-dimensional compression. The second exposes the **nonzero possible
+coupling to the infinite exterior**. The third controls the error in
+the projected bright generator, without pretending that the bright
+vector itself is a perturbed eigenvector. These clauses do not
+assert an actual complex time evolution, a dynamic leakage bound
+without hypotheses, or a perturbative splitting formula.
+
+**Potential contribution.** The compact ring patterns and rank-one
+edge techniques are not claimed as new by themselves. The candidate
+offers an exact, quantitative protected-versus-coupled description
+for one **explicitly defined, infinite, confined** Ammann–Beenker
+operator with a genuine inter-ring edge. Its value is the full-space
+scope and the rigorous separation of an invariant dark direction
+from unavoidable bright-to-exterior feedback, rather than a claim
+that a finite effective qubit model is exactly closed.
+
+**Plausible audiences.** For **mathematics**: spectral and operator
+theorists, especially those studying self-adjoint discrete Schrödinger
+operators on infinite graphs, compact eigenstates, and localized
+finite-rank perturbations. For **physics**: quasicrystal
+tight-binding specialists, compact localized state and flat-band
+researchers, and theorists of coupled-resonator or photonic lattices
+who study robust dark modes versus externally coupled bright modes.
+Relevant antecedents are Oktel,
+[Phys. Rev. B 104, 014204 (2021)](https://doi.org/10.1103/PhysRevB.104.014204),
+and Röntgen–Morfonios–Schmelcher,
+[Phys. Rev. B 97, 035161 (2018)](https://doi.org/10.1103/PhysRevB.97.035161).
+These are literature links, **not endorsements or evidence of novelty**.
+A priority and expert-interest assessment remains open.
+
+**Small independent Challenge.** The new
+[`Challenge.lean`](Challenge.lean) states this single scientific theorem
+without importing SpectralGeometry proofs. Six additional selected
+propositions are **technical model witnesses** needed to define the
+origin, graph matchings, compact-domain vectors and edge endpoints.
+All model definitions must be compared transitively, with
+`definition_names=[]`; these witnesses are not six more proposed
+discoveries. The Challenge is kept below 300 lines if possible, but
+the present independently explicit model requires 484 lines, well
+below Palomar's hard 1,000-line/100-KiB limit. The complete new
+Comparator/metadata audit must pass on an immutable commit before
+this draft could be submitted. The first Palomar registration
+([PALOMAR.md](PALOMAR.md)) remains historically intact.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules** (including one new draft module awaiting CI): twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-eight infinite geometry/operator/spectral modules (including domain-generic interfaces). The previous 103-module root was user-reported green on PR #85; the new full root has not yet been verified.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **104 Lean modules**: twelve analytic and window modules, four finite-dimensional geometry modules, and eighty-eight infinite geometry/operator/spectral modules (including domain-generic interfaces). The 104-module build containing the original fourteen bright lemmas was reported green by the maintainer on PR #86; this later packaging revision adds a fifteenth theorem and revised Challenge/Comparator files, not another module, and requires new CI verification.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3753,7 +3826,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPulseSelfAdjoint.lean`](SpectralGeometry/AmmannBeenkerPulseSelfAdjoint.lean)
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
-  - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(draft; CI pending)*
+  - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 foundational theorems reported Lean green; new combined theorem pending CI)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3776,21 +3849,26 @@ The Lean and Mathlib versions are pinned by `lean-toolchain` and
 `lake-manifest.json`. Run `lake update` only when intentionally updating
 dependencies, not as part of routine verification. `Challenge.lean`
 contains deliberate statement placeholders (`sorry`), and is judged
-against the original proof modules by Comparator rather than being
+against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
-**Palomar / independent statement verification:** the repository has
+**Palomar / independent statement verification:** the working tree has
 one [`comparator.json`](comparator.json), one
-[`Challenge.lean`](Challenge.lean) and one [`Solution.lean`](Solution.lean).
-The principal selection is `SpectralGeometry.AmmannBeenker.crossingEigenspace_finrank`
-(§4.78); `crossing_eigenvector_representation` is its companion statement.
-Three model witnesses are also compared: `admitted_zero`, `mate_involutive`
-and `centralLift_admitted`. Definitions of the graph, natural-domain
-operator, compact states, sites and eigenspace are compared transitively;
-there are no definition holes. Lean, NanoDa and con-ron must verify the
-comparison on the exact submission commit. The separate full-project Lean
-build covers all **103 mathematical source modules**, including the
-§4.79 gap certificates (which are not additional Comparator-selected statements).
+[`Challenge.lean`](Challenge.lean) and one [`Solution.lean`](Solution.lean),
+now prepared for **one new scientific selection**,
+`SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
+(§4.92). Six additional model witnesses are selected only to make the
+concrete Challenge definitions independently comparable. The Challenge
+imports only Mathlib; the Solution imports the substantive bright module.
+No definition has an intentional hole; the seven `sorry` placeholders
+exist **only in Challenge statements**, never in the substantive library.
+The source code still proves the original exact-multiplicity theorems and
+the §4.79 spectral gap, but they are **not newly selected** in this
+proposed second comparison. The first registered Comparator selection is
+preserved at its original immutable commit and is not overwritten by
+a registry submission. The separate full-project build covers all **104
+mathematical source modules**; Lean, NanoDa and con-ron must still verify
+the **new** comparison at a future immutable candidate commit.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -4156,7 +4234,7 @@ A change to the weight of the single edge between the two rings is a more
 promising candidate for mixing the amplitudes. The original code already
 proves that one combination remains an exact eigenstate after this edge
 change, and that the complementary direction has an exact energy
-expectation. The new [edge-control research note](docs/edge-control-reachability.md)
+expectation. The [edge-control research note](docs/edge-control-reachability.md)
 explains the nonzero coupling and a further constraint: in unitary dynamics
 with only this edge varied, the common eigenstate's occupation is conserved.
 Thus an edge-only pulse cannot reach every superposition from a single
@@ -4168,11 +4246,12 @@ build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
 Their exact operator identities have passed the full Lean build; the
 dynamic no-go theorem and any successful preparation protocol remain open.
-Sections 4.81–4.89 now add an exact qubit/leakage decomposition,
+Sections 4.81–4.91 now add an exact qubit/leakage decomposition,
 the reduced-gap and exact-edge norm, quantitative **conditional**
 time-uniform bounds for a selected-edge pulse and subsequent
 free evolution, real pulse-Hamiltonian self-adjointness, and
-one exact dark-state Schrödinger trajectory. What remains
+one exact dark-state Schrödinger trajectory and the exact bright
+forcing identity with external feedback. What remains
 open is construction of the general **complex** unitary
 propagator and a quantitative **target-state preparation**
 theorem, not the conditional pulse-error bounds themselves.
@@ -4206,11 +4285,15 @@ theorem, not the conditional pulse-error bounds themselves.
   at every time for any real strength of the selected edge.
   This is **one solution**, not a constructed complex
   propagator on the full space.
-- [ ] **Validate the bright-amplitude forcing bridge (§4.91; draft).**
-  Run the full Lean/Comparator Action on the new root import; until it
-  passes, the exact generator and forcing-bound declarations remain
-  unverified. Next construct scalar Schrödinger amplitude equations and
-  integrated phase/leakage errors without assuming invariant A/B dynamics.
+- [x] **Verify the bright-amplitude forcing bridge (§4.91).**
+  The maintainer reports the PR #86 Action green for the original fourteen
+  bright generator declarations. The exact forcing term and bound are
+  static, full-infinite-graph identities, not integrated dynamical control.
+- [ ] **Verify the single new Palomar candidate (§4.92).**
+  The conjunction theorem, independent Mathlib-only Challenge, Comparator,
+  metadata, and tests are prepared on the draft branch. Require a new
+  successful full Lean and independent kernel audit on the exact commit.
+  Then assess novelty and possible submission separately.
 - [ ] **Construct general complex dynamics and prepare controlled
   A/B superpositions.** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
@@ -4221,10 +4304,13 @@ theorem, not the conditional pulse-error bounds themselves.
 This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
 The spectral-product program below remains the project's long-term goal.
-A future theorem combining a proved reachability limitation with a
-quantitative preparation protocol could be proposed as a **new Palomar
-selection**, after complete Lean and independent verification. The
-existing registration, Challenge and Comparator remain unchanged now.
+The present draft already proposes a **second, narrower Palomar
+selection** (§4.92): exact dark protection and bright external forcing.
+It does not wait for a complete control protocol, and it must pass its
+own independent Comparator audit before any submission. A later
+reachability-and-preparation theorem could be a third research
+milestone, not an unproved component of the second candidate.
+The immutable first Palomar registration remains unchanged.
 
 **Remaining tasks for the original spectral-product program**
 
@@ -4251,8 +4337,10 @@ The radius-two intervention gives the nine-level full-product response of
 §4.78 and the conservative real spectral gap of §4.79. The new first
 research priority begins with a quantitative study of the one-edge change
 and then asks whether it can prepare a coherent superposition with controlled
-leakage. The certified unperturbed isolation does not itself supply either
-the edge-response estimate or the dynamical preparation result. The
+leakage. The certified unperturbed isolation does not itself supply a
+perturbed eigenvalue law or the dynamical preparation result; the
+generator-level bright response and its compression error are now
+separately certified (§4.91). The
 spectral-product and relative-determinant objectives remain unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
@@ -4361,47 +4449,61 @@ theorem, and carries no asserted connection to the Riemann zeta function.
 
 ### 6.8. Independent statement verification and research-interest assessment
 
-**Current selected result**
+**Historical first registration — preserved.** The 2026 Palomar record
+`PALOMAR-2026-11-06-000012` selected
+`crossingEigenspace_finrank` and
+`crossing_eigenvector_representation`, plus three necessary model
+witnesses (§4.78). It proves that the entire full-natural-domain real
+crossing eigenspace is exactly two-dimensional, not merely spanned by
+two vectors in a finite truncation. Its original Challenge, Solution,
+Comparator and immutable commit remain accessible through
+[PALOMAR.md](PALOMAR.md). No new submission has replaced that record.
 
-- [x] Select `SpectralGeometry.AmmannBeenker.crossingEigenspace_finrank`
-  and its companion `crossing_eigenvector_representation` (§4.78): at
-  $t_*=17/16+\sqrt2$ and $E_*=13/4+\sqrt2$ the entire real eigenspace
-  on the infinite natural domain has dimension two, with coordinates
-  given by the two ring seed amplitudes. No support assumption is made.
-- [x] Supply the Mathlib-only independent Challenge, the source-backed
-  Solution, and one Comparator configuration with both conclusions and
-  the three model witnesses. No definitions are replaced by placeholders.
-- [x] State the centered open-window convention, the first-ring intervention
-  and the natural domain; distinguish the Comparator-selected multiplicity
-  theorem (§4.78), the separately proved real spectral gap (§4.79),
-  and the still-open one-edge splitting estimates (§6.4).
+**One proposed second selection (§4.92).**
 
-**Research-interest assessment and verification**
+- [x] Preserve the full source proof and add
+  `crossingOneEdgeDarkBrightResponse`, combining exact dark eigenstate,
+  exact bright forcing and its explicit exterior-error bound.
+- [x] Prepare a short Mathlib-only Challenge: 484 lines and about 15 KiB,
+  below the submission hard limits; one scientific theorem and six
+  required concrete-model proposition witnesses, no definition holes.
+- [x] Retarget root Solution, comparator.json and formalization.yaml
+  to the second *candidate*, without rewriting the historical first
+  registration or pretending it has already been submitted.
+- [ ] Obtain green **new** full-Lean + independent Comparator results
+  (Lean, NanoDa and con-ron) on the final candidate commit; then pin
+  an immutable public 40-character SHA in all submission references.
 
-The type-A and type-B patterns are known in the vertex tight-binding
-literature ([Oktel, 2021](https://doi.org/10.1103/PhysRevB.104.014204)).
-What may be new, and of interest to researchers studying quasicrystal
-localization, is the proof that these two patterns exhaust a level of
-this particular infinite confined operator. The central/exterior argument
-rules out states a finite-patch computation could miss. This distinction
-between exhibiting two compact modes and proving the complete degeneracy
-of their level may also be of interest in theoretical condensed-matter physics.
-It does not establish a universal property of quasicrystals or a
-perturbation-stability theorem. Priority and standalone research interest
-are open to expert assessment.
+**Potential research interest, without a priority claim.** The compact
+A/B patterns are known in quasicrystal tight-binding research
+([Oktel 2021](https://doi.org/10.1103/PhysRevB.104.014204)).
+Protected combinations and local rank-one perturbations are not novel
+mathematical primitives. What may merit further examination here is
+the exact contrast between a fully protected dark eigenstate and
+a bright matrix element with explicitly bounded but nonvanishing
+external feedback, **on the entire specified confined infinite graph**.
+This rules out an unjustified invariant two-level approximation.
 
-- [x] Identify the pattern source, related compact-state constructions and
-  the precise operator in [PALOMAR.md](PALOMAR.md). The geometric counting,
-  summability and nine-level product conclusions remain proved in §§4.71–4.72.
-- [ ] Compare the exact hypotheses and conclusions more broadly with the
-  literature and obtain expert assessment of research interest.
-- [ ] Supply scalar cofactor/radius and finite-patch certificates for the
-  separate numerical applications in §§6.3 and 6.6.
-- [ ] For submission, use a public immutable 40-character commit SHA whose
-  complete Lean, Comparator (including NanoDa and con-ron) and metadata
-  checks pass.
+A plausible **mathematical** audience is the spectral-theory,
+functional-analysis and discrete Schrödinger-operator community,
+especially researchers on localization and finite-rank perturbations.
+A plausible **physical** audience includes condensed-matter theorists
+working on quasiperiodic lattices, compact localized states and flat
+bands, and researchers investigating photonic or coupled-resonator
+network analogues (see
+[Röntgen–Morfonios–Schmelcher 2018](https://doi.org/10.1103/PhysRevB.97.035161)).
+Neither readership nor novelty has been independently validated;
+no experimental realization or general unitary quantum dynamics is
+claimed.
 
-**Maintenance rule:** document each new proved result in §4, its roadmap
-entry and the canonical §5 module list. Mark a proof obligation complete only
-after its source is imported by SpectralGeometry.lean and the full required
-build passes.
+- [ ] Compare the precise new theorem against the specialist
+  literature and obtain independent expert assessment of interest
+  and novelty before discussing registration.
+- [ ] Continue the separate scalar cofactor and finite-patch
+  certificates required in §§6.3, 6.5 and 6.6.
+
+**Maintenance rule:** append new verified results to §4 and the roadmap,
+keep the canonical §5 module list current, preserve historical
+registration records, and mark new theorem/Comparator packages
+independently verified only after the relevant exact commit passes
+all required checks.
