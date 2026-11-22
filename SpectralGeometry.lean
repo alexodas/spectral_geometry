@@ -101,6 +101,7 @@ public import SpectralGeometry.AmmannBeenkerNearCrossingEigenvectors
 public import SpectralGeometry.AmmannBeenkerPulseResidualBound
 public import SpectralGeometry.AmmannBeenkerPulseIntertwining
 public import SpectralGeometry.AmmannBeenkerPulseSelfAdjoint
+public import SpectralGeometry.AmmannBeenkerPostpulseSwitchOff
 
 public section
 
