@@ -86,6 +86,7 @@ theorem crossingBright_external_edge_norm_sq :
       crossingBright =
         (1 / 4 : ℝ) • compactA + (-(1 / 4 : ℝ)) • compactB := by
     rw [crossingBright, smul_sub, neg_smul]
+    simp only [sub_eq_add_neg]
   rw [hb, crossingEdge_two_mode_leakage_norm_sq]
   norm_num
 
