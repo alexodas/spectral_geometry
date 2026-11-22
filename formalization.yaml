@@ -1,7 +1,7 @@
 {
   "version": "v0.4",
   "project": {
-    "name": "Protected and coupled localized modes under a single-edge change in an infinite octagonal graph",
+    "name": "Dark and Bright Modes in an Infinite Ammann-Beenker Graph",
     "description": "This project uses rigorous mathematics and computer-checked proofs to study how small, local changes can affect waves on an infinite geometric network. The network is a specific octagonal Ammann–Beenker quasicrystal model, with an added confining potential. It has two compact localized states, each supported on eight vertices. An earlier theorem, already registered with Palomar, proved that these two states account for the entire eigenspace at a particular energy: there are no additional states at that energy elsewhere on the infinite graph. The current result asks what happens when the weight of just one edge connecting the two rings is changed.\n\nThe new theorem gives a precise contrast between two combinations of the localized states. The equal-amplitude combination, called the dark mode, stays an exact eigenstate at the same energy for every real change of that edge weight. The opposite combination, called the bright mode, responds to the change and also couples to states outside the original pair. The theorem identifies that extra contribution exactly and bounds its size by twice the magnitude of the edge change times the size of the external part of the state. These statements concern the entire infinite graph, not a finite numerical approximation.\n\nThe distinction matters because treating the two localized states as an isolated two-state system would miss their coupling to the rest of the graph. The result may interest mathematicians studying spectral theory, discrete operators and local perturbations, and physicists studying quasicrystals, compact localized states, flat bands and photonic networks. It does not establish a general time-dependent quantum evolution, a shifted bright eigenvalue or a state-preparation method. The research builds on known localized-state patterns. Alessandro Odasso, who is not a mathematician, conceived the research direction and leads the project to investigate what large language models can achieve in scientific research. According to the maintainer, the proposed theorem statements, mathematical proof development and Lean formalization are AI-generated, under his direction rather than independently authored by him. Their formal correctness is assessed through Lean and independent proof checking; mathematical novelty and scientific importance have not yet been independently assessed.",
     "authors": [
       "Alessandro Odasso"
@@ -10,9 +10,6 @@
     "responsible_maintainers": [
       "Alessandro Odasso"
     ]
-  },
-  "repository": {
-    "role": "substantive-development"
   },
   "classification": {
     "arxiv": [
