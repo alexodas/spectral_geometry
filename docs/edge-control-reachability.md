@@ -88,8 +88,8 @@ the number of external modes. For a unit real state, a leakage bound
 `‖χ‖² ≤ η` certifies at least `1-η` squared weight in the
 two-mode plane. At the restored crossing operator, the source also
 proves the exact eigenvalue equation `K_* p = E_* p` on the
-natural domain. These are algebraic facts, **not proofs of pulse
-existence or unitary dynamics** (the new module's CI is pending).
+natural domain. These are Lean-verified algebraic facts, **not proofs of the
+existence of a general complex unitary pulse evolution**.
 
 **Complex probability and persistence obligation.** Define the
 complex orthogonal projection `P` onto normalized `A,B` and
@@ -122,7 +122,7 @@ The proposed two-level description is **not an invariant subspace**
 under the physical one-edge perturbation. An explicit exact
 full-infinite-Hilbert-space calculation in
 [`AmmannBeenkerQubitLeakage.lean`](../SpectralGeometry/AmmannBeenkerQubitLeakage.lean)
-(submitted for Lean CI) shows, for the original **unnormalized**
+(Lean-verified) shows, for the original **unnormalized**
 compact mode `a`, and the exact orthogonal projection `P` onto
 `span{a,b}`:
 
@@ -178,8 +178,8 @@ For a normalized state, the **squared norm** of leakage is
 `≤4d²` (provided `d≥0`). There is **no pulse-duration
 factor** in this estimate; the result is a direct consequence
 of the triangle inequality and invariance of the perturbed
-spectral plane. The generic real normed-space lemma is submitted
-for Lean CI; it neither constructs `S` nor identifies `U`
+spectral plane. The generic real normed-space lemma has
+passed Lean CI; it neither constructs `S` nor identifies `U`
 with the actual infinite-graph Schrödinger propagator.
 
 **Remaining graph-specific theorem obligations:**
@@ -342,12 +342,12 @@ The missing dynamics is now particularly focused: show that
 the fixed real-operator calculation extends appropriately to
 the complexified self-adjoint graph Hamiltonian; construct the
 unitary `U_ε(T)`, prove it preserves the natural domain,
-norm, and `R_ε)-norm, and instantiate the new theorem with
+norm, and the `R_ε`-norm, and instantiate the new theorem with
 `y=U_ε(T)x`. To claim arbitrary target preparation we
 must **separately** prove controllable transfer and complex
 relative phase inside A/B; even a perfect leakage estimate
-does not imply a useful rotation. The new declaration is
-submitted for CI and is not yet certified.
+does not imply a useful rotation. The full real-space
+conditional leakage theorem has passed Lean CI.
 
 The nearby-projector approach above remains independently
 valuable for tracking the moving spectral subspace and
@@ -398,9 +398,9 @@ established. These three obligations are explicit.
 unitary group and its domain invariance are not constructed.
 An arbitrary real-linear isometry is not automatically the
 physical quantum evolution, and this theorem does not
-certify any A/B rotation or universal qubit control. The
-new module awaits its own Lean CI check; the underlying
-§4.85 conserved-residual theorem already passed.
+certify any A/B rotation or universal qubit control.
+This intertwining module and the underlying §4.85
+conserved-residual theorem have passed Lean CI.
 
 ## The real pulse Hamiltonian is itself self-adjoint
 
@@ -432,8 +432,8 @@ in the current representation is **not itself** a
 constructed complex Schrödinger propagator.
 Complexification, the one-parameter unitary group,
 natural-domain invariance and commutation with its
-generator remain explicitly open. The new declaration
-must pass its first CI check.
+generator remain explicitly open. The real self-adjointness
+declaration has passed Lean CI.
 
 ## Switching the selected edge OFF: a two-segment leakage estimate
 
@@ -478,7 +478,8 @@ arbitrary. No time factor appears.
 All evolution families are still **hypotheses** on the
 real Hilbert space; we do not yet have the physical
 complex Schrödinger group or constructive state
-preparation. The new module awaits its first Lean CI run.
+preparation. This conditional ON/OFF theorem has passed
+Lean CI.
 
 ## Exact dark-state quantum phase as a real/imaginary Schrödinger solution
 
@@ -522,7 +523,7 @@ a proof of nontrivial A/B controllability.
 It does show that one exact complex-phase trajectory
 with physical Schrödinger sign conventions is already
 accessible from the certified real eigenstate.
-The new module requires CI verification.
+This exact dark-state phase module has passed Lean CI.
 
 ## An obstruction to edge-only state preparation
 
