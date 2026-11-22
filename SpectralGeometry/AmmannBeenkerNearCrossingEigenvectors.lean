@@ -332,5 +332,96 @@ theorem crossingEdge_nearby_eigenvector_leakage_le_full
   crossingEdge_nearby_eigenvector_leakage_le
     crossingReducedGapResidualEstimate_full ε energy x heigen hnear
 
+
+/-- A nonzero change of the chosen edge cannot leave a crossing-energy
+eigenvector coupled to that edge.  This is a full-domain consequence of
+the rank-one perturbation, symmetry of the original Hamiltonian, and
+the explicit nonzero pairing with compactA. -/
+theorem crossingEdge_zero_of_perturbed_crossing_eigen
+    (ε : ℝ) (hε : ε ≠ 0)
+    (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge) x =
+          crossingEnergy • (x : TileHilbert Vertex)) :
+    crossingEdge (x : TileHilbert Vertex) = 0 := by
+  have hres :
+      crossingResidual x =
+        -(ε • crossingEdge (x : TileHilbert Vertex)) := by
+    have h := crossingEdge_perturbed_eigenvector_residual
+      ε crossingEnergy x heigen
+    change crossingResidual x =
+      (crossingEnergy - crossingEnergy) • (x : TileHilbert Vertex) -
+        ε • crossingEdge (x : TileHilbert Vertex) at h
+    simpa only [sub_self, zero_smul, zero_sub] using h
+  have horth : inner ℝ (crossingResidual x) compactA = 0 := by
+    have hs := crossingResidual_symmetric x domainCompactA
+    rw [crossingResidual_compactA, inner_zero_right] at hs
+    exact hs
+  have hpair :
+      ε * inner ℝ (crossingEdge (x : TileHilbert Vertex)) compactA = 0 := by
+    rw [hres, inner_neg_left, real_inner_smul_left] at horth
+    linarith only [horth]
+  have hinner :
+      inner ℝ compactA (crossingEdge (x : TileHilbert Vertex)) = 0 := by
+    calc
+      inner ℝ compactA (crossingEdge (x : TileHilbert Vertex)) =
+          inner ℝ (crossingEdge (x : TileHilbert Vertex)) compactA :=
+        real_inner_comm _ _
+      _ = 0 := (mul_eq_zero.mp hpair).resolve_left hε
+  have hcoeff :
+      (x : TileHilbert Vertex) compactSiteA -
+        (x : TileHilbert Vertex) compactSiteB = 0 := by
+    rw [crossingEdge_inner] at hinner
+    simpa only [compactA_siteA, compactA_siteB,
+      sub_zero, mul_one] using hinner
+  rw [crossingEdge_apply, hcoeff, zero_smul]
+
+/-- For every nonzero edge strength the original crossing energy has
+exactly the dark direction as its entire eigenspace.  This does not
+yet construct or locate the displaced bright eigenvalue. -/
+theorem crossingPerturbedEnergy_dark_only
+    (ε : ℝ) (hε : ε ≠ 0)
+    (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge) x =
+          crossingEnergy • (x : TileHilbert Vertex)) :
+    ∃ c : ℝ, (x : TileHilbert Vertex) = c • crossingDark := by
+  have hW :
+      crossingEdge (x : TileHilbert Vertex) = 0 :=
+    crossingEdge_zero_of_perturbed_crossing_eigen ε hε x heigen
+  have hbase :
+      onsitePlusBounded potential (ringInteraction crossingParameter) x =
+        crossingEnergy • (x : TileHilbert Vertex) := by
+    have h := crossingEdge_perturbation_identity ε x
+    rw [hW, smul_zero, add_zero] at h
+    exact h.symm.trans heigen
+  let r : ℝ := x.1 (centralVertex 1)
+  let s : ℝ := x.1 (centralVertex 9)
+  have hrep :
+      (x : TileHilbert Vertex) = r • compactA + s • compactB :=
+    crossing_eigenvector_representation x hbase
+  have hforce : crossingEdge compactA ≠ 0 := by
+    intro hzero
+    have hn := crossingEdge_compactA_norm_sq
+    rw [hzero, norm_zero] at hn
+    norm_num at hn
+  have hrs : (r - s) • crossingEdge compactA = 0 := by
+    have h := congrArg crossingEdge hrep
+    rw [hW, crossingEdge_two_mode_action] at h
+    exact h.symm
+  have heq : r = s := by
+    have hz : r - s = 0 := (smul_eq_zero.mp hrs).resolve_right hforce
+    exact sub_eq_zero.mp hz
+  refine ⟨4 * r, ?_⟩
+  calc
+    (x : TileHilbert Vertex) =
+        r • compactA + s • compactB := hrep
+    _ = r • (compactA + compactB) := by rw [← heq, smul_add]
+    _ = (4 * r) • crossingDark := by
+      rw [crossingDark, smul_smul,
+        show (4 * r) * (1 / 4 : ℝ) = r by ring]
+
 end
 end SpectralGeometry.AmmannBeenker

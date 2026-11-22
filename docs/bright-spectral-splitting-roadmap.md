@@ -1,0 +1,116 @@
+# Bright spectral splitting — Lean proof roadmap
+
+**Research branch:** `research/bright-spectral-splitting-20261122`
+**Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
+**Status:** this is a proof plan. A source lemma is not verified until its GitHub Actions Lean proof check succeeds. No change to existing Palomar files is needed in this phase.
+
+## 1. Established starting point
+
+Let `H₀ = onsitePlusBounded potential (ringInteraction crossingParameter)`,
+`Hε = H₀ + ε W`, `E_* = crossingEnergy`, `W = crossingEdge`.
+The complete unperturbed eigenspace at `E_*` is the plane spanned by the
+compact normalized dark `D = (a+b)/4` and bright `F = (a-b)/4`.
+Its dimension is **exactly two**, and the full real spectrum has no
+other point within the **closed radius g = 1/128**. The edge operator
+is symmetric, positive, rank one, and has exact norm **2**.
+The equation `Hε D = E_* D` holds for all real ε.
+
+Already formalized: `crossingEigenspace_finrank`,
+`crossing_eigenvector_representation`,
+`crossingGapCandidate_realSpectrum_isolated`,
+`crossingEdge_opNorm`,
+`crossingReducedGapResidualEstimate_full`,
+`crossingBright_pulse_amplitude`,
+`crossingEdge_two_mode_leakage_norm_sq`,
+`onsitePlusBounded_exists_orderedEigenbasis`, and
+`onsitePlusBounded_ordered_perturbation_bound`.
+The last theorem supplies `|μ_n − λ_n| ≤ ‖εW‖ = 2|ε|` for the
+ordered eigenvalues of H₀ and Hε.
+
+A direct specialization of the proved two-mode leakage identity gives
+`‖QWF‖² = 7/16`, where Q is the orthogonal projection onto the
+complement of span(D,F). It remains useful to name this specialization
+as a small standalone Lean lemma.
+
+## 2. Intended main theorem — NOT YET PROVED
+
+For `0 < |ε| ≤ 1/1024`, establish existence of a *unique simple*
+bright-derived real eigenvalue `E_b(ε) ≠ E_*`, with a nonzero
+natural-domain eigenvector and quantitative bounds
+
+`|E_b(ε) − E_*| ≤ 2|ε|`
+
+`|E_b(ε) − E_* − ε/4| ≤ 112 ε²`.
+
+The dark energy remains fixed and becomes simple, and the moving
+eigenvector must be quantitatively close to the original two-mode
+plane. The constants are proposed proof targets, not established
+results. This is a statement about the infinite graph, not a two-state
+approximation or a time-dependent control protocol.
+
+## 3. Proof milestones, ordered by dependency
+
+**L1 — Exactly one dark direction remains at the original energy.**
+For every ε≠0 and every domain vector x, prove
+`Hε x = E_* x → ∃ c, x = c • D`.
+Pair the original residual `(H₀−E_*)x = −εWx` with the compact
+eigenvector a. The original residual pairing is zero by symmetry.
+Because W has rank one and its overlap with a is nonzero,
+`Wx = 0`. Hence x belongs to the original crossing eigenspace.
+The exact representation by a,b and the one-edge formula
+force equal coefficients. Two Lean source declarations are added
+in `AmmannBeenkerNearCrossingEigenvectors.lean`: the edge-zero lemma
+and the dark-only conclusion. **Pending CI; no green claimed.**
+
+**L2 — Moving-level existence using ordered eigenvalues.**
+Construct complete monotone eigenbases of H₀ and Hε from the
+existing generic Lean theorem. Show that the multiplicity-two
+crossing occupies *exactly two consecutive positions* in the
+baseline spectrum. Norm stability then places both corresponding
+perturbed slots within 2|ε| of E*. When 4|ε|<g, all other slots
+stay away. L1 ensures that only one of the two slots can equal E*,
+so the other corresponds to a new simple bright-derived level.
+The critical new work is the bridge from `finrank=2` to the
+indices of a complete ordered eigenbasis; do not assume it.
+
+**L3 — External leakage of an actual moving eigenvector.**
+Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
+Use the already proved reduced-gap estimate, the fact that the
+unperturbed residual is zero on the F direction, and
+`W(F)=⟨F,WF⟩F + v`, where `v=QWF`.
+For `δ = E_b−E_*` and the L2 interval `|δ|≤2|ε|`, obtain
+
+`(g−|δ|−2|ε|) ‖q‖ ≤ |ε| |c| ‖v‖`.
+
+With `|ε|≤1/1024`, the left coefficient is at least `1/256`,
+so `‖q‖ ≤ 256|ε| |c| ‖v‖`. Prove c≠0 for x≠0.
+
+**L4 — Quadratic spectral error, not merely a Rayleigh quotient.**
+The existing exact bright pairing yields
+`(δ−ε/4)c = ε⟨v,q⟩`. Apply Cauchy–Schwarz and L3 to get
+
+`|δ−ε/4| ≤ 256 ε² ‖v‖² = 112 ε²`.
+
+The formula must be attached to the *actual eigenvalue*
+constructed in L2; an energy expectation alone is insufficient.
+
+**L5 — Combine into the final infinite-graph theorem.**
+Establish the sign of the moving shift, uniqueness and
+simplicity in the isolated window, the exact domain and
+parameter hypotheses, and the quantitative eigenvector estimate.
+After full Lean verification, independently assess mathematical
+interest before changing any formalization/comparison package.
+
+## 4. Efficient Lean development sequence
+
+1. Compile the L1 declarations on the research branch first.
+2. Reuse `onsitePlusBounded_exists_orderedEigenbasis` for both
+   operators and `onsitePlusBounded_ordered_perturbation_bound`
+   for their matched levels; do not introduce a new resolvent API.
+3. Prove the complete-eigenbasis/multiplicity-index bridge.
+4. Then perform the L3–L4 algebra and domain checks; save the
+   more speculative dynamical-control questions for later.
+
+**Unchanged:** `Challenge.lean`, `Solution.lean`,
+`comparator.json`, `palomar/dark-bright/comparator.json`,
+`formalization.yaml` and the first registered theorem.
