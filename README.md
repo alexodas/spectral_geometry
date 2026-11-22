@@ -36,29 +36,42 @@ The research direction was conceived and directed by Alessandro Odasso, who is n
 
 ## Table of contents
 
+- [Executive summary](#executive-summary)
+- [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
 - [Current status and verified milestones](#current-status-and-verified-milestones)
 - [1. Research program and geometric model](#1-research-program-and-geometric-model)
 - [2. Canonical products and analytic foundations](#2-canonical-product-and-analytic-foundations)
 - [3. Finite-dimensional geometric operators](#3-finite-dimensional-geometric-operators)
 - [4. Infinite-dimensional operators and spectral theory](#4-infinite-dimensional-geometric-operators-and-spectral-theory)
-  - [4.68. The octagonal graph](#468-an-explicit-octagonal-cut-and-project-vertex-set)
-  - [4.74. Compact localized states](#474-compact-eigenvectors-on-the-infinite-natural-domain)
-  - [4.78. First Palomar result: exact multiplicity](#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
-  - [4.79. Certified spectral gap](#479-a-conservative-quantitative-real-spectral-gap-at-the-crossing)
-  - [4.80. Single-edge control and dark mode](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
-  - [4.89. Exact dark-state Schrödinger trajectory](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
-  - [4.91. Exact bright response and external feedback](#491-verified-bright-amplitude-generator-identity-with-explicit-leakage-forcing)
-  - [4.92. Earlier, unsubmitted Palomar candidate](#492-earlier-unsubmitted-palomar-candidate-exact-dark-protection-and-bright-feedback)
-  - [4.93. Verified dark simplicity and distinct perturbed spectral level](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
-  - [4.94. Two simple eigenvalues in a certified perturbed window](#494-two-simple-eigenvalues-in-a-certified-perturbed-window)
-  - [4.95. Bright amplitude and quantitative exterior leakage](#495-bright-amplitude-and-quantitative-exterior-leakage)
-  - [4.96. A sharp quadratic law for the actual moving level](#496-a-sharp-quadratic-law-for-the-actual-moving-level)
-  - [4.97. Signed shift and consolidated infinite-operator splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
-  - [4.98. Palomar candidate: signed bright splitting](#498-palomar-candidate-signed-bright-splitting)
+  - **Ammann–Beenker model, crossing and controls**
+    - [4.68–4.70. Graph construction and spectral response](#468-an-explicit-octagonal-cut-and-project-vertex-set)
+    - [4.74–4.75. Localized modes and exact crossing](#474-compact-eigenvectors-on-the-infinite-natural-domain)
+    - [4.78. Exactly two crossing states](#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
+    - [4.79. Certified spectral gap](#479-a-conservative-quantitative-real-spectral-gap-at-the-crossing)
+    - [4.80. Two ways to change the energies: ring parameter and connecting edge](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+    - [4.81. Projection onto the two-mode space and external leakage](#481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse)
+    - [4.85–4.88. Temporary edge pulses and switch-off bounds](#485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector)
+    - [4.89–4.91. Dark-state evolution and bright-state response](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
+  - **Quantitative spectral splitting and current candidate**
+    - [4.93–4.96. From existence to quantitative bounds](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
+    - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
+    - [4.98. Palomar candidate and independent verification](#498-palomar-candidate-signed-bright-splitting)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
-  - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
-  - [6.8. Independent verification and scientific interest](#68-independent-statement-verification-and-research-interest-assessment)
+  - [6.4. Two-control research and remaining quantum dynamics](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
+
+## Scientific audience and possible relevance
+
+The results concern one explicitly defined **confined infinite Ammann–Beenker graph**. Their value is not that dark states, localized waves or single-edge perturbations are new ideas, but that several spectral statements have been proved for the complete infinite operator rather than inferred from a finite sample.
+
+- **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The main result identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component.
+- **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization.
+- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. They do not establish a general physical propagator, experimental feasibility or arbitrary preparation of two-mode mixtures.
+- **Researchers in formalized mathematics** may be interested in how natural domains of unbounded operators, complete real eigenbases, explicit spectral gaps and quantitative perturbation estimates are handled in Lean 4 and Mathlib.
+
+These are **plausible research audiences**, not evidence of originality, practical usefulness or scientific impact. Independent expert evaluation and comparison with the specialist literature are still needed.
+
 ## Current status and verified milestones
 
 The table below separates proved results from remaining research tasks.
@@ -135,16 +148,13 @@ cut-and-project vertex graph (§§4.68–4.79). The spectral proofs use its
 verified vertex and edge geometry. Polygonal tiling coverage and aperiodicity
 remain open (§6.4).
 
-The intended audience includes discrete Schrödinger and graph-operator
-spectral theory, rigorous spectral approximation, entire functions associated
-with spectra, and formal methods in infinite-dimensional analysis. The
-Comparator-selected crossing-multiplicity result may also interest
-theoretical condensed-matter physicists studying quasicrystal localization
-and compact localized states: it shows that two known compact modes exhaust
-the eigenspace at one energy of this specified infinite confined Hamiltonian,
-excluding additional eigenstates that finite-patch calculations alone cannot
-rule out. A useful application must identify an actual geometric construction
-and an informative estimate, not only a list of possible audiences.
+The concrete Ammann–Beenker results may interest researchers in
+spectral theory, localization on quasiperiodic networks, wave control and
+formal verification. The [scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
+section explains what each community might find useful and which
+conclusions are not yet established. The broader analytic-product part
+of the program may also interest specialists in entire functions
+associated with operator spectra.
 
 ### 1.2. First substantive milestone: finite-coordinate observation
 
@@ -3686,19 +3696,18 @@ scope and the rigorous separation of an invariant dark direction
 from unavoidable bright-to-exterior feedback, rather than a claim
 that a finite effective qubit model is exactly closed.
 
-**Plausible audiences.** For **mathematics**: spectral and operator
-theorists, especially those studying self-adjoint discrete Schrödinger
-operators on infinite graphs, compact eigenstates, and localized
-finite-rank perturbations. For **physics**: quasicrystal
-tight-binding specialists, compact localized state and flat-band
-researchers, and theorists of coupled-resonator or photonic lattices
-who study robust dark modes versus externally coupled bright modes.
-Relevant antecedents are Oktel,
+**Possible scientific readership.** These earlier exact
+protected-versus-coupled identities may be relevant to mathematicians
+studying finite-rank perturbations and localized states on infinite
+graphs, and to theorists studying dark and bright modes in quasiperiodic
+or coupled-resonator systems. They provide algebraic context for the
+later genuine spectral-splitting result (§4.97), rather than a separate
+claim of controlled dynamics. Relevant antecedents are Oktel,
 [Phys. Rev. B 104, 014204 (2021)](https://doi.org/10.1103/PhysRevB.104.014204),
 and Röntgen–Morfonios–Schmelcher,
 [Phys. Rev. B 97, 035161 (2018)](https://doi.org/10.1103/PhysRevB.97.035161).
-These are literature links, **not endorsements or evidence of novelty**.
-A priority and expert-interest assessment remains open.
+These are literature references, not endorsements or evidence of novelty;
+see also [scientific audience and possible relevance](#scientific-audience-and-possible-relevance).
 
 **Archived independent Challenge.** The historical
 [`Challenge.lean`](palomar/dark-bright/Challenge.lean) states this earlier scientific theorem
@@ -5073,16 +5082,22 @@ external coupling. These statements avoid the unjustified
 assumption that the two original localized states form an
 exactly invariant closed two-level system.
 
-A plausible **mathematical** audience is the spectral-theory,
-functional-analysis and discrete Schrödinger-operator community,
-especially researchers on localization and finite-rank perturbations.
-A plausible **physical** audience includes condensed-matter theorists
-working on quasiperiodic lattices, compact localized states and flat
-bands, and researchers investigating photonic or coupled-resonator
-network analogues (see
-[Röntgen–Morfonios–Schmelcher 2018](https://doi.org/10.1103/PhysRevB.97.035161)).
-Neither readership nor novelty has been independently validated;
-no experimental realization or general unitary quantum dynamics is
+The clearest possible **mathematical interest** is the
+fully infinite-operator conclusion: a protected simple eigenstate,
+a distinct simple moving level with a signed and quantitatively
+controlled energy shift, and a bound on the moving eigenvector's
+coupling to the exterior. For **theoretical condensed-matter and
+wave-network researchers**, the contrast between exact first-ring
+detuning and a single connecting-edge change provides a concrete
+example of localized states, protected dark combinations and
+bright-state response. The time-uniform ON/OFF pulse bounds may
+motivate further analysis but remain conditional on the supplied
+evolution. The [scientific-audience overview](#scientific-audience-and-possible-relevance)
+explains these connections and their limitations.
+
+These possible readerships and the originality of the results have
+not been independently assessed. No general complex quantum
+dynamics, arbitrary state preparation or experimental realization is
 claimed.
 
 - [ ] Compare the precise new theorem against the specialist
