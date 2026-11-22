@@ -500,5 +500,138 @@ theorem crossing_perturbed_isolated_pair_simple
         exact hmoving_unique k (by simpa only [hj] using hk))
       y (by simpa only [hj] using hye)
 
+/-!
+## L3: the actual moving eigenspace has a nonzero bright amplitude
+
+For the unique real moving level established by L2d, symmetry makes
+every corresponding eigenvector perpendicular to the protected dark
+state. The exact two-mode projector is therefore the bright line,
+so the certified gap-to-residual estimate controls the full exterior
+amplitude. A sufficiently small edge change makes zero bright
+amplitude impossible for a nonzero moving eigenvector.
+-/
+
+/-- At every non-crossing eigenvalue, an eigenvector of the
+single-edge perturbed infinite Hamiltonian is orthogonal to the
+protected normalized dark state. No smallness hypothesis is needed. -/
+theorem crossing_moving_eigenvector_dark_orthogonal
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex))
+    (hne : energy ≠ crossingEnergy) :
+    inner ℝ crossingDark (x : TileHilbert Vertex) = 0 := by
+  have h := crossingDark_pulse_amplitude ε x
+  rw [heigen, real_inner_smul_right] at h
+  have hz :
+      (energy - crossingEnergy) *
+          inner ℝ crossingDark (x : TileHilbert Vertex) = 0 := by
+    nlinarith only [h]
+  exact (mul_eq_zero.mp hz).resolve_left (sub_ne_zero.mpr hne)
+
+/-- A vector orthogonal to dark has compact-plane projection
+equal to its exact bright amplitude times the normalized bright
+state, even if it has an infinite-support exterior component. -/
+theorem crossingQubitPart_eq_bright_smul_of_dark_orthogonal
+    (ψ : TileHilbert Vertex)
+    (horth : inner ℝ crossingDark ψ = 0) :
+    crossingQubitPart ψ =
+      (inner ℝ crossingBright ψ) • crossingBright := by
+  have hd :
+      inner ℝ crossingDark ψ =
+        2 * (crossingCoeffA ψ + crossingCoeffB ψ) := by
+    simp only [crossingDark, real_inner_smul_left, inner_add_left,
+      crossingCoeffA, crossingCoeffB]
+    ring
+  have hb :
+      inner ℝ crossingBright ψ =
+        2 * (crossingCoeffA ψ - crossingCoeffB ψ) := by
+    simp only [crossingBright, real_inner_smul_left, inner_sub_left,
+      crossingCoeffA, crossingCoeffB]
+    ring
+  have hsum : crossingCoeffB ψ = -crossingCoeffA ψ := by
+    linarith only [hd, horth]
+  have hcoef :
+      inner ℝ crossingBright ψ = 4 * crossingCoeffA ψ := by
+    rw [hb, hsum]
+    ring
+  change
+    crossingCoeffA ψ • compactA + crossingCoeffB ψ • compactB =
+      (inner ℝ crossingBright ψ) •
+        ((1 / 4 : ℝ) • (compactA - compactB))
+  rw [hsum, hcoef]
+  module
+
+/-- A nearby nonzero moving eigenvector must have a nonzero bright
+amplitude: otherwise the vector would be entirely exterior,
+contradicting the certified first-order leakage bound. -/
+theorem crossing_moving_eigenvector_bright_nonzero
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex))
+    (hne : energy ≠ crossingEnergy)
+    (hnear : |energy - crossingEnergy| ≤ 2 * |ε|)
+    (hsmall : |ε| ≤ 1 / 1024)
+    (hxne : (x : TileHilbert Vertex) ≠ 0) :
+    inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 := by
+  intro hz
+  have horth :=
+    crossing_moving_eigenvector_dark_orthogonal ε energy x heigen hne
+  have hp : crossingQubitPart (x : TileHilbert Vertex) = 0 := by
+    rw [crossingQubitPart_eq_bright_smul_of_dark_orthogonal
+      (x : TileHilbert Vertex) horth, hz, zero_smul]
+  have hq : crossingLeakage (x : TileHilbert Vertex) =
+      (x : TileHilbert Vertex) := by
+    simp only [crossingLeakage, hp, sub_zero]
+  have hle :=
+    crossingEdge_nearby_eigenvector_leakage_le_full
+      ε energy x heigen hnear
+  rw [hq] at hle
+  have hnorm : 0 < ‖(x : TileHilbert Vertex)‖ :=
+    norm_pos_iff.mpr hxne
+  have hhalf : 512 * |ε| ≤ (1 / 2 : ℝ) := by
+    linarith only [hsmall]
+  have hmul :=
+    mul_le_mul_of_nonneg_right hhalf (le_of_lt hnorm)
+  nlinarith only [hle, hmul, hnorm]
+
+/-- L3 source statement: the genuine moving eigenspace has bright
+amplitude, is perpendicular to the dark line, and is controlled
+quantitatively outside the unperturbed crossing plane. This initial
+norm-relative estimate has coefficient 512; a sharper bound in terms
+of the bright coefficient and exact external edge-force norm is
+a separate next step. -/
+theorem crossing_exists_moving_eigenvector_bright_and_leakage
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      inner ℝ crossingDark (x : TileHilbert Vertex) = 0 ∧
+      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
+      crossingQubitPart (x : TileHilbert Vertex) =
+        (inner ℝ crossingBright (x : TileHilbert Vertex)) • crossingBright ∧
+      ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+        512 * |ε| * ‖(x : TileHilbert Vertex)‖ := by
+  obtain ⟨energy, x, hmove, hnear, hxne, heigen, _, _⟩ :=
+    crossing_perturbed_isolated_pair_simple ε hε hsmall
+  have horth :=
+    crossing_moving_eigenvector_dark_orthogonal ε energy x heigen hmove
+  have hbright :=
+    crossing_moving_eigenvector_bright_nonzero
+      ε energy x heigen hmove hnear hsmall hxne
+  refine ⟨energy, x, hmove, hnear, hxne, heigen,
+    horth, hbright, ?_, ?_⟩
+  · exact crossingQubitPart_eq_bright_smul_of_dark_orthogonal
+      (x : TileHilbert Vertex) horth
+  · exact crossingEdge_nearby_eigenvector_leakage_le_full
+      ε energy x heigen hnear
+
 end
 end SpectralGeometry.AmmannBeenker

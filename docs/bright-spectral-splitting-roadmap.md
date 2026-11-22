@@ -156,7 +156,18 @@ interest before changing any formalization/comparison package.
    within `2|ε|`. A generic complete DomainEigenbasis interface
    establishes eigenvalue coverage and simplicity for unique slots.
    Both the complete Lean and independent Comparator jobs passed.
-6. **L3–L5 open**: perform the quantitative external-component
+6. **L3 source candidate (not yet verified)**: add
+   `crossing_moving_eigenvector_dark_orthogonal`,
+   `crossingQubitPart_eq_bright_smul_of_dark_orthogonal`,
+   `crossing_moving_eigenvector_bright_nonzero`, and
+   `crossing_exists_moving_eigenvector_bright_and_leakage`.
+   The candidate proves that the actual nonzero moving eigenvector
+   has a nonzero bright amplitude, zero dark amplitude and
+   `‖Qx‖ ≤ 512|ε|‖x‖` for `0 < |ε| ≤ 1/1024`.
+   The sharper `256|ε||c|‖QWF‖` target is not yet claimed.
+   These declarations require their own complete Lean and Comparator
+   CI before being called verified.
+7. **L3–L5 remaining**: perform the quantitative external-component
    argument, the `112ε²` spectral remainder and sign, then
    consolidate the final estimates. Dynamic control remains a
    separate downstream research topic.
