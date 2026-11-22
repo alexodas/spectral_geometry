@@ -39,17 +39,21 @@ jobs:
           ruby scripts/validate-formalization.rb
           python3 scripts/check-full-proof-coverage.py
           python3 scripts/check-no-proof-holes.py
-      - name: Fetch Mathlib cache
-        run: lake exe cache get
-      # The earlier full Lean job completed successfully and is the sole
-      # cache writer. Reuse its .olean files on this separate runner.
-      - name: Restore verified project build
+      # The earlier Lean job is the sole cache writer. Restore its entire
+      # verified Lake workspace before invoking Mathlib's cache client:
+      # .lake/packages contains Mathlib and other pinned dependencies,
+      # not only the project's .lake/build objects.
+      - name: Restore verified Lake workspace
         uses: actions/cache/restore@v4
         with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          path: .lake
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
           restore-keys: |
-            ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+            ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+      # Always check the pinned upstream artifacts. With a warm workspace,
+      # this is a no-op for downloads; cold caches still work unchanged.
+      - name: Verify or download pinned Mathlib cache
+        run: lake exe cache get
       - name: Build complete mathematical library and Comparator modules
         run: lake build SpectralGeometry Challenge Solution
       - name: Compare dark/bright one-edge result with bundled kernels

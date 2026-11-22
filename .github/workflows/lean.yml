@@ -23,19 +23,23 @@ jobs:
             sleep $((5 * attempt))
           done
           exit 1
-      # Toolchain/dependency digest isolates compatible caches.
-      # Restore the last compatible build on source edits; Lake recompiles
-      # only changed modules and their dependents. Challenge/Solution are
-      # tracked by Lake separately. This is the only project cache writer.
+      # Cache the complete Lake workspace, not just the project's .lake/build:
+      # Mathlib/dependency sources and their compiled objects live under
+      # .lake/packages. Restoring them avoids downloading ~9000 artifacts
+      # again on each disposable runner. The manifest/toolchain isolate
+      # incompatible dependencies; Lake still validates and builds all
+      # targets. This job is the only cache writer.
       - name: Restore compiled project modules
         id: project-olean-cache
         uses: actions/cache/restore@v4
         with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          path: .lake
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
           restore-keys: |
-            ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
-      - name: Download pinned Mathlib cache
+            ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+      # Idempotent: on a warm workspace this finds no missing artifacts;
+      # on cold/missing/corrupt entries it fetches the pinned Mathlib cache.
+      - name: Verify or download pinned Mathlib cache
         run: lake exe cache get
       - name: Compile and kernel-check Lean proof
         run: lake build SpectralGeometry Challenge Solution
@@ -43,5 +47,5 @@ jobs:
         if: steps.project-olean-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: .lake/build
-          key: ${{ runner.os }}-${{ runner.arch }}-lean-modules-v2-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}
+          path: .lake
+          key: ${{ runner.os }}-${{ runner.arch }}-lean-workspace-v3-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SpectralGeometry.lean', 'SpectralGeometry/**/*.lean') }}

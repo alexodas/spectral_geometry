@@ -2,7 +2,7 @@
 
 **Research branch:** `research/bright-spectral-splitting-20261122`
 **Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
-**Status:** this is a proof plan. A source lemma is not verified until its GitHub Actions Lean proof check succeeds. No change to existing Palomar files is needed in this phase.
+**Status:** L1, L2a, L2b and L2c have all passed full Lean 4/Mathlib CI; L2b and L2c also passed the independent Comparator in Actions #319 and #320. The remainder (small-window uniqueness and simplicity, bright eigenvector bounds, sign and quadratic remainder) is an open proof plan. A newly written Lean declaration is never called verified before its own CI succeeds. No change to existing Palomar packaging is needed.
 
 ## 1. Established starting point
 
@@ -76,13 +76,21 @@ The exact-double count passed Action #316, and the generic
 consecutive-index theorem plus its concrete crossing corollary passed
 both the full Lean build and independent Comparator in Action #319
 (commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`).
-The next L2c source candidate uses `DomainEigenbasis.ordered_levels_unique`
-to identify the sequences used for counting and stability, then
-uses L1 and orthonormality to exhibit a *genuine nonzero* perturbed
-eigenvector with a distinct energy inside the `2|ε|` window.
-This new L2c declaration remains unverified until its own CI passes.
-Simplicity of the moving level and exhaustion of the small spectral
-window remain to be proved separately.
+**L2c is now verified:** `crossing_exists_distinct_perturbed_level_near`
+uses `DomainEigenbasis.ordered_levels_unique` to identify the
+counting and stability sequences, then dark-only rigidity and
+orthonormality to exhibit a *genuine nonzero* perturbed natural-domain
+eigenvector at some `E_b ≠ E_*`, with `|E_b − E_*| ≤ 2|ε|`.
+It holds for **every ε ≠ 0**, without a smallness assumption.
+Both Lean and the independent Comparator passed
+[Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
+on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
+This is an existence theorem only: the new level has not yet
+been shown simple or unique in the small isolated window.
+**L2d remains:** use the full spectral gap and ordered stability
+to exclude other eigenvalue slots from the crossing window, show
+that exactly one of the two crossing slots stays at `E_*`,
+and establish the moving level's simplicity.
 
 **L3 — External leakage of an actual moving eigenvector.**
 Let `x = c F + q`, with x orthogonal to the dark D and q=Qx.
@@ -118,14 +126,17 @@ interest before changing any formalization/comparison package.
 2. **L2a green**: the ordered-eigenbasis stability and external-edge
    specializations passed Action #313.
 3. **L2b fully green**: Action #316 certified exact-double
-   multiplicity, and Action #319 certified consecutive spectral slots
+   multiplicity; Action #319 certified consecutive spectral slots
    with both Lean and the independent Comparator.
-4. **L2c source candidate**: a true distinct perturbed level and
-   eigenvector, with the `2|ε|` bound, are being submitted for CI.
-   Do not call L2c verified before its own run is green.
-5. After L2c verification, prove window uniqueness/simplicity and
-   perform the L3–L4 algebra and domain checks; save the more
-   speculative dynamical-control questions for later.
+4. **L2c fully green**: Action #320 certified the existence of a
+   true distinct perturbed natural-domain eigenpair for every
+   `ε ≠ 0`, with `|E_b − E_*| ≤ 2|ε|`. The independent
+   Comparator also passed.
+5. **L2d open**: certify exactly two slots in the isolated window,
+   dark/moving separation and simplicity of the moving level.
+6. Then perform the L3–L4 external-component and quadratic-remainder
+   arguments and consolidate L5. Preserve the separate, speculative
+   dynamical-control research questions for later.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,
 `comparator.json`, `palomar/dark-bright/comparator.json`,

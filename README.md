@@ -10,9 +10,9 @@ zeros of analytic functions built from those levels.**
 
 **Established foundation.** In a specific confined infinite Ammann–Beenker octagonal graph, two compact localized states span the entire eigenspace at a distinguished energy: its dimension is exactly two. This theorem is registered as **PALOMAR-2026-11-06-000012 (version 1)**. Further independently proved Lean results establish a conservative spectral isolation radius of **1/128** around the crossing.
 
-**Verified local-response results.** Changing the weight of one edge preserves the normalized **dark** state as an exact eigenvector at the original energy for every real perturbation strength. The complementary **bright** combination has an exact generator-level response and a nonzero, quantitatively characterized coupling to the rest of the graph. Leakage bounds for existing nearby eigenvectors are also proved. These statements do not alone establish a moving bright eigenvalue, a general propagator or a quantum-state preparation method.
+**Verified local-response and spectral-existence results.** Changing one edge preserves the normalized **dark** state exactly for every real perturbation; for each nonzero strength, the entire eigenspace at the original energy is precisely the dark line. The complementary **bright** direction has an exact generator-level response and nonzero exterior coupling, with `‖QWF‖² = 7/16`. Complete ordered natural-domain eigenbases satisfy `|μₙ − λₙ| ≤ 2|ε|`; the unperturbed crossing occupies exactly two consecutive positions. Crucially, **Action #320 verified that for every ε ≠ 0 there exists a genuine nonzero natural-domain eigenvector of the perturbed infinite operator at some energy distinct from the crossing, with `|E_b − E_*| ≤ 2|ε|`** (§4.93). This existence theorem is not merely a compressed bright expectation.
 
-**Current research direction.** The next goal is a true **spectral-splitting theorem** for the actual infinite operator: prove that a sufficiently small nonzero single-edge perturbation leaves exactly one dark eigenvector at the original energy and produces a distinct, simple bright-derived eigenvalue. The proposed first-order shift is ε/4, with an explicitly bounded quadratic remainder and a bound on the new eigenvector's external component. This is a mathematical research objective; each new Lean declaration must pass CI before being called verified. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
+**Current research direction.** The first existence step of the **genuine infinite-operator spectral splitting** has now passed Lean and the independent Comparator. What remains is to prove uniqueness and simplicity of the displaced level in the isolated small-perturbation window, its sign, the sharp first-order law `E_b(ε) = E_* + ε/4 + O(ε²)` with the explicit target `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²` for `0 < |ε| ≤ 1/1024`, and a quantitative external-eigenvector bound. No general propagator or state-preparation method has been proved. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 **Provenance and limits.** Alessandro Odasso, who is not a mathematician, conceived and directs this research into scientific work carried out with large language models. According to the maintainer, AI generated the theorem statements, mathematical proof development and Lean formalizations under his direction. Kernel verification tests formal correctness; novelty, research significance and physical applications require independent assessment.
 
@@ -31,6 +31,7 @@ zeros of analytic functions built from those levels.**
   - [4.89. Exact dark-state Schrödinger trajectory](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
   - [4.91. Exact bright response and external feedback](#491-verified-bright-amplitude-generator-identity-with-explicit-leakage-forcing)
   - [4.92. Proposed second Palomar theorem](#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+  - [4.93. Verified dark simplicity and distinct perturbed spectral level](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
@@ -66,7 +67,8 @@ The table below separates proved results from remaining research tasks.
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
 | Exact bright generator response and selected-edge Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92: a single combined theorem with an independent Mathlib-only Challenge/Comparator package. The verification result for this package is tied to the exact commit checked, not to a statement in the README |
-| Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; perturbed spectral cluster and projector remain open |
+| Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
+| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320. Uniqueness, moving-level simplicity, sign and quadratic error remain open |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -77,7 +79,8 @@ The more ambitious geometric cofactor certificates, relative-product
 identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
 the certified dark/bright generator algebra (§§4.80–4.91), the combined
-dark/bright theorem (§4.92), and the proposed dynamical coherent-control
+dark/bright theorem (§4.92), the newly verified perturbed spectral
+**existence** result (§4.93), and the proposed dynamical coherent-control
 problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
@@ -3682,9 +3685,90 @@ used in a submission. The first Palomar registration described in
 §4.78 remains historically intact and is not replaced by the second
 proposal.
 
+### 4.93. Verified dark simplicity and a distinct perturbed spectral level
+
+This is a **subsequent, Lean-verified spectral result**, separate from the
+generator-level Palomar candidate of §4.92 and from the immutable first
+Palomar registration (§4.78). It concerns the **true infinite graph
+operator on its original natural domain**, not a finite-patch truncation
+or an energy expectation in the two-mode plane.
+
+Write `H₀ = onsitePlusBounded potential (ringInteraction crossingParameter)`,
+`Hε = onsitePlusBounded potential (ringInteraction crossingParameter + ε • crossingEdge)`,
+`E_* = crossingEnergy`, and `D = (a+b)/4`, `F = (a-b)/4`.
+The selected edge `W = crossingEdge` has `‖W‖ = 2`.
+The following **distinct** milestones have passed the full Lean build:
+
+- **L1 — exact dark simplicity.** The two theorems
+  `crossingEdge_zero_of_perturbed_crossing_eigen` and
+  `crossingPerturbedEnergy_dark_only` in
+  [AmmannBeenkerNearCrossingEigenvectors.lean](SpectralGeometry/AmmannBeenkerNearCrossingEigenvectors.lean)
+  show that for every real `ε ≠ 0`, every natural-domain eigenvector
+  of `Hε` at `E_*` is a scalar multiple of `D`. Together with the
+  exact, normalized dark eigenvector for all `ε`, the eigenspace is
+  **exactly one-dimensional**. Previously verified on the research
+  branch (including Action #311).
+- **L2a — ordered spectral stability and exterior force.** The theorem
+  `crossingEdge_exists_ordered_eigenbases_and_stability` constructs
+  complete, monotone natural-domain eigenbases for `H₀` and `Hε`
+  and supplies `∀ n, |μ n - λ n| ≤ 2|ε|`. The theorem
+  `crossingBright_external_edge_norm_sq` proves the **exact**
+  infinite-space coupling `‖QWF‖² = 7/16`. Both are in
+  [AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean)
+  and passed Action #313.
+- **L2b — multiplicity-faithful consecutive spectral slots.**
+  `crossing_exists_ordered_eigenbasis_exact_double` constructs an
+  ordered complete eigenbasis in which `levelMultiplicity` at `E_*`
+  is precisely two (Action #316).
+  `ordered_levelMultiplicity_two_consecutive` in
+  [OrderedLevelMultiplicityTwo.lean](SpectralGeometry/OrderedLevelMultiplicityTwo.lean)
+  and `crossing_exists_ordered_eigenbasis_consecutive_pair` then
+  certify indices `n, n+1` with
+  `λ_n = λ_(n+1) = E_*`, and no other crossing occurrence.
+  Both passed the Lean and Comparator jobs of
+  [Action #319](https://github.com/alexodas/spectral_geometry/actions/runs/45050103890)
+  on commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`.
+- **L2c — existence of a *genuinely distinct* perturbed level.**
+  `crossing_exists_distinct_perturbed_level_near` in the bright
+  splitting module proves, **for every real ε ≠ 0**, the proposition
+  `∃ E_b ∈ ℝ, ∃ x ∈ D(V)`, with `x ≠ 0`, such that
+
+  ```math
+  H_\varepsilon x=E_b x,\qquad
+  E_b\ne E_*,\qquad
+  |E_b-E_*|\le 2|\varepsilon|.
+  ```
+
+  It identifies the ordered counting basis with the stability basis
+  through `DomainEigenbasis.ordered_levels_unique`, then combines
+  dark-only eigenspace rigidity with orthonormality: **both** perturbed
+  crossing slots cannot still equal `E_*`.
+  This is a genuine full-operator eigenpair, not the compressed
+  bright expectation `E_*+ε/4`. The source and the independent
+  Comparator passed
+  [Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
+  on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
+
+**What remains unproved.** The L2c theorem does **not** identify the
+moving eigenvector quantitatively with the original bright direction,
+assert its simplicity, exhaust the whole perturbed crossing window,
+or prove the sign of `E_b-E_*`. For `0 < |ε| ≤ 1/1024`, the
+target second-order law is still
+
+```math
+\bigl|E_b(\varepsilon)-(E_*+\varepsilon/4)\bigr|
+\le 112\,\varepsilon^2,
+```
+
+together with the proposed exterior-component control
+`‖Qx‖ ≤ 256|ε| |c| ‖QWF‖` for `x=cF+Qx` orthogonal to `D`.
+These are **future L3–L5 obligations**, not consequences already
+verified in L2c. No new Palomar candidature or registration has been
+created from this intermediate milestone.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **106 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-one infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright lemmas were reported Lean-verified by the maintainer; the fifteenth theorem bundles their conclusions for independent Palomar comparison without adding another module. The full Lean and Comparator results must be read from the checks associated with the exact candidate commit.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **106 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-one infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -3750,7 +3834,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`InfiniteLocalFullVariationalComparison.lean`](SpectralGeometry/InfiniteLocalFullVariationalComparison.lean)
   - [`InfiniteLocalFullLowEnergyCounting.lean`](SpectralGeometry/InfiniteLocalFullLowEnergyCounting.lean)
 
-- **Simultaneous observation, variational control and full summability (11):**
+- **Simultaneous observation, variational control and full summability (12):**
   - [`DomainSpectralSubspace.lean`](SpectralGeometry/DomainSpectralSubspace.lean)
   - [`InfiniteLowEnergyObservation.lean`](SpectralGeometry/InfiniteLowEnergyObservation.lean)
   - [`InfiniteLowEnergyCounting.lean`](SpectralGeometry/InfiniteLowEnergyCounting.lean)
@@ -3758,6 +3842,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`DomainEigenbasis.lean`](SpectralGeometry/DomainEigenbasis.lean)
   - [`InfiniteLocalFullEigenbasis.lean`](SpectralGeometry/InfiniteLocalFullEigenbasis.lean)
   - [`OrderedVariationalPrinciple.lean`](SpectralGeometry/OrderedVariationalPrinciple.lean)
+  - [`OrderedLevelMultiplicityTwo.lean`](SpectralGeometry/OrderedLevelMultiplicityTwo.lean)
   - [`InfiniteOrderedSpectralControl.lean`](SpectralGeometry/InfiniteOrderedSpectralControl.lean)
   - [`InfiniteOrderedSpectralExistence.lean`](SpectralGeometry/InfiniteOrderedSpectralExistence.lean)
   - [`InfiniteFullSpectralSummability.lean`](SpectralGeometry/InfiniteFullSpectralSummability.lean)
@@ -3794,7 +3879,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
   - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
-  - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(ordered-eigenvalue stability and exact external bright edge force; pending CI)*
+  - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(Lean-verified ordered stability, external bright force, exact-double crossing slots, consecutive-pair corollary, and genuine perturbed-level existence; see §4.93)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -3885,6 +3970,20 @@ audits and the independent Lean, NanoDa and con-ron comparison of the
 prevents the Comparator job from running. The Lean workflow can also be
 dispatched manually; one green Palomar workflow requires both jobs to succeed.
 
+**Incremental GitHub Actions cache.** Both jobs use the same pinned
+toolchain/dependency and source-hash cache key. The first job is the
+**only cache writer**; the dependent Comparator job restores it before
+running `lake exe cache get` and recompiling/checking its targets.
+The newer `lean-workspace-v3` cache stores the entire `.lake`
+workspace, including Mathlib and other pinned package sources and build
+artifacts under `.lake/packages`, rather than only `.lake/build`.
+The Mathlib cache command remains in place: it fetches missing artifacts
+when needed and does not weaken the proof build or independent
+Lean/NanoDa/con-ron comparison. The first v3 cache run must populate
+its archive; actual speed improvements and cache size require checking
+the associated Action logs after CI. No separate quick Comparator
+workflow is used.
+
 ## 6. Roadmap: proof status and next steps
 
 The program's central objective is a **quantitative response theorem for the
@@ -3908,8 +4007,9 @@ product, followed by a certified truncation cutoff. The planar finite-residue co
 summability input. Uniform separation is a separate geometric refinement.
 For the first-ring intervention, §4.78 determines the full crossing
 eigenspace and §4.79 certifies a conservative real spectral exclusion
-radius of $1/128$. The one-edge splitting and remainder estimates
-remain open (§6.4). The complex Green-matrix interface in §6.1
+radius of $1/128$. The existence of a distinct moving level is now verified (§4.93);
+its small-window uniqueness, simplicity, sign, eigenvector leakage
+and quadratic remainder estimates remain open (§6.4). The complex Green-matrix interface in §6.1
 serves relative determinants in §6.5. Finite-patch operator errors belong
 to the approximation problem in §6.6.
 
@@ -4204,23 +4304,34 @@ The relation to the standard Ammann–Beenker construction is documented in
   other point of the full real bounded-inverse spectrum (§4.79).
   This is a conservative bound, not the exact nearest-level spacing.
 
-**Near-term priority: genuine bright spectral splitting (open)**
+**Near-term priority: complete the quantitative bright spectral splitting (open)**
 
-Our next goal is a full-infinite-graph spectral theorem, rather than
-another compressed matrix-element identity. The existing complete
-ordered-eigenbasis construction, norm-stability theorem and reduced-gap
-residual estimate offer a route without developing a new general
-resolvent calculus. See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
+The first genuine infinite-operator eigenvalue-existence result is
+**already Lean verified** (§4.93): unlike a projected matrix element,
+it constructs a nonzero perturbed natural-domain eigenvector at a
+distinct energy. The next goal is to make that level unique and simple
+in the isolated small-perturbation window, and obtain the sharp
+quadratic law and external eigenvector estimate. See the
+[research roadmap](docs/bright-spectral-splitting-roadmap.md).
 
-- [x] **L1 — Dark simplicity at the original energy (Lean verified).**
-  For every ε ≠ 0 the perturbed crossing-energy eigenspace is exactly
-  the dark line. The two source lemmas passed both PR #88 workflows
-  on commit `464bee3`.
-- [ ] **L2 — Persistence of the two-level spectral cluster.**
-  Complete ordered eigenbases, the bound |μₙ − λₙ| ≤ 2|ε|, and
-  the *exactly two* crossing spectral occurrences are now Lean verified.
-  A generic consecutive-index lemma and its concrete crossing corollary
-  have been committed for the next CI run. The moving level is still open.
+- [x] **L1 — Dark simplicity (Lean verified).** For ε ≠ 0 the
+  perturbed eigenspace at E_* is exactly the dark line.
+  Action #311 and subsequent complete builds, including #320, passed.
+- [x] **L2a — Ordered complete eigenbases and norm stability.**
+  The true infinite-operator levels obey
+  |μₙ − λₙ| ≤ 2|ε| for every index (Action #313).
+- [x] **L2b — Exactly double, consecutive unperturbed crossing.**
+  The counting theorem passed Action #316, and the generic
+  consecutive-slot lemma and concrete corollary passed full Lean and
+  independent Comparator in Action #319.
+- [x] **L2c — Actual distinct perturbed eigenvalue exists.**
+  For every ε ≠ 0 there is a nonzero natural-domain eigenvector
+  with energy E_b ≠ E_* and |E_b − E_*| ≤ 2|ε|.
+  Full Lean and Comparator passed Action #320.
+- [ ] **L2d — Complete the small spectral cluster count.**
+  For sufficiently small |ε| relative to the certified gap,
+  prove that the isolated pair consists of exactly the simple
+  dark level and one unique simple moving level.
 - [ ] **L3 — Quantitative bright eigenvector.** Use the already
   certified reduced gap to control the external component and show
   that the new eigenvector has a nonzero bright amplitude.
@@ -4269,10 +4380,11 @@ open is construction of the general **complex** unitary
 propagator and a quantitative **target-state preparation**
 theorem, not the conditional pulse-error bounds themselves.
 
-- [ ] **Prove true bright spectral splitting.** Complete L1–L5 above:
-  establish a moving eigenvalue of the full operator, a controlled
-  second-order remainder, and a quantitative perturbed eigenvector.
-  An energy expectation is not an eigenvalue formula.
+- [ ] **Finish the full quantitative bright splitting.** The true
+  moving eigenvalue already exists by L2c; complete L2d–L5 by
+  proving its local uniqueness and simplicity, a controlled
+  second-order remainder, sign and quantitative external eigenvector.
+  The compressed energy expectation alone is not the theorem.
 - [ ] **Define the controlled dynamics.** Extend the relevant setting to
   complex quantum states and a time-dependent edge weight, while keeping
   the underlying infinite operator and its domain well defined. Determine
@@ -4305,8 +4417,8 @@ theorem, not the conditional pulse-error bounds themselves.
 - [x] **Verify the existing static dark/bright identities (§4.92).**
   The established combined theorem and source dependencies passed full Lean
   and independent statement checks at the previously verified commit.
-  Those identities are inputs to the spectral-splitting research, not a
-  claim that the moving bright eigenvalue is already proved.
+  Those identities by themselves do not assert a moving level;
+  that **later existence theorem** is independently proved in §4.93.
 - [ ] **Construct general complex dynamics and prepare controlled
   A/B superpositions.** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
@@ -4318,9 +4430,10 @@ This is intended as a self-contained result with a possible physical
 interpretation, **not** a claim that a laboratory implementation exists.
 The spectral-product program below remains the project's long-term goal.
 The existing dark/bright results (§§4.80–4.92) provide
-certified algebraic inputs to the new spectral-splitting problem.
-A moving bright eigenvalue and its quantitative estimates remain the
-central open proof obligations; coherent-control and state-preparation
+certified algebraic inputs, and §4.93 additionally proves a **genuine
+distinct perturbed eigenvalue** on the full infinite graph. Uniqueness,
+simplicity and the sharp quantitative estimates remain the central
+open spectral obligations; coherent-control and state-preparation
 questions are separate downstream goals. The immutable first Palomar
 registration remains unchanged.
 
@@ -4349,11 +4462,12 @@ The radius-two intervention gives the nine-level full-product response of
 §4.78 and the conservative real spectral gap of §4.79. The new first
 research priority begins with a quantitative study of the one-edge change
 and then asks whether it can prepare a coherent superposition with controlled
-leakage. The certified unperturbed isolation does not itself supply a
-perturbed eigenvalue law or the dynamical preparation result; the
-generator-level bright response and its compression error are now
-separately certified (§4.91). The
-spectral-product and relative-determinant objectives remain unchanged.
+leakage. The certified unperturbed isolation alone does not supply a
+perturbed eigenvalue law or dynamical preparation. The generator-level
+bright response (§4.91) and subsequent true perturbed eigenvalue
+existence (§4.93) are separately certified, but the quadratic law,
+eigenvector geometry and dynamics remain open. The spectral-product
+and relative-determinant objectives remain unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
 
