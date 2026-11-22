@@ -2,7 +2,7 @@
 
 **Research branch:** `research/bright-spectral-splitting-20261122`
 **Scope:** the actual infinite confined Ammann–Beenker graph, the natural onsite domain, the real self-adjoint Hamiltonian and the single selected edge.
-**Status:** L1–L2d are fully Lean/Comparator verified (Actions #319–#324), and the initial L3 bright-amplitude and exterior-norm bound passed both jobs in Action #326. The sharp L3 full-operator bound `‖Qx‖≤256|ε||c|‖QWF‖` also passed the full Lean and independent Comparator jobs in Action #328 (commit `0590eb7`), with `‖QWF‖²=7/16`. The open objectives are the sign and `112ε²` eigenvalue remainder and final consolidation (L4–L5). No change to existing Palomar packaging is required.
+**Status:** L1–L2d and L3 are fully Lean/Mathlib and independent Comparator verified, including the nonzero bright coefficient and the sharp full-exterior norm bound `‖Qx‖≤256|ε||c|‖QWF‖`. The full L4 quadratic energy law for the true non-dark eigenvalue also passed both CI jobs in Action #331 (commit `e03f7cf`): `|E_b-(E_*+ε/4)|≤112ε²` for `0<|ε|≤1/1024`. The remaining L5 task is to formalize the signed shift and consolidate uniqueness, simplicity, domain and quantitative estimates; a physical control protocol is separate. Existing Palomar registrations and packaging remain unchanged.
 
 ## 1. Established starting point
 
@@ -32,7 +32,7 @@ the orthogonal projection onto the complement of span(D,F).
 `AmmannBeenkerBrightSpectralSplitting.lean` includes the verified
 specialization, alongside the ordered-eigenbasis stability result.
 
-## 2. Intended main theorem — NOT YET PROVED
+## 2. Quantitative spectral splitting: L1–L4 verified, L5 remains
 
 For `0 < |ε| ≤ 1/1024`, **L2d already proves existence and
 uniqueness of one simple** real eigenvalue `E_b(ε) ≠ E_*`
@@ -42,17 +42,16 @@ natural-domain eigenvector and the certified bound
 `|E_b(ε) − E_*| ≤ 2|ε|`.
 
 The original dark eigenspace is exactly one-dimensional.
-The **remaining main target**, still not proved, is the quantitative
-second-order formula
+The **second-order formula is now verified in L4**:
 
-`|E_b(ε) − E_* − ε/4| ≤ 112 ε²`
+`|E_b(ε) − E_* − ε/4| ≤ 112 ε²`.
 
-and the sign of the moving shift. The moving eigenvector's
-external component and nonzero bright amplitude have already
-been quantitatively bounded in L3, with constant `256` and the
-exact edge-force norm `‖QWF‖²=7/16`. Only the `112` remainder
-constant and the shift sign remain proposed targets.
-This concerns the actual infinite graph,
+The moving eigenvector's exterior component and nonzero
+bright amplitude were previously bounded in L3, with constant
+`256` and exact edge-force norm `‖QWF‖²=7/16`.
+The remaining *formalization* goals are a named signed-shift
+corollary and one consolidated L5 theorem. This concerns
+the actual infinite graph,
 not a two-state approximation or time-dependent control protocol.
 
 ## 3. Proof milestones, ordered by dependency
@@ -128,7 +127,7 @@ infinite natural domain. Lean and the independent Comparator passed
 Action #328 (commit `0590eb7`); the norm-relative preliminary
 bound `‖Qx‖ ≤ 512|ε|‖x‖` passed Action #326.
 
-**L4 — Quadratic spectral error, not merely a Rayleigh quotient (source candidate, CI pending).**
+**L4 — Quadratic spectral error for the actual moving eigenvalue (verified).**
 The existing exact bright pairing yields
 `(δ−ε/4)c = ε⟨v,q⟩`. Apply Cauchy–Schwarz and L3 to get
 
@@ -137,23 +136,26 @@ The existing exact bright pairing yields
 The formula must be attached to the *actual eigenvalue*
 constructed in L2; an energy expectation alone is insufficient.
 
-The full L4 candidate is now in
+The full verified L4 result is in
 `AmmannBeenkerBrightSpectralSplitting.lean`:
 `crossingBright_edge_leakage_inner` identifies the exact
 external feedback `⟨QWF,Qx⟩`,
-`crossing_abs_inner_le_norm_mul` supplies Cauchy–Schwarz, and
-`crossing_moving_energy_quadratic_bound` obtains the proposed
-`112ε²` from the already verified L3 norm and
+`crossing_abs_inner_le_norm_mul` applies Cauchy–Schwarz, and
+`crossing_moving_energy_quadratic_bound` proves the explicit
+`112ε²` using the verified L3 estimate and
 `‖QWF‖²=7/16`. Its existential corollary
 `crossing_exists_moving_level_quadratic_bound` attaches this
-bound to the *actual unique simple* moving point-spectrum energy.
-**This new source candidate is not yet Lean/Comparator verified.**
+bound to the true unique simple moving point-spectrum energy.
+Both the complete Lean build and independent Comparator passed
+[Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
+at commit `e03f7cfc88b933fe9c2a635d33016927e6d64709`.
 
 **L5 — Combine into the final infinite-graph theorem.**
 Uniqueness and simplicity in the isolated point-spectrum window
-are already L2d conclusions. Establish the sign of the moving
-shift, the sharp energy remainder, the full quantitative
-eigenvector estimate and all required domain/parameter details.
+are already L2d conclusions. Formalize the sign of the moving shift, then combine
+the **already verified** L2d uniqueness and simplicity, L3
+external eigenvector estimate, and L4 quadratic remainder
+with their exact common domain and parameter hypotheses.
 After full Lean verification, independently assess mathematical
 interest before changing any formalization/comparison package.
 
@@ -191,9 +193,13 @@ interest before changing any formalization/comparison package.
    `‖Qx‖ ≤ 256|ε||c|‖QWF‖`, with `c=⟨F,x⟩≠0`
    and `‖QWF‖²=7/16`. The full Lean build and independent
    Comparator passed at commit `0590eb7`.
-8. **L4–L5 remaining**: perform the quantitative exterior-to-energy
-   argument, the `112ε²` spectral remainder and sign, then
-   consolidate the final estimates. Dynamic control remains a
+8. **L4 fully green**: the exact external feedback identity,
+   real Cauchy–Schwarz argument and quantitative `112ε²`
+   spectral-level estimate passed complete Lean and Comparator
+   CI in Action #331.
+9. **L5 remaining**: formalize the shift sign and assemble
+   the dark/bright simplicity, uniqueness, full-domain
+   eigenvector leakage and quadratic energy law in a single theorem. Dynamic control remains a
    separate downstream research topic.
 
 **Unchanged:** `Challenge.lean`, `Solution.lean`,

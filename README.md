@@ -12,7 +12,7 @@ zeros of analytic functions built from those levels.**
 
 **Verified local-response and spectral-splitting results.** Varying a single edge preserves the normalized **dark** state as an exact eigenvector of the full infinite operator for every real perturbation; at nonzero strength it spans the entire eigenspace at the original energy. The complementary **bright** direction couples to the exterior, with exact squared edge-force norm `‖QWF‖² = 7/16`. Complete natural-domain eigenbases obey `|μₙ − λₙ| ≤ 2|ε|`. Every nonzero perturbation produces a genuine distinct eigenvalue; when `0<|ε|≤1/1024`, the closed radius-`1/256` real point-spectrum window contains precisely the fixed simple dark level and one distinct simple moving level. Its eigenvector is dark-orthogonal, has nonzero bright amplitude and obeys a quantitative full-exterior norm bound (§§4.93–4.95).
 
-**Current research direction.** The outstanding near-crossing objective is to establish the sign and precise second-order law `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²` and consolidate the quantitative infinite-operator theorem. The verified classification is for genuine real natural-domain eigenvalues; no independent complex-spectrum identification, general unitary propagator or state-preparation method is claimed. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
+**Current research direction.** The quantitative second-order moving-energy law `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²` now follows from the actual eigenvector equation and the full-graph L3 estimate, under `0<|ε|≤1/1024` (§4.96). The outstanding task is to consolidate the precise shift-sign consequences and all domain, spectral-window and simplicity hypotheses in a single final theorem. The verified spectral claims concern genuine real natural-domain eigenvectors, not a separately established complex-spectrum result. No general quantum propagator or state-preparation method has been constructed. See the [bright spectral-splitting roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 **Provenance and limits.** Alessandro Odasso, who is not a mathematician, conceived and directs this research into scientific work carried out with large language models. According to the maintainer, AI generated the theorem statements, mathematical proof development and Lean formalizations under his direction. Kernel verification tests formal correctness; novelty, research significance and physical applications require independent assessment.
 
@@ -34,6 +34,7 @@ zeros of analytic functions built from those levels.**
   - [4.93. Verified dark simplicity and distinct perturbed spectral level](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
   - [4.94. Two simple eigenvalues in a certified perturbed window](#494-two-simple-eigenvalues-in-a-certified-perturbed-window)
   - [4.95. Bright amplitude and quantitative exterior leakage](#495-bright-amplitude-and-quantitative-exterior-leakage)
+  - [4.96. A sharp quadratic law for the actual moving level](#496-a-sharp-quadratic-law-for-the-actual-moving-level)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.4. Ammann–Beenker model and control research](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
@@ -72,7 +73,8 @@ The table below separates proved results from remaining research tasks.
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
 | Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320 |
 | Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Verified by full Lean and independent Comparator in Action #324 (commit `180f1d8`) |
-| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328. Sign and second-order energy error remain open |
+| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328 |
+| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`; complete Lean and independent Comparator verification in Action #331. Explicit signed shift and consolidation remain to be separately formalized |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 
 The program already has formal results on infinite-operator spectral
@@ -3768,8 +3770,10 @@ target second-order law is still
 
 together with the proposed exterior-component control
 `‖Qx‖ ≤ 256|ε| |c| ‖QWF‖` for `x=cF+Qx` orthogonal to `D`.
-These are **future L3–L5 obligations**, not consequences already
-verified in L2c. No new Palomar candidature or registration has been
+These were **future L3–L5 obligations at the L2c stage**, not
+consequences of L2c itself. The exterior bound was subsequently
+proved in §4.95 and the quadratic energy law in §4.96.
+No new Palomar candidature or registration has been
 created from this intermediate milestone.
 
 ### 4.94. Two simple eigenvalues in a certified perturbed window
@@ -3824,7 +3828,10 @@ make these completeness and simplicity inferences explicit in Lean.
 not, by itself, a new statement about an independently defined
 resolvent or complex spectrum; it also does not establish the sign
 of the shift, the target `112ε²` remainder, or quantitative
-external eigenvector leakage. The latter was subsequently proved in §4.95; the sign and quadratic remainder remain open.
+external eigenvector leakage. These are limitations of L2d **alone**:
+the external eigenvector estimate was subsequently proved in §4.95
+and the energy remainder in §4.96. The signed-shift corollary and
+final consolidated statement remain to be formalized.
 
 **Verification.** The L2d theorem and its generic Hilbert-basis
 support passed the full Lean build and independent Comparator in
@@ -3893,10 +3900,11 @@ because `|E_b-E_*|≤2|ε|` and
 `|ε|≤1/1024`. No assumed spectral projector,
 finite patch or two-state truncation is used.
 
-**Open problems.** This theorem does not itself establish
-the sign or quadratic estimate
-`|E_b-(E_*+ε/4)|≤112ε²`. Those remain L4–L5.
-Quantum state preparation is a separate downstream question.
+**Scope and subsequent progress.** L3 itself controls the
+eigenvector rather than the energy shift. The true quadratic
+spectral bound is established separately in §4.96; a formal
+signed-shift corollary and final theorem remain to be consolidated.
+Quantum state preparation is a separate downstream problem.
 
 **Verification record.** The preliminary L3 lemmas passed
 [Action #326](https://github.com/alexodas/spectral_geometry/actions/runs/45056618131)
@@ -3905,6 +3913,90 @@ The sharp L3 estimate and existential corollary passed
 [Action #328](https://github.com/alexodas/spectral_geometry/actions/runs/45057454703)
 on commit `0590eb7a00b06e4796dc31f7db9cea2cbb024807`.
 These records refer only to the exact checked commits.
+
+### 4.96. A sharp quadratic law for the actual moving level
+
+**L4 — true spectral-level estimate, not a Rayleigh quotient.**
+The new source declarations in
+[AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean)
+connect the **genuine** moving natural-domain eigenvector of
+§§4.94–4.95 with its eigenvalue. For every real perturbation satisfying
+
+```math
+0<|\varepsilon|\le\frac1{1024},
+```
+
+the theorem `crossing_exists_moving_level_quadratic_bound`
+exhibits a nonzero full-operator eigenvector `x` at a
+distinct moving real energy `E_b`, with
+`|E_b-E_*|≤2|ε|` and the exact quantitative estimate
+
+```math
+\boxed{\left|E_b-\left(E_*+\frac{\varepsilon}{4}\right)\right|
+\le112\,\varepsilon^2}.
+```
+
+The level is the **unique simple non-dark energy** in the
+closed radius-`1/256` point-spectrum window, by the
+independently proved L2d theorem; L4 uses that actual
+eigenpair rather than asserting a new eigenpair
+solely from an expectation value.
+
+**Exact mechanism.** With the normalized crossing
+bright state `F`, set
+`c=⟨F,x⟩≠0`, `q=Qx`,
+`v=QWF`, where `Q` is the original crossing-plane
+orthogonal projection. The exact generator identity
+`crossingBright_pulse_amplitude`, together with
+`crossingBright_edge_leakage_inner`, gives the true
+eigenvalue equation projected against bright:
+
+```math
+\left(E_b-E_*-\frac{\varepsilon}{4}\right)c
+=\varepsilon\langle v,q\rangle.
+```
+
+The real Hilbert-space Cauchy–Schwarz lemma
+`crossing_abs_inner_le_norm_mul` and the verified
+sharp L3 external estimate give
+
+```math
+\begin{aligned}
+\left|E_b-E_*-\frac{\varepsilon}{4}\right||c|
+&\le|\varepsilon|\,\|v\|\,\|q\|\\
+&\le256\,\varepsilon^2\,|c|\,\|v\|^2\\
+&=112\,\varepsilon^2\,|c|,
+\end{aligned}
+```
+
+because the squared full-graph force is exactly
+`‖v‖²=7/16`. The previously established
+`c≠0` justifies cancelling the coefficient.
+The result is thus a theorem about the actual
+**infinite natural-domain eigenvalue**, not a
+two-level compression or finite-patch approximation.
+
+The reusable parametric theorem
+`crossing_moving_energy_quadratic_bound` requires only a genuine
+near-crossing eigenvector, its nonzero bright coefficient
+and the stated smallness hypothesis;
+`crossing_exists_moving_level_quadratic_bound`
+attaches it to the verified moving level.
+
+**Limits and next steps.** A separate Lean theorem for the
+**sign** of `E_b-E_*` and one consolidated L5 theorem
+packaging uniqueness, simplicity, domain and sharp eigenvector
+estimates have not been included in this L4 source milestone.
+General complex time evolution and preparation of arbitrary
+two-mode states remain outside this static spectral result.
+
+**Verification.** Full Lean/Mathlib and independent Comparator
+checks passed in
+[Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
+on the source commit
+`e03f7cfc88b933fe9c2a635d33016927e6d64709`.
+The exact source commit and both checks must be verified
+before this section is committed as a certified milestone.
 
 ## 5. Building and verification
 
@@ -4152,8 +4244,10 @@ summability input. Uniform separation is a separate geometric refinement.
 For the first-ring intervention, §4.78 determines the full crossing
 eigenspace and §4.79 certifies a conservative real spectral exclusion
 radius of $1/128$. The existence of a distinct moving level is now verified (§4.93);
-its small-window uniqueness, simplicity, sign, eigenvector leakage
-and quadratic remainder estimates remain open (§6.4). The complex Green-matrix interface in §6.1
+its small-window uniqueness, simplicity and eigenvector leakage
+are now established (§§4.94–4.95), as is the true quadratic
+energy remainder (§4.96). A named signed-shift corollary and
+consolidated theorem are still open (§6.4). The complex Green-matrix interface in §6.1
 serves relative determinants in §6.5. Finite-patch operator errors belong
 to the approximation problem in §6.6.
 
@@ -4448,14 +4542,16 @@ The relation to the standard Ammann–Beenker construction is documented in
   other point of the full real bounded-inverse spectrum (§4.79).
   This is a conservative bound, not the exact nearest-level spacing.
 
-**Near-term priority: complete the quantitative bright spectral splitting (open)**
+**Near-term priority: consolidate the quantitative bright spectral splitting (L5 open)**
 
-The first genuine infinite-operator eigenvalue-existence result is
-**already Lean verified** (§4.93): unlike a projected matrix element,
-it constructs a nonzero perturbed natural-domain eigenvector at a
-distinct energy. The next goal is to make that level unique and simple
-in the isolated small-perturbation window, and obtain the sharp
-quadratic law and external eigenvector estimate. See the
+The full natural-domain spectral splitting has progressed from
+existence (L2c) to uniqueness and simplicity in an isolated
+window (L2d), then a bright-eigenvector decomposition and sharp
+external leakage (L3), and now a quadratic spectral-level
+bound with the explicit constant `112` (L4). The next
+formalization task is the **signed shift** and a consolidated
+statement carrying all conditions without silently broadening
+the original spectral scope. See the
 [research roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 - [x] **L1 — Dark simplicity (Lean verified).** For ε ≠ 0 the
@@ -4483,13 +4579,18 @@ quadratic law and external eigenvector estimate. See the
   nonzero bright amplitude `c`, and satisfies the exact
   full-exterior estimate `‖Qx‖≤256|ε||c|‖QWF‖`
   for `0<|ε|≤1/1024`.
-- [ ] **L4 — True bright energy law.** Use the full-graph bright
-  amplitude identity and exact external coupling to prove the target
-  |E_b(ε) − (E_* + ε/4)| ≤ 112 ε² for 0 < |ε| ≤ 1/1024,
-  provided all stated spectral and domain conditions have been proved.
-- [ ] **L5 — Consolidation.** Prove uniqueness, sign, simplicity,
-  and the full-domain quantitative theorem; then evaluate its
-  scientific relevance separately from mechanical Lean correctness.
+- [x] **L4 — True bright energy law (§4.96).**
+  The full-graph bright amplitude identity, exact exterior
+  coupling and sharp L3 estimate prove
+  `|E_b(ε) − (E_* + ε/4)| ≤ 112 ε²` for
+  `0 < |ε| ≤ 1/1024`, for the genuine moving
+  natural-domain eigenvalue.
+- [ ] **L5 — Consolidation.** Uniqueness and simplicity already
+  follow from L2d; the eigenvector and energy bounds are L3–L4.
+  Formalize the signed shift and assemble their domain,
+  parameter and spectral-window conditions into one
+  full-operator theorem. Evaluate scientific interest
+  separately from kernel correctness.
 
 **Longer-term priority: controlled preparation of two-mode superpositions (open)**
 
@@ -4529,9 +4630,10 @@ propagator and a quantitative **target-state preparation**
 theorem, not the conditional pulse-error bounds themselves.
 
 - [ ] **Finish the full quantitative bright splitting.**
-  The moving level exists by L2c, is uniquely simple by L2d,
-  and has a certified bright and external-component bound
-  by L3. Prove the sign and `112ε²` remainder in L4–L5.
+  The moving level exists (L2c), is uniquely simple (L2d),
+  has a certified bright/exterior eigenvector (L3), and
+  satisfies the true `112ε²` spectral bound (L4).
+  Formalize sign and final consolidated scope in L5.
   The compressed energy expectation alone is not the theorem.
 - [ ] **Define the controlled dynamics.** Extend the relevant setting to
   complex quantum states and a time-dependent edge weight, while keeping
@@ -4613,8 +4715,9 @@ and then asks whether it can prepare a coherent superposition with controlled
 leakage. The certified unperturbed isolation alone does not supply a
 perturbed eigenvalue law or dynamical preparation. The generator-level
 bright response (§4.91) and subsequent true perturbed eigenvalue
-existence (§4.93) are separately certified, but the quadratic law,
-eigenvector geometry and dynamics remain open. The spectral-product
+existence (§4.93), isolated simple splitting (§4.94),
+eigenvector geometry (§4.95) and quadratic energy law (§4.96)
+are separately certified; complex quantum dynamics remains open. The spectral-product
 and relative-determinant objectives remain unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
