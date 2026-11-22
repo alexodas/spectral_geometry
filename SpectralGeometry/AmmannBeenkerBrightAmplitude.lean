@@ -34,12 +34,6 @@ namespace SpectralGeometry.AmmannBeenker
 
 noncomputable section
 
-/-- The natural-domain bright vector has exactly the same
-underlying full-space state as the normalized bright vector. -/
-theorem domainCrossingBright_coe :
-    (domainCrossingBright : TileHilbert Vertex) = crossingBright := by
-  rfl
-
 /-- The original full-graph Hamiltonian has the normalized
 bright vector as a crossing eigenvector. This ceases to hold
 for the edge-perturbed Hamiltonian in general. -/
@@ -61,7 +55,11 @@ theorem crossingBright_pulse_action (ε : ℝ) :
       crossingEnergy • crossingBright +
         ε • crossingEdge crossingBright := by
   rw [crossingEdge_perturbation_identity,
-    crossingBright_original_eigen, domainCrossingBright_coe]
+    crossingBright_original_eigen]
+  have hcoe :
+      (domainCrossingBright : TileHilbert Vertex) = crossingBright := by
+    rfl
+  rw [hcoe]
 
 theorem crossingBright_norm_one : ‖crossingBright‖ = 1 := by
   have h := crossingBright_norm_sq
