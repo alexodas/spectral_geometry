@@ -633,5 +633,228 @@ theorem crossing_exists_moving_eigenvector_bright_and_leakage
   · exact crossingEdge_nearby_eigenvector_leakage_le_full
       ε energy x heigen hnear
 
+/-!
+## L3: sharpen the full-exterior estimate using the actual edge force
+
+The previous bound is norm-relative. Here the full exterior residual
+is projected before taking its norm. The original residual is already
+perpendicular to the exact crossing plane by symmetry; its perturbed
+equation therefore involves only the exterior vector and the
+projected edge force. This retains the precise external-edge norm
+instead of replacing it prematurely by the total edge norm.
+-/
+
+/-- The exact crossing-plane orthogonal complement projection is
+nonexpansive on the infinite real Hilbert space. -/
+theorem crossingLeakage_norm_le (ψ : TileHilbert Vertex) :
+    ‖crossingLeakage ψ‖ ≤ ‖ψ‖ := by
+  have h := crossingQubitPart_leakage_norm_sq ψ
+  have hsq : ‖crossingLeakage ψ‖ ^ 2 ≤ ‖ψ‖ ^ 2 := by
+    nlinarith only [h, sq_nonneg ‖crossingQubitPart ψ‖]
+  nlinarith only [hsq, norm_nonneg ψ, norm_nonneg (crossingLeakage ψ)]
+
+/-- The exterior projection respects subtraction as well as addition
+and scalar multiplication. -/
+theorem crossingLeakage_sub (ψ φ : TileHilbert Vertex) :
+    crossingLeakage (ψ - φ) =
+      crossingLeakage ψ - crossingLeakage φ := by
+  have hneg : crossingLeakage (-φ) = -crossingLeakage φ := by
+    calc
+      crossingLeakage (-φ) =
+          crossingLeakage ((-1 : ℝ) • φ) := by rw [neg_one_smul]
+      _ = (-1 : ℝ) • crossingLeakage φ := crossingLeakage_smul (-1) φ
+      _ = -crossingLeakage φ := by rw [neg_one_smul]
+  calc
+    crossingLeakage (ψ - φ) =
+        crossingLeakage (ψ + -φ) := by rw [sub_eq_add_neg]
+    _ = crossingLeakage ψ + crossingLeakage (-φ) :=
+      crossingLeakage_add ψ (-φ)
+    _ = crossingLeakage ψ - crossingLeakage φ := by
+      rw [hneg, sub_eq_add_neg]
+
+/-- The entire original Hamiltonian residual is orthogonal to the
+two-dimensional crossing eigenspace, by exact symmetry. -/
+theorem crossingLeakage_crossingResidual
+    (x : infiniteOnsiteDomain potential) :
+    crossingLeakage (crossingResidual x) = crossingResidual x := by
+  have ha := crossingResidual_symmetric x domainCompactA
+  rw [crossingResidual_compactA, inner_zero_right] at ha
+  have hb := crossingResidual_symmetric x domainCompactB
+  rw [crossingResidual_compactB, inner_zero_right] at hb
+  have ha' : inner ℝ compactA (crossingResidual x) = 0 := by
+    calc
+      inner ℝ compactA (crossingResidual x) =
+          inner ℝ (crossingResidual x) compactA := real_inner_comm _ _
+      _ = 0 := ha
+  have hb' : inner ℝ compactB (crossingResidual x) = 0 := by
+    calc
+      inner ℝ compactB (crossingResidual x) =
+          inner ℝ (crossingResidual x) compactB := real_inner_comm _ _
+      _ = 0 := hb
+  have hp : crossingQubitPart (crossingResidual x) = 0 := by
+    simp only [crossingQubitPart, crossingCoeffA, crossingCoeffB,
+      ha', hb', zero_div, zero_smul, add_zero]
+  simp only [crossingLeakage, hp, sub_zero]
+
+/-- Full perturbed eigen-equation, projected to the true exterior
+of the unperturbed double eigenspace. -/
+theorem crossingResidual_projected_moving_eigenvector
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex)) :
+    crossingResidual x =
+      (energy - crossingEnergy) •
+        crossingLeakage (x : TileHilbert Vertex) -
+      ε • crossingLeakage (crossingEdge (x : TileHilbert Vertex)) := by
+  have h :=
+    crossingEdge_perturbed_eigenvector_residual ε energy x heigen
+  change crossingResidual x =
+    (energy - crossingEnergy) • (x : TileHilbert Vertex) -
+      ε • crossingEdge (x : TileHilbert Vertex) at h
+  have hp := congrArg crossingLeakage h
+  rw [crossingLeakage_crossingResidual,
+    crossingLeakage_sub, crossingLeakage_smul, crossingLeakage_smul] at hp
+  exact hp
+
+/-- On a dark-orthogonal input, the exterior response of the
+selected edge splits into an exact bright forcing vector and
+the remaining exterior feedback. -/
+theorem crossingLeakage_edge_bright_split
+    (ψ : TileHilbert Vertex)
+    (horth : inner ℝ crossingDark ψ = 0) :
+    crossingLeakage (crossingEdge ψ) =
+      (inner ℝ crossingBright ψ) •
+        crossingLeakage (crossingEdge crossingBright) +
+      crossingLeakage (crossingEdge (crossingLeakage ψ)) := by
+  have hp :=
+    crossingQubitPart_eq_bright_smul_of_dark_orthogonal ψ horth
+  have he := congrArg crossingEdge (crossingQubitPart_add_leakage ψ)
+  rw [map_add, hp, map_smul] at he
+  have hes : crossingEdge ψ =
+      (inner ℝ crossingBright ψ) • crossingEdge crossingBright +
+        crossingEdge (crossingLeakage ψ) := he.symm
+  rw [hes, crossingLeakage_add, crossingLeakage_smul]
+
+/-- The precise L3 external-eigenvector estimate.
+For the genuine infinite Hamiltonian, the exterior component q
+of any non-crossing eigenvector near E* is bounded by the absolute
+bright amplitude c times the ACTUAL external edge-force norm.
+
+For 0 < |ε| ≤ 1/1024, the closed baseline gap g=1/128 gives
+g - |energy-E*| - 2|ε| ≥ 1/256.
+The theorem does not assume any unproved projected resolvent. -/
+theorem crossing_moving_eigenvector_sharp_leakage
+    (ε energy : ℝ) (x : infiniteOnsiteDomain potential)
+    (heigen :
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex))
+    (hne : energy ≠ crossingEnergy)
+    (hnear : |energy - crossingEnergy| ≤ 2 * |ε|)
+    (hsmall : |ε| ≤ 1 / 1024) :
+    ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+      256 * |ε| *
+        |inner ℝ crossingBright (x : TileHilbert Vertex)| *
+        ‖crossingLeakage (crossingEdge crossingBright)‖ := by
+  let q : TileHilbert Vertex :=
+    crossingLeakage (x : TileHilbert Vertex)
+  let c : ℝ :=
+    inner ℝ crossingBright (x : TileHilbert Vertex)
+  let v : TileHilbert Vertex :=
+    crossingLeakage (crossingEdge crossingBright)
+  have horth :=
+    crossing_moving_eigenvector_dark_orthogonal ε energy x heigen hne
+  have hres :
+      crossingResidual x =
+        (energy - crossingEnergy) • q -
+          ε • (c • v + crossingLeakage (crossingEdge q)) := by
+    rw [crossingResidual_projected_moving_eigenvector ε energy x heigen,
+      crossingLeakage_edge_bright_split
+        (x : TileHilbert Vertex) horth]
+  have hWq :
+      ‖crossingLeakage (crossingEdge q)‖ ≤ 2 * ‖q‖ := by
+    calc
+      ‖crossingLeakage (crossingEdge q)‖ ≤
+          ‖crossingEdge q‖ := crossingLeakage_norm_le _
+      _ ≤ 2 * ‖q‖ := crossingEdge_apply_norm_le_two q
+  have hforce :
+      ‖c • v + crossingLeakage (crossingEdge q)‖ ≤
+        |c| * ‖v‖ + 2 * ‖q‖ := by
+    calc
+      ‖c • v + crossingLeakage (crossingEdge q)‖ ≤
+          ‖c • v‖ + ‖crossingLeakage (crossingEdge q)‖ :=
+        norm_add_le _ _
+      _ = |c| * ‖v‖ + ‖crossingLeakage (crossingEdge q)‖ := by
+        simp only [norm_smul, Real.norm_eq_abs]
+      _ ≤ |c| * ‖v‖ + 2 * ‖q‖ := add_le_add_left hWq _
+  have hresnorm :
+      ‖crossingResidual x‖ ≤
+        |energy - crossingEnergy| * ‖q‖ +
+          |ε| * (|c| * ‖v‖ + 2 * ‖q‖) := by
+    calc
+      ‖crossingResidual x‖ =
+          ‖(energy - crossingEnergy) • q -
+            ε • (c • v + crossingLeakage (crossingEdge q))‖ :=
+        congrArg norm hres
+      _ ≤ ‖(energy - crossingEnergy) • q‖ +
+          ‖ε • (c • v + crossingLeakage (crossingEdge q))‖ :=
+        norm_sub_le _ _
+      _ = |energy - crossingEnergy| * ‖q‖ +
+          |ε| * ‖c • v + crossingLeakage (crossingEdge q)‖ := by
+        simp only [norm_smul, Real.norm_eq_abs]
+      _ ≤ |energy - crossingEnergy| * ‖q‖ +
+          |ε| * (|c| * ‖v‖ + 2 * ‖q‖) :=
+        add_le_add_left
+          (mul_le_mul_of_nonneg_left hforce (abs_nonneg ε)) _
+  have hgap :
+      crossingGapCandidate * ‖q‖ ≤ ‖crossingResidual x‖ :=
+    crossingReducedGapResidualEstimate_full x
+  have hmargin :
+      (1 / 256 : ℝ) ≤
+        crossingGapCandidate -
+          |energy - crossingEnergy| - 2 * |ε| := by
+    dsimp only [crossingGapCandidate]
+    linarith only [hnear, hsmall]
+  have hsqueezed :
+      (crossingGapCandidate - |energy - crossingEnergy| - 2 * |ε|) *
+          ‖q‖ ≤ |ε| * |c| * ‖v‖ := by
+    nlinarith only [hgap, hresnorm]
+  have hscaled :=
+    mul_le_mul_of_nonneg_right hmargin (norm_nonneg q)
+  have hquarter : (1 / 256 : ℝ) * ‖q‖ ≤
+      |ε| * |c| * ‖v‖ := by
+    nlinarith only [hscaled, hsqueezed]
+  change ‖q‖ ≤ 256 * |ε| * |c| * ‖v‖
+  nlinarith only [hquarter]
+
+/-- A genuine simple moving eigenvector with nonzero bright component,
+zero dark component and the sharp L3 external estimate. -/
+theorem crossing_exists_moving_bright_sharp_leakage
+    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
+    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
+      energy ≠ crossingEnergy ∧
+      |energy - crossingEnergy| ≤ 2 * |ε| ∧
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge) x =
+        energy • (x : TileHilbert Vertex) ∧
+      inner ℝ crossingDark (x : TileHilbert Vertex) = 0 ∧
+      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
+      ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
+        256 * |ε| *
+          |inner ℝ crossingBright (x : TileHilbert Vertex)| *
+          ‖crossingLeakage (crossingEdge crossingBright)‖ := by
+  obtain ⟨energy, x, hmove, hnear, hxne, heigen, _, _⟩ :=
+    crossing_perturbed_isolated_pair_simple ε hε hsmall
+  refine ⟨energy, x, hmove, hnear, hxne, heigen, ?_, ?_, ?_⟩
+  · exact crossing_moving_eigenvector_dark_orthogonal
+      ε energy x heigen hmove
+  · exact crossing_moving_eigenvector_bright_nonzero
+      ε energy x heigen hmove hnear hsmall hxne
+  · exact crossing_moving_eigenvector_sharp_leakage
+      ε energy x heigen hmove hnear hsmall
+
 end
 end SpectralGeometry.AmmannBeenker

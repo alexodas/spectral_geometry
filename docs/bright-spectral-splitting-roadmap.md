@@ -156,18 +156,22 @@ interest before changing any formalization/comparison package.
    within `2|ε|`. A generic complete DomainEigenbasis interface
    establishes eigenvalue coverage and simplicity for unique slots.
    Both the complete Lean and independent Comparator jobs passed.
-6. **L3 source candidate (not yet verified)**: add
-   `crossing_moving_eigenvector_dark_orthogonal`,
+6. **L3a fully green**: Action #326 (commit `4951e87`)
+   verified `crossing_moving_eigenvector_dark_orthogonal`,
    `crossingQubitPart_eq_bright_smul_of_dark_orthogonal`,
    `crossing_moving_eigenvector_bright_nonzero`, and
    `crossing_exists_moving_eigenvector_bright_and_leakage`.
-   The candidate proves that the actual nonzero moving eigenvector
-   has a nonzero bright amplitude, zero dark amplitude and
-   `‖Qx‖ ≤ 512|ε|‖x‖` for `0 < |ε| ≤ 1/1024`.
-   The sharper `256|ε||c|‖QWF‖` target is not yet claimed.
-   These declarations require their own complete Lean and Comparator
-   CI before being called verified.
-7. **L3–L5 remaining**: perform the quantitative external-component
+   Thus the genuine moving eigenvector is orthogonal to the
+   dark direction, has nonzero bright amplitude, and satisfies
+   `‖Qx‖ ≤ 512|ε|‖x‖` for `0<|ε|≤1/1024`.
+7. **L3b source candidate (CI pending)**: project the actual
+   full-operator residual onto the original crossing complement,
+   prove its edge-force decomposition, and target the *sharp*
+   `‖Qx‖ ≤ 256|ε||c|‖QWF‖`, where
+   `c=⟨F,x⟩` and `‖QWF‖²=7/16`. In the new candidate,
+   `crossing_moving_eigenvector_sharp_leakage` is not called
+   verified until its full Lean/Comparator workflow passes.
+8. **L3–L5 remaining**: perform the quantitative external-component
    argument, the `112ε²` spectral remainder and sign, then
    consolidate the final estimates. Dynamic control remains a
    separate downstream research topic.
