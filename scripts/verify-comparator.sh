@@ -28,11 +28,11 @@ for tool in lake leanexport leanchecker nanoda_bin con-ron; do
 done
 
 # Palomar ignores `enable_nanoda` and rejects `external_kernels` in a submitted
-# comparator.json: it registers the toolchain's bundled kernels itself. This
+# per-theorem comparator.json: it registers the bundled kernels itself. This
 # generated copy does the same, so the local check judges as the registry does.
 config=$(mktemp "${TMPDIR:-/tmp}/palomar-comparator.XXXXXX")
 trap 'rm -f "$config"' EXIT
-python3 - comparator.json "$config" "$prefix" <<'PY'
+python3 - palomar/signed-bright-splitting/comparator.json "$config" "$prefix" <<'PY'
 import json
 import pathlib
 import sys

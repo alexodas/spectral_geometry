@@ -1,8 +1,8 @@
 {
   "version": "v0.4",
   "project": {
-    "name": "Dark and Bright Modes in an Infinite Ammann-Beenker Graph",
-    "description": "This project uses rigorous mathematics and computer-checked proofs to study how small, local changes can affect waves on an infinite geometric network. The network is a specific octagonal Ammann–Beenker quasicrystal model, with an added confining potential. It has two compact localized states, each supported on eight vertices. An earlier theorem, already registered with Palomar, proved that these two states account for the entire eigenspace at a particular energy: there are no additional states at that energy elsewhere on the infinite graph. The current result asks what happens when the weight of just one edge connecting the two rings is changed.\n\nThe new theorem gives a precise contrast between two combinations of the localized states. The equal-amplitude combination, called the dark mode, stays an exact eigenstate at the same energy for every real change of that edge weight. The opposite combination, called the bright mode, responds to the change and also couples to states outside the original pair. The theorem identifies that extra contribution exactly and bounds its size by twice the magnitude of the edge change times the size of the external part of the state. These statements concern the entire infinite graph, not a finite numerical approximation.\n\nThe distinction matters because treating the two localized states as an isolated two-state system would miss their coupling to the rest of the graph. The result may interest mathematicians studying spectral theory, discrete operators and local perturbations, and physicists studying quasicrystals, compact localized states, flat bands and photonic networks. It does not establish a general time-dependent quantum evolution, a shifted bright eigenvalue or a state-preparation method. The research builds on known localized-state patterns. Alessandro Odasso, who is not a mathematician, conceived the research direction and leads the project to investigate what large language models can achieve in scientific research. According to the maintainer, the proposed theorem statements, mathematical proof development and Lean formalization are AI-generated, under his direction rather than independently authored by him. Their formal correctness is assessed through Lean and independent proof checking; mathematical novelty and scientific importance have not yet been independently assessed.",
+    "name": "A One-Edge Change Splits Two Energy Levels on an Infinite Octagonal Graph",
+    "description": "An infinite octagonal network has two localized wave patterns with the same energy. We change the strength of just one edge connecting them. If that change is nonzero and at most one part in 1,024 in absolute size, there are exactly two nearby energy levels. One stays at the original energy and has only one independent wave pattern. The other is also simple: it rises when the edge is strengthened and falls when the edge is weakened. Its energy differs from the original energy plus one quarter of the edge change by no more than 112 times the square of the change. The theorem also shows that the moving wave has a nonzero contribution from the original bright pattern and bounds how much of it spreads beyond the original two patterns.\n\nThese are exact results for the entire infinite network, not for a finite sample or an isolated two-state approximation. The theorem does not prove a time-dependent quantum-control procedure. The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and formalization under his direction. Whether the theorem is new or scientifically significant has not yet been independently assessed.",
     "authors": [
       "Alessandro Odasso"
     ],
@@ -23,14 +23,14 @@
   },
   "sources": [
     {
-      "title": "Formal proof of the single-edge dark and bright response on the infinite octagonal graph",
+      "title": "Formal proof of a signed split between two nearby energies on an infinite octagonal graph",
       "authors": [
         "Alessandro Odasso"
       ],
       "type": "original-proof",
       "relationship": "other",
       "id": "https://github.com/alexodas/spectral_geometry",
-      "note": "This repository contains the original formal development of the result. Alessandro Odasso is not a mathematician; he conceived and directs the project as an investigation into the scientific capabilities of large language models. The theorem statements and Lean formalizations were AI-generated under his direction, according to the maintainer's account. He is responsible for this presentation. Formal proof checking is distinct from establishing mathematical priority."
+      "note": "This is the original complete mathematical development of the stated theorem. Alessandro Odasso, who is not a mathematician, conceived and directs the project; according to the maintainer, AI generated the proof development and formalization under his direction. Independent human review of novelty or scientific priority has not been completed."
     },
     {
       "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
@@ -40,7 +40,7 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.104.014204",
-      "note": "Section IV gives the known type-A and type-B compact localized patterns on the octagonal vertex tight-binding graph. This is geometric and physical background for our two compact modes; the present selected theorem concerns the response to a particular rank-one edge change in a separately specified quadratically confined operator, not a claim to discover those patterns."
+      "note": "Background for the known compact localized wave patterns in octagonal quasicrystals. The present theorem studies a specific confined infinite network and a small change to one selected edge; it does not claim to discover those patterns."
     },
     {
       "title": "Compact localized states and flat bands from local symmetry partitioning",
@@ -52,7 +52,7 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.97.035161",
-      "note": "Background on constructing and tuning compact localized states using local symmetry, and on flat-band settings in which protected and coupled mode combinations matter. It does not establish the full infinite-graph dark/bright response quantified by this candidate theorem."
+      "note": "Background on protected and coupled localized wave patterns. It does not establish the signed split or quantitative energy error for this particular infinite operator."
     },
     {
       "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
@@ -73,7 +73,7 @@
     }
   ],
   "status": {
-    "scope": "The proposed result is one theorem about a single-edge change on the full infinite graph: exact protection of the dark state, an exact bright response retaining the effect of all other states, and a bound on that extra effect. Six supporting propositions describe the concrete graph and its compact states. They are technical ingredients, not separate research claims. The rest of the project also includes an earlier registered exact-multiplicity theorem and a separately proved spectral gap.",
+    "scope": "One theorem proves what a small nonzero change to a single edge does to two nearby energy levels of the full infinite network. Exactly one simple level stays fixed, and one other simple level moves in the direction of the edge change. Its movement has an explicit quadratic error bound, and the associated wave has a controlled contribution outside the original two localized patterns. Six additional statements are necessary checks for the particular network and its localized patterns, not separate submitted results. The earlier exact-multiplicity registration remains unchanged.",
     "sorry_count": 0,
     "sorry_in_definitions": 0,
     "axioms": [
@@ -98,12 +98,12 @@
     "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
   },
   "fidelity": {
-    "divergences": "The theorem concerns one explicitly defined infinite, centered Ammann–Beenker vertex graph with a quadratic confining potential, not every possible quasicrystal or tiling. The mathematics uses real square-summable states and the natural domain of an unbounded operator. The intervention changes one specified connecting edge, not every connection in the graph. The dark state remains an exact eigenstate; the bright-state formula includes a contribution from the rest of the infinite system. Its coefficient of one quarter of the edge change is not a proven eigenvalue shift. The theorem does not construct a general complex quantum evolution, prove a quantum control protocol, or describe an experiment. The earlier exact-multiplicity theorem and separate spectral-gap result are established background, not newly selected conclusions."
+    "divergences": "The result concerns one specified infinite octagonal network with a confining potential, not every quasicrystal. It classifies real energy levels represented by eigenvectors in the operator's natural domain, within a stated small energy window and for changes no greater than 1/1024 in absolute size. Both nearby eigenspaces are one-dimensional. The moving energy has the same direction as the edge change and a rigorously bounded second-order error; the moving wave's component beyond the original two patterns is also bounded. No separate claim is made about the complete complex spectrum, general quantum time evolution, state preparation, experimental realization or a universal property of all such graphs. The earlier registered exact-multiplicity result is established background, not a newly selected conclusion."
   },
   "review": {
-    "status": "The theorem statements are formalized in Lean. Independent human mathematical peer review and assessment of originality have not been completed; mechanical verification is recorded separately for each checked commit.",
+    "status": "The theorem has a Lean formal proof and has passed the independent comparison checks on its checked source revision. Independent human mathematical review of its novelty and significance has not been completed. A new Palomar acceptance or registration is not asserted by this metadata.",
     "reviewers": [],
-    "notes": "The possible mathematical audience includes researchers in spectral theory, functional analysis, discrete Schrödinger operators and finite-rank perturbations. Possible physical audiences include researchers studying quasicrystals, compact localized states, flat bands and photonic lattice models. The central point is that the dark state is exactly protected while the bright state interacts with the rest of the infinite system. Similar localized states and perturbation techniques are known, and no general claim of novelty or experimental realization is made."
+    "notes": "The possible audience includes mathematical researchers in spectral theory, discrete Schrödinger operators, localized states and finite-rank perturbations, as well as physicists studying quasicrystals, flat bands and photonic networks. The result is about the full infinite system: one localized energy stays fixed, the other moves in a rigorously controlled direction, and the moving state's external component is bounded. Related techniques and wave patterns are known; no claim of independent priority or experimental realization is made."
   },
   "alignment": {
     "namespace": "SpectralGeometry.AmmannBeenker",
@@ -151,11 +151,11 @@
         "note": "Second endpoint is a genuine vertex in the acceptance window."
       },
       {
-        "source": "README §§4.91–4.92",
-        "lean": "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse",
-        "module": "SpectralGeometry.AmmannBeenkerBrightAmplitude",
-        "status": "Formally stated and proved in the substantive Lean source; external acceptance depends on the independent verification record for the submitted commit.",
-        "note": "The one proposed scientific conclusion: exact dark protection, full bright response and a quantitative bound on the external contribution."
+        "source": "README §4.97, the signed and quantitative spectral-splitting theorem",
+        "lean": "SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting",
+        "module": "SpectralGeometry.AmmannBeenkerBrightSpectralSplitting",
+        "status": "Proved in the substantive Lean source; independent comparison must pass for the exact submission commit.",
+        "note": "The one selected scientific conclusion: one fixed simple dark level, one other simple nearby energy that shifts with the edge change, its explicit quadratic error and the true moving wave's controlled external component."
       }
     ]
   },
@@ -164,7 +164,7 @@
     {
       "id": "PALOMAR-2026-11-06-000012",
       "relationship": "builds-on",
-      "note": "Earlier registered theorem proving exact multiplicity two and classification of the compact crossing eigenspace. The new theorem studies what happens when the weight of one connecting edge is changed."
+      "note": "Earlier registered theorem proving exactly two independent localized states at the original energy in the full infinite system. The new theorem builds on it to describe the two levels after changing one connecting edge."
     }
   ]
 }

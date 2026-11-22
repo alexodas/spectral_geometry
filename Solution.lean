@@ -1,9 +1,9 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerBrightAmplitude
+public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
 
 /-!
-One independently compared scientific conclusion about a rank-one
-selected-edge perturbation on the full infinite Ammann--Beenker graph.
-Its proof depends on the verified substantive library, not Challenge.
+The substantive source proof of the consolidated signed splitting theorem
+on the original infinite Ammann--Beenker graph and its natural domain.
+The Mathlib-only Challenge states the selected theorem independently.
 -/
