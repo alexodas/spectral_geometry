@@ -3877,15 +3877,20 @@ Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
 blocks. Kernel declarations and the full definition comparison are unchanged.
 
-**Human/AI development provenance:** Alessandro Odasso originated the initial
-non-formal research idea and directs the project. He does not identify as a
-mathematician; his motivation is exploring LLMs in scientific research. By his
-account, he used **OpenAI GPT-6 throughout the GitHub/Lean development**. This
-acknowledges the technical AI assistance without assigning mathematical
-novelty to it or suggesting that Odasso independently wrote all Lean proofs.
-The proposed new statement and its limits are explained in §4.92;
-[formalization.yaml](formalization.yaml) records the research sources,
-AI-assisted development, responsibility and intended audience.
+**Human direction and AI-generated mathematics:** Alessandro Odasso
+conceived and directs the project. He is **not a mathematician**; his
+motivation is to investigate the scientific capabilities of large language
+models. According to his account, **AI generated the theorem statements,
+mathematical proof development and Lean formalizations** under his research
+direction. This is intentionally a stronger and more transparent description
+than calling the work merely "AI-assisted". It does not imply that Odasso
+independently authored the formal mathematics, or that AI-generated claims
+were accepted without checking: substantive Lean proofs are verified by
+the Lean kernel, and the independently specified Palomar selection requires
+its own Comparator verification. Formal correctness does not by itself
+establish mathematical novelty or scientific importance. See §4.92 and
+[formalization.yaml](formalization.yaml) for the mathematical scope, research
+provenance, and intended audiences.
 
 To run the independent statement comparison on a supported Linux runner
 with Bubblewrap configured, execute:
