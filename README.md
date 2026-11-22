@@ -3843,7 +3843,7 @@ against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
 **Palomar / independent statement verification:** the working tree has
-one [`comparator.json`](comparator.json), one
+one root [`comparator.json`](comparator.json), one
 [`Challenge.lean`](Challenge.lean) and one [`Solution.lean`](Solution.lean),
 now prepared for **one new scientific selection**,
 `SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
@@ -3859,6 +3859,17 @@ preserved at its original immutable commit and is not overwritten by
 a registry submission. The separate full-project build covers all **104
 mathematical source modules**; the **new** comparison must be verified
 by Lean, NanoDa and con-ron on the immutable commit chosen for submission.
+
+**Distinct Palomar registration identity.** The first registered result
+used the repository-root `comparator.json` path. To submit the dark/bright
+theorem as a **separate new result**, select
+[`palomar/dark-bright/comparator.json`](palomar/dark-bright/comparator.json)
+as the Comparator configuration, with the project directory at the repository
+root and the *existing Palomar ID* field left blank. This dedicated file is
+byte-identical to the root configuration used by the local CI checks;
+`scripts/check-unified-comparator.py` enforces that equality. The first
+Palomar registration remains associated with its original immutable commit
+and Comparator path, without being turned into a revised version.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
