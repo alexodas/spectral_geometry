@@ -103,6 +103,7 @@ public import SpectralGeometry.AmmannBeenkerPulseIntertwining
 public import SpectralGeometry.AmmannBeenkerPulseSelfAdjoint
 public import SpectralGeometry.AmmannBeenkerPostpulseSwitchOff
 public import SpectralGeometry.AmmannBeenkerDarkSchrodinger
+public import SpectralGeometry.AmmannBeenkerBrightAmplitude
 
 public section
 
