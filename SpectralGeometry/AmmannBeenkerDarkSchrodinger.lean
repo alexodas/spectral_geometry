@@ -72,16 +72,26 @@ theorem crossingDarkPhaseReal_eigen (ε τ : ℝ) :
         (ringInteraction crossingParameter + ε • crossingEdge)
         (domainCrossingDarkPhaseReal τ) =
       crossingEnergy • crossingDarkPhaseReal τ := by
-  simp only [domainCrossingDarkPhaseReal, crossingDarkPhaseReal,
-    map_smul, crossingDark_full_eigenvector, smul_comm]
+  change
+    onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge)
+        (Real.cos (crossingEnergy * τ) • domainCrossingDark) =
+      crossingEnergy • (Real.cos (crossingEnergy * τ) • crossingDark)
+  rw [map_smul, crossingDark_full_eigenvector ε]
+  exact smul_comm _ _ _
 
 theorem crossingDarkPhaseImag_eigen (ε τ : ℝ) :
     onsitePlusBounded potential
         (ringInteraction crossingParameter + ε • crossingEdge)
         (domainCrossingDarkPhaseImag τ) =
       crossingEnergy • crossingDarkPhaseImag τ := by
-  simp only [domainCrossingDarkPhaseImag, crossingDarkPhaseImag,
-    map_smul, crossingDark_full_eigenvector, smul_comm]
+  change
+    onsitePlusBounded potential
+        (ringInteraction crossingParameter + ε • crossingEdge)
+        ((-Real.sin (crossingEnergy * τ)) • domainCrossingDark) =
+      crossingEnergy • ((-Real.sin (crossingEnergy * τ)) • crossingDark)
+  rw [map_smul, crossingDark_full_eigenvector ε]
+  exact smul_comm _ _ _
 
 /-- Exact initial condition: at time zero the complex state
 has real part dark and zero imaginary part. -/
@@ -176,7 +186,9 @@ theorem crossingDark_qubitPart_eq :
     simp only [crossingCoeffB, crossingDark, real_inner_smul_right,
       inner_add_right, compactB_inner_self, hba]
     norm_num
-  simp only [crossingQubitPart, ha, hb, crossingDark, smul_add]
+  unfold crossingQubitPart
+  rw [ha, hb]
+  exact (smul_add (1 / 4 : ℝ) compactA compactB).symm
 
 /-- The dark mode has exactly zero amplitude outside the A/B plane. -/
 theorem crossingDark_leakage_zero : crossingLeakage crossingDark = 0 :=
