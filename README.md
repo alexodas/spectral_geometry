@@ -51,7 +51,7 @@ one **15th, combined theorem** packaging the dark/bright statements
 for a possible second Palomar selection, plus a revised independent
 Challenge/Comparator package. **That new package has not yet been
 CI/Comparator verified**. The original Palomar registration remains
-unchanged; the new candidate is not registered (§4.92, PALOMAR.md).
+unchanged; the new candidate is not registered (§4.92).
 
 **Why researchers might care.** The mathematics gives an exact
 protected-versus-coupled decomposition for a **concrete infinite**
@@ -249,8 +249,9 @@ This is the first substantive observation milestone of the program, supported by
 the operator-theoretic results catalogued in §§3–4. Its position in the program
 does not assert mathematical priority, a new proof technique or an independent
 research-interest assessment. The proof mechanism is a standard
-quadratic-form and restriction argument. [PALOMAR.md](PALOMAR.md) records the
-precise current submission scope and provenance.
+quadratic-form and restriction argument. The first registered Palomar
+result is documented in §4.78; the new proposal and its provenance are
+described in §§4.92 and 6.8 and in [formalization.yaml](formalization.yaml).
 
 ### 1.3. The operator and its geometric inputs
 
@@ -3714,8 +3715,8 @@ discoveries. The Challenge is kept below 300 lines if possible, but
 the present independently explicit model requires 488 lines, well
 below Palomar's hard 1,000-line/100-KiB limit. The complete new
 Comparator/metadata audit must pass on an immutable commit before
-this draft could be submitted. The first Palomar registration
-([PALOMAR.md](PALOMAR.md)) remains historically intact.
+this draft could be submitted. The first Palomar registration described in §4.78 remains historically
+intact and is not replaced by the second proposal.
 
 ## 5. Building and verification
 
@@ -3882,8 +3883,9 @@ mathematician; his motivation is exploring LLMs in scientific research. By his
 account, he used **OpenAI GPT-6 throughout the GitHub/Lean development**. This
 acknowledges the technical AI assistance without assigning mathematical
 novelty to it or suggesting that Odasso independently wrote all Lean proofs.
-See [`PALOMAR.md`](PALOMAR.md) for the selected statement, contributor roles,
-source provenance and limits.
+The proposed new statement and its limits are explained in §4.92;
+[formalization.yaml](formalization.yaml) records the research sources,
+AI-assisted development, responsibility and intended audience.
 
 To run the independent statement comparison on a supported Linux runner
 with Bubblewrap configured, execute:
@@ -4457,9 +4459,11 @@ theorem, and carries no asserted connection to the Riemann zeta function.
 `crossing_eigenvector_representation`, plus three necessary model
 witnesses (§4.78). It proves that the entire full-natural-domain real
 crossing eigenspace is exactly two-dimensional, not merely spanned by
-two vectors in a finite truncation. Its original Challenge, Solution,
-Comparator and immutable commit remain accessible through
-[PALOMAR.md](PALOMAR.md). No new submission has replaced that record.
+two vectors in a finite truncation. This historical result is explained
+in §4.78 and remains associated with the original Palomar registration.
+The repository's current Challenge, Solution and Comparator instead
+prepare a different theorem (§4.92). No new submission has replaced
+the first registration.
 
 **One proposed second selection (§4.92).**
 
