@@ -4,9 +4,11 @@
   "theorem_names": [
     "SpectralGeometry.AmmannBeenker.admitted_zero",
     "SpectralGeometry.AmmannBeenker.mate_involutive",
-    "SpectralGeometry.AmmannBeenker.centralLift_admitted",
-    "SpectralGeometry.AmmannBeenker.crossing_eigenvector_representation",
-    "SpectralGeometry.AmmannBeenker.crossingEigenspace_finrank"
+    "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactSiteA_admitted",
+    "SpectralGeometry.AmmannBeenker.compactSiteB_admitted",
+    "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
   ],
   "definition_names": [],
   "permitted_axioms": [
