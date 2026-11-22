@@ -181,22 +181,28 @@ theorem crossingEdgePulse_then_free_family_leakage_bound
     (τ : ℝ) :
     ‖crossingLeakage (Ufree τ (y : TileHilbert Vertex))‖ ≤
       512 * |ε| * ‖(x : TileHilbert Vertex)‖ := by
-  have hcomm0 :
-      ∀ v : infiniteOnsiteDomain potential,
-        onsitePlusBounded potential
-          (ringInteraction crossingParameter + (0 : ℝ) • crossingEdge)
-          ⟨Ufree τ (v : TileHilbert Vertex), hdom τ v⟩ =
-        Ufree τ (onsitePlusBounded potential
-          (ringInteraction crossingParameter + (0 : ℝ) • crossingEdge) v) := by
-    intro v
-    simpa only [zero_smul, add_zero] using hcomm τ v
   let z : infiniteOnsiteDomain potential :=
     ⟨Ufree τ (y : TileHilbert Vertex), hdom τ y⟩
   have hfree :
       ‖crossingEdgePulseResidual 0 z‖ =
-        ‖crossingEdgePulseResidual 0 y‖ :=
-    crossingPulseResidual_norm_conserved
-      0 (Ufree τ) (hdom τ) hcomm0 (hiso τ) y
+        ‖crossingEdgePulseResidual 0 y‖ := by
+    rw [crossingEdgePulseResidual_zero, crossingEdgePulseResidual_zero]
+    change
+      ‖onsitePlusBounded potential (ringInteraction crossingParameter)
+          ⟨Ufree τ (y : TileHilbert Vertex), hdom τ y⟩ -
+        crossingEnergy • Ufree τ (y : TileHilbert Vertex)‖ =
+      ‖onsitePlusBounded potential (ringInteraction crossingParameter) y -
+        crossingEnergy • (y : TileHilbert Vertex)‖
+    calc
+      ‖onsitePlusBounded potential (ringInteraction crossingParameter)
+          ⟨Ufree τ (y : TileHilbert Vertex), hdom τ y⟩ -
+        crossingEnergy • Ufree τ (y : TileHilbert Vertex)‖ =
+        ‖Ufree τ (onsitePlusBounded potential
+            (ringInteraction crossingParameter) y -
+          crossingEnergy • (y : TileHilbert Vertex))‖ := by
+          rw [hcomm τ y, map_sub, map_smul]
+      _ = ‖onsitePlusBounded potential (ringInteraction crossingParameter) y -
+          crossingEnergy • (y : TileHilbert Vertex)‖ := hiso τ _
   exact crossingEdgePulse_then_free_leakage_bound
     ε x y z hx hnorm hpulse hfree
 
