@@ -1065,6 +1065,10 @@ theorem crossing_final_signed_bright_spectral_splitting
         256 * |ε| *
           |inner ℝ crossingBright (x : TileHilbert Vertex)| *
           ‖crossingLeakage (crossingEdge crossingBright)‖ ∧
+      crossingDark ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge)
+          domainCrossingDark = crossingEnergy • crossingDark ∧
       (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
         (y : TileHilbert Vertex) ≠ 0 →
         onsitePlusBounded potential
@@ -1100,8 +1104,15 @@ theorem crossing_final_signed_bright_spectral_splitting
   have hsharp :=
     crossing_moving_eigenvector_sharp_leakage
       ε energy x heigen hmove hnear hsmall
+  have hdark_ne : crossingDark ≠ 0 := by
+    intro hzero
+    have hnorm := crossingDark_norm_sq
+    rw [hzero, norm_zero] at hnorm
+    norm_num at hnorm
+  have hdark_eigen := crossingDark_full_eigenvector ε
   refine ⟨energy, x, hmove, hnear, hxne, heigen, hsign.1, hsign.2,
-    hquad, horth, hbright, hproj, hsharp, hunique, hsimple, ?_⟩
+    hquad, horth, hbright, hproj, hsharp, hdark_ne, hdark_eigen,
+    hunique, hsimple, ?_⟩
   intro y hyeigen
   exact crossingPerturbedEnergy_dark_only ε hε y hyeigen
 
