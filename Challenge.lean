@@ -531,6 +531,10 @@ theorem crossing_final_signed_bright_spectral_splitting
         256 * |ε| *
           |inner ℝ crossingBright (x : TileHilbert Vertex)| *
           ‖crossingLeakage (crossingEdge crossingBright)‖ ∧
+      crossingDark ≠ 0 ∧
+      onsitePlusBounded potential
+          (ringInteraction crossingParameter + ε • crossingEdge)
+          domainCrossingDark = crossingEnergy • crossingDark ∧
       (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
         (y : TileHilbert Vertex) ≠ 0 →
         onsitePlusBounded potential
