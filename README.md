@@ -12,7 +12,7 @@ At a particular energy, the network has two localized wave patterns, which we ca
 
 Further results proved in Lean establish that, at this special setting, no other real energy level lies within a distance of 1/128 of their common energy.
 
-Two established ways of changing the energies of the localized patterns are described below. A third, coordinated-edge control is now under development.
+Three ways of changing the energies of the localized patterns are now established.
 
 The first is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
 
@@ -32,9 +32,11 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-A further verified step constructs eight distinct, mutually disjoint edges pairing corresponding sites on the two rings. Their equally weighted sum is a bounded symmetric operator on the entire real Hilbert space, and it annihilates the dark state exactly. The remaining question is whether this coordinated change also preserves the bright direction and hence the whole two-state plane. This is a static result, not a proof of leakage-free time evolution.
+The third intervention changes eight matched edges together. Lean proves that their equally weighted sum leaves the dark state unchanged and shifts the bright state's energy by exactly twice the edge-strength change. Unlike the single-edge correction, this coordinated operator never creates an exterior component when acting on a combination of the two original waves. The same two-state space is preserved by any combination of the first-ring detuning and coordinated edge changes.
 
-Together, these results provide a mathematical foundation for investigating whether changes to the first-ring parameter and to the connecting edge can be combined to control localized waves. They do not yet prove that any desired mixture of the two original patterns can be prepared. The results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
+The two controls have an exact two-by-two matrix representation, not an approximation to the infinite system. Apart from a common energy shift, the detuning and the coordinated edge strength act along two different Pauli directions. Their order matters: the verified matrix commutators give a third independent direction in the standard algebra of two-state rotations.
+
+These results give a mathematical foundation for controlling localized waves without leakage. They do not yet prove that every desired mixture can be prepared, nor do they establish a general complex quantum propagator or zero leakage throughout an actual time-dependent protocol. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
 
@@ -46,7 +48,7 @@ of its original goals:
 | Track | Question | Status and next steps |
 | --- | --- | --- |
 | **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
-| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 are verified; L5 is registered. **L7a is partially verified** (§4.99): the eight-edge matching, bounded symmetric correction and exact dark cancellation are established. Bright action and whole-plane invariance remain open, followed by L7b–L7c. The original **L6** (one edge, approximate control with bounded leakage) is kept for later. |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7a complete** (§§4.99–4.100); **L7b partially verified** (exact matrix and commutators). Lie generation, Euler/reachability and L7c dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
 
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
@@ -80,7 +82,7 @@ remain below.
     - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
     - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
     - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
-    - [4.100. Proposed invariant-plane and Pauli algebra proofs (CI pending)](#4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending)
+    - [4.100. Exact invariant-plane control and Pauli generator algebra](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
@@ -93,7 +95,7 @@ remain below.
 The results concern one explicitly defined **confined infinite Ammann–Beenker graph**. Their value is not that dark states, localized waves or single-edge perturbations are new ideas, but that several spectral statements have been proved for the complete infinite operator rather than inferred from a finite sample.
 
 - **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The main result identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component.
-- **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization. The new coordinated matching (§4.99) supplies a distinct bounded symmetric intervention that annihilates the dark direction; bright action and full invariance remain to be established.
+- **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization. The coordinated matching (§§4.99–4.100) supplies a distinct bounded symmetric intervention that preserves the whole two-mode plane exactly.
 - **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. They do not establish a general physical propagator, experimental feasibility or arbitrary preparation of two-mode mixtures.
 - **Researchers in formalized mathematics** may be interested in how natural domains of unbounded operators, complete real eigenbases, explicit spectral gaps and quantitative perturbation estimates are handled in Lean 4 and Mathlib.
 
@@ -131,15 +133,17 @@ The table below separates proved results from remaining research tasks.
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
 | Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The stronger L5 theorem is the registered selection of §4.98 |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
-| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320 |
-| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Verified by full Lean and independent Comparator in Action #324 (commit `180f1d8`) |
-| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328 |
-| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`; complete Lean and independent Comparator verification in Action #331 |
-| Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts strictly in the direction of ε. The consolidated theorem explicitly asserts **both nonzero eigenvectors**, including the exact fixed-dark eigenvalue equation, and establishes the two simple eigenspaces, point-spectrum window, quadratic `112ε²` energy law and external bright control. The stronger selected theorem passed full Lean and independent Comparator in Action #340 after the Palomar editorial request. |
-| L5 Palomar registration and editorial history | §4.98: the L5 submission passed mechanical verification but received an **automated editorial change request** to state the nonzero dark eigenvector and its equation explicitly. PR #89 corrected both the source and Mathlib-only Challenge; Action #340 passed, with the Comparator and archived earlier candidate preserved. The revised L5 theorem was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) at commit `7b68540`. |
+| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. Lean-verified |
+| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Lean-verified |
+| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. Lean-verified |
+| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`. Lean-verified |
+| Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts strictly in the direction of ε. The consolidated theorem explicitly asserts both nonzero eigenvectors, their simple eigenspaces, the point-spectrum window, quadratic energy law and exterior bright control. Lean- and Comparator-verified |
+| L5 Palomar registration | §4.98: the strengthened L5 theorem, explicitly including the nonzero fixed dark eigenvector and its equation, was independently verified and registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
-| Coordinated eight-edge control, L7a first milestone | §4.99: eight genuine adjacent pairs with no shared endpoints, matched amplitudes, bounded symmetric correction and exact full-space dark cancellation `M D = 0`. Full Lean verification in [Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852) at `d1f73f6`; existing L5 Comparator also passed, not a new L7 selection. |
-| Two-mode controllability research, L7 and L6 | **Open beyond the verified L7a first milestone**. Bright action and exact whole-plane invariance are next. L7b–L7c complex dynamics and target-state reachability, and the original L6 single-edge approximate-control theorem, are distinct subsequent targets (§6.4). |
+| Coordinated eight-edge control, L7a first milestone | §4.99: eight genuine adjacent pairs with no shared endpoints, matched amplitudes, bounded symmetric correction and exact dark cancellation `MD=0`. Lean-verified |
+| Exact invariant plane under both controls, L7a complete | §4.100: `Ma=a-b`, `Mb=b-a`, `MF=2F`, `QMP=0`, and full natural-domain invariance at arbitrary real control strengths. Lean-verified |
+| Exact Pauli control algebra, L7b first part | §4.100: exact effective matrix in the normalized dark/bright basis, Pauli decomposition, noncommuting complex generators and all three commutators. Lean-verified |
+| Two-mode controllability research, L7 and L6 | Remaining L7b Lie-generation and Euler/reachability algebra, L7c complex dynamics and target-state preparation, and the distinct original L6 approximate-control theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
 enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
@@ -150,7 +154,7 @@ identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
 the certified dark/bright generator algebra (§§4.80–4.91), the archived
 unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
-(§§4.93–4.98), the verified first coordinated-edge milestone (§4.99), and
+(§§4.93–4.98), exact coordinated-plane invariance and matrix algebra (§§4.99–4.100), and
 the still-open dynamical coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
@@ -3249,13 +3253,9 @@ A protocol with changing `t` and/or piecewise-constant `ε`
 also needs segment-by-segment analysis; conservation of
 `R_ε` applies only during a segment with a fixed Hamiltonian.
 
-**Lean status:** §§4.85–4.89, including this module and the
-subsequent intertwining and switch-off statements, have passed
-the reported full Lean Action. Section 4.85 initially passed
-Action #246. At that historical checkpoint the first Palomar selection
-was unchanged; §4.92 documents a later, now archived,
-unsubmitted candidate. The later registered L5 selection is in §4.98.
-
+**Lean status:** §§4.85–4.89, including the intertwining and switch-off
+statements, are Lean-verified. The earlier unsubmitted Palomar candidate
+is documented in §4.92 and the later registered L5 selection in §4.98.
 ### 4.86. Residual conservation follows from Hamiltonian intertwining
 
 Section 4.85 established a time-uniform edge-pulse leakage inequality
@@ -3505,10 +3505,8 @@ imaginary/real pair is a representation of this complex
 trajectory, not yet a complete complex Hilbert-space
 construction or generic dynamics theorem.
 
-**Lean status:** this dark-state Schrödinger module, including
-the correction to its proof tactics, has passed the
-user-reported full Lean Action; all prior §§4.80–4.88
-control declarations remain in the verified import chain.
+**Lean status:** this dark-state Schrödinger module and all prior
+§§4.80–4.88 control declarations are Lean-verified.
 
 ### 4.90. Consolidated verified control checkpoint and outstanding dynamics
 
@@ -3620,23 +3618,17 @@ two-control preparation protocol are **not yet
 Lean-certified**. The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
-
-**Historical verification checkpoint.** The §§4.80–4.89 results
-were already imported and verified in the **103-module** checkpoint
-(PR #85). The later 104-module PR #86 bright source was also
-reported Lean green; see §§4.91–4.92. The original 2026 Palomar
-registration and its immutable commit are unaffected by the new
-candidate. This §4.90 snapshot is retained for provenance.
+**Historical scientific checkpoint.** The §§4.80–4.89 results were
+verified before the bright generator identities in §§4.91–4.92.
+The original Palomar registration remains unchanged. This section
+is retained as a summary of those earlier results.
 
 ### 4.91. Verified bright-amplitude generator identity with explicit leakage forcing
 
-**Verification provenance.** The maintainer reported a successful
-104-module Lean Action for the original fourteen theorems in
-[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
-The source also includes the combined candidate theorem. Independent
-verification of its Challenge/Comparator package is determined by the
-checks on the exact candidate commit; this section does not substitute
-for those checks.
+**Verification.** The original fourteen theorems in
+[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
+are Lean-verified. The source also includes the combined candidate theorem
+described in §4.92.
 
 For the same selected lattice edge, write
 `H_ε=K_*+εW`, let `P` be the exact orthogonal projection onto
@@ -3680,11 +3672,10 @@ constant-pulse bounds to a smooth ramp. At ε=0 the original
 twofold dark/bright degeneracy is preserved; no nondegenerate
 adiabatic theorem is being invoked.
 
-The fourteen generator-level declarations were reported Lean-verified
-by the maintainer. Their combined conjunction was prepared as a separate, unsubmitted Palomar
-candidate for independent statement comparison (§4.92); the corresponding
-verification record belongs to the actual checked commit. The prior
-registered theorem continues to hold at its original immutable commit.
+The fourteen generator-level declarations are Lean-verified.
+Their combined conjunction was prepared as a separate, unsubmitted Palomar
+candidate for independent statement comparison (§4.92). The prior
+registered theorem remains unchanged.
 
 ### 4.92. Earlier, unsubmitted Palomar candidate: exact dark protection and bright feedback
 
@@ -3776,8 +3767,7 @@ The following **distinct** milestones have passed the full Lean build:
   show that for every real `ε ≠ 0`, every natural-domain eigenvector
   of `Hε` at `E_*` is a scalar multiple of `D`. Together with the
   exact, normalized dark eigenvector for all `ε`, the eigenspace is
-  **exactly one-dimensional**. Previously verified on the research
-  branch (including Action #311).
+  **exactly one-dimensional**, as verified in Lean.
 - **L2a — ordered spectral stability and exterior force.** The theorem
   `crossingEdge_exists_ordered_eigenbases_and_stability` constructs
   complete, monotone natural-domain eigenbases for `H₀` and `Hε`
@@ -3785,19 +3775,17 @@ The following **distinct** milestones have passed the full Lean build:
   `crossingBright_external_edge_norm_sq` proves the **exact**
   infinite-space coupling `‖QWF‖² = 7/16`. Both are in
   [AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean)
-  and passed Action #313.
+  and are Lean-verified.
 - **L2b — multiplicity-faithful consecutive spectral slots.**
   `crossing_exists_ordered_eigenbasis_exact_double` constructs an
   ordered complete eigenbasis in which `levelMultiplicity` at `E_*`
-  is precisely two (Action #316).
+  is precisely two.
   `ordered_levelMultiplicity_two_consecutive` in
   [OrderedLevelMultiplicityTwo.lean](SpectralGeometry/OrderedLevelMultiplicityTwo.lean)
   and `crossing_exists_ordered_eigenbasis_consecutive_pair` then
   certify indices `n, n+1` with
   `λ_n = λ_(n+1) = E_*`, and no other crossing occurrence.
-  Both passed the Lean and Comparator jobs of
-  [Action #319](https://github.com/alexodas/spectral_geometry/actions/runs/45050103890)
-  on commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`.
+  Both passed full Lean and independent Comparator checks.
 - **L2c — existence of a *genuinely distinct* perturbed level.**
   `crossing_exists_distinct_perturbed_level_near` in the bright
   splitting module proves, **for every real ε ≠ 0**, the proposition
@@ -3814,12 +3802,10 @@ The following **distinct** milestones have passed the full Lean build:
   dark-only eigenspace rigidity with orthonormality: **both** perturbed
   crossing slots cannot still equal `E_*`.
   This is a genuine full-operator eigenpair, not the compressed
-  bright expectation `E_*+ε/4`. The source and the independent
-  Comparator passed
-  [Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
-  on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
+  bright expectation `E_*+ε/4`. The source and independent Comparator
+  passed verification.
 
-**What remained after L2c.** The Action #320 theorem did **not**
+**What remained after L2c.** The L2c theorem did **not**
 identify the moving eigenvector quantitatively with the original
 bright direction, assert its simplicity, or exhaust the perturbed
 crossing window. These latter two issues are addressed separately
@@ -3895,13 +3881,10 @@ of the shift, the target `112ε²` remainder, or quantitative
 external eigenvector leakage. These are limitations of L2d **alone**:
 the external eigenvector estimate was subsequently proved in §4.95
 and the energy remainder in §4.96. The signed-shift corollary and
-final consolidated statement remain to be formalized.
+final consolidated statement are established separately in §4.97.
 
 **Verification.** The L2d theorem and its generic Hilbert-basis
-support passed the full Lean build and independent Comparator in
-[Action #324](https://github.com/alexodas/spectral_geometry/actions/runs/45054460160)
-on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
-The verification is scoped to this exact checked commit; subsequent documentation-only changes do not alter the proof.
+support passed full Lean and independent Comparator checks.
 
 ### 4.95. Bright amplitude and quantitative exterior leakage
 
@@ -3966,17 +3949,12 @@ finite patch or two-state truncation is used.
 
 **Scope and subsequent progress.** L3 itself controls the
 eigenvector rather than the energy shift. The true quadratic
-spectral bound is established separately in §4.96; a formal
-signed-shift corollary and final theorem remain to be consolidated.
+spectral bound is established separately in §4.96; the formal signed-shift
+corollary and consolidated theorem are established in §4.97.
 Quantum state preparation is a separate downstream problem.
 
-**Verification record.** The preliminary L3 lemmas passed
-[Action #326](https://github.com/alexodas/spectral_geometry/actions/runs/45056618131)
-on commit `4951e87e84d1a5d6bb2d54ea13b73ccd22236910`.
-The sharp L3 estimate and existential corollary passed
-[Action #328](https://github.com/alexodas/spectral_geometry/actions/runs/45057454703)
-on commit `0590eb7a00b06e4796dc31f7db9cea2cbb024807`.
-These records refer only to the exact checked commits.
+**Verification.** The preliminary and sharp L3 estimates and existential
+corollary passed full Lean and independent Comparator checks.
 
 ### 4.96. A sharp quadratic law for the actual moving level
 
@@ -4054,13 +4032,7 @@ proved in §4.97, without changing the historical L4 proof.
 General complex time evolution and preparation of arbitrary
 two-mode states remain outside this static spectral result.
 
-**Verification.** Full Lean/Mathlib and independent Comparator
-checks passed in
-[Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
-on the source commit
-`e03f7cfc88b933fe9c2a635d33016927e6d64709`.
-That verification is attached to its exact source commit,
-not inferred from subsequent changes to the documentation.
+**Verification.** Full Lean/Mathlib and independent Comparator checks passed.
 
 ### 4.97. Signed shift and consolidated infinite-operator splitting
 
@@ -4136,12 +4108,8 @@ classification of complex spectrum, construction of
 the general quantum propagator, target-state preparation,
 or the remaining analytic-product certificates.
 
-**Verification.** Both the complete Lean 4/Mathlib
-build and the independent Comparator passed in
-[Action #333](https://github.com/alexodas/spectral_geometry/actions/runs/45060461341)
-on exact source commit
-`fbd2503d33280d7d0c2fe5306ea2739806628b20`.
-This record refers to that source commit only.
+**Verification.** Both the complete Lean 4/Mathlib build and the
+independent Comparator passed.
 
 <a id="498-palomar-candidate-signed-bright-splitting"></a>
 
@@ -4192,43 +4160,20 @@ Comparator inside `palomar/`; there is deliberately
 **no `comparator.json` at repository root**.
 
 [`formalization.yaml`](formalization.yaml) retains its
-metadata structure and gives a self-contained,
-simple-English description of the new scientific theorem,
-with no workflow or commit details in its project
-description. The packaging scripts now read the
-active per-theorem Comparator and check that the old
-candidate remains archived.
+[`formalization.yaml`](formalization.yaml) gives a self-contained,
+plain-English description of the selected scientific theorem.
+The theorem-specific Comparator and predecessor package are preserved.
 
-**Verification and submission status.** The L5 mathematical
-source was fully verified (§4.97). The independently
-assembled **Palomar package** passed its own full Lean
-and static configuration checks and the Comparator's
-bundled independent kernels (NanoDa and con-ron):
-[Action #335](https://github.com/alexodas/spectral_geometry/actions/runs/45063053611)
-on exact package commit
-`0709981b15fc99cbf18f6e63856ae20860333b73`.
-The Comparator reported that the Solution was accepted.
-The L5 package was **submitted** to Palomar with pinned commit
-`4c2633d6c8ee6e32b163bc4d27483a31f7c50aae`.
-Its mechanical verification and Challenge rendering passed.
-The automated editorial review then requested that the selected
-theorem itself explicitly assert the **nonzero dark eigenvector**
-and its fixed-energy eigenvalue equation; existence of the moving
-bright eigenvector had already been stated.
-
-[PR #89](https://github.com/alexodas/spectral_geometry/pull/89)
-added both `crossingDark ≠ 0` and the full natural-domain equation
-`Hε domainCrossingDark = E_* • crossingDark` to the scientific theorem
-and the Mathlib-only Challenge. Full Lean checking, static package
-checks and the independent Comparator passed
-[Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987).
-The correction was merged into `main` at
-`7b68540619ab45e5233b2d5ec8273829b3fbba77`.
-The corrected commit passed full Lean and the L5 Comparator in
-[Action #341](https://github.com/alexodas/spectral_geometry/actions/runs/45145700282).
-The correction resolved the reported editorial objection; the subsequent
-registry outcome was the separate registration [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026
-at the above immutable commit. The historical first registration
+**Verification and registration.** The L5 mathematical source and
+independently assembled package passed full Lean and independent kernel
+comparison (NanoDa and con-ron). The automated editorial review requested
+that the selected theorem explicitly assert the **nonzero dark eigenvector**
+and its fixed-energy eigenvalue equation. The corrected scientific theorem
+and Mathlib-only Challenge include both `crossingDark ≠ 0` and the full
+natural-domain equation `Hε domainCrossingDark = E_* • crossingDark`.
+The revised package passed verification and was registered separately as
+[PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1)
+on 23 November 2026. The original registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
 Originality and significance still require independent assessment.
 
@@ -4283,67 +4228,117 @@ two-mode plane.
 | `coordinatedRingEdge_symmetric` | Each term is symmetric on the full real space |
 | `coordinatedRingControl_symmetric` | The sum is symmetric on the full real space |
 
-**Verification.** The eleven theorems and three definitions are imported
-by `SpectralGeometry.lean`. Full Lean and static proof checks passed
-[Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852) at source commit
-[`d1f73f6ba88cff09325f1288b0eadda7ad34bcf9`](https://github.com/alexodas/spectral_geometry/commit/d1f73f6ba88cff09325f1288b0eadda7ad34bcf9)
-([PR #90](https://github.com/alexodas/spectral_geometry/pull/90)). The
-existing independent Comparator for L5 also passed; it does not select
-these new L7a declarations. No new Palomar submission or registration
-is claimed for L7a.
+**Verification and subsequent result.** All eleven theorems and three
+definitions are Lean-verified. Dark cancellation alone does not prove
+invariance of the two-mode plane; the subsequent §4.100 establishes
+that stronger result. The single-edge approximate-control route remains
+a distinct research direction. Neither new module is selected in the
+existing L5 Comparator.
 
-**Remaining L7a obligations.** Prove `M a=a-b` and `M b=b-a`, deduce
-`M F=2F` for `F=(a-b)/4`, and establish `Q M P=0` and full natural-domain
-invariance under both controls. Dark cancellation alone does not imply
-any of these conclusions. L7b–L7c (effective control algebra, complex
-dynamics and exact target-state reachability) remain separate open
-tasks; the earlier L6 one-edge approximate-control route remains preserved.
+<a id="4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending"></a>
 
-### 4.100. Proposed invariant-plane and Pauli algebra proofs (CI pending)
+### 4.100. Exact invariant-plane control and Pauli generator algebra
 
-**Development checkpoint, not a verified milestone.** The following
-two new source modules were committed together at
-[`0035a33`](https://github.com/alexodas/spectral_geometry/commit/0035a33fe8fedea23215fdfd4c655ad773887353).
-[Action #345](https://github.com/alexodas/spectral_geometry/actions/runs/45452130708)
-and [Action #346](https://github.com/alexodas/spectral_geometry/actions/runs/45452238523)
-both failed at the initial compact-A and compact-B full-space proofs.
-The subsequent Lie-algebra module and Comparator were not reached.
-The correction at [`710f151`](https://github.com/alexodas/spectral_geometry/commit/710f1512cd917504edefa789fc3494a38468dd44)
-replaces finite vector normalization with coordinatewise evaluation on
-both matched rings and their entire exterior, using the verified matching
-and support lemmas. This correction is pending CI. The verified scientific
-frontier remains §4.99 until the new full Lean build succeeds.
+**Plain-English result.** A change to one connecting edge generally
+pushes part of the bright wave into the rest of the infinite network.
+Changing all eight matched edges by the same amount is different:
+the contributions combine exactly to preserve the two original
+localized patterns as a space. The dark wave is unchanged by this
+coordinated correction, while the bright wave receives twice the
+edge-strength change in energy. No exterior component is produced by
+the operator acting on any mixture of the two patterns. Combining this
+correction with first-ring detuning still preserves that same space.
+The statement holds for arbitrary real control strengths, not merely
+small perturbations, and uses the full infinite operator.
 
-- [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean):
-  nine proposed source theorems, from the exact full-space actions
-  `M a=a-b`, `M b=b-a` and `M F=2F` to `Q M P=0`, zero
-  off-plane Hamiltonian action and domain invariance. The proposed
-  final equation uses the actual natural-domain operator with both
-  detuning `δ` and coordinated edge strength `η`.
-- [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean):
-  four definitions and six proposed theorems for the real effective
-  matrix, its Pauli decomposition, three complex matrix commutators,
-  noncommutation and an explicit three-coordinate parametrization.
-
-The target real matrix in the ordered dark/bright basis is
+**L7a — exact full-space invariance.** The module
+[`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean)
+proves the following identities for the already defined unnormalized
+compact modes `a,b`, normalized modes `D=(a+b)/4`, `F=(a-b)/4`,
+and orthogonal components `P,Q=I-P`:
 
 ```math
-H_{\mathrm{eff}}=\begin{pmatrix}E_*+\delta/2&\delta/2\\
-\delta/2&E_*+\delta/2+2\eta\end{pmatrix}
+Ma=a-b,\qquad Mb=b-a,\qquad MD=0,\qquad MF=2F,\qquad QMP=0.
+```
+
+The proof evaluates the sum of local edge corrections at every vertex.
+On either ring exactly one matched edge contributes; away from both
+rings all eight contributions and both compact modes vanish. This
+proves an identity in the infinite Hilbert space, not merely in a
+finite central block or a projected matrix.
+
+For real detuning `δ`, coordinated strength `η` and real coefficients
+`r,s`, the natural-domain Hamiltonian
+`H(δ,η)=onsitePlusBounded potential (ringInteraction (crossingParameter+δ)+η M)`
+acts exactly as
+
+```math
+H(\delta,\eta)(ra+sb)
+=\big[(E_*+\delta+\eta)r-\eta s\big]a
++\big[(E_*+\eta)s-\eta r\big]b.
+```
+
+The left-hand side uses the natural-domain lifts of the compact modes.
+The output belongs to the same compact plane and to the natural domain.
+Its orthogonal exterior component is zero.
+
+**L7b — exact effective matrix.** In the ordered normalized basis
+`(D,F)`, the full-operator action therefore has the exact matrix
+
+```math
+H_{\mathrm{eff}}=\begin{pmatrix}
+E_*+\delta/2&\delta/2\\
+\delta/2&E_*+\delta/2+2\eta
+\end{pmatrix}
 =(E_*+\delta/2+\eta)I+(\delta/2)\sigma_x-\eta\sigma_z.
 ```
 
-For `X=iσ_x`, `Y=iσ_y`, `Z=iσ_z` the proposed identities are
-`[X,Z]=2Y`, `[Z,Y]=2X`, `[Y,X]=2Z`. These are the matrix-generator
-algebra steps toward L7b. A formal Lie-generation and Euler/reachability
-theorem with control constraints, followed by the full complex dynamics
-of L7c, remains to be completed. The existing independent Comparator
-still selects L5 only. No L7 registration or new verified result is
-claimed by this pending checkpoint.
+The scalar multiple of the identity affects only a common phase in
+the corresponding Schrödinger model. The detuning and coordinated-edge
+controls act along two different Pauli directions, so their order
+matters. The module
+[`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean)
+defines the complex matrices `X=iσ_x`, `Y=iσ_y`, `Z=iσ_z`
+and proves, with `[A,B]=AB-BA`,
+
+```math
+[X,Z]=2Y,\qquad [Z,Y]=2X,\qquad [Y,X]=2Z.
+```
+
+It also proves noncommutation and the explicit real-coordinate
+parametrization of the three generator directions. These are the
+algebraic ingredients of the standard two-state rotation algebra.
+The new results do not yet formalize the equality of the generated
+Lie algebra with all of `su(2)` or a sequence of admissible pulses
+that reaches every target.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedRingControl_compactA`, `coordinatedRingControl_compactB` | Exact action on both compact modes |
+| `coordinatedRingControl_bright`, `coordinatedRingControl_pair` | Bright response and arbitrary real compact combination |
+| `coordinatedRingControl_offplane_zero` | Zero exterior component of the coordinated correction on the plane |
+| `coordinatedControls_compact_action` | Exact full natural-domain action of both controls |
+| `coordinatedControls_offplane_zero`, `coordinatedControls_domain_invariant` | Plane and domain invariance |
+| `coordinatedControls_dark_bright_action` | Exact action in normalized dark/bright coordinates |
+| `coordinatedEffectiveMatrix_pauli` | Pauli decomposition of the real matrix |
+| `coordinatedLie_XZ`, `coordinatedLie_ZY`, `coordinatedLie_YX` | Three complex commutator identities |
+| `coordinatedLie_noncommuting` | The two control directions do not commute |
+| `coordinatedLie_coordinates` | Explicit real-coordinate parametrization |
+
+**Status and limits.** All fifteen public theorems, five private
+coordinate-evaluation lemmas and four new definitions are Lean-verified.
+L7a is complete; L7b has a verified matrix and generator-algebra
+foundation. The remaining tasks are formal Lie generation, Euler
+rotations and target-state reachability under specified control
+constraints, then the full complex dynamics of L7c. Static zero
+off-plane action is not yet a theorem of zero leakage at every time.
+These results have not been independently selected for Palomar registration.
+The original single-edge L1–L6 route and Track A remain distinct.
+
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **109 Lean modules** (107 verified at Action #342; two additional modules awaiting successful CI after Actions #345–#346 failed): eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **109 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -4456,8 +4451,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
   - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(Lean-verified L1–L5, including the signed splitting, simple pair and quantitative exterior/energy bounds; §§4.93–4.98)*
   - [`AmmannBeenkerCoordinatedRingControl.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRingControl.lean) *(eleven L7a theorems: matched edges, exact dark cancellation and full-space symmetry; §4.99)*
-  - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean) *(proposed L7a completion and exact dark/bright action; CI pending, §4.100)*
-  - [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean) *(proposed L7b Pauli decomposition and commutators; CI pending, §4.100)*
+  - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean) *(verified L7a completion and exact dark/bright action; §4.100)*
+  - [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean) *(verified L7b Pauli decomposition and commutators; §4.100)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4500,16 +4495,11 @@ imports the substantive bright-splitting proof module.
 Six extra proposition witnesses are necessary to reconstruct
 the concrete graph and its domain; those are not additional
 submitted scientific results. There are seven deliberate
-statement `sorry` placeholders only in Challenge, no
-definition holes and no proof holes in the full **107-module**
-substantive library. The first Palomar registration remains
-historical and unchanged. The L5 package's full Lean,
-static-package and independent NanoDa/con-ron checks
-**passed on its exact package commit** (Action #335), with the revised
-registered version verified in Actions #340–#341. The 107-module library
-and the same L5 Comparator passed [Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852) at the L7a source commit (§4.99).
-Any future Palomar submission must use a publicly accessible immutable
-commit with successful checks.
+definition holes and no proof holes in the full **109-module**
+substantive library. The original and later Palomar registrations remain
+distinct. The complete Lean library and the selected L5 Comparator have
+passed verification. L7a and the first L7b results are Lean-verified but
+are not independently selected in that Comparator.
 
 **Distinct Palomar registration identity (historical preparation note).** The original
 registered theorem remains attached to its historical immutable
@@ -4520,7 +4510,7 @@ Comparator and root-module snapshots are preserved for reproducibility.
 The **separately registered** signed-splitting theorem uses
 [`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
 The local CI and packaging checks now explicitly select this
-per-theorem path, never a root Comparator. The separate submission has since been registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) at immutable commit `7b68540`; the earlier ID remains unchanged.
+per-theorem path, never a root Comparator. The separate submission has since been registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1); the earlier ID remains unchanged.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -4549,32 +4539,12 @@ python3 scripts/check-unified-comparator.py
 bash scripts/verify-comparator.sh
 ```
 
-GitHub Actions runs one automatic Palomar workflow on pull requests and
-changes to `main`: its first job calls the reusable `lean.yml` full proof
-check (`lake build SpectralGeometry Challenge Solution`), and the Comparator
-job has `needs: lean`. The latter retains the packaging, metadata and source
-audits and the independent Lean, NanoDa and con-ron comparison of the
-**selected** Challenge statements. A failure of the upstream Lean job
-prevents the Comparator job from running. The Lean workflow can also be
-dispatched manually; one green Palomar workflow requires both jobs to succeed.
-
-**Incremental GitHub Actions cache.** Both jobs use the same pinned
-toolchain/dependency and source-hash cache key. The first job is the
-**only cache writer**; the dependent Comparator job restores it before
-running `lake exe cache get` and recompiling/checking its targets.
-The newer `lean-workspace-v3` cache stores the entire `.lake`
-workspace, including Mathlib and other pinned package sources and build
-artifacts under `.lake/packages`, rather than only `.lake/build`.
-Because Mathlib's `lake exe cache get` also downloads compressed
-archives into `~/.cache/mathlib` (outside `.lake`), each job now
-checks for the restored compiled Mathlib root module before calling
-that client. A warm complete workspace skips the redundant archive
-download; on a cold or missing build the official pinned Mathlib cache
-is still fetched. **Both jobs retain the full Lake build**, and the
-Comparator retains independent Lean/NanoDa/con-ron checks. The first
-v3 cache run must populate its archive; actual speed improvements and
-cache size require checking the corresponding Action logs. No separate
-quick Comparator workflow is used.
+The automated verification workflow first checks the complete Lean library
+and then performs packaging, metadata and independent Lean, NanoDa and
+con-ron comparison of the **selected** Challenge statements.
+Cached pinned dependencies and compiled artifacts speed up verification
+without replacing the full build or independent comparison. The workflow
+configuration documents the operational details.
 
 ## 6. Roadmap: proof status and next steps
 
@@ -4598,23 +4568,18 @@ of its formal infrastructure.
 2. **Track B — localized dark/bright modes and control.** The full
    infinite-graph crossing and isolation (§§4.78–4.79) and
    quantitative L1–L5 splitting (§§4.93–4.97) are verified.
-   **L7a has a verified first milestone (§4.99):** eight genuine matched
-   edges, a bounded symmetric correction and exact dark cancellation.
-   The remaining immediate task is to prove bright action and exact
-   dark–bright plane invariance. L7b–L7c seek
-   exact two-mode Lie/control algebra and full complex unitary
-   evolution with zero leakage. **L6 remains the deferred original
+   **L7a is verified (§§4.99–4.100):** the eight matched edges
+   preserve the entire original dark–bright plane exactly under both
+   controls. L7b has verified the effective matrix and commutators;
+   its remaining tasks are Lie generation and Euler/reachability algebra,
+   before L7c's complex unitary evolution. **L6 remains the deferred original
    single-edge approximate-control program**, not a cancelled goal.
    The [detailed control roadmap](docs/bright-spectral-splitting-roadmap.md)
    separates these tasks and their proof obligations.
 
-**Research status and verification.** L5's selected theorem was
-strengthened after Palomar's automated editorial request to include
-the nonzero fixed dark eigenvector and its full-domain equation;
-full Lean and the independent Comparator passed
-[Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987).
-The revised L5 registration is recorded in §4.98. The first L7a milestone
-passed [Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852) (§4.99).
+**Research status and verification.** L5 is registered as described in §4.98.
+L7a and the first part of L7b are Lean-verified (§§4.99–4.100); these new
+statements have not been independently selected for Palomar registration.
 No general complex quantum propagator, L6 reachability theorem or L7
 zero-leakage controllability theorem has yet been proved. Earlier
 conditional time-uniform leakage bounds and a single exact dark
@@ -4838,7 +4803,7 @@ analytic-product consequences have their own hypotheses.
 **Relationship to the two research tracks.** This section retains
 the full original geometric and spectral-product objectives (Track A),
 followed by the newer compact-mode control direction (Track B).
-The **active** control target is the remaining L7a exact eight-edge invariance after the verified dark-cancellation milestone (§4.99).
+The **active** control target is the remaining L7b Lie-generation and Euler/reachability algebra, after the verified L7a invariance and first L7b matrix results (§4.100).
 The earlier single-edge preparation narrative and its open tasks
 remain here as the **preserved, deferred L6 program**; they are not
 the present priority and are not already proved.
@@ -4925,19 +4890,17 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 - [x] **L1 — Dark simplicity (Lean verified).** For ε ≠ 0 the
   perturbed eigenspace at E_* is exactly the dark line.
-  Action #311 and subsequent complete builds, including #320, passed.
+
 - [x] **L2a — Ordered complete eigenbases and norm stability.**
   The true infinite-operator levels obey
-  |μₙ − λₙ| ≤ 2|ε| for every index (Action #313).
+  |μₙ − λₙ| ≤ 2|ε| for every index.
 - [x] **L2b — Exactly double, consecutive unperturbed crossing.**
-  The counting theorem passed Action #316, and the generic
-  consecutive-slot lemma and concrete corollary passed full Lean and
-  independent Comparator in Action #319.
+  The counting theorem, consecutive-slot lemma and concrete corollary
+  establish the exact multiplicity and consecutive positions.
 - [x] **L2c — Actual distinct perturbed eigenvalue exists.**
   For every ε ≠ 0 there is a nonzero natural-domain eigenvector
   with energy E_b ≠ E_* and |E_b − E_*| ≤ 2|ε|.
-  Full Lean and Comparator passed Action #320.
-- [x] **L2d — Isolated simple point-spectrum pair (Action #324).**
+- [x] **L2d — Isolated simple point-spectrum pair.**
   For `0 < |ε| ≤ 1/1024`, the closed `1/256` window contains
   exactly the simple dark energy and one distinct simple moving
   eigenvalue, with `|E_b-E_*| ≤ 2|ε|` (§4.94). This is a
@@ -4960,29 +4923,27 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
   the natural-domain eigenpair, the two simple eigenspaces,
   the point-spectrum window count, the `112ε²` quadratic
   energy law and the bright/exterior leakage estimate.
-  Full Lean and independent Comparator passed Action #333;
-  independent scientific assessment remains separate.
+  The selected theorem is Lean- and Comparator-verified; independent
+  scientific assessment remains separate.
 
-**Immediate research priority: L7 — exact zero-leakage two-mode control (OPEN)**
+**Immediate research priority: L7 — exact zero-leakage two-mode control**
 
-The active development branch is
-[`research/l7-exact-leakage-free-control`](https://github.com/alexodas/spectral_geometry/tree/research/l7-exact-leakage-free-control),
-starting from the verified post-PR-#89 L5 commit. Its first target
-**L7a** uses the eight-edge *coordinated local perturbation* `M`.
-Section 4.99 and [Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852) establish the following first milestone:
+L7a uses the eight-edge *coordinated local perturbation* `M`. The following
+static results are Lean-verified in §§4.99–4.100.
 
 - [x] Construct eight genuine, distinct, mutually disjoint adjacent pairs.
 - [x] Define the bounded symmetric finite sum and certify matching amplitudes.
-- [x] Prove `M D=0` on the full infinite Hilbert space.
-- [ ] Prove `M a=a-b` and `M b=b-a` and deduce `M F=2F`.
-- [ ] Establish `Q M P=0` and natural-domain invariance under both controls.
+- [x] Prove `M D=0` and `M F=2F`, with `M a=a-b` and `M b=b-a`.
+- [x] Establish `Q M P=0` and natural-domain invariance under both controls.
+- [x] **L7b (first part):** derive the exact dark/bright matrix, its Pauli
+  decomposition and the three complex generator commutators.
+- [ ] **L7b (remaining):** formalize Lie generation and Euler rotations for
+  arbitrary target states up to global phase, with explicit control constraints.
+- [ ] **L7c:** construct full complex unitary evolution and prove target-state
+  preparation with `‖Qψ(t)‖=0` at every time.
 
-The unchecked identities are proposed, not yet Lean verified. Proof scripts for these obligations and the first L7b matrix identities are now in §4.100, pending full Lean verification.
-L7b then targets the exact two-control algebra with the already
-verified `t` detuning; L7c targets complex unitary evolution and
-arbitrary target-state preparation while maintaining `‖Qψ(t)‖=0`
-at every time. Invariance alone does not constitute a complete
-quantum control theorem. See the
+Static invariance and matrix commutators do not by themselves constitute
+a dynamical control theorem. See the
 [active L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-active-next-theorem-l7--exact-two-mode-control-without-leakage-open).
 
 **Deferred original research direction: L6 — single-edge approximate control (PRESERVED, OPEN)**
@@ -5068,12 +5029,12 @@ theorem, not the conditional pulse-error bounds themselves.
   This is **one solution**, not a constructed complex
   propagator on the full space.
 - [x] **Verify the bright-amplitude forcing bridge (§4.91).**
-  The maintainer reports the PR #86 Action green for the original fourteen
-  bright generator declarations. The exact forcing term and bound are
-  static, full-infinite-graph identities, not integrated dynamical control.
+  The fourteen bright generator declarations are Lean-verified. The exact
+  forcing term and bound are static, full-infinite-graph identities, not
+  integrated dynamical control.
 - [x] **Verify the existing static dark/bright identities (§4.92).**
   The established combined theorem and source dependencies passed full Lean
-  and independent statement checks at the previously verified commit.
+  and independent statement checks.
   Those identities by themselves do not assert a moving level;
   that **later existence theorem** is independently proved in §4.93.
 - [ ] **Shared L6/L7 prerequisite: construct general complex dynamics; L6
@@ -5119,11 +5080,11 @@ of §4.72. The first-ring intervention gives the exact crossing
 eigenspace (§4.78) and real spectral gap (§4.79). L1–L5 now also
 certify the distinct moving level, isolated signed splitting and
 quantitative bright geometry (§§4.93–4.97); these do **not** certify
-quantum state preparation. The verified L7a first milestone (§4.99)
-constructs the eight-edge matching and proves exact dark cancellation.
-Our **next** control task is the remaining bright action and exact
-invariant-plane theorem, followed by L7b–L7c. The one-edge, small-leakage preparation route remains
-documented above as future L6 research. The original
+quantum state preparation. L7a now proves exact invariance of the original
+plane under both coordinated controls, and L7b establishes the effective
+matrix and generator commutators (§§4.99–4.100). The remaining immediate
+task is the L7b Lie-generation and Euler/reachability theorem, before L7c.
+The one-edge, small-leakage preparation route remains
 spectral-product and relative-determinant objectives are unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
@@ -5260,23 +5221,19 @@ remains archived under `palomar/dark-bright/`.
 - [x] Preserve the original registered theorem, source proof
   and archived candidate without rewriting their history.
 - [x] Complete the original L5 independent Challenge/Solution
-  package and verification (Action #335).
-- [x] Submit the original L5 package at commit
-  `4c2633d6c8ee6e32b163bc4d27483a31f7c50aae`;
-  mechanical and renderability checks passed, while the
-  automated editorial review requested an explicit existence
-  statement for the fixed dark eigenstate.
-- [x] Strengthen both the selected source theorem and the
-  independent Challenge with `crossingDark ≠ 0` and the full
-  fixed-dark eigenvector equation; verify the corrected package
-  with full Lean and Comparator (Action #340, PR #89).
-- [x] Record the revised L5 editorial outcome: separate Palomar registration
-  [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026, at
-  `7b68540619ab45e5233b2d5ec8273829b3fbba77` (§4.98).
+  package and verification.
+- [x] Submit the original L5 package; mechanical and renderability checks
+  passed, while the automated editorial review requested an explicit
+  existence statement for the fixed dark eigenstate.
+- [x] Strengthen the selected theorem and independent Challenge with
+  `crossingDark ≠ 0` and the full fixed-dark eigenvector equation;
+  verify the corrected package with full Lean and Comparator.
+- [x] Record the separate L5 registration
+  [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 (§4.98).
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
-Successful Lean checks and a successful Comparator alone are **not** Palomar registration. The separate registry record [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) subsequently registered L5 on 23 November 2026 at immutable commit `7b68540619ab45e5233b2d5ec8273829b3fbba77`.
+Successful Lean checks and a successful Comparator alone are **not** Palomar registration. The separate registry record [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) subsequently registered L5 on 23 November 2026.
 
 **Potential research interest, without a priority claim.** The compact
 A/B patterns are known in quasicrystal tight-binding research
@@ -5325,11 +5282,16 @@ For Palomar, preserve a separate Comparator inside each
 `palomar/<candidate>/` directory, preserve predecessor packages,
 and never place a redundant Comparator at the repository root.
 
-Keep the **executive summary scientific, concise and durable**:
-**never include references to pull requests, PR numbers, GitHub Actions,
-Action numbers or commit identifiers in the executive summary**. Put
-operational provenance, exact commits, CI checks and independent
-Comparator outcomes only in the relevant technical verification
-sections and roadmap. Never mark a new theorem or Comparator package
-independently verified until all required checks have passed on the
-exact referenced source commit.
+Keep the **entire README scientific, cumulative and readable in plain English**.
+Explain each result's mathematical meaning, assumptions, exact conclusions,
+limitations and relationship to earlier theorems. Retain formulas and Lean
+declaration names where useful, but explain them in accessible language.
+Do not include commit hashes, pull request references, numbered CI runs,
+build logs, failed proof attempts or operational development chronology
+in the README. Such provenance belongs in the repository history and CI
+records, or in separate technical notes when needed. Keep the two Palomar
+registry identifiers and links, because they identify independently
+registered mathematical statements. Report verification status and scope
+without operational identifiers. Never mark a result as verified before
+the required checks have succeeded, and distinguish full Lean verification
+from independent comparison of the selected Palomar statements.
