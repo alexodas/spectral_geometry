@@ -14,7 +14,7 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**Current priority: L7c.2, identification of exact trajectories with Euler rotations.** L7a and algebraic L7b are complete. L7c.1 now proves full natural-domain single-axis Schrödinger equations in real/imaginary components for arbitrary complex initial amplitudes, conserved squared complex norm and zero leakage at all times. The combined real Hamiltonian is self-adjoint at arbitrary real control strengths ([README §4.102](../README.md#4102-exact-natural-domain-schrödinger-trajectories-for-both-control-axes)). Next identify these trajectories with the rotations of §4.101 including the common phases, compose the three pulses and prove final target preparation. The general complex full-space propagator remains open; L6 is preserved.
+**Current priority: L7c.3, continuous composition of the three exact pulses.** L7a and algebraic L7b are complete. L7c.1 proves exact full natural-domain single-axis Schrödinger trajectories, conserved squared complex norm, zero leakage and combined real self-adjointness. L7c.2 identifies these full-graph trajectories with the phase-weighted X and Z rotations for arbitrary complex initial pairs and real strengths and times ([README §4.103](../README.md#4103-exact-identification-of-physical-pulses-with-pauli-rotations)). Next compose the three pulses with matching endpoints, then prove final arbitrary-target preparation with zero leakage at every time. The general complex full-space propagator remains open; L6 is preserved.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This is **not** a proof of general quantum dynamics, L6 reachability or time-dependent L7 zero-leakage controllability.
 
@@ -371,8 +371,9 @@ infinite-system time evolution or arbitrary initial-state propagator.
       squared complex norm and zero leakage of both components for every
       real time. Prove the combined real Hamiltonian self-adjoint for
       arbitrary real control strengths.
-- [ ] **L7c.2:** Identify both single-axis trajectories with the exact
-      rotation matrices of L7b, including common scalar phases.
+- [x] **L7c.2:** Identify both single-axis trajectories with the exact
+      rotation matrices of L7b, including common scalar phases; certify
+      their identity at zero time and compatibility with composition.
 - [ ] **L7c.3:** Compose the three pulses with matching endpoint states,
       piecewise Schrödinger equations and zero leakage at every time.
 - [ ] **L7c.4:** Prove arbitrary normalized target preparation from dark
