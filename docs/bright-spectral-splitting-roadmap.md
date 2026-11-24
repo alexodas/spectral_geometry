@@ -14,7 +14,7 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**Current priority: L7a, a candidate exact zero-leakage control using eight coordinated, genuine inter-ring graph edges.** First establish the proposed full-operator identities `M a = a - b` and `M b = b - a`, hence `M D = 0`, `M F = 2 F` and `Q M P = 0`. **These are research targets, not yet proved in Lean.** L7b (two-control Lie algebra) and L7c (complex unitary dynamics and state reachability) follow only after L7a. The originally chosen **L6 single-edge, small-but-controlled-leakage** approach remains an explicit future research direction, **not abandoned**; see §§6–7 below.
+**Current priority: L7a, partially verified coordinated eight-edge control.** The eight genuine matched edges, bounded symmetric correction `M`, matching amplitudes and `M D = 0` are verified in [README §4.99](../README.md#499-coordinated-eight-edge-matching-and-exact-dark-cancellation), [Action #342](https://github.com/alexodas/spectral_geometry/actions/runs/45449302852), commit `d1f73f6ba88cff09325f1288b0eadda7ad34bcf9`. Next prove the full-operator identities `M a = a - b` and `M b = b - a`, hence `M F = 2 F` and `Q M P = 0`. These remaining identities are research targets, not yet proved in Lean. L7b (two-control Lie algebra) and L7c (complex unitary dynamics and state reachability) follow only after L7a. The originally chosen **L6 single-edge, small-but-controlled-leakage** approach remains an explicit future research direction, **not abandoned**; see §§6–7 below.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This is **not** a proof of general quantum dynamics, L6 reachability or L7 zero-leakage control.
 
@@ -313,13 +313,12 @@ Let `a = compactA`, `b = compactB`,
 The two compact modes each have eight alternating signed amplitudes
 on distinct, neighboring concentric rings.
 
-**Candidate control (to be proved):** pair the eight sites of the
+**Coordinated control (first milestone verified):** pair the eight sites of the
 first ring with corresponding adjacent sites of the second ring,
 and let `M` be the sum of their eight equal-weight graph-edge
-Laplacians (rank-one edge operators). Each proposed pair differs
-by one signed lattice coordinate; membership and adjacency must
-be certified, not assumed from a drawing. The paired amplitudes
-have matching alternating signs, suggesting the identities
+Laplacians (rank-one edge operators). Membership, adjacency, distinctness,
+endpoint disjointness and matching signed amplitudes are Lean-verified,
+not assumed from a drawing. The target identities are
 
 ```text
 M a = a - b
@@ -329,33 +328,35 @@ M F = 2 F
 Q M P = 0
 ```
 
-All five displayed equations are **L7a proof targets**, not
-existing Lean theorems. The operator is a *finite sum of genuine
-local edge changes*, not an artificially imposed qubit projector.
-Its individual edge terms must be shown to be bounded and symmetric,
-and its compatibility with the original natural domain and complete
-infinite operator must be checked.
+Of the five displayed equations, `M D = 0` is now Lean-verified;
+the other four remain **L7a proof targets**. The bounded symmetric
+operator is a *finite sum of genuine local edge changes*, not an
+artificially imposed qubit projector. Compatibility of the complete
+controlled Hamiltonian with the original natural domain and invariance
+of the entire two-mode plane remain to be checked.
 
 ### L7a — certify exact invariant-plane algebra (IMMEDIATE PRIORITY)
 
-- [ ] Define the eight ring-to-ring endpoint pairs as actual `Vertex`
+- [x] Define the eight ring-to-ring endpoint pairs as actual `Vertex`
       instances and prove they are eight distinct, admissible
-      `Adjacent` edges; choose the intended perfect matching.
-- [ ] Define the bounded self-adjoint/symmetric finite-rank edge
-      correction `M` with a clear normalization and the same
-      Laplacian convention as `crossingEdge`.
+      `Adjacent` edges with disjoint endpoints.
+- [x] Define `M` as a finite sum of bounded rank-one edge operators,
+      with the same Laplacian convention as `crossingEdge`, and prove
+      symmetry of each term and the sum on the full real Hilbert space.
+- [x] Prove the matching amplitudes and `M crossingDark = 0`.
+- [x] Verify this first milestone in full Lean/Mathlib CI (Action #342).
+      The existing L5 Comparator passed too; L7a is not independently selected.
 - [ ] Prove full-space, not merely compressed, identities
       `M compactA = compactA - compactB` and
       `M compactB = compactB - compactA`.
-- [ ] Deduce `M crossingDark = 0`,
-      `M crossingBright = 2 • crossingBright`,
+- [ ] Deduce `M crossingBright = 2 • crossingBright`,
       and `Q M P = 0`; show the entire controlled Hamiltonian
       `H₀ + δ T + η M` leaves the *original* two-mode plane invariant
       for all real control strengths, using the already verified exact
       `t`-detuning identities.
-- [ ] Run the complete Lean/Mathlib build and, if a new theorem
-      is selected for independent comparison, a matching Comparator;
-      do **not** mark L7a verified before both required checks pass.
+- [ ] Run the complete Lean/Mathlib build for the remaining invariance
+      results and, if selected for independent comparison, a matching
+      Comparator; do **not** mark L7a complete before the required checks pass.
 
 **Meaning of zero leakage:** `Q ψ = 0` means *no component orthogonal
 to the two compact modes*, not merely no amplitude outside the central
