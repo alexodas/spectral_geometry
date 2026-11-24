@@ -504,11 +504,18 @@ theorem centralLift_admitted (i : Fin 17) : Admitted (centralLift i) := by
 @[expose] def centralVertex (i : Fin 17) : Vertex :=
   latticeVertex (centralLift i) (centralLift_admitted i)
 
+/-- Explicit index bounds for the two rings in the central enumeration. -/
+theorem firstRingIndex_lt (i : Fin 8) : i.val + 1 < 17 :=
+  Nat.lt_trans (Nat.add_lt_add_right i.isLt 1) (by decide)
+
+theorem secondRingIndex_lt (i : Fin 8) : i.val + 9 < 17 :=
+  Nat.add_lt_add_right i.isLt 9
+
 @[expose] def firstRingVertex (i : Fin 8) : Vertex :=
-  centralVertex ⟨i.val + 1, by omega⟩
+  centralVertex ⟨i.val + 1, firstRingIndex_lt i⟩
 
 @[expose] def secondRingVertex (i : Fin 8) : Vertex :=
-  centralVertex ⟨i.val + 9, by omega⟩
+  centralVertex ⟨i.val + 9, secondRingIndex_lt i⟩
 
 end
 

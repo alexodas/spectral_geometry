@@ -4891,7 +4891,7 @@ and registration have not yet been established. The earlier registrations
 and all Track A objectives remain unchanged.
 
 **Independent preparation package.** The [Mathlib-only Challenge](Challenge.lean)
-contains 680 lines, five model witnesses, three local-edge certificates
+contains 687 lines, five model witnesses, three local-edge certificates
 and the single scientific preparation theorem. All definitions are concrete.
 The [Solution](Solution.lean) imports the verified source, and the
 [Comparator](palomar/exact-leakage-free-preparation/comparator.json) is kept

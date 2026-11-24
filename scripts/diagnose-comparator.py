@@ -35,6 +35,7 @@ with tempfile.TemporaryDirectory(prefix="comparator-diagnostic-", dir=root / ".l
     outputs = {}
     for module in (config["challenge_module"], config["solution_module"]):
         commands = [f"import {module}", "set_option pp.all true"]
+        commands.extend(["#print SpectralGeometry.AmmannBeenker.firstRingIndex_lt", "#print SpectralGeometry.AmmannBeenker.secondRingIndex_lt"])
         for name in names:
             commands.extend([
                 f'#eval IO.println "BEGIN {name}"',
