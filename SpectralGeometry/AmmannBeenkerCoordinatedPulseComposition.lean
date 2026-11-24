@@ -204,8 +204,7 @@ theorem coordinatedProtocol_final (p t q : ℝ) (w : ℂ × ℂ) :
     coordinatedProtocolPair p t q w 3 =
       coordinatedPulseZ q 1 (coordinatedPulseX (-2*t) 1 (coordinatedPulseZ p 1 w)) := by
   have h := coordinatedProtocol_third p t q w (τ := 3) (by norm_num) (by norm_num)
-  norm_num at h
-  exact h
+  simpa only [show (3 : ℝ) - 2 = 1 by norm_num] using h
 
 theorem coordinatedProtocol_continuous (p t q : ℝ) (w : ℂ × ℂ) :
     Continuous (coordinatedProtocolPair p t q w) := by
@@ -223,10 +222,14 @@ theorem coordinatedProtocol_state_continuous (p t q : ℝ) (w : ℂ × ℂ) :
     Continuous (fun τ => coordinatedStateReal (coordinatedProtocolPair p t q w τ)) ∧
     Continuous (fun τ => coordinatedStateImag (coordinatedProtocolPair p t q w τ)) := by
   have hc := coordinatedProtocol_continuous p t q w
-  have ha := hc.fst
-  have hb := hc.snd
+  have ha : Continuous (fun τ : ℝ => (coordinatedProtocolPair p t q w τ).1) := hc.fst
+  have hb : Continuous (fun τ : ℝ => (coordinatedProtocolPair p t q w τ).2) := hc.snd
   unfold coordinatedStateReal coordinatedStateImag coordinatedEmbedReal coordinatedEmbedImag
-  constructor <;> fun_prop
+  constructor
+  · exact ((Complex.continuous_re.comp ha).smul continuous_const).add
+      ((Complex.continuous_re.comp hb).smul continuous_const)
+  · exact ((Complex.continuous_im.comp ha).smul continuous_const).add
+      ((Complex.continuous_im.comp hb).smul continuous_const)
 
 theorem coordinatedProtocol_weight (p t q : ℝ) (w : ℂ × ℂ) (τ : ℝ) :
     coordinatedStateWeight (coordinatedProtocolPair p t q w τ) =
