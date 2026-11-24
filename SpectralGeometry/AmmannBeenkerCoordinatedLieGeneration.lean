@@ -26,7 +26,7 @@ noncomputable section
     change A.conjTranspose = -A ∧ A.trace = 0 at hA
     change B.conjTranspose = -B ∧ B.trace = 0 at hB
     change (A + B).conjTranspose = -(A + B) ∧ (A + B).trace = 0
-    simp [Matrix.conjTranspose_add, Matrix.trace_add, hA.1, hA.2, hB.1, hB.2]
+    simp [Matrix.conjTranspose_add, Matrix.trace_add, hA.1, hA.2, hB.1, hB.2] <;> abel
   smul_mem' := by
     intro r A hA
     change A.conjTranspose = -A ∧ A.trace = 0 at hA
@@ -91,9 +91,11 @@ theorem coordinatedSu2_coordinates (A : Matrix (Fin 2) (Fin 2) ℂ)
   fin_cases i <;> fin_cases j
   · apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im, hr0]
   · apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im]
-  · rw [h10']
-    apply Complex.ext <;> simp [Complex.star_def, Complex.mul_re, Complex.mul_im]
-  · rw [h11]
+  · change A 1 0 = -(↑(A 0 1).re : ℂ) + ↑(A 0 1).im * Complex.I
+    rw [h10']
+    apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im]
+  · change A 1 1 = -(↑(A 0 0).im : ℂ) * Complex.I
+    rw [h11]
     apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im, hr0]
 
 /-- Minimality among all real linear subspaces closed under commutators. -/
