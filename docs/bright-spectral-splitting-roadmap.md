@@ -14,7 +14,7 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**Current priority: L7b, formal Lie generation and Euler/reachability algebra.** L7a is complete: the coordinated eight-edge correction satisfies `M a=a-b`, `M b=b-a`, `M D=0`, `M F=2F` and `Q M P=0`, and both controls preserve the original natural-domain plane. L7b's exact effective matrix, Pauli decomposition and three complex commutators are Lean-verified in [README §4.100](../README.md#4100-exact-invariant-plane-control-and-pauli-generator-algebra). The remaining L7b task is to establish Lie generation and Euler rotations with explicit admissible control constraints; L7c then addresses full complex dynamics. The original L6 single-edge approximate-control route remains preserved.
+**Current priority: L7c, complex evolution and exact zero-leakage preparation.** L7a is complete: the coordinated eight-edge correction and first-ring detuning preserve the original natural-domain plane exactly. L7b is complete at the algebraic level: the exact dark/bright effective matrix, Pauli commutators, full real su(2) generation and constructive Z–X–Z state reachability from dark are Lean-verified ([README §§4.100–4.101](../README.md#4101-full-lie-generation-and-constructive-two-state-rotations)). Independent signed real control coefficients are explicit. The remaining task is to identify those rotations with the complex full-graph evolution and prove exact zero leakage at every time. L6 remains preserved.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This is **not** a proof of general quantum dynamics, L6 reachability or time-dependent L7 zero-leakage controllability.
 
@@ -348,18 +348,22 @@ to the two compact modes*, not merely no amplitude outside the central
 rings. Static invariance is necessary but not yet a full time-dependent
 quantum theorem.
 
-### L7b — exact effective controls and reachability algebra (PARTIALLY VERIFIED)
+### L7b — exact effective controls and reachability algebra (COMPLETE ALGEBRAICALLY)
 
-- [x] Express the exact full-operator restriction in the normalized
-      dark/bright basis as `(E_*+δ/2+η) I + (δ/2) σ_x - η σ_z`.
-- [x] Prove noncommutation, all three complex matrix commutators,
-      and the explicit real-coordinate parametrization of the generators.
-- [ ] Formalize equality of the generated real Lie algebra with `su(2)`
-      and Euler rotations for target-state reachability up to global phase.
-- [ ] State admissible signs, time durations and control constraints
-      precisely. No arbitrary-target quantum controllability is yet proved.
+- [x] Express the full-operator restriction as `(E_*+δ/2+η) I + (δ/2) σ_x - η σ_z`.
+- [x] Prove noncommutation and the three complex matrix commutators.
+- [x] Prove the real traceless skew-Hermitian matrix space is exactly
+      the smallest real commutator-closed subspace containing the controls.
+- [x] Construct three rotation angles reaching every normalized complex
+      pair from dark, with the middle half-angle in [0, π/2].
+- [x] Show the signed real generator coefficients can be set independently:
+      `G(-2t,0)=tX`, `G(0,t)=tZ`. This uses ideal independently tunable
+      arbitrary real control strengths, not a hardware or edge-positivity constraint.
 
-### L7c — exact complex quantum evolution (AFTER L7a–b, OPEN)
+These are finite-dimensional matrix results, not a proof of the
+infinite-system time evolution or arbitrary initial-state propagator.
+
+### L7c — exact complex quantum evolution (CURRENT PRIORITY, OPEN)
 
 - [ ] Construct the complex Hilbert-space model and the relevant
       self-adjoint dynamics/propagators on the full infinite graph
