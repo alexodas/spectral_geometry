@@ -18,32 +18,113 @@ noncomputable section
 
 open scoped BigOperators Classical
 
-private theorem coordinatedRing_vector_lattice (i : Fin 8) :
-    infiniteEdgeVector (firstRingVertex i) (secondRingVertex i) =
-      latticeSingle (firstRingVertex i).val -
-        latticeSingle (secondRingVertex i).val := by
-  simp only [infiniteEdgeVector, latticeSingle_val]
+/-- Evaluate the finite sum before doing any vertex-case simplification. -/
+private theorem coordinatedRing_sum_eval (s : Finset (Fin 8))
+    (x : TileHilbert Vertex) (v : Vertex) :
+    (∑ i ∈ s, coordinatedRingEdge i x) v =
+      ∑ i ∈ s, (coordinatedRingEdge i x) v := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert i s hi ih =>
+    simp only [Finset.sum_insert hi, lp.coeFn_add, Pi.add_apply, ih]
 
-/-- Exact full-space action, not an identity for a compressed matrix. -/
+private theorem coordinatedRing_edge_eval (i : Fin 8)
+    (x : TileHilbert Vertex) (v : Vertex) :
+    (coordinatedRingEdge i x) v =
+      (x (firstRingVertex i) - x (secondRingVertex i)) *
+        ((if v = firstRingVertex i then 1 else 0) -
+          (if v = secondRingVertex i then 1 else 0)) := by
+  rw [coordinatedRingEdge_apply]
+  change (x (firstRingVertex i) - x (secondRingVertex i)) *
+    infiniteEdgeVector (firstRingVertex i) (secondRingVertex i) v = _
+  simp [infiniteEdgeVector, lp.coeFn_sub, Pi.sub_apply, lp.single_apply,
+    Pi.single_apply, eq_comm]
+
+private theorem coordinatedRing_first_eval (x : TileHilbert Vertex) (i : Fin 8) :
+    (coordinatedRingControl x) (firstRingVertex i) =
+      x (firstRingVertex i) - x (secondRingVertex i) := by
+  rw [coordinatedRingControl_apply, coordinatedRing_sum_eval]
+  rw [Finset.sum_eq_single i]
+  · rw [coordinatedRing_edge_eval]
+    simp [coordinatedRing_disjoint]
+  · intro j _ hj
+    have h := coordinatedRing_matching i j (Ne.symm hj)
+    rw [coordinatedRing_edge_eval]
+    simp [h.1, h.2.2.1]
+  · simp
+
+private theorem coordinatedRing_second_eval (x : TileHilbert Vertex) (i : Fin 8) :
+    (coordinatedRingControl x) (secondRingVertex i) =
+      x (secondRingVertex i) - x (firstRingVertex i) := by
+  rw [coordinatedRingControl_apply, coordinatedRing_sum_eval]
+  rw [Finset.sum_eq_single i]
+  · rw [coordinatedRing_edge_eval]
+    have h := (coordinatedRing_disjoint i i).symm
+    simp [h] <;> ring
+  · intro j _ hj
+    have h := coordinatedRing_matching i j (Ne.symm hj)
+    rw [coordinatedRing_edge_eval]
+    simp [h.2.1, h.2.2.2]
+  · simp
+
+private theorem coordinatedRing_outside_eval (x : TileHilbert Vertex) (v : Vertex)
+    (ha : ∀ i : Fin 8, v ≠ firstRingVertex i)
+    (hb : ∀ i : Fin 8, v ≠ secondRingVertex i) :
+    (coordinatedRingControl x) v = 0 := by
+  rw [coordinatedRingControl_apply, coordinatedRing_sum_eval]
+  apply Finset.sum_eq_zero
+  intro i _
+  rw [coordinatedRing_edge_eval]
+  simp [ha i, hb i]
+
+/-- Exact full-space action, not an identity for a compressed matrix.
+The proof covers both rings and every vertex outside them. -/
 theorem coordinatedRingControl_compactA :
     coordinatedRingControl compactA = compactA - compactB := by
-  have ha (k : Fin 17) :
-      compactA (centralVertex k) = centralCompactCoordinates 1 0 k :=
-    congrFun compactA_centralCoordinates k
-  simp only [coordinatedRingControl_apply, coordinatedRingEdge_apply,
-    coordinatedRing_vector_lattice, firstRingVertex, secondRingVertex,
-    centralVertex_val, ha, Fin.sum_univ_succ, Fin.sum_univ_zero]
-  norm_num [centralCompactCoordinates, centralLift, compactA, compactB] <;> module
+  apply lp.ext
+  funext v
+  change (coordinatedRingControl compactA) v = compactA v - compactB v
+  by_cases ha : ∃ i : Fin 8, v = firstRingVertex i
+  · obtain ⟨i, rfl⟩ := ha
+    rw [coordinatedRing_first_eval]
+    obtain ⟨_, hA, hB⟩ := coordinatedRing_amplitudes i
+    rw [hA, hB]
+  · by_cases hb : ∃ i : Fin 8, v = secondRingVertex i
+    · obtain ⟨i, rfl⟩ := hb
+      rw [coordinatedRing_second_eval]
+      obtain ⟨h, _, _⟩ := coordinatedRing_amplitudes i
+      rw [h]
+    · have hA : ∀ i : Fin 8, v ≠ firstRingVertex i :=
+        fun i hi => ha ⟨i, hi⟩
+      have hB : ∀ i : Fin 8, v ≠ secondRingVertex i :=
+        fun i hi => hb ⟨i, hi⟩
+      rw [coordinatedRing_outside_eval _ _ hA hB,
+        compactA_eq_zero_of_not_ring _ hA, compactB_eq_zero_of_not_ring _ hB,
+        sub_zero]
 
 theorem coordinatedRingControl_compactB :
     coordinatedRingControl compactB = compactB - compactA := by
-  have hb (k : Fin 17) :
-      compactB (centralVertex k) = centralCompactCoordinates 0 1 k :=
-    congrFun compactB_centralCoordinates k
-  simp only [coordinatedRingControl_apply, coordinatedRingEdge_apply,
-    coordinatedRing_vector_lattice, firstRingVertex, secondRingVertex,
-    centralVertex_val, hb, Fin.sum_univ_succ, Fin.sum_univ_zero]
-  norm_num [centralCompactCoordinates, centralLift, compactA, compactB] <;> module
+  apply lp.ext
+  funext v
+  change (coordinatedRingControl compactB) v = compactB v - compactA v
+  by_cases ha : ∃ i : Fin 8, v = firstRingVertex i
+  · obtain ⟨i, rfl⟩ := ha
+    rw [coordinatedRing_first_eval]
+    obtain ⟨h, _, _⟩ := coordinatedRing_amplitudes i
+    rw [h]
+  · by_cases hb : ∃ i : Fin 8, v = secondRingVertex i
+    · obtain ⟨i, rfl⟩ := hb
+      rw [coordinatedRing_second_eval]
+      obtain ⟨_, hA, hB⟩ := coordinatedRing_amplitudes i
+      rw [hA, hB]
+    · have hA : ∀ i : Fin 8, v ≠ firstRingVertex i :=
+        fun i hi => ha ⟨i, hi⟩
+      have hB : ∀ i : Fin 8, v ≠ secondRingVertex i :=
+        fun i hi => hb ⟨i, hi⟩
+      rw [coordinatedRing_outside_eval _ _ hA hB,
+        compactA_eq_zero_of_not_ring _ hA, compactB_eq_zero_of_not_ring _ hB,
+        sub_zero]
 
 theorem coordinatedRingControl_bright :
     coordinatedRingControl crossingBright = (2 : ℝ) • crossingBright := by
