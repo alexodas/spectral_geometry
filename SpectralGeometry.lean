@@ -109,6 +109,8 @@ public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
 public import SpectralGeometry.AmmannBeenkerCoordinatedRingControl
 public import SpectralGeometry.AmmannBeenkerCoordinatedInvariantPlane
 public import SpectralGeometry.AmmannBeenkerCoordinatedLieAlgebra
+public import SpectralGeometry.AmmannBeenkerCoordinatedLieGeneration
+public import SpectralGeometry.AmmannBeenkerCoordinatedEuler
 
 public section
 
