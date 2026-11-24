@@ -34,9 +34,9 @@ The results fit together in a natural way. Changing the first-ring parameter off
 
 The third intervention changes eight matched edges together. Lean proves that their equally weighted sum leaves the dark state unchanged and shifts the bright state's energy by exactly twice the edge-strength change. Unlike the single-edge correction, this coordinated operator never creates an exterior component when acting on a combination of the two original waves. The same two-state space is preserved by any combination of the first-ring detuning and coordinated edge changes.
 
-The two controls have an exact two-by-two matrix representation, not an approximation to the infinite system. Apart from a common energy shift, the detuning and the coordinated edge strength act along two different Pauli directions. Their order matters: the verified matrix commutators give a third independent direction in the standard algebra of two-state rotations.
+The two controls have an exact two-by-two matrix representation, not an approximation to the infinite system. Apart from a common energy shift, the detuning and the coordinated edge strength act along two different Pauli directions. Their order matters: the verified matrix commutators give a third independent direction. The two directions generate the entire algebra of two-state rotations after removing the common phase.
 
-These results give a mathematical foundation for controlling localized waves without leakage. They do not yet prove that every desired mixture can be prepared, nor do they establish a general complex quantum propagator or zero leakage throughout an actual time-dependent protocol. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
+A further theorem gives a constructive sequence of three two-by-two rotation matrices that transforms the dark coordinate into any chosen normalized pair of complex amplitudes, including the pure bright state. The rotation angles follow from the magnitudes and phases of the desired amplitudes. The remaining problem is to prove that these matrices describe the actual time evolution of the controlled infinite network. A general complex quantum propagator and a time-dependent zero-leakage preparation protocol have not yet been established. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
 
@@ -48,7 +48,7 @@ of its original goals:
 | Track | Question | Status and next steps |
 | --- | --- | --- |
 | **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
-| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7a complete** (§§4.99–4.100); **L7b partially verified** (exact matrix and commutators). Lie generation, Euler/reachability and L7c dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. L7c dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
 
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
@@ -83,6 +83,7 @@ remain below.
     - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
     - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
     - [4.100. Exact invariant-plane control and Pauli generator algebra](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
+    - [4.101. Full Lie generation and constructive two-state rotations](#4101-full-lie-generation-and-constructive-two-state-rotations)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
@@ -143,7 +144,8 @@ The table below separates proved results from remaining research tasks.
 | Coordinated eight-edge control, L7a first milestone | §4.99: eight genuine adjacent pairs with no shared endpoints, matched amplitudes, bounded symmetric correction and exact dark cancellation `MD=0`. Lean-verified |
 | Exact invariant plane under both controls, L7a complete | §4.100: `Ma=a-b`, `Mb=b-a`, `MF=2F`, `QMP=0`, and full natural-domain invariance at arbitrary real control strengths. Lean-verified |
 | Exact Pauli control algebra, L7b first part | §4.100: exact effective matrix in the normalized dark/bright basis, Pauli decomposition, noncommuting complex generators and all three commutators. Lean-verified |
-| Two-mode controllability research, L7 and L6 | Remaining L7b Lie-generation and Euler/reachability algebra, L7c complex dynamics and target-state preparation, and the distinct original L6 approximate-control theorem remain open (§6.4) |
+| Full Lie generation and constructive Euler state reachability, L7b complete | §4.101: the smallest real commutator-closed subspace containing the two generators is all of `su(2)`; a three-rotation matrix product reaches every normalized complex pair from dark, with independent signed control coefficients. Lean-verified |
+| Two-mode controllability research, L7 and L6 | L7c complex dynamics, realization of the rotation sequence with zero leakage at every time, and the distinct original L6 approximate-control theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
 enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
@@ -154,7 +156,7 @@ identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
 the certified dark/bright generator algebra (§§4.80–4.91), the archived
 unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
-(§§4.93–4.98), exact coordinated-plane invariance and matrix algebra (§§4.99–4.100), and
+(§§4.93–4.98), exact coordinated-plane invariance, full Lie generation and constructive matrix reachability (§§4.99–4.101), and
 the still-open dynamical coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
@@ -4308,9 +4310,9 @@ and proves, with `[A,B]=AB-BA`,
 It also proves noncommutation and the explicit real-coordinate
 parametrization of the three generator directions. These are the
 algebraic ingredients of the standard two-state rotation algebra.
-The new results do not yet formalize the equality of the generated
-Lie algebra with all of `su(2)` or a sequence of admissible pulses
-that reaches every target.
+The subsequent §4.101 establishes equality of the generated Lie algebra
+with all of `su(2)` and constructive reachability by a three-rotation
+matrix product. Its realization by actual infinite-system pulses remains open.
 
 | Lean theorem | Meaning |
 | --- | --- |
@@ -4327,18 +4329,133 @@ that reaches every target.
 
 **Status and limits.** All fifteen public theorems, five private
 coordinate-evaluation lemmas and four new definitions are Lean-verified.
-L7a is complete; L7b has a verified matrix and generator-algebra
-foundation. The remaining tasks are formal Lie generation, Euler
-rotations and target-state reachability under specified control
-constraints, then the full complex dynamics of L7c. Static zero
+L7a is complete; this section supplies the matrix and generator-algebra
+foundation of L7b, completed at the algebraic level in §4.101.
+The remaining task is the complex dynamics of L7c. Static zero
 off-plane action is not yet a theorem of zero leakage at every time.
 These results have not been independently selected for Palomar registration.
 The original single-edge L1–L6 route and Track A remain distinct.
 
 
+### 4.101. Full Lie generation and constructive two-state rotations
+
+**Plain-English result.** The two available controls are enough to
+generate every infinitesimal rotation of a two-state quantum system,
+after a common energy shift is removed. Moreover, one can explicitly
+choose three rotation angles that transform the dark coordinate into
+any normalized pair of complex amplitudes. This is a theorem about
+exact matrices, not yet a construction of the time evolution of the
+infinite Ammann–Beenker graph.
+
+**Full Lie generation.** In
+[§4.100](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
+the two independent traceless generator directions were identified
+as X = iσ_x and Z = iσ_z, with [X,Z] = 2Y and Y = iσ_y.
+The new module
+[`AmmannBeenkerCoordinatedLieGeneration.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieGeneration.lean)
+defines the real vector space
+
+```math
+\mathfrak{su}(2)=\{A\in M_2(\mathbb C): A^\dagger=-A,\ 
+\operatorname{tr}A=0\}.
+```
+
+It proves that this space is closed under matrix commutators, contains
+X and Z, and that each of its elements is a real linear combination
+of X, Y and Z. Specifically,
+
+```math
+A=\operatorname{Im}(A_{01})X+\operatorname{Re}(A_{01})Y+
+\operatorname{Im}(A_{00})Z.
+```
+
+Any real linear subspace closed under commutators and containing X
+and Z must also contain Y, since Y = [X,Z]/2. Consequently it must
+contain every element of su(2). Together with closure of su(2) itself,
+this proves that it is exactly the smallest such subspace. This is
+a concrete, two-sided Lie-generation theorem rather than just a
+calculation of three commutators.
+
+**Constructive Euler state reachability.** In
+[`AmmannBeenkerCoordinatedEuler.lean`](SpectralGeometry/AmmannBeenkerCoordinatedEuler.lean)
+the two matrix rotations are defined by
+
+```math
+R_x(t)=\begin{pmatrix}\cos t&i\sin t\\i\sin t&\cos t\end{pmatrix},
+\qquad
+R_z(t)=\begin{pmatrix}e^{it}&0\\0&e^{-it}\end{pmatrix}.
+```
+
+The parameters here are half-angles in the Bloch-sphere convention.
+For any real p, t, q the first column of the product is exactly
+
+```math
+R_z(q)R_x(t)R_z(p)\binom{1}{0}
+=\binom{\cos t\,e^{i(p+q)}}{i\sin t\,e^{i(p-q)}}.
+```
+
+Given arbitrary complex amplitudes α and β with
+|α|² + |β|² = 1, the proof constructs
+
+```math
+u=\arg(\alpha),\quad v=\arg(-i\beta),\quad
+t=\arccos|\alpha|,\quad p=(u+v)/2,\quad q=(u-v)/2.
+```
+
+Then 0 ≤ t ≤ π/2 and the displayed product is exactly (α,β),
+including the cases in which one amplitude is zero. The theorem
+states existence of the three real angles; the proof gives these
+explicit witnesses. It reaches the exact complex pair in the
+rotation-matrix model, not merely its magnitudes.
+
+In the full-operator restriction the scalar energy
+E_* + δ/2 + η contributes a common phase. After removing it, the
+Schrödinger generator has the two independently selectable
+coefficients
+
+```math
+G(\delta,\eta)=-\frac{\delta}{2}X+\eta Z.
+```
+
+Lean proves G(-2t,0)=tX and G(0,t)=tZ for every real t.
+Thus a unit-duration segment with signed detuning -2t or signed
+coordinated edge strength t has the required algebraic generator
+coefficient. This identifies the settings for the idealized
+three-segment protocol, assuming independently tunable arbitrary
+real control strengths. No nonnegativity restriction on the physical
+edge weights or bounded-strength hardware constraint is imposed by
+this theorem. The equality between these rotations and the actual
+controlled evolution, including the common phase and domain
+conditions, is a separate L7c proof obligation.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedSu2_commutator` | Closure under matrix commutators |
+| `coordinatedSu2_X`, `coordinatedSu2_Z` | Both control directions belong to su(2) |
+| `coordinatedSu2_coordinates` | Every traceless skew-Hermitian matrix has three real Pauli coordinates |
+| `coordinatedSu2_le_of_controls` | Every commutator-closed real subspace containing X and Z contains su(2) |
+| `coordinatedSu2_generated_iff` | Exact generated-algebra characterization in both directions |
+| `coordinatedPhase_add`, `coordinatedPhase_norm` | Phase multiplication and unit modulus |
+| `coordinatedEuler_dark_column` | Explicit dark-state column of the Z–X–Z product |
+| `coordinatedEuler_reaches_from_dark` | Every normalized complex pair is reached by the rotation product |
+| `coordinatedReducedGenerator_X`, `coordinatedReducedGenerator_Z` | Independent signed generator coefficients |
+
+**Status and limits.** The twelve public theorems and five definitions
+are Lean-verified. L7b is complete at the algebraic level. The formal
+result is state reachability from the dark coordinate in a
+two-by-two matrix model; it does not assert a full SU(2) group
+factorization theorem or arbitrary initial-state dynamics.
+L7c must construct the complex full-graph evolution, identify its
+restriction with the rotation matrices up to common phase, and
+prove zero exterior component throughout each segment and their
+composition. L7a and L7b have not been independently selected for
+Palomar registration. The original single-edge L6 goal and the
+analytic spectral-geometry program remain separate.
+
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **109 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **111 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-six infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -4427,7 +4544,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (31):**
+- **Explicit octagonal geometry, operator and spectral products (33):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -4453,6 +4570,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerCoordinatedRingControl.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRingControl.lean) *(eleven L7a theorems: matched edges, exact dark cancellation and full-space symmetry; §4.99)*
   - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean) *(verified L7a completion and exact dark/bright action; §4.100)*
   - [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean) *(verified L7b Pauli decomposition and commutators; §4.100)*
+  - [`AmmannBeenkerCoordinatedLieGeneration.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieGeneration.lean) *(full real su(2) generation; §4.101)*
+  - [`AmmannBeenkerCoordinatedEuler.lean`](SpectralGeometry/AmmannBeenkerCoordinatedEuler.lean) *(constructive normalized-pair Euler rotations and independent signed generator coefficients; §4.101)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4495,10 +4614,10 @@ imports the substantive bright-splitting proof module.
 Six extra proposition witnesses are necessary to reconstruct
 the concrete graph and its domain; those are not additional
 submitted scientific results. There are seven deliberate
-definition holes and no proof holes in the full **109-module**
+definition holes and no proof holes in the full **111-module**
 substantive library. The original and later Palomar registrations remain
 distinct. The complete Lean library and the selected L5 Comparator have
-passed verification. L7a and the first L7b results are Lean-verified but
+passed verification. L7a and L7b are Lean-verified but
 are not independently selected in that Comparator.
 
 **Distinct Palomar registration identity (historical preparation note).** The original
@@ -4570,15 +4689,15 @@ of its formal infrastructure.
    quantitative L1–L5 splitting (§§4.93–4.97) are verified.
    **L7a is verified (§§4.99–4.100):** the eight matched edges
    preserve the entire original dark–bright plane exactly under both
-   controls. L7b has verified the effective matrix and commutators;
-   its remaining tasks are Lie generation and Euler/reachability algebra,
-   before L7c's complex unitary evolution. **L6 remains the deferred original
+   controls. **L7b is complete algebraically (§§4.100–4.101):** full
+   su(2) generation and constructive matrix reachability from dark.
+   The next task is L7c's complex unitary evolution. **L6 remains the deferred original
    single-edge approximate-control program**, not a cancelled goal.
    The [detailed control roadmap](docs/bright-spectral-splitting-roadmap.md)
    separates these tasks and their proof obligations.
 
 **Research status and verification.** L5 is registered as described in §4.98.
-L7a and the first part of L7b are Lean-verified (§§4.99–4.100); these new
+L7a and L7b are Lean-verified (§§4.99–4.101); these new
 statements have not been independently selected for Palomar registration.
 No general complex quantum propagator, L6 reachability theorem or L7
 zero-leakage controllability theorem has yet been proved. Earlier
@@ -4803,7 +4922,7 @@ analytic-product consequences have their own hypotheses.
 **Relationship to the two research tracks.** This section retains
 the full original geometric and spectral-product objectives (Track A),
 followed by the newer compact-mode control direction (Track B).
-The **active** control target is the remaining L7b Lie-generation and Euler/reachability algebra, after the verified L7a invariance and first L7b matrix results (§4.100).
+The **active** control target is L7c: construct the complex evolution and connect it to the verified L7a invariance and L7b Lie-generation and Euler state-reachability results (§§4.100–4.101).
 The earlier single-edge preparation narrative and its open tasks
 remain here as the **preserved, deferred L6 program**; they are not
 the present priority and are not already proved.
@@ -4929,7 +5048,7 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
 **Immediate research priority: L7 — exact zero-leakage two-mode control**
 
 L7a uses the eight-edge *coordinated local perturbation* `M`. The following
-static results are Lean-verified in §§4.99–4.100.
+static and algebraic results are Lean-verified in §§4.99–4.101.
 
 - [x] Construct eight genuine, distinct, mutually disjoint adjacent pairs.
 - [x] Define the bounded symmetric finite sum and certify matching amplitudes.
@@ -4937,13 +5056,14 @@ static results are Lean-verified in §§4.99–4.100.
 - [x] Establish `Q M P=0` and natural-domain invariance under both controls.
 - [x] **L7b (first part):** derive the exact dark/bright matrix, its Pauli
   decomposition and the three complex generator commutators.
-- [ ] **L7b (remaining):** formalize Lie generation and Euler rotations for
-  arbitrary target states up to global phase, with explicit control constraints.
+- [x] **L7b (completion):** prove full real su(2) generation and constructive
+  three-rotation reachability from dark for every normalized complex pair,
+  with independent signed real generator coefficients.
 - [ ] **L7c:** construct full complex unitary evolution and prove target-state
   preparation with `‖Qψ(t)‖=0` at every time.
 
-Static invariance and matrix commutators do not by themselves constitute
-a dynamical control theorem. See the
+Static invariance, full Lie generation and matrix state reachability do not
+by themselves constitute a dynamical control theorem. See the
 [active L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-active-next-theorem-l7--exact-two-mode-control-without-leakage-open).
 
 **Deferred original research direction: L6 — single-edge approximate control (PRESERVED, OPEN)**
@@ -5082,9 +5202,10 @@ certify the distinct moving level, isolated signed splitting and
 quantitative bright geometry (§§4.93–4.97); these do **not** certify
 quantum state preparation. L7a now proves exact invariance of the original
 plane under both coordinated controls, and L7b establishes the effective
-matrix and generator commutators (§§4.99–4.100). The remaining immediate
-task is the L7b Lie-generation and Euler/reachability theorem, before L7c.
-The one-edge, small-leakage preparation route remains
+matrix, full Lie generation and constructive Euler state reachability
+(§§4.99–4.101). The remaining immediate task is L7c, the realization
+of these rotations by complex evolution on the infinite graph.
+The one-edge, small-leakage preparation route remains open, and the
 spectral-product and relative-determinant objectives are unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
