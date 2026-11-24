@@ -106,6 +106,7 @@ public import SpectralGeometry.AmmannBeenkerDarkSchrodinger
 public import SpectralGeometry.AmmannBeenkerBrightAmplitude
 public import SpectralGeometry.OrderedLevelMultiplicityTwo
 public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
+public import SpectralGeometry.AmmannBeenkerCoordinatedRingControl
 
 public section
 
