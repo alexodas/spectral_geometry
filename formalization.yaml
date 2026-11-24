@@ -101,7 +101,7 @@
     "divergences": "One specified confined infinite Ammann–Beenker graph. The complex state is represented by real and imaginary vectors on the original real Hilbert space. Controls are independently adjustable signed real strengths; the endpoint is up to an explicit common phase. The full equations hold on each open interval; continuity holds at switches. No general complex propagator, arbitrary-initial-state preparation theorem, phase-sensitive equality, resource optimality, experimental feasibility or universality is asserted."
   },
   "review": {
-    "status": "The substantive L7 theorem has passed full Lean verification. The new independent comparison must pass for the submission revision. Independent human review of novelty and significance has not been completed. No third Palomar registration is asserted.",
+    "status": "The substantive L7 theorem and independent candidate package have passed full Lean verification and independent statement comparison with the bundled NanoDa and con-ron kernels. Independent human review of novelty and significance has not been completed. No third Palomar registration is asserted.",
     "reviewers": [],
     "notes": "Possible audiences include spectral theory, discrete Schrödinger operators, localized states, quasicrystals, flat bands, photonic networks and coherent control. The result is exact switched dynamics on the specified infinite graph, not a hardware demonstration or a priority claim."
   },
@@ -112,63 +112,63 @@
         "source": "README §§4.68–4.69",
         "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
         "module": "SpectralGeometry.AmmannBeenkerCutProject",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "Origin is admitted."
       },
       {
         "source": "README §4.69",
         "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
         "module": "SpectralGeometry.AmmannBeenkerGraph",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "Matching involutions define the graph Laplacian."
       },
       {
         "source": "README §4.74",
         "lean": "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "First-ring mode belongs to the natural domain."
       },
       {
         "source": "README §4.74",
         "lean": "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "Second-ring mode belongs to the natural domain."
       },
       {
         "source": "README §4.99",
         "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "All explicitly enumerated central lifts are admitted."
       },
       {
         "source": "README §4.99",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "Each pair is a genuine graph edge."
       },
       {
         "source": "README §4.99",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "The two rings have disjoint vertices."
       },
       {
         "source": "README §4.99",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_matching",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Proved supporting statement for independent model and locality description.",
+        "status": "Proved supporting statement; independent statement comparison passed.",
         "note": "Distinct pairs have no shared endpoints."
       },
       {
         "source": "README §4.105 and Executive summary, third result",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation",
-        "status": "Proved in substantive Lean source; independent comparison of the candidate must pass.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Arbitrary normalized target preparation from dark up to explicit global phase, continuity, domain membership, unit norm, exact zero leakage and full piecewise Schrödinger equations."
       }
     ]
