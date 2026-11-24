@@ -80,6 +80,7 @@ remain below.
     - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
     - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
     - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
+    - [4.100. Proposed invariant-plane and Pauli algebra proofs (CI pending)](#4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
@@ -4298,9 +4299,45 @@ any of these conclusions. L7b–L7c (effective control algebra, complex
 dynamics and exact target-state reachability) remain separate open
 tasks; the earlier L6 one-edge approximate-control route remains preserved.
 
+### 4.100. Proposed invariant-plane and Pauli algebra proofs (CI pending)
+
+**Development checkpoint, not a verified milestone.** The following
+two new source modules were committed together at
+[`0035a33`](https://github.com/alexodas/spectral_geometry/commit/0035a33fe8fedea23215fdfd4c655ad773887353).
+[Action #345](https://github.com/alexodas/spectral_geometry/actions/runs/45452130708)
+was queued at the time of this documentation update. The verified
+scientific frontier remains §4.99 until the new full Lean build succeeds.
+
+- [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean):
+  nine proposed source theorems, from the exact full-space actions
+  `M a=a-b`, `M b=b-a` and `M F=2F` to `Q M P=0`, zero
+  off-plane Hamiltonian action and domain invariance. The proposed
+  final equation uses the actual natural-domain operator with both
+  detuning `δ` and coordinated edge strength `η`.
+- [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean):
+  four definitions and six proposed theorems for the real effective
+  matrix, its Pauli decomposition, three complex matrix commutators,
+  noncommutation and an explicit three-coordinate parametrization.
+
+The target real matrix in the ordered dark/bright basis is
+
+```math
+H_{\mathrm{eff}}=\begin{pmatrix}E_*+\delta/2&\delta/2\\
+\delta/2&E_*+\delta/2+2\eta\end{pmatrix}
+=(E_*+\delta/2+\eta)I+(\delta/2)\sigma_x-\eta\sigma_z.
+```
+
+For `X=iσ_x`, `Y=iσ_y`, `Z=iσ_z` the proposed identities are
+`[X,Z]=2Y`, `[Z,Y]=2X`, `[Y,X]=2Z`. These are the matrix-generator
+algebra steps toward L7b. A formal Lie-generation and Euler/reachability
+theorem with control constraints, followed by the full complex dynamics
+of L7c, remains to be completed. The existing independent Comparator
+still selects L5 only. No L7 registration or new verified result is
+claimed by this pending checkpoint.
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **107 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-two infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **109 Lean modules** (107 verified at Action #342; two additional modules pending Action #345): eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -4389,7 +4426,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (29):**
+- **Explicit octagonal geometry, operator and spectral products (31):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -4413,6 +4450,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
   - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(Lean-verified L1–L5, including the signed splitting, simple pair and quantitative exterior/energy bounds; §§4.93–4.98)*
   - [`AmmannBeenkerCoordinatedRingControl.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRingControl.lean) *(eleven L7a theorems: matched edges, exact dark cancellation and full-space symmetry; §4.99)*
+  - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean) *(proposed L7a completion and exact dark/bright action; CI pending, §4.100)*
+  - [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean) *(proposed L7b Pauli decomposition and commutators; CI pending, §4.100)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4932,7 +4971,7 @@ Section 4.99 and [Action #342](https://github.com/alexodas/spectral_geometry/act
 - [ ] Prove `M a=a-b` and `M b=b-a` and deduce `M F=2F`.
 - [ ] Establish `Q M P=0` and natural-domain invariance under both controls.
 
-The unchecked identities are proposed, not yet Lean verified.
+The unchecked identities are proposed, not yet Lean verified. Proof scripts for these obligations and the first L7b matrix identities are now in §4.100, pending full Lean verification.
 L7b then targets the exact two-control algebra with the already
 verified `t` detuning; L7c targets complex unitary evolution and
 arbitrary target-state preparation while maintaining `‖Qψ(t)‖=0`
