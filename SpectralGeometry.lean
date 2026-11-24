@@ -107,6 +107,8 @@ public import SpectralGeometry.AmmannBeenkerBrightAmplitude
 public import SpectralGeometry.OrderedLevelMultiplicityTwo
 public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
 public import SpectralGeometry.AmmannBeenkerCoordinatedRingControl
+public import SpectralGeometry.AmmannBeenkerCoordinatedInvariantPlane
+public import SpectralGeometry.AmmannBeenkerCoordinatedLieAlgebra
 
 public section
 
