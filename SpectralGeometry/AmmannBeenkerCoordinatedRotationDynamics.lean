@@ -47,9 +47,17 @@ theorem coordinatedApplyPair_dark (M : Matrix (Fin 2) (Fin 2) ℂ) :
 /-- Euler's formula for the phase convention used in L7b. -/
 theorem coordinatedPhase_trig (t : ℝ) :
     coordinatedPhase t = (Real.cos t : ℂ) + Complex.I * (Real.sin t : ℂ) := by
-  apply Complex.ext <;>
-    simp [coordinatedPhase, Complex.exp_re, Complex.exp_im,
-      Complex.mul_re, Complex.mul_im]
+  have hr : (coordinatedPhase t).re = Real.cos t := by
+    simpa [coordinatedEigenCoeff] using coordinatedEigenCoeff_re (-t) 1 1
+  have hi : (coordinatedPhase t).im = Real.sin t := by
+    simpa [coordinatedEigenCoeff] using coordinatedEigenCoeff_im (-t) 1 1
+  apply Complex.ext
+  · simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re,
+      Complex.ofReal_im, Complex.I_re, Complex.I_im, zero_mul, one_mul,
+      mul_zero, sub_zero, add_zero, hr]
+  · simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+      Complex.ofReal_im, Complex.I_re, Complex.I_im, zero_mul, one_mul,
+      mul_zero, zero_add, add_zero, hi]
 
 /-- Embed complex dark/bright coefficients as real infinite-space vectors. -/
 @[expose] def coordinatedEmbedReal (a b : ℂ) : TileHilbert Vertex :=
@@ -95,8 +103,11 @@ theorem coordinatedXAxisMatrix_rotation (δ τ : ℝ) :
   dsimp only
   rw [hp, hq]
   ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [coordinatedRotationX, h.1, h.2]
+  fin_cases i <;> fin_cases j
+  · exact h.1
+  · exact h.2
+  · exact h.2
+  · exact h.1
 
 /-- Coordinated inter-ring changes are precisely a Z rotation, times
 the common energy phase. -/
@@ -134,19 +145,21 @@ theorem coordinatedZAxisMatrix_coefficients (η τ : ℝ) (a b : ℂ) :
 private theorem coordinatedEmbedReal_compact (a b : ℂ) :
     coordinatedEmbedReal (2 * (a + b)) (2 * (a - b)) =
       a.re • compactA + b.re • compactB := by
+  have h2r : (2 : ℂ).re = 2 := by norm_num
+  have h2i : (2 : ℂ).im = 0 := by norm_num
   unfold coordinatedEmbedReal crossingDark crossingBright
   simp only [Complex.mul_re, Complex.add_re, Complex.add_im,
-    Complex.sub_re, Complex.sub_im, Complex.ofNat_re, Complex.ofNat_im,
-    zero_mul, sub_zero]
+    Complex.sub_re, Complex.sub_im, h2r, h2i, zero_mul, sub_zero]
   module
 
 private theorem coordinatedEmbedImag_compact (a b : ℂ) :
     coordinatedEmbedImag (2 * (a + b)) (2 * (a - b)) =
       a.im • compactA + b.im • compactB := by
+  have h2r : (2 : ℂ).re = 2 := by norm_num
+  have h2i : (2 : ℂ).im = 0 := by norm_num
   unfold coordinatedEmbedImag crossingDark crossingBright
   simp only [Complex.mul_im, Complex.add_re, Complex.add_im,
-    Complex.sub_re, Complex.sub_im, Complex.ofNat_re, Complex.ofNat_im,
-    zero_mul, add_zero]
+    Complex.sub_re, Complex.sub_im, h2r, h2i, zero_mul, add_zero]
   module
 
 /-- The physical detuning trajectory on the full infinite graph is the
