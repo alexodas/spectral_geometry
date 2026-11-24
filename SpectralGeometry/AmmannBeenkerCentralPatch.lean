@@ -174,13 +174,20 @@ theorem sector_eq_centralPatch : sector = centralPatch := by
 theorem sector_card : sector.card = 17 := by
   rw [sector_eq_centralPatch, centralPatch_card]
 
+/-- Explicit index bounds for the two rings in the central enumeration. -/
+theorem firstRingIndex_lt (i : Fin 8) : i.val + 1 < 17 :=
+  Nat.lt_trans (Nat.add_lt_add_right i.isLt 1) (by decide)
+
+theorem secondRingIndex_lt (i : Fin 8) : i.val + 9 < 17 :=
+  Nat.add_lt_add_right i.isLt 9
+
 /-- The unit-radius ring, indexed cyclically. -/
 @[expose] def firstRingVertex (i : Fin 8) : Vertex :=
-  centralVertex ⟨i.val + 1, by omega⟩
+  centralVertex ⟨i.val + 1, firstRingIndex_lt i⟩
 
 /-- The second compact ring, in the same cyclic ordering. -/
 @[expose] def secondRingVertex (i : Fin 8) : Vertex :=
-  centralVertex ⟨i.val + 9, by omega⟩
+  centralVertex ⟨i.val + 9, secondRingIndex_lt i⟩
 
 theorem firstRing_norm (i : Fin 8) : ‖position (firstRingVertex i)‖ = 1 := by
   have hs : ‖position (firstRingVertex i)‖ ^ 2 = 1 := by

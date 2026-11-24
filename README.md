@@ -8,17 +8,21 @@ zeros of analytic functions built from those levels.**
 
 We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
 
-At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar as PALOMAR-2026-11-06-000012, proved that these two patterns account for all independent states at that energy in the entire infinite network.
+### First Palomar result — Exactly two localized crossing states
+
+At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar on 6 November 2026 as [PALOMAR-2026-11-06-000012 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1), proved that these two patterns account for all independent states at that energy in the entire infinite network.
 
 Further results proved in Lean establish that, at this special setting, no other real energy level lies within a distance of 1/128 of their common energy.
 
-We can influence the two localized patterns in two different ways.
+The exact multiplicity is the registered result; the quantitative baseline gap is a separate Lean-verified theorem.
 
-The first is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
+### Second Palomar result — A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph
 
-The second is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.
+One way to change the energies is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
 
-Our main theorem proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
+Another way is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.
+
+The second theorem, separately registered with Palomar on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1), proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
 
 The theorem also gives two precise numerical guarantees. The moving energy differs from the original energy plus one quarter of the edge change by no more than 112 times the square of that change. For a normalized wave at the moving energy, the size of the part extending beyond the original two-state space is at most 64 times the square root of 7, multiplied by the absolute size of the edge change.
 
@@ -30,13 +34,49 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-Together, these results provide a mathematical foundation for investigating whether changes to the first-ring parameter and to the connecting edge can be combined to control localized waves. They do not yet prove that any desired mixture of the two original patterns can be prepared. The results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
+The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected in either registration.
+
+### Third result — Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
+
+We study a particular infinite Ammann–Beenker network, an octagonal mathematical graph with a confining potential. At a special energy it supports two localized wave patterns, A and B. Their normalized sum is called the dark state, and their normalized difference the bright state. Earlier registered results prove that the two patterns account for all independent states at the crossing energy, and that changing a single edge splits this energy while allowing a small part of the bright-derived wave to spread into the rest of the network.
+
+The new theorem asks whether we can prepare any desired mixture of the dark and bright waves without any such spreading. The answer is yes, under two independently adjustable signed real controls. The first changes a common parameter on the eight vertices of the first ring, shifting the energy of A relative to B. The second changes eight genuine edges connecting corresponding sites on the two rings, all by the same amount. These edges are distinct and share no endpoints. Their combined effect leaves the dark state unchanged and shifts the bright energy by twice the edge-strength change. Both controls preserve the original two-state space exactly on the full infinite graph.
+
+The controls change the state in different ways: one mixes the dark and bright amplitudes, while the other changes their relative phase. By applying three consecutive pulses of unit duration (edge control, first-ring control, edge control), we can start with the dark wave and reach any chosen normalized pair of complex dark and bright amplitudes, including the pure bright wave. The final state differs from the desired state only by a common phase of modulus one, which does not change the relative amplitudes or the physical ray. The accumulated phase is given explicitly. The pulse strengths can be chosen from the magnitudes and phases of the desired amplitudes.
+
+The result concerns the actual infinite operator, not a numerical simulation or a two-state approximation. Lean constructs a continuous time-dependent state as two real square-summable graph vectors representing its real and imaginary parts. These vectors lie in the natural domain of the unbounded Hamiltonian at every time and satisfy the coupled full-graph Schrödinger equations during each open pulse interval. The total squared complex norm stays exactly one. The part of each vector outside the original localized two-state space is exactly zero throughout the protocol, including both switching times and the final state. No small-control assumption or pre-existing time-evolution map is required. The Hamiltonian may change discontinuously at the switches, so differentiability at the switching instants is not asserted.
+
+This is an existence theorem for preparation from the dark state in this specified compact plane with independently tunable signed controls. It does not construct a general complex unitary propagator for arbitrary initial data on the infinite graph, prove phase-sensitive equality without a common phase, claim an optimal number of controlled edges, or establish experimental feasibility or originality. The earlier single-edge spectral-splitting theorem is a separate result.
+
+**Verification status.** The mathematical theorem and its independent Palomar package have passed full Lean verification and independent statement comparison with the bundled kernels. No third registration or acceptance is claimed. The first two Palomar registrations remain unchanged. Registration establishes mechanical verification of selected statements, not human peer review, novelty or experimental feasibility.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
+
+## Research tracks and current priority
+
+The project has **two complementary research tracks**, not a replacement
+of its original goals:
+
+| Track | Question | Status and next steps |
+| --- | --- | --- |
+| **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7 independent candidate verified.** **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
+
+Track B emerged from the verified graph geometry and spectral splitting,
+but quantum control is **not a prerequisite** for completing Track A.
+L7 now proves exact normalized target preparation from dark under coordinated controls; the distinct L6 single-edge approximate preparation theorem remains open.
+See the [L7/L6 research roadmap](docs/bright-spectral-splitting-roadmap.md)
+and the preserved [single-edge research note](docs/edge-control-reachability.md).
+The detailed Lean-module catalogue and all existing theorem descriptions
+remain below.
 
 ## Table of contents
 
 - [Executive summary](#executive-summary)
+  - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
+  - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
+  - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
+- [Research tracks and current priority](#research-tracks-and-current-priority)
 - [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
 - [Current status and verified milestones](#current-status-and-verified-milestones)
 - [1. Research program and geometric model](#1-research-program-and-geometric-model)
@@ -52,13 +92,22 @@ The research direction was conceived and directed by Alessandro Odasso, who is n
     - [4.81. Projection onto the two-mode space and external leakage](#481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse)
     - [4.85–4.88. Temporary edge pulses and switch-off bounds](#485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector)
     - [4.89–4.91. Dark-state evolution and bright-state response](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
-  - **Quantitative spectral splitting and current candidate**
+  - **Quantitative spectral splitting, registration and coordinated control**
     - [4.93–4.96. From existence to quantitative bounds](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
     - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
-    - [4.98. Palomar candidate and independent verification](#498-palomar-candidate-signed-bright-splitting)
+    - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
+    - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
+    - [4.100. Exact invariant-plane control and Pauli generator algebra](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
+    - [4.101. Full Lie generation and constructive two-state rotations](#4101-full-lie-generation-and-constructive-two-state-rotations)
+    - [4.102. Exact natural-domain Schrödinger trajectories for both control axes](#4102-exact-natural-domain-schrödinger-trajectories-for-both-control-axes)
+    - [4.103. Exact identification of physical pulses with Pauli rotations](#4103-exact-identification-of-physical-pulses-with-pauli-rotations)
+    - [4.104. Continuous three-pulse protocol with exact zero leakage](#4104-continuous-three-pulse-protocol-with-exact-zero-leakage)
+    - [4.105. Exact arbitrary target preparation from dark without leakage](#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)
 - [5. Building and verification](#5-building-and-verification)
-- [6. Roadmap and open questions](#6-roadmap-proof-status-and-next-steps)
-  - [6.4. Two-control research and remaining quantum dynamics](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+- [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
+  - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
+  - [6.4. L7 exact preparation verified; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - [6.5–6.7. Relative products, finite patches and exploratory zeros](#65-local-geometric-defects-and-relative-spectral-products)
   - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
 
 ## Scientific audience and possible relevance
@@ -66,8 +115,8 @@ The research direction was conceived and directed by Alessandro Odasso, who is n
 The results concern one explicitly defined **confined infinite Ammann–Beenker graph**. Their value is not that dark states, localized waves or single-edge perturbations are new ideas, but that several spectral statements have been proved for the complete infinite operator rather than inferred from a finite sample.
 
 - **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The main result identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component.
-- **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization.
-- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. They do not establish a general physical propagator, experimental feasibility or arbitrary preparation of two-mode mixtures.
+- **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization. The coordinated matching (§§4.99–4.100) supplies a distinct bounded symmetric intervention that preserves the whole two-mode plane exactly.
+- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. These conditional single-edge bounds do not establish a general physical propagator or the L6 preparation theorem. The distinct coordinated-control theorem (§4.105) does establish exact arbitrary normalized target preparation from dark, not experimental feasibility.
 - **Researchers in formalized mathematics** may be interested in how natural domains of unbounded operators, complete real eigenbases, explicit spectral gaps and quantitative perturbation estimates are handled in Lean 4 and Mathlib.
 
 These are **plausible research audiences**, not evidence of originality, practical usefulness or scientific impact. Independent expert evaluation and comparison with the specialist literature are still needed.
@@ -92,25 +141,34 @@ The table below separates proved results from remaining research tasks.
 | Numerical tail rates and a worked scalar zero certificate | Formalized in §§4.66–4.67: explicit radius, cofactor bound and cutoff for the linear onsite model; numerical tail bounds also hold after symmetric nonnegative bounded interactions |
 | Explicit octagonal cut-and-project vertex graph and nine-level finite-sector response | Formalized in §§4.68–4.70: infinite embedded vertices, exact central star, matching Laplacian and a nonempty controlled window |
 | Planar vertex counting, geometric summability and full-product zero response | Formalized in §§4.71–4.72 for the explicit graph, with a nonempty nine-level window and no supplied summability hypothesis |
-| Radial barrier, compact eigenvectors and ring-induced crossing | Formalized in §§4.73–4.75; includes a stationary one-edge state and an exact Rayleigh response, but not a certified split spectral pair |
+| Radial barrier, compact eigenvectors and ring-induced crossing | Formalized in §§4.73–4.75; includes a stationary one-edge state and an exact Rayleigh response; the later certified split spectral pair is in §§4.93–4.97 |
 | Exact central sector and its boundary | Formalized in §4.76: origin and two eight-site rings, complete internal adjacency, ring degrees three and four, and exactly sixteen edges to the exterior |
 | Complete central crossing kernel and supported eigenvectors | Formalized in §4.77; the central-support hypothesis remains explicit |
 | Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
-| Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing and edge-change splitting estimates are not claimed |
+| Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing is not claimed by this result; separate edge-change splitting estimates are proved in §§4.93–4.97 |
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
-| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
+| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate and general complex unitary evolution remain separate; L7 exact preparation is established by a different coordinated-control construction in §4.105 |
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
-| Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The active candidate is the stronger theorem of §4.98 |
+| Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The stronger L5 theorem is the registered selection of §4.98 |
 | Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
-| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. All four steps passed full Lean CI; L2b–L2c also passed the independent Comparator in Actions #319–#320 |
-| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Verified by full Lean and independent Comparator in Action #324 (commit `180f1d8`) |
-| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328 |
-| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`; complete Lean and independent Comparator verification in Action #331 |
-| Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts **strictly in the direction of ε**. The single theorem `crossing_final_signed_bright_spectral_splitting` bundles natural-domain existence, real point-spectrum window uniqueness, both simple eigenspaces, the quadratic `112ε²` bound and the bright/exterior eigenvector control. Full Lean and independent Comparator: Action #333 at its exact source commit |
-| New Palomar candidate: signed spectral splitting | §4.98: the Mathlib-only independent Challenge and substantive Solution now select the final L5 theorem. The active per-theorem Comparator is `palomar/signed-bright-splitting/comparator.json`, the older one is retained in its archive and the root Comparator is removed. Candidate packaging is distinct from submission or Palomar registration |
+| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. Lean-verified |
+| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Lean-verified |
+| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. Lean-verified |
+| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`. Lean-verified |
+| Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts strictly in the direction of ε. The consolidated theorem explicitly asserts both nonzero eigenvectors, their simple eigenspaces, the point-spectrum window, quadratic energy law and exterior bright control. Lean- and Comparator-verified |
+| L5 Palomar registration | §4.98: the strengthened L5 theorem, explicitly including the nonzero fixed dark eigenvector and its equation, was independently verified and registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
+| Coordinated eight-edge control, L7a first milestone | §4.99: eight genuine adjacent pairs with no shared endpoints, matched amplitudes, bounded symmetric correction and exact dark cancellation `MD=0`. Lean-verified |
+| Exact invariant plane under both controls, L7a complete | §4.100: `Ma=a-b`, `Mb=b-a`, `MF=2F`, `QMP=0`, and full natural-domain invariance at arbitrary real control strengths. Lean-verified |
+| Exact Pauli control algebra, L7b first part | §4.100: exact effective matrix in the normalized dark/bright basis, Pauli decomposition, noncommuting complex generators and all three commutators. Lean-verified |
+| Full Lie generation and constructive Euler state reachability, L7b complete | §4.101: the smallest real commutator-closed subspace containing the two generators is all of `su(2)`; a three-rotation matrix product reaches every normalized complex pair from dark, with independent signed control coefficients. Lean-verified |
+| Exact single-axis Schrödinger trajectories, L7c.1 | §4.102: arbitrary complex compact-mode coefficients, exact coupled real/imaginary full-domain equations, conserved squared complex norm and zero leakage of both components for all real times; the combined real Hamiltonian is self-adjoint at arbitrary real control strengths. Lean-verified |
+| Exact phase-weighted rotation action, L7c.2 | §4.103: the full natural-domain single-axis trajectories equal the embeddings of the X and Z rotation matrices with their common phases, for every complex initial pair and real strength and time. Lean-verified |
+| Continuous three-pulse protocol, L7c.3 | §4.104: exact Z–X–Z composition for arbitrary complex initial pairs and real strengths, continuous full-space components and exact switch matching, natural-domain membership, conserved squared complex norm and zero leakage at every time, with full Schrödinger equations on each open pulse interval. Lean-verified |
+| Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified |
+| Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
 enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
@@ -119,10 +177,10 @@ graph supplies concrete examples, including the crossing described above.
 The more ambitious geometric cofactor certificates, relative-product
 identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
-the certified dark/bright generator algebra (§§4.80–4.91), the combined
-dark/bright theorem (§4.92), the newly verified perturbed spectral
-**existence** result (§4.93), and the proposed dynamical coherent-control
-problem (§6.4) have distinct scopes.
+the certified dark/bright generator algebra (§§4.80–4.91), the archived
+unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
+(§§4.93–4.98), exact coordinated-plane invariance, full Lie generation, constructive matrix reachability, exact single-axis phase-weighted rotations, continuous three-pulse dynamics and exact arbitrary target preparation from dark (§§4.99–4.105), and
+the still-open dynamical coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
 Originality and research significance must come from the geometric and spectral
@@ -2568,10 +2626,10 @@ For the unit vector $q=(a-b)/4$, `crossingBright_energy_response` proves
 ```math
 \langle q,(K_{t_*}+\varepsilon|u\rangle\langle u|)q\rangle=E_*+\varepsilon/4.
 ```
-This is an exact Rayleigh quotient identity. It does not yet establish
+This is an exact Rayleigh quotient identity. By itself it does not establish
 another eigenvalue's value, derivative or quadratic remainder. Section 4.79
-provides isolation for the **unperturbed** $K_{t_*}$; quantitative
-perturbed-level motion and remainder estimates remain open.
+provides isolation for the **unperturbed** $K_{t_*}$; the subsequent §§4.93–4.97
+establish the genuine moving level, signed shift and quadratic remainder.
 
 ### 4.76. The exact central sector and its boundary
 
@@ -2638,7 +2696,7 @@ The support condition is a hypothesis of this lemma. Section 4.78 derives
 it for every crossing eigenvector on the infinite domain.
 Neither a gap nor a quantitative splitting estimate follows from this
 finite-block calculation alone. The gap is established separately in
-§4.79, while the one-edge splitting estimate remains open.
+§4.79, while the one-edge splitting was subsequently established in §§4.93–4.97.
 
 ### 4.78. Central support and exact multiplicity of the infinite crossing
 
@@ -2679,7 +2737,7 @@ with the eigenvector equations of §4.75; `crossingEigenspace_finrank` gives the
 dimension. The exterior lower bound above is a form estimate on the
 exterior component. This §4.78 argument alone gives no numerical distance
 to every other spectral level; §4.79 establishes that distance conservatively.
-Quantitative motion of the second level after an edge change remains open.
+Quantitative motion of the second level after an edge change is established separately in §§4.93–4.97.
 
 **Palomar registration:** The exact-multiplicity result in this section, represented
 by the Comparator-selected `crossingEigenspace_finrank` and
@@ -2745,7 +2803,7 @@ crossing under arbitrary perturbations, identify the moving eigenvalue
 after the one-edge change, or provide a derivative, remainder or
 finite-patch zero certificate. The **historical first Palomar registration** selected the
 exact-multiplicity statements of §4.78. The gap theorems are not
-selected in the new candidate Comparator (§4.92), but remain included
+selected as separate statements in either Palomar registration (§§4.78, 4.98), but remain included
 in the full Lean/Mathlib source build.
 
 ### 4.80. First exact algebraic results for controlling the two compact modes
@@ -3071,7 +3129,7 @@ state against weak edge coupling.
 **Two important boundaries:** the graph-specific residual inequality
 has now been derived in source from complete-basis and gap theorems,
 Lean-verified. The **perturbed eigenvalue-shift window** remains
-an explicit hypothesis for the selected nearby cluster. Also, an inequality on individual perturbed
+an explicit hypothesis of this particular estimate; §§4.93–4.97 later establish the requisite window for the actual moving level. Also, an inequality on individual perturbed
 eigenvectors is **not yet** an operator-norm estimate
 `‖P_ε-P‖` for the whole perturbed two-dimensional spectral
 projection. The latter requires constructing and identifying that
@@ -3083,9 +3141,10 @@ The full graph-specific gap-to-residual instantiation is **already
 Lean-verified** (§4.84). Sections 4.85–4.88 also obtain a
 **different**, conditional graph-specific leakage bound uniform
 in pulse duration directly from residual conservation, without a
-perturbed spectral projector. The stable perturbed spectral
-cluster and the operator-norm projector estimate of §4.82
-remain open as a separate, potentially sharper route; the
+perturbed spectral projector. The isolated simple point-spectrum pair is now
+established in §§4.93–4.97; constructing its spectral projector and proving
+the operator-norm projector estimate of §4.82 remain open as a separate,
+potentially sharper route; the
 physical complex quantum propagator and nontrivial rotation
 also remain open.
 
@@ -3153,9 +3212,10 @@ Lean-verified mathematical statements, *not* a spectral
 projector or time-evolution result.
 
 Even that eigenvector estimate does not yet prove
-`‖P_ε-P‖→0`. We still need a stable two-dimensional
-cluster with corresponding orthogonal spectral projector and the
-full complex unitary evolution to invoke the time-uniform pulse
+`‖P_ε-P‖→0`. The two simple eigenvalues in the relevant point-spectrum
+window were subsequently certified in §§4.93–4.97. The corresponding
+orthogonal spectral projector, its norm estimate and the
+full complex unitary evolution are still needed to invoke the time-uniform pulse
 bound of §4.82.
 
 ### 4.85. Uniform post-pulse leakage without a perturbed spectral projector
@@ -3218,13 +3278,9 @@ A protocol with changing `t` and/or piecewise-constant `ε`
 also needs segment-by-segment analysis; conservation of
 `R_ε` applies only during a segment with a fixed Hamiltonian.
 
-**Lean status:** §§4.85–4.89, including this module and the
-subsequent intertwining and switch-off statements, have passed
-the reported full Lean Action. Section 4.85 initially passed
-Action #246. At that historical checkpoint the first Palomar selection
-was unchanged; §4.92 documents a later, now archived,
-unsubmitted candidate. The current candidate is in §4.98.
-
+**Lean status:** §§4.85–4.89, including the intertwining and switch-off
+statements, are Lean-verified. The earlier unsubmitted Palomar candidate
+is documented in §4.92 and the later registered L5 selection in §4.98.
 ### 4.86. Residual conservation follows from Hamiltonian intertwining
 
 Section 4.85 established a time-uniform edge-pulse leakage inequality
@@ -3340,7 +3396,7 @@ not by itself supply that physical evolution.
 and §4.86 have passed the full Lean verification. At that checkpoint, the original Palomar selection and its
 Challenge/Comparator files were unchanged. The later
 generator-response candidate is archived in §4.92, and the
-current stronger candidate is in §4.98. The first
+later registered L5 selection is in §4.98. The first
 registration remains immutable.
 
 ### 4.88. A controlled pulse followed by free evolution after switching the edge off
@@ -3474,10 +3530,8 @@ imaginary/real pair is a representation of this complex
 trajectory, not yet a complete complex Hilbert-space
 construction or generic dynamics theorem.
 
-**Lean status:** this dark-state Schrödinger module, including
-the correction to its proof tactics, has passed the
-user-reported full Lean Action; all prior §§4.80–4.88
-control declarations remain in the verified import chain.
+**Lean status:** this dark-state Schrödinger module and all prior
+§§4.80–4.88 control declarations are Lean-verified.
 
 ### 4.90. Consolidated verified control checkpoint and outstanding dynamics
 
@@ -3589,23 +3643,17 @@ two-control preparation protocol are **not yet
 Lean-certified**. The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
-
-**Historical verification checkpoint.** The §§4.80–4.89 results
-were already imported and verified in the **103-module** checkpoint
-(PR #85). The later 104-module PR #86 bright source was also
-reported Lean green; see §§4.91–4.92. The original 2026 Palomar
-registration and its immutable commit are unaffected by the new
-candidate. This §4.90 snapshot is retained for provenance.
+**Historical scientific checkpoint.** The §§4.80–4.89 results were
+verified before the bright generator identities in §§4.91–4.92.
+The original Palomar registration remains unchanged. This section
+is retained as a summary of those earlier results.
 
 ### 4.91. Verified bright-amplitude generator identity with explicit leakage forcing
 
-**Verification provenance.** The maintainer reported a successful
-104-module Lean Action for the original fourteen theorems in
-[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean).
-The source also includes the combined candidate theorem. Independent
-verification of its Challenge/Comparator package is determined by the
-checks on the exact candidate commit; this section does not substitute
-for those checks.
+**Verification.** The original fourteen theorems in
+[`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
+are Lean-verified. The source also includes the combined candidate theorem
+described in §4.92.
 
 For the same selected lattice edge, write
 `H_ε=K_*+εW`, let `P` be the exact orthogonal projection onto
@@ -3649,15 +3697,14 @@ constant-pulse bounds to a smooth ramp. At ε=0 the original
 twofold dark/bright degeneracy is preserved; no nondegenerate
 adiabatic theorem is being invoked.
 
-The fourteen generator-level declarations were reported Lean-verified
-by the maintainer. Their combined conjunction is a separate Palomar
-selection for independent statement comparison; the corresponding
-verification record belongs to the actual checked commit. The prior
-registered theorem continues to hold at its original immutable commit.
+The fourteen generator-level declarations are Lean-verified.
+Their combined conjunction was prepared as a separate, unsubmitted Palomar
+candidate for independent statement comparison (§4.92). The prior
+registered theorem remains unchanged.
 
 ### 4.92. Earlier, unsubmitted Palomar candidate: exact dark protection and bright feedback
 
-**Earlier candidate, not a second registration; preserved for historical reference.** The declaration
+**Earlier unsubmitted candidate, not the later L5 registration; preserved for historical reference.** The declaration
 `SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse`
 in [AmmannBeenkerBrightAmplitude.lean](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
 combines previously established conclusions into **one** mathematical
@@ -3720,10 +3767,9 @@ discoveries. The Challenge is kept below 300 lines if possible, but
 that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](palomar/dark-bright/comparator.json)
-and root-file snapshots are preserved unchanged. The active
-candidate is now the stronger final spectral theorem (§4.98);
-the first Palomar registration described in §4.78 remains
-historically intact and is not replaced by either proposal.
+and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
+The active Comparator now selects the exact preparation theorem (§4.105);
+both registrations and the earlier candidate remain historically intact.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -3746,8 +3792,7 @@ The following **distinct** milestones have passed the full Lean build:
   show that for every real `ε ≠ 0`, every natural-domain eigenvector
   of `Hε` at `E_*` is a scalar multiple of `D`. Together with the
   exact, normalized dark eigenvector for all `ε`, the eigenspace is
-  **exactly one-dimensional**. Previously verified on the research
-  branch (including Action #311).
+  **exactly one-dimensional**, as verified in Lean.
 - **L2a — ordered spectral stability and exterior force.** The theorem
   `crossingEdge_exists_ordered_eigenbases_and_stability` constructs
   complete, monotone natural-domain eigenbases for `H₀` and `Hε`
@@ -3755,19 +3800,17 @@ The following **distinct** milestones have passed the full Lean build:
   `crossingBright_external_edge_norm_sq` proves the **exact**
   infinite-space coupling `‖QWF‖² = 7/16`. Both are in
   [AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean)
-  and passed Action #313.
+  and are Lean-verified.
 - **L2b — multiplicity-faithful consecutive spectral slots.**
   `crossing_exists_ordered_eigenbasis_exact_double` constructs an
   ordered complete eigenbasis in which `levelMultiplicity` at `E_*`
-  is precisely two (Action #316).
+  is precisely two.
   `ordered_levelMultiplicity_two_consecutive` in
   [OrderedLevelMultiplicityTwo.lean](SpectralGeometry/OrderedLevelMultiplicityTwo.lean)
   and `crossing_exists_ordered_eigenbasis_consecutive_pair` then
   certify indices `n, n+1` with
   `λ_n = λ_(n+1) = E_*`, and no other crossing occurrence.
-  Both passed the Lean and Comparator jobs of
-  [Action #319](https://github.com/alexodas/spectral_geometry/actions/runs/45050103890)
-  on commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`.
+  Both passed full Lean and independent Comparator checks.
 - **L2c — existence of a *genuinely distinct* perturbed level.**
   `crossing_exists_distinct_perturbed_level_near` in the bright
   splitting module proves, **for every real ε ≠ 0**, the proposition
@@ -3784,12 +3827,10 @@ The following **distinct** milestones have passed the full Lean build:
   dark-only eigenspace rigidity with orthonormality: **both** perturbed
   crossing slots cannot still equal `E_*`.
   This is a genuine full-operator eigenpair, not the compressed
-  bright expectation `E_*+ε/4`. The source and the independent
-  Comparator passed
-  [Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
-  on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
+  bright expectation `E_*+ε/4`. The source and independent Comparator
+  passed verification.
 
-**What remained after L2c.** The Action #320 theorem did **not**
+**What remained after L2c.** The L2c theorem did **not**
 identify the moving eigenvector quantitatively with the original
 bright direction, assert its simplicity, or exhaust the perturbed
 crossing window. These latter two issues are addressed separately
@@ -3865,13 +3906,10 @@ of the shift, the target `112ε²` remainder, or quantitative
 external eigenvector leakage. These are limitations of L2d **alone**:
 the external eigenvector estimate was subsequently proved in §4.95
 and the energy remainder in §4.96. The signed-shift corollary and
-final consolidated statement remain to be formalized.
+final consolidated statement are established separately in §4.97.
 
 **Verification.** The L2d theorem and its generic Hilbert-basis
-support passed the full Lean build and independent Comparator in
-[Action #324](https://github.com/alexodas/spectral_geometry/actions/runs/45054460160)
-on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
-The verification is scoped to this exact checked commit; subsequent documentation-only changes do not alter the proof.
+support passed full Lean and independent Comparator checks.
 
 ### 4.95. Bright amplitude and quantitative exterior leakage
 
@@ -3936,17 +3974,12 @@ finite patch or two-state truncation is used.
 
 **Scope and subsequent progress.** L3 itself controls the
 eigenvector rather than the energy shift. The true quadratic
-spectral bound is established separately in §4.96; a formal
-signed-shift corollary and final theorem remain to be consolidated.
+spectral bound is established separately in §4.96; the formal signed-shift
+corollary and consolidated theorem are established in §4.97.
 Quantum state preparation is a separate downstream problem.
 
-**Verification record.** The preliminary L3 lemmas passed
-[Action #326](https://github.com/alexodas/spectral_geometry/actions/runs/45056618131)
-on commit `4951e87e84d1a5d6bb2d54ea13b73ccd22236910`.
-The sharp L3 estimate and existential corollary passed
-[Action #328](https://github.com/alexodas/spectral_geometry/actions/runs/45057454703)
-on commit `0590eb7a00b06e4796dc31f7db9cea2cbb024807`.
-These records refer only to the exact checked commits.
+**Verification.** The preliminary and sharp L3 estimates and existential
+corollary passed full Lean and independent Comparator checks.
 
 ### 4.96. A sharp quadratic law for the actual moving level
 
@@ -4024,13 +4057,7 @@ proved in §4.97, without changing the historical L4 proof.
 General complex time evolution and preparation of arbitrary
 two-mode states remain outside this static spectral result.
 
-**Verification.** Full Lean/Mathlib and independent Comparator
-checks passed in
-[Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
-on the source commit
-`e03f7cfc88b933fe9c2a635d33016927e6d64709`.
-That verification is attached to its exact source commit,
-not inferred from subsequent changes to the documentation.
+**Verification.** Full Lean/Mathlib and independent Comparator checks passed.
 
 ### 4.97. Signed shift and consolidated infinite-operator splitting
 
@@ -4106,17 +4133,15 @@ classification of complex spectrum, construction of
 the general quantum propagator, target-state preparation,
 or the remaining analytic-product certificates.
 
-**Verification.** Both the complete Lean 4/Mathlib
-build and the independent Comparator passed in
-[Action #333](https://github.com/alexodas/spectral_geometry/actions/runs/45060461341)
-on exact source commit
-`fbd2503d33280d7d0c2fe5306ea2739806628b20`.
-This record refers to that source commit only.
+**Verification.** Both the complete Lean 4/Mathlib build and the
+independent Comparator passed.
 
-### 4.98. Palomar candidate: signed bright splitting
+<a id="498-palomar-candidate-signed-bright-splitting"></a>
 
-**New proposed selection; not a new Palomar registration.** The
-new package selects the fully proved L5 statement
+### 4.98. Palomar registration: signed bright splitting
+
+**Second Palomar registration, with preparation and editorial history.** The
+package selects the fully proved L5 statement
 `SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`
 from [AmmannBeenkerBrightSpectralSplitting.lean](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean).
 Unlike the earlier generator-response candidate (§4.92), this
@@ -4136,56 +4161,747 @@ the original two localized states. The result concerns the
 entire infinite network and its natural domain; it is
 not a time-evolution or experimental-control result.
 
-**Independent submission package.** The root
-[`Challenge.lean`](Challenge.lean) imports **only Mathlib**
-and reconstructs the necessary concrete model without importing
-the source proofs. The challenge has **558 lines** (less than
-19 KiB) and one scientific theorem with a single proof
-placeholder. Six additional selected proposition placeholders
-are required to construct the origin, graph, compact states
-and selected edge. These are technical model witnesses, not
-six more scientific discoveries; all definitions are concrete.
+**Independent registered package.** The L5 [Challenge](palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](palomar/signed-bright-splitting/comparator.json) and [formalization metadata](palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](palomar/dark-bright/) is also preserved. The active root files now describe the distinct third candidate (§4.105). Each Comparator remains in its own directory; there is no root Comparator.
 
-The root [`Solution.lean`](Solution.lean) imports the
-substantive module containing the verified proof and does
-not import Challenge. The **active theorem-specific**
-configuration is
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The previous candidate's
-[`Comparator`](palomar/dark-bright/comparator.json) and
-[`Challenge`](palomar/dark-bright/Challenge.lean) /
-[`Solution`](palomar/dark-bright/Solution.lean) snapshots
-are preserved as an archive. Each candidate has its own
-Comparator inside `palomar/`; there is deliberately
-**no `comparator.json` at repository root**.
+**Verification and registration.** The L5 mathematical source and
+independently assembled package passed full Lean and independent kernel
+comparison (NanoDa and con-ron). The automated editorial review requested
+that the selected theorem explicitly assert the **nonzero dark eigenvector**
+and its fixed-energy eigenvalue equation. The corrected scientific theorem
+and Mathlib-only Challenge include both `crossingDark ≠ 0` and the full
+natural-domain equation `Hε domainCrossingDark = E_* • crossingDark`.
+The revised package passed verification and was registered separately as
+[PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1)
+on 23 November 2026. The original registration
+`PALOMAR-2026-11-06-000012` remains unchanged.
+Originality and significance still require independent assessment.
 
-[`formalization.yaml`](formalization.yaml) retains its
-metadata structure and gives a self-contained,
-simple-English description of the new scientific theorem,
-with no workflow or commit details in its project
-description. The packaging scripts now read the
-active per-theorem Comparator and check that the old
-candidate remains archived.
+### 4.99. Coordinated eight-edge matching and exact dark cancellation
 
-**Verification and submission status.** The L5 mathematical
-source was fully verified (§4.97). The independently
-assembled **Palomar package** passed its own full Lean
-and static configuration checks and the Comparator's
-bundled independent kernels (NanoDa and con-ron):
-[Action #335](https://github.com/alexodas/spectral_geometry/actions/runs/45063053611)
-on exact package commit
-`0709981b15fc99cbf18f6e63856ae20860333b73`.
-The Comparator reported that the Solution was accepted.
-The independently tested package is ready for separate
-submission, but preparing and committing files does **not**
-itself submit or register a new theorem at Palomar.
-The first registration `PALOMAR-2026-11-06-000012`
-is unchanged. Originality and scientific significance
-still require independent human assessment.
+[`AmmannBeenkerCoordinatedRingControl.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRingControl.lean)
+starts L7a on the complete infinite real Ammann–Beenker Hilbert space.
+It retains the existing graph, compact modes and single-edge results;
+the coordinated perturbation is a different finite local intervention.
+
+**Geometry and bounded correction.** For each `i : Fin 8`, pair the actual
+vertices `firstRingVertex i` and `secondRingVertex i`. The pairs are
+genuine adjacent edges, distinct, and have no shared endpoints. Write
+`u_i` for their infinite edge vector (the difference of the two unit site
+vectors), and define the bounded real continuous linear operators
+
+```math
+M=\sum_{i=0}^{7} W_i,\qquad W_i x=\langle u_i,x\rangle u_i.
+```
+
+Each term uses the same unit-increment Laplacian convention as
+`crossingEdge`. The eight-edge sum is symmetric on the entire Hilbert
+space. Its range is contained in the span of the eight edge vectors by
+the displayed definition; the new module does not separately certify
+a rank or operator-norm formula.
+
+**Exact dark cancellation.** The matched amplitudes obey
+
+```math
+a(A_i)=b(B_i),\qquad a(B_i)=b(A_i)=0.
+```
+
+Thus for the normalized dark state `D=(a+b)/4`, every edge has zero
+endpoint difference, so `W_i D=0` and `M D=0`. These equations hold on
+the full infinite Hilbert space, not just after compression onto the
+two-mode plane.
+
+**New definitions:** `coordinatedRingPair`, `coordinatedRingEdge`,
+`coordinatedRingControl`.
+
+| Lean theorem | Verified content |
+| --- | --- |
+| `coordinatedRingPair_adjacent` | Every matched pair is adjacent in the actual graph |
+| `coordinatedRingPair_injective` | The eight indexed pairs are distinct |
+| `coordinatedRing_disjoint` | First- and second-ring vertices never coincide |
+| `coordinatedRing_matching` | Distinct pairs have no common endpoint |
+| `coordinatedRingEdge_apply` | Exact full-space action of each rank-one correction |
+| `coordinatedRingControl_apply` | Exact full-space sum action |
+| `coordinatedRing_amplitudes` | Equal corresponding amplitudes and zero cross-ring values |
+| `coordinatedRingEdge_dark_zero` | Each individual edge annihilates dark |
+| `coordinatedRingControl_dark_zero` | The coordinated sum annihilates dark |
+| `coordinatedRingEdge_symmetric` | Each term is symmetric on the full real space |
+| `coordinatedRingControl_symmetric` | The sum is symmetric on the full real space |
+
+**Verification and subsequent result.** All eleven theorems and three
+definitions are Lean-verified. Dark cancellation alone does not prove
+invariance of the two-mode plane; the subsequent §4.100 establishes
+that stronger result. The single-edge approximate-control route remains
+a distinct research direction. Neither new module was selected in the historical L5 Comparator.
+The third candidate now includes the local-edge certificates from this module.
+
+<a id="4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending"></a>
+
+### 4.100. Exact invariant-plane control and Pauli generator algebra
+
+**Plain-English result.** A change to one connecting edge generally
+pushes part of the bright wave into the rest of the infinite network.
+Changing all eight matched edges by the same amount is different:
+the contributions combine exactly to preserve the two original
+localized patterns as a space. The dark wave is unchanged by this
+coordinated correction, while the bright wave receives twice the
+edge-strength change in energy. No exterior component is produced by
+the operator acting on any mixture of the two patterns. Combining this
+correction with first-ring detuning still preserves that same space.
+The statement holds for arbitrary real control strengths, not merely
+small perturbations, and uses the full infinite operator.
+
+**L7a — exact full-space invariance.** The module
+[`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean)
+proves the following identities for the already defined unnormalized
+compact modes `a,b`, normalized modes `D=(a+b)/4`, `F=(a-b)/4`,
+and orthogonal components `P,Q=I-P`:
+
+```math
+Ma=a-b,\qquad Mb=b-a,\qquad MD=0,\qquad MF=2F,\qquad QMP=0.
+```
+
+The proof evaluates the sum of local edge corrections at every vertex.
+On either ring exactly one matched edge contributes; away from both
+rings all eight contributions and both compact modes vanish. This
+proves an identity in the infinite Hilbert space, not merely in a
+finite central block or a projected matrix.
+
+For real detuning `δ`, coordinated strength `η` and real coefficients
+`r,s`, the natural-domain Hamiltonian
+`H(δ,η)=onsitePlusBounded potential (ringInteraction (crossingParameter+δ)+η M)`
+acts exactly as
+
+```math
+H(\delta,\eta)(ra+sb)
+=\big[(E_*+\delta+\eta)r-\eta s\big]a
++\big[(E_*+\eta)s-\eta r\big]b.
+```
+
+The left-hand side uses the natural-domain lifts of the compact modes.
+The output belongs to the same compact plane and to the natural domain.
+Its orthogonal exterior component is zero.
+
+**L7b — exact effective matrix.** In the ordered normalized basis
+`(D,F)`, the full-operator action therefore has the exact matrix
+
+```math
+H_{\mathrm{eff}}=\begin{pmatrix}
+E_*+\delta/2&\delta/2\\
+\delta/2&E_*+\delta/2+2\eta
+\end{pmatrix}
+=(E_*+\delta/2+\eta)I+(\delta/2)\sigma_x-\eta\sigma_z.
+```
+
+The scalar multiple of the identity affects only a common phase in
+the corresponding Schrödinger model. The detuning and coordinated-edge
+controls act along two different Pauli directions, so their order
+matters. The module
+[`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean)
+defines the complex matrices `X=iσ_x`, `Y=iσ_y`, `Z=iσ_z`
+and proves, with `[A,B]=AB-BA`,
+
+```math
+[X,Z]=2Y,\qquad [Z,Y]=2X,\qquad [Y,X]=2Z.
+```
+
+It also proves noncommutation and the explicit real-coordinate
+parametrization of the three generator directions. These are the
+algebraic ingredients of the standard two-state rotation algebra.
+The subsequent §4.101 establishes equality of the generated Lie algebra
+with all of `su(2)` and constructive reachability by a three-rotation
+matrix product. Its realization by actual infinite-system pulses remains open.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedRingControl_compactA`, `coordinatedRingControl_compactB` | Exact action on both compact modes |
+| `coordinatedRingControl_bright`, `coordinatedRingControl_pair` | Bright response and arbitrary real compact combination |
+| `coordinatedRingControl_offplane_zero` | Zero exterior component of the coordinated correction on the plane |
+| `coordinatedControls_compact_action` | Exact full natural-domain action of both controls |
+| `coordinatedControls_offplane_zero`, `coordinatedControls_domain_invariant` | Plane and domain invariance |
+| `coordinatedControls_dark_bright_action` | Exact action in normalized dark/bright coordinates |
+| `coordinatedEffectiveMatrix_pauli` | Pauli decomposition of the real matrix |
+| `coordinatedLie_XZ`, `coordinatedLie_ZY`, `coordinatedLie_YX` | Three complex commutator identities |
+| `coordinatedLie_noncommuting` | The two control directions do not commute |
+| `coordinatedLie_coordinates` | Explicit real-coordinate parametrization |
+
+**Status and limits.** All fifteen public theorems, five private
+coordinate-evaluation lemmas and four new definitions are Lean-verified.
+L7a is complete; this section supplies the matrix and generator-algebra
+foundation of L7b, completed at the algebraic level in §4.101.
+The subsequent §4.102 establishes exact single-axis Schrödinger trajectories
+with zero leakage at every time. Section 4.103 identifies their rotation
+matrices including the common phase; §4.104 proves their continuous
+three-pulse composition with exact zero leakage throughout. Section 4.105
+proves arbitrary normalized target preparation from dark up to global phase.
+The active L7 candidate selects the final preparation theorem and supporting locality certificates (§4.105).
+The original single-edge L1–L6 route and Track A remain distinct.
+
+
+### 4.101. Full Lie generation and constructive two-state rotations
+
+**Plain-English result.** The two available controls are enough to
+generate every infinitesimal rotation of a two-state quantum system,
+after a common energy shift is removed. Moreover, one can explicitly
+choose three rotation angles that transform the dark coordinate into
+any normalized pair of complex amplitudes. This is a theorem about
+exact matrices, not yet a construction of the time evolution of the
+infinite Ammann–Beenker graph.
+
+**Full Lie generation.** In
+[§4.100](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
+the two independent traceless generator directions were identified
+as X = iσ_x and Z = iσ_z, with [X,Z] = 2Y and Y = iσ_y.
+The new module
+[`AmmannBeenkerCoordinatedLieGeneration.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieGeneration.lean)
+defines the real vector space
+
+```math
+\mathfrak{su}(2)=\{A\in M_2(\mathbb C): A^\dagger=-A,\ 
+\operatorname{tr}A=0\}.
+```
+
+It proves that this space is closed under matrix commutators, contains
+X and Z, and that each of its elements is a real linear combination
+of X, Y and Z. Specifically,
+
+```math
+A=\operatorname{Im}(A_{01})X+\operatorname{Re}(A_{01})Y+
+\operatorname{Im}(A_{00})Z.
+```
+
+Any real linear subspace closed under commutators and containing X
+and Z must also contain Y, since Y = [X,Z]/2. Consequently it must
+contain every element of su(2). Together with closure of su(2) itself,
+this proves that it is exactly the smallest such subspace. This is
+a concrete, two-sided Lie-generation theorem rather than just a
+calculation of three commutators.
+
+**Constructive Euler state reachability.** In
+[`AmmannBeenkerCoordinatedEuler.lean`](SpectralGeometry/AmmannBeenkerCoordinatedEuler.lean)
+the two matrix rotations are defined by
+
+```math
+R_x(t)=\begin{pmatrix}\cos t&i\sin t\\i\sin t&\cos t\end{pmatrix},
+\qquad
+R_z(t)=\begin{pmatrix}e^{it}&0\\0&e^{-it}\end{pmatrix}.
+```
+
+The parameters here are half-angles in the Bloch-sphere convention.
+For any real p, t, q the first column of the product is exactly
+
+```math
+R_z(q)R_x(t)R_z(p)\binom{1}{0}
+=\binom{\cos t\,e^{i(p+q)}}{i\sin t\,e^{i(p-q)}}.
+```
+
+Given arbitrary complex amplitudes α and β with
+|α|² + |β|² = 1, the proof constructs
+
+```math
+u=\arg(\alpha),\quad v=\arg(-i\beta),\quad
+t=\arccos|\alpha|,\quad p=(u+v)/2,\quad q=(u-v)/2.
+```
+
+Then 0 ≤ t ≤ π/2 and the displayed product is exactly (α,β),
+including the cases in which one amplitude is zero. The theorem
+states existence of the three real angles; the proof gives these
+explicit witnesses. It reaches the exact complex pair in the
+rotation-matrix model, not merely its magnitudes.
+
+In the full-operator restriction the scalar energy
+E_* + δ/2 + η contributes a common phase. After removing it, the
+Schrödinger generator has the two independently selectable
+coefficients
+
+```math
+G(\delta,\eta)=-\frac{\delta}{2}X+\eta Z.
+```
+
+Lean proves G(-2t,0)=tX and G(0,t)=tZ for every real t.
+Thus a unit-duration segment with signed detuning -2t or signed
+coordinated edge strength t has the required algebraic generator
+coefficient. This identifies the settings for the idealized
+three-segment protocol, assuming independently tunable arbitrary
+real control strengths. No nonnegativity restriction on the physical
+edge weights or bounded-strength hardware constraint is imposed by
+this theorem. The equality between these rotations and the actual single-axis
+natural-domain trajectories, including the common phase, is proved in
+§4.103. The continuous switched protocol is proved in §4.104;
+its arbitrary-target endpoint theorem is proved in §4.105. A general
+complex full-space propagator remains separate.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedSu2_commutator` | Closure under matrix commutators |
+| `coordinatedSu2_X`, `coordinatedSu2_Z` | Both control directions belong to su(2) |
+| `coordinatedSu2_coordinates` | Every traceless skew-Hermitian matrix has three real Pauli coordinates |
+| `coordinatedSu2_le_of_controls` | Every commutator-closed real subspace containing X and Z contains su(2) |
+| `coordinatedSu2_generated_iff` | Exact generated-algebra characterization in both directions |
+| `coordinatedPhase_add`, `coordinatedPhase_norm` | Phase multiplication and unit modulus |
+| `coordinatedEuler_dark_column` | Explicit dark-state column of the Z–X–Z product |
+| `coordinatedEuler_reaches_from_dark` | Every normalized complex pair is reached by the rotation product |
+| `coordinatedReducedGenerator_X`, `coordinatedReducedGenerator_Z` | Independent signed generator coefficients |
+
+**Status and limits.** The twelve public theorems and five definitions
+are Lean-verified. L7b is complete at the algebraic level. The formal
+result is state reachability from the dark coordinate in a
+two-by-two matrix model; it does not assert a full SU(2) group
+factorization theorem or arbitrary initial-state dynamics.
+Section 4.102 constructs the exact single-axis full-graph Schrödinger
+trajectories in real and imaginary components, with zero exterior component
+throughout each segment. Section 4.103 proves the exact phase-weighted
+rotation identification, and §4.104 proves continuous pulse composition
+with zero leakage at every time. Section 4.105 proves the final arbitrary
+target preparation theorem from dark. A general complex full-space propagator
+remains open. The third candidate selects supporting locality statements and the final
+preparation theorem; it does not independently select the Lie-algebra results. The original single-edge L6 goal and the
+analytic spectral-geometry program remain separate.
+
+
+### 4.102. Exact natural-domain Schrödinger trajectories for both control axes
+
+**Plain-English result.** The coordinated controls preserve the two
+localized waves not only when the Hamiltonian acts on them, but also
+during explicit time-dependent solutions. For either control used
+alone, every complex combination of the two waves evolves with
+exactly conserved total squared amplitude. Neither its real part nor
+its imaginary part ever develops a component outside the original
+two-state space. This is a dynamical theorem for the actual infinite
+graph, not a calculation on a truncated graph or an assumption about
+a supplied propagator.
+
+**General two-eigenmode construction.** The module
+[`AmmannBeenkerCoordinatedPairDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedPairDynamics.lean)
+takes any two real eigenvectors x,y on the original natural onsite
+domain, with respective real eigenvalues E,F for the same
+onsite-plus-bounded operator H. For arbitrary complex coefficients a,b
+it defines
+
+```math
+c(\tau)=a e^{-iE\tau},\qquad d(\tau)=b e^{-iF\tau},
+\qquad
+u(\tau)=\operatorname{Re}c(\tau)x+\operatorname{Re}d(\tau)y,\quad
+v(\tau)=\operatorname{Im}c(\tau)x+\operatorname{Im}d(\tau)y.
+```
+
+The pair (u,v) represents the complex state u+iv. Both components
+have explicit lifts to the natural domain for every real time. Their
+initial values are the real and imaginary parts of the given
+superposition. Differentiating the actual Hilbert-space vectors yields
+
+```math
+u'(\tau)=Hv(\tau),\qquad v'(\tau)=-Hu(\tau).
+```
+
+These are precisely the real and imaginary equations of
+iψ'=Hψ for the componentwise complexification. The Hamiltonian
+on the right is the full infinite operator applied to the
+natural-domain lifts. The proof requires neither a finite-volume
+approximation nor a pre-existing time-evolution map.
+
+If x and y are orthogonal, the squared complex norm is conserved:
+
+```math
+\|u(\tau)\|^2+\|v(\tau)\|^2
+=|a|^2\|x\|^2+|b|^2\|y\|^2.
+```
+
+If both eigenvectors have zero original-plane leakage, the two
+components have zero leakage at every time. This follows from
+linearity and is independent of the pulse strength or duration.
+
+**Application to the two actual controls.** The module
+[`AmmannBeenkerCoordinatedAxisDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean)
+uses the following exact eigenpairs, without a spectral truncation.
+Write a_0=compactA, b_0=compactB and D,F for the normalized dark
+and bright modes.
+
+| Control | Eigenvectors used | Exact energies |
+| --- | --- | --- |
+| First-ring detuning, η=0 | a_0, b_0 | E_*+δ, E_* |
+| Eight coordinated edges, δ=0 | D,F | E_*, E_*+2η |
+
+For the detuning control the compact eigenvectors are orthogonal
+and each has squared norm eight; the conserved squared complex
+norm is therefore 8(|a|²+|b|²) for their coefficients.
+For the coordinated edge control the normalized dark and bright
+vectors are orthogonal and the corresponding conserved norm
+is |a|²+|b|². Both exact trajectories have zero leakage in both
+components at every real time and for arbitrary real strengths.
+Both bases span the original compact-mode plane.
+
+**Self-adjointness on the full real space.** The bounded correction
+is ringInteraction(crossingParameter+δ)+ηM. Lean proves symmetry
+of this correction, identifies the associated unbounded real
+partial linear operator with the full natural-domain Hamiltonian,
+and proves self-adjointness for all real δ,η, including their
+simultaneous use. This strengthens the earlier selected-edge
+self-adjointness result. It does not by itself construct a complex
+unitary group.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedEigenCoeff_initial`, `coordinatedEigenCoeff_norm` | Initial coefficient and exact constant modulus |
+| `coordinatedEigenCoeff_re`, `coordinatedEigenCoeff_im` | Real trigonometric expressions for the phase |
+| `coordinatedEigenCoeff_re_deriv`, `coordinatedEigenCoeff_im_deriv` | Exact scalar derivative identities |
+| `coordinatedPair_domain_coe`, `coordinatedPair_initial` | Natural-domain lifts and initial conditions |
+| `coordinatedPair_Schrodinger` | Both Hilbert-space Schrödinger derivative equations |
+| `coordinatedPair_norm_sq`, `coordinatedPair_leakage_zero` | Conserved squared complex norm and exact zero leakage under the stated hypotheses |
+| `coordinatedCorrection_symmetric` | Symmetry of the complete bounded correction |
+| `coordinatedHamiltonianPMap_domain`, `coordinatedHamiltonianPMap_apply`, `coordinatedHamiltonianPMap_isSelfAdjoint` | Natural domain, full action and real self-adjointness |
+| `coordinatedXAxis_eigenA`, `coordinatedXAxis_eigenB` | Exact compact eigenpairs under detuning |
+| `coordinatedZAxis_eigenDark`, `coordinatedZAxis_eigenBright` | Exact dark/bright eigenpairs under coordinated edges |
+| `coordinatedDarkBright_orthogonal`, `coordinatedBright_leakage_zero` | Orthogonality and bright confinement |
+| `coordinatedXAxis_Schrodinger`, `coordinatedZAxis_Schrodinger` | Exact full-graph trajectory equations for each axis |
+| `coordinatedXAxis_norm_sq`, `coordinatedZAxis_norm_sq` | Exact conserved squared complex norm on each axis |
+| `coordinatedXAxis_leakage_zero`, `coordinatedZAxis_leakage_zero` | Zero exterior component of both real and imaginary parts at every time |
+
+**Status and limits.** Twenty-seven public theorems, two private
+supporting lemmas and seven definitions are Lean-verified.
+L7c.1 is complete. These solutions use a real/imaginary representation
+on the full graph with initial data in the compact plane. They are
+not a general complex-Hilbert-space propagator for arbitrary initial
+data. Section 4.103 (L7c.2) identifies the exact coefficient action
+with the rotations of §4.101, including the scalar phases. Section 4.104
+(L7c.3) joins the segments with matching initial and final states and
+zero leakage throughout. Section 4.105 (L7c.4) proves arbitrary normalized
+target preparation from dark up to global phase with zero leakage throughout. A general
+complex unitary group remains a separate outstanding objective.
+The final L7 preparation theorem is selected for the independent candidate (§4.105); the intermediate trajectory results are not separate submissions. The separate L6 and Track A goals are preserved.
+
+
+### 4.103. Exact identification of physical pulses with Pauli rotations
+
+**Plain-English result.** The rotations used to select a desired mixture
+of the dark and bright waves are now proved to be the actual coefficient
+evolution of the corresponding single-axis full-graph Schrödinger
+trajectories. This identification retains the common complex phase,
+rather than discarding it before comparing consecutive pulses. It
+holds for every complex initial coefficient pair and every real
+control strength and time.
+
+The module
+[`AmmannBeenkerCoordinatedRotationDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRotationDynamics.lean)
+defines the action of a two-by-two complex matrix on a pair of
+coefficients, and the embeddings of their real and imaginary parts
+into the full real graph Hilbert space:
+
+```math
+\mathcal E_{\mathrm{Re}}(a,b)=\operatorname{Re}(a)D+
+\operatorname{Re}(b)F,\qquad
+\mathcal E_{\mathrm{Im}}(a,b)=\operatorname{Im}(a)D+
+\operatorname{Im}(b)F.
+```
+
+Here D and F are the original normalized dark and bright modes,
+and E_* is their crossing energy. For the pure detuning pulse
+of strength δ, write p=exp(-i(E_*+δ)τ) and q=exp(-iE_*τ).
+The eigenmode phases in the original compact A/B basis give
+the following exact matrix in the dark/bright basis:
+
+```math
+U_X(\delta,\tau)=
+\frac12\begin{pmatrix}p+q&p-q\\p-q&p+q\end{pmatrix}
+=e^{-i(E_*+\delta/2)\tau}R_X(-\delta\tau/2).
+```
+
+For the coordinated eight-edge pulse of strength η, the
+dark/bright basis already consists of eigenvectors. Consequently,
+
+```math
+U_Z(\eta,\tau)=
+\begin{pmatrix}e^{-iE_*\tau}&0\\0&e^{-i(E_*+2\eta)\tau}\end{pmatrix}
+=e^{-i(E_*+\eta)\tau}R_Z(\eta\tau).
+```
+
+The rotation conventions are those of §4.101:
+R_X(t)=cos(t)I+i sin(t)σ_x, and
+R_Z(t)=diag(exp(it),exp(-it)).
+The scalar phase in each identity has modulus one, and the
+half-angle parameter is fixed by the corresponding energy difference.
+
+**Connection to the infinite natural-domain trajectories.**
+For input aD+bF the compact A/B coefficients are (a+b)/4 and
+(a-b)/4, because D=(compactA+compactB)/4 and
+F=(compactA-compactB)/4. Lean proves the coefficient conversion
+and the full Hilbert-space identities for both components:
+the detuning trajectory of §4.102 equals the real and imaginary
+embeddings of U_X(a,b), and the coordinated-edge trajectory equals
+those of U_Z(a,b). The same identities hold with the phase-weighted
+rotation expressions substituted for the matrices. This connects
+the matrix expressions directly to the previously proved
+Schrödinger equations, natural-domain lifts, norm conservation
+and zero leakage for each individual pulse. No full-space
+propagator is assumed.
+
+The two matrices equal the identity at time zero. The module
+also establishes compatibility of the matrix action with
+matrix multiplication, scalar multiplication of matrices and
+common scaling of the input coefficients, and identifies
+the first column as the action on the initial dark pair (1,0).
+These facts are used in the exact composition of the three pulses in §4.104.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedApplyPair_mul` | Successive matrix actions equal the product action |
+| `coordinatedApplyPair_smul`, `coordinatedApplyPair_scale_input` | Common scalar phases pass through matrix action |
+| `coordinatedApplyPair_dark` | Dark input selects the first matrix column |
+| `coordinatedPhase_trig` | Euler's formula for the phase convention |
+| `coordinatedXAxisMatrix_rotation`, `coordinatedZAxisMatrix_rotation` | Exact phase-weighted rotation identities |
+| `coordinatedXAxisMatrix_coefficients`, `coordinatedZAxisMatrix_coefficients` | Physical eigenmode coefficients in dark/bright coordinates |
+| `coordinatedXAxis_trajectory_matrix`, `coordinatedZAxis_trajectory_matrix` | Equality with both full-graph trajectory components |
+| `coordinatedXAxis_trajectory_rotation`, `coordinatedZAxis_trajectory_rotation` | Direct identification with phase-weighted rotations |
+| `coordinatedXAxisMatrix_initial`, `coordinatedZAxisMatrix_initial` | Identity at zero time |
+
+**Status and limits.** Fifteen public theorems, three private
+supporting lemmas and five definitions are Lean-verified. L7c.2
+is complete. For unit-duration pulses the X parameter t requires
+δ=-2t and the Z parameter p requires η=p. The Z–X–Z protocol
+uses independently tunable signed real strengths. Its composition
+with matched endpoints and piecewise Schrödinger equations is
+proved in §4.104 (L7c.3); its arbitrary-target theorem is proved in §4.105 (L7c.4).
+A general unitary propagator on the full complex infinite Hilbert
+space is not constructed by these results. The third candidate selects the final preparation theorem and supporting
+locality statements; other intermediate results are not separate submissions. The original L6 approximate
+control problem and Track A remain separate.
+
+
+### 4.104. Continuous three-pulse protocol with exact zero leakage
+
+**Plain-English result.** The separate pulses of §4.103 can now be
+joined into a single continuous trajectory on the actual infinite
+Ammann–Beenker graph. No amplitude or phase is reset at a switch.
+Each pulse starts exactly where the preceding pulse ends. The
+state remains in the original two-mode plane throughout the
+protocol, including both switching times. Its squared complex
+norm is conserved, and both real and imaginary parts satisfy
+the full natural-domain Schrödinger equations during each open
+pulse interval.
+
+The module
+[`AmmannBeenkerCoordinatedPulseComposition.lean`](SpectralGeometry/AmmannBeenkerCoordinatedPulseComposition.lean)
+uses the exact physical coefficient matrices U_X and U_Z of
+§4.103, including their common scalar phases. Let w=(a,b) be
+any initial complex dark/bright coefficient pair. For arbitrary
+real parameters p,t,q, use the following unit-duration controls:
+
+| Time interval | Detuning δ | Coordinated edge strength η |
+| --- | --- | --- |
+| [0,1] | 0 | p |
+| [1,2] | -2t | 0 |
+| [2,3] | 0 | q |
+
+The entries at a shared endpoint describe the left and right
+control values; the state itself has a unique value there.
+Define a continuous saturated clock
+
+```math
+c(s)=\min(\max(s,0),1).
+```
+
+It is zero before its interval, equals the local time inside it,
+and is one afterwards. The coefficient trajectory is
+
+```math
+W(\tau)=U_Z(q,c(\tau-2))\,
+U_X(-2t,c(\tau-1))\,
+U_Z(p,c(\tau))\,w.
+```
+
+All three matrices retain their physical energy phases. The
+identity-at-zero property gives W(0)=w and exact segment
+matching. In particular,
+
+```math
+W(3)=U_Z(q,1)U_X(-2t,1)U_Z(p,1)w.
+```
+
+Lean proves the three closed-interval formulas and the two
+switch identities. Continuity of the phase, each pulse with
+respect to time and continuous input, and the saturated clock
+gives continuity of W for every real time. The real and imaginary
+full-space embeddings are continuous as well.
+
+**Full-domain dynamics and conservation.** Write
+u(τ)=E_Re(W(τ)), v(τ)=E_Im(W(τ)) with the embeddings of §4.103.
+The module provides their explicit lifts to the original natural
+onsite domain for every τ. On the open intervals (0,1), (1,2)
+and (2,3) respectively, Lean proves
+
+```math
+u'(\tau)=H_{\delta,\eta}v(\tau),\qquad
+v'(\tau)=-H_{\delta,\eta}u(\tau),
+```
+
+using the full infinite-graph Hamiltonian with the indicated
+control strengths. The proof first identifies the single-pulse
+equations in the common coordinates and then transfers them to
+the global trajectory by time translation and local equality.
+It does not impose differentiability at the control switches,
+where the Hamiltonian can jump. Continuity and domain membership
+hold there nonetheless. The saturated extension is constant
+outside [0,3]; no physical evolution equation outside the
+three open pulse intervals is asserted.
+
+For every real τ the exact identities are
+
+```math
+\|u(\tau)\|^2+\|v(\tau)\|^2=|a|^2+|b|^2,\qquad
+Qu(\tau)=Qv(\tau)=0.
+```
+
+Here Q is the exterior component of the original compact-plane
+decomposition. Thus the squared complex exterior norm is exactly
+zero, including at the switches and endpoints. For normalized
+initial coefficients the total squared complex norm is one.
+These statements do not use a perturbative small-strength
+estimate, a finite graph truncation or a supplied propagator.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedApplyPair_one`, `coordinatedPulseX_initial`, `coordinatedPulseZ_initial` | Zero-time identity actions |
+| `coordinatedState_domain`, `coordinatedState_leakage_zero` | Explicit natural-domain lifts and confinement of each embedded pair |
+| `coordinatedStateWeight_eq`, `coordinatedPulseX_weight`, `coordinatedPulseZ_weight` | Squared complex norm and its single-pulse conservation |
+| `coordinatedPhase_continuous`, `coordinatedPulseX_continuous`, `coordinatedPulseZ_continuous` | Continuity of phases and pulse actions |
+| `coordinatedClock_zero`, `coordinatedClock_one`, `coordinatedClock_inside`, `coordinatedClock_continuous` | Saturated local-time clock |
+| `coordinatedProtocol_first`, `coordinatedProtocol_second`, `coordinatedProtocol_third` | Exact closed-interval segment formulas |
+| `coordinatedProtocol_initial`, `coordinatedProtocol_join_one`, `coordinatedProtocol_join_two`, `coordinatedProtocol_final` | Initial state, exact switch matching and final composition |
+| `coordinatedProtocol_continuous`, `coordinatedProtocol_state_continuous` | Continuous coefficient path and both full-space components |
+| `coordinatedProtocol_weight`, `coordinatedProtocol_leakage_zero`, `coordinatedProtocol_domain` | Conserved norm, zero leakage and natural-domain membership at all times |
+| `coordinatedPulseX_solvesAt`, `coordinatedPulseZ_solvesAt` | Full natural-domain equations in common coordinates |
+| `coordinatedSolvesAt_shift`, `coordinatedSolvesAt_congr` | Time translation and local equality of Schrödinger solutions |
+| `coordinatedProtocol_solves_first`, `coordinatedProtocol_solves_second`, `coordinatedProtocol_solves_third` | Full switched trajectory solves the equations on each open interval |
+
+**Status and limits.** Thirty-four public theorems and ten
+definitions are Lean-verified. L7c.3 is complete. The construction
+works for arbitrary initial coefficient pairs in the compact
+plane and arbitrary real p,t,q. It supplies an actual continuous
+piecewise differentiable full-graph trajectory in the real/imaginary
+representation, not just a product of endpoint matrices.
+Section 4.105 (L7c.4) combines the final coefficient product with the
+constructive Euler reachability theorem of §4.101 to choose the
+parameters for every normalized target from dark, retaining the
+common scalar phase. The general complex Hilbert-space unitary
+propagator for arbitrary infinite-space initial data remains a
+separate objective. No experimental feasibility or minimal number
+of controlled edges is claimed. The third candidate selects the final preparation theorem and locality
+statements; the intermediate composition results are not separate submissions. L6 and Track A
+remain preserved.
+
+
+### 4.105. Exact arbitrary target preparation from dark without leakage
+
+**Plain-English result.** Any normalized mixture of the two original
+localized waves can be prepared from the dark wave by three consecutive
+local control pulses on the actual infinite Ammann–Beenker graph.
+The final state differs from the chosen target only by a common phase.
+During the whole protocol no amplitude escapes the original two-mode
+plane, the norm remains one, and the state is continuous. The two
+real Hilbert-space components satisfy the exact natural-domain
+Schrödinger equations on the open pulse intervals. This completes
+the central L7 preparation objective without assuming a general
+propagator or making a small-perturbation approximation.
+
+The module
+[`AmmannBeenkerCoordinatedExactPreparation.lean`](SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean)
+combines the constructive matrix reachability of §4.101 with the
+actual phase-retaining trajectories of §§4.102–4.104.
+
+**Exact final phase.** Let E_* be the crossing energy and D,F the
+normalized dark and bright modes. The three unit-duration controls
+are (δ,η)=(0,p),(-2t,0),(0,q). The physical endpoint matrix is
+
+```math
+U_Z(q,1)U_X(-2t,1)U_Z(p,1)
+=e^{i\theta}R_Z(q)R_X(t)R_Z(p),
+\qquad \theta=-3E_*+t-p-q.
+```
+
+The scalar factor has modulus one. This identity holds for arbitrary
+real p,t,q, including when applied to any initial coefficient pair.
+In particular the final coefficients starting from dark are
+
+```math
+e^{i\theta}\left(\cos(t)e^{i(p+q)},
+i\sin(t)e^{i(p-q)}\right).
+```
+
+For a chosen complex pair (α,β) with |α|²+|β|²=1, the earlier
+constructive Euler proof chooses t=arccos|α|, with
+0≤t≤π/2, and p=(u+v)/2, q=(u−v)/2, where u=arg(α)
+and v=arg(−iβ). Its phase identities also cover zero coefficients.
+Thus there exist p,t,q for which the physical endpoint is exactly
+e^{iθ}(α,β). The phase is not removed between pulses.
+
+**Bundled full-graph theorem.** The theorem
+`coordinatedProtocol_exact_preparation` proves the existence
+of those parameters and all of the following properties for
+the same trajectory f=coordinatedProtocolPair p t q (1,0).
+Writing u and v for its real and imaginary full-space embeddings,
+the initial state is u(0)=D, v(0)=0, and the final components are
+
+```math
+u(3)=\operatorname{Re}(e^{i\theta}\alpha)D+
+      \operatorname{Re}(e^{i\theta}\beta)F,\qquad
+v(3)=\operatorname{Im}(e^{i\theta}\alpha)D+
+      \operatorname{Im}(e^{i\theta}\beta)F.
+```
+
+The coefficient path and both graph components are continuous.
+For every real time both components belong to the original
+natural onsite domain, and
+
+```math
+\|u(\tau)\|^2+\|v(\tau)\|^2=1,\qquad
+Qu(\tau)=Qv(\tau)=0.
+```
+
+On the three open intervals (0,1), (1,2), (2,3), respectively,
+the components satisfy u'=H_{δ,η}v and v'=−H_{δ,η}u
+for the actual full Hamiltonian at the stated strengths.
+The norm and zero-leakage identities include all switching times
+and endpoints; differentiability across a control jump is not
+required. The constant extension outside the protocol is not
+asserted to solve a physical evolution equation there.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedProtocolAngle_eq`, `coordinatedProtocolPhase_norm` | Exact accumulated scalar phase and its unit modulus |
+| `coordinatedProtocolMatrix_rotation` | Exact physical three-pulse matrix equals the phase-weighted Euler product |
+| `coordinatedProtocol_final_rotation` | Physical endpoint for arbitrary initial coefficient pairs |
+| `coordinatedProtocol_final_dark` | Explicit endpoint coefficients starting from dark |
+| `coordinatedProtocol_reaches_from_dark` | Existence of parameters reaching every normalized complex target up to the stated phase |
+| `coordinatedState_dark_initial`, `coordinatedProtocol_dark_weight` | Exact dark initial state and unit squared complex norm |
+| `coordinatedProtocol_exact_preparation` | Combined endpoint, continuity, domain, norm, zero leakage and full piecewise Schrödinger equations |
+
+**Status and limits.** The ten public theorems, one private
+supporting lemma and one definition are Lean-verified. L7a–L7c.4
+complete the exact dark-to-arbitrary-target preparation objective.
+The state is represented by real and imaginary vectors of the full
+infinite graph. A separate construction of a general complex
+Hilbert-space unitary propagator for arbitrary initial data is
+still open. The theorem starts from dark; arbitrary initial-to-target
+control as a separately formalized result, exact phase-sensitive
+preparation without quotienting by global phase, constraints on
+physical edge strengths, experimental feasibility, and minimal
+control resources are not claimed. The two independently tunable
+controls are those defined in §§4.99–4.100; this is not the original
+single-edge L6 preparation theorem. L7 is selected for a separate independent Palomar package and has passed
+independent comparison. A third registration has not yet been established. The earlier registrations
+and all Track A objectives remain unchanged.
+
+**Independent preparation package.** The [Mathlib-only Challenge](Challenge.lean)
+contains 687 lines, five model witnesses, three local-edge certificates
+and the single scientific preparation theorem. All definitions are concrete.
+The [Solution](Solution.lean) imports the verified source, and the
+[Comparator](palomar/exact-leakage-free-preparation/comparator.json) is kept
+in the third candidate directory. Full Lean verification and independent
+statement comparison with NanoDa and con-ron have passed.
+
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **106 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-one infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **116 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and one infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -4274,7 +4990,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (28):**
+- **Explicit octagonal geometry, operator and spectral products (38):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -4296,7 +5012,17 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerPostpulseSwitchOff.lean`](SpectralGeometry/AmmannBeenkerPostpulseSwitchOff.lean)
   - [`AmmannBeenkerDarkSchrodinger.lean`](SpectralGeometry/AmmannBeenkerDarkSchrodinger.lean)
   - [`AmmannBeenkerBrightAmplitude.lean`](SpectralGeometry/AmmannBeenkerBrightAmplitude.lean) *(14 original generator theorems and one combined Palomar-candidate theorem)*
-  - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(Lean-verified ordered stability, external bright force, exact-double crossing slots, consecutive-pair corollary, and genuine perturbed-level existence; see §4.93)*
+  - [`AmmannBeenkerBrightSpectralSplitting.lean`](SpectralGeometry/AmmannBeenkerBrightSpectralSplitting.lean) *(Lean-verified L1–L5, including the signed splitting, simple pair and quantitative exterior/energy bounds; §§4.93–4.98)*
+  - [`AmmannBeenkerCoordinatedRingControl.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRingControl.lean) *(eleven L7a theorems: matched edges, exact dark cancellation and full-space symmetry; §4.99)*
+  - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean) *(verified L7a completion and exact dark/bright action; §4.100)*
+  - [`AmmannBeenkerCoordinatedLieAlgebra.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieAlgebra.lean) *(verified L7b Pauli decomposition and commutators; §4.100)*
+  - [`AmmannBeenkerCoordinatedLieGeneration.lean`](SpectralGeometry/AmmannBeenkerCoordinatedLieGeneration.lean) *(full real su(2) generation; §4.101)*
+  - [`AmmannBeenkerCoordinatedEuler.lean`](SpectralGeometry/AmmannBeenkerCoordinatedEuler.lean) *(constructive normalized-pair Euler rotations and independent signed generator coefficients; §4.101)*
+  - [`AmmannBeenkerCoordinatedPairDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedPairDynamics.lean) *(exact natural-domain complex-component eigenpair trajectories; §4.102)*
+  - [`AmmannBeenkerCoordinatedAxisDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean) *(single-axis Schrödinger equations, norm conservation, zero leakage and full real self-adjointness; §4.102)*
+  - [`AmmannBeenkerCoordinatedRotationDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRotationDynamics.lean) *(exact phase-weighted rotation action and embedding into full natural-domain trajectories; §4.103)*
+  - [`AmmannBeenkerCoordinatedPulseComposition.lean`](SpectralGeometry/AmmannBeenkerCoordinatedPulseComposition.lean) *(continuous three-pulse trajectory, switch matching, full-domain equations, conserved norm and zero leakage; §4.104)*
+  - [`AmmannBeenkerCoordinatedExactPreparation.lean`](SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean) *(exact arbitrary normalized target preparation from dark up to global phase with continuous full-domain zero-leakage dynamics; §4.105)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4322,44 +5048,35 @@ contains deliberate statement placeholders (`sorry`), and is judged
 against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
-**Palomar / independent statement verification:** the active
-[`Challenge.lean`](Challenge.lean) and
-[`Solution.lean`](Solution.lean) now select exactly one
-new scientific theorem,
-`SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`
-(§4.98). Their active **per-theorem Comparator** is
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The earlier, unsubmitted generator-response candidate and its
-dedicated Comparator plus original Challenge/Solution snapshots
-are preserved under [`palomar/dark-bright/`](palomar/dark-bright/).
-No root `comparator.json` exists.
+**Palomar / independent statement verification.** The active root
+[Challenge](Challenge.lean), [Solution](Solution.lean) and
+[formalization metadata](formalization.yaml) describe the third result:
+Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph (§4.105).
+The selected scientific conclusion is
+`SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation`.
+Five supporting model witnesses and three locality certificates are
+selected alongside it. The Mathlib-only Challenge contains concrete
+definitions and nine deliberate proposition proof placeholders; no
+definition holes are selected. The Solution imports the substantive
+preparation proof module, not Challenge.
 
-The active Challenge imports only Mathlib and the Solution
-imports the substantive bright-splitting proof module.
-Six extra proposition witnesses are necessary to reconstruct
-the concrete graph and its domain; those are not additional
-submitted scientific results. There are seven deliberate
-statement `sorry` placeholders only in Challenge, no
-definition holes and no proof holes in the full **106-module**
-substantive library. The first Palomar registration remains
-historical and unchanged. The active candidate's full Lean,
-static-package and independent NanoDa/con-ron checks
-**passed on its exact package commit** (Action #335).
-An eventual Palomar submission must use a publicly
-accessible immutable commit with successful checks.
+The active [theorem-specific Comparator](palomar/exact-leakage-free-preparation/comparator.json)
+and matching package snapshots reside in
+[`palomar/exact-leakage-free-preparation/`](palomar/exact-leakage-free-preparation/).
+The complete 116-module substantive library is Lean-verified with no
+proof holes. The third independent comparison has passed, including
+NanoDa and con-ron; no third registration is claimed.
 
-**Distinct Palomar registration identity.** The original
-registered theorem remains attached to its historical immutable
-revision and has **not** been revised or resubmitted. The earlier
-generator-response candidate is an unsubmitted archive under
-[`palomar/dark-bright/`](palomar/dark-bright/); its original
-Comparator and root-module snapshots are preserved for reproducibility.
-The **currently proposed** signed-splitting theorem instead uses
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The local CI and packaging checks now explicitly select this
-per-theorem path, never a root Comparator. An eventual separate
-submission must use a verified immutable source hash and must
-not reuse the earlier registered result's ID.
+The first registered exact-multiplicity theorem remains attached to
+its original immutable revision. The second registered signed-splitting
+package, with [Comparator](palomar/signed-bright-splitting/comparator.json),
+Challenge, Solution and metadata snapshots, is preserved in
+[`palomar/signed-bright-splitting/`](palomar/signed-bright-splitting/).
+It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
+The unsubmitted generator-response package remains archived under
+[`palomar/dark-bright/`](palomar/dark-bright/).
+No root `comparator.json` exists. The local packaging and verification
+checks select the third candidate's Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -4388,77 +5105,59 @@ python3 scripts/check-unified-comparator.py
 bash scripts/verify-comparator.sh
 ```
 
-GitHub Actions runs one automatic Palomar workflow on pull requests and
-changes to `main`: its first job calls the reusable `lean.yml` full proof
-check (`lake build SpectralGeometry Challenge Solution`), and the Comparator
-job has `needs: lean`. The latter retains the packaging, metadata and source
-audits and the independent Lean, NanoDa and con-ron comparison of the
-**selected** Challenge statements. A failure of the upstream Lean job
-prevents the Comparator job from running. The Lean workflow can also be
-dispatched manually; one green Palomar workflow requires both jobs to succeed.
-
-**Incremental GitHub Actions cache.** Both jobs use the same pinned
-toolchain/dependency and source-hash cache key. The first job is the
-**only cache writer**; the dependent Comparator job restores it before
-running `lake exe cache get` and recompiling/checking its targets.
-The newer `lean-workspace-v3` cache stores the entire `.lake`
-workspace, including Mathlib and other pinned package sources and build
-artifacts under `.lake/packages`, rather than only `.lake/build`.
-Because Mathlib's `lake exe cache get` also downloads compressed
-archives into `~/.cache/mathlib` (outside `.lake`), each job now
-checks for the restored compiled Mathlib root module before calling
-that client. A warm complete workspace skips the redundant archive
-download; on a cold or missing build the official pinned Mathlib cache
-is still fetched. **Both jobs retain the full Lake build**, and the
-Comparator retains independent Lean/NanoDa/con-ron checks. The first
-v3 cache run must populate its archive; actual speed improvements and
-cache size require checking the corresponding Action logs. No separate
-quick Comparator workflow is used.
+The automated verification workflow first checks the complete Lean library
+and then performs packaging, metadata and independent Lean, NanoDa and
+con-ron comparison of the **selected** Challenge statements.
+Cached pinned dependencies and compiled artifacts speed up verification
+without replacing the full build or independent comparison. The workflow
+configuration documents the operational details.
 
 ## 6. Roadmap: proof status and next steps
 
-The program's central objective is a **quantitative response theorem for the
-zeros associated with an explicitly specified local geometric change**.
-The finite-coordinate eigenspace theorem of §4.40 is its first proved observation
-milestone. The subsequent milestones turn observation into quantitative
-spectral response and then into a certified comparison of analytic products.
+**The original goal remains unchanged:** obtain quantitative response
+theorems for zeros of canonical products associated with explicitly
+specified geometric interventions on infinite operators. The finite-site
+observation theorem (§4.40), abstract response results, full spectral
+products and the confined Ammann–Beenker application establish much
+of its formal infrastructure.
 
-A checked item refers to a result in the substantive Lean source imported by
-[SpectralGeometry.lean](SpectralGeometry.lean), under its documented
-hypotheses. The checked items below record the source development's reported
-successful full build; any submitted commit must pass its own checks.
-Unchecked items are open proof obligations or exploratory questions. P2, P3
-and P4 denote research phases, not theorem numbers.
+**Two complementary lines of work are now tracked explicitly:**
 
-**Active dependency path.** Abstract spectral response (§6.2), the analytic
-bridge (§6.3), and the explicit geometric full-product application (§6.4)
-are proved. For the original spectral-product program, the next numerical task is a
-scalar cofactor/isolation-radius certificate for this interacting geometric
-product, followed by a certified truncation cutoff. The planar finite-residue code already supplies the
-summability input. Uniform separation is a separate geometric refinement.
-For the first-ring intervention, §4.78 determines the full crossing
-eigenspace and §4.79 certifies a conservative real spectral exclusion
-radius of $1/128$. The existence of a distinct moving level is now verified (§4.93);
-its small-window uniqueness, simplicity and eigenvector leakage
-are now established (§§4.94–4.95), as is the true quadratic
-energy remainder (§4.96). A named signed-shift corollary and
-consolidated theorem are still open (§6.4). The complex Green-matrix interface in §6.1
-serves relative determinants in §6.5. Finite-patch operator errors belong
-to the approximation problem in §6.6.
+1. **Track A — spectral geometry and analytic zeros.** The verified
+   foundations and product-response work are recorded in §§6.1–6.4;
+   the main remaining goals are numerical cofactor/isolation
+   certificates for the interacting geometric product (§6.3),
+   finite-rank relative determinants (§6.5), certified finite-patch
+   approximations (§6.6), and optional exploratory zero statistics
+   (§6.7). Their validity and priority do not depend on solving
+   quantum control.
+2. **Track B — localized dark/bright modes and control.** The full
+   infinite-graph crossing and isolation (§§4.78–4.79) and
+   quantitative L1–L5 splitting (§§4.93–4.97) are verified.
+   **L7a is verified (§§4.99–4.100):** the eight matched edges
+   preserve the entire original dark–bright plane exactly under both
+   controls. **L7b is complete algebraically (§§4.100–4.101):** full
+   su(2) generation and constructive matrix reachability from dark.
+   L7c.1–4 verify exact single-axis trajectories, phase-weighted rotations,
+   continuous three-pulse dynamics and arbitrary normalized target preparation
+   from dark with zero leakage (§§4.102–4.105). General complex unitary
+   evolution remains open. **L6 remains the deferred original
+   single-edge approximate-control program**, not a cancelled goal.
+   The [detailed control roadmap](docs/bright-spectral-splitting-roadmap.md)
+   separates these tasks and their proof obligations.
 
-**New first research priority — a stand-alone goal.** Investigate how a
-controlled, time-dependent change to the single edge joining the two compact
-rings can mix the localized modes, starting from one mode alone. A shared
-dark eigenstate limits what the edge can prepare by itself; a subsequent
-change to `t` may supply the missing relative-phase control. The aim is
-to characterize reachable states and provide a concrete preparation
-procedure with a rigorous bound on excitation of other modes, or prove
-its limits. This is an **open question**, not a
-consequence of the existing crossing and gap theorems. It can yield a useful
-result on its own, before the remaining analytic work on spectral products.
-The central objective of the project stated above is unchanged, and coherent
-state preparation is not a prerequisite for that objective. The detailed
-steps appear in §6.4.
+**Research status and verification.** L5 is registered as described in §4.98.
+L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparation theorem and supporting locality certificates have passed independent statement comparison as the third candidate, not a third registration.
+The L7 exact zero-leakage preparation theorem from dark is proved.
+A general complex quantum propagator and the distinct L6 reachability
+theorem remain open. Earlier conditional time-uniform leakage bounds
+retain their separate scope.
+
+A checked item below denotes an actual substantive Lean result
+under its stated hypotheses; an unchecked item is an open task.
+P2, P3 and P4 are research phases, not numbered new theorems.
+All historical verified results and the complete §5 Lean-module
+catalogue are retained.
 
 ### 6.1. P2 — Spectral foundations and the complex-resolvent interface
 
@@ -4669,6 +5368,14 @@ analytic-product consequences have their own hypotheses.
 
 ### 6.4. P4 — A confined Ammann–Beenker model and a finite intervention
 
+**Relationship to the two research tracks.** This section retains
+the full original geometric and spectral-product objectives (Track A),
+followed by the newer compact-mode control direction (Track B).
+The L7 central control objective is now **verified** (§4.105): arbitrary normalized target preparation from dark up to an explicit global phase with zero leakage throughout. General complex full-space propagation, stronger control theorems, and the distinct L6 program remain open.
+The earlier single-edge preparation narrative and its open tasks
+remain here as the **preserved, deferred L6 program**; they are not
+the present priority and are not already proved.
+
 The application uses the **explicit centered octagonal cut-and-project
 vertex graph** of §§4.68–4.70. The lattice projections, open-window
 boundary convention and coordinate-step adjacency are defined in Lean.
@@ -4751,19 +5458,17 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
 
 - [x] **L1 — Dark simplicity (Lean verified).** For ε ≠ 0 the
   perturbed eigenspace at E_* is exactly the dark line.
-  Action #311 and subsequent complete builds, including #320, passed.
+
 - [x] **L2a — Ordered complete eigenbases and norm stability.**
   The true infinite-operator levels obey
-  |μₙ − λₙ| ≤ 2|ε| for every index (Action #313).
+  |μₙ − λₙ| ≤ 2|ε| for every index.
 - [x] **L2b — Exactly double, consecutive unperturbed crossing.**
-  The counting theorem passed Action #316, and the generic
-  consecutive-slot lemma and concrete corollary passed full Lean and
-  independent Comparator in Action #319.
+  The counting theorem, consecutive-slot lemma and concrete corollary
+  establish the exact multiplicity and consecutive positions.
 - [x] **L2c — Actual distinct perturbed eigenvalue exists.**
   For every ε ≠ 0 there is a nonzero natural-domain eigenvector
   with energy E_b ≠ E_* and |E_b − E_*| ≤ 2|ε|.
-  Full Lean and Comparator passed Action #320.
-- [x] **L2d — Isolated simple point-spectrum pair (Action #324).**
+- [x] **L2d — Isolated simple point-spectrum pair.**
   For `0 < |ε| ≤ 1/1024`, the closed `1/256` window contains
   exactly the simple dark energy and one distinct simple moving
   eigenvalue, with `|E_b-E_*| ≤ 2|ε|` (§4.94). This is a
@@ -4786,10 +5491,56 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
   the natural-domain eigenpair, the two simple eigenspaces,
   the point-spectrum window count, the `112ε²` quadratic
   energy law and the bright/exterior leakage estimate.
-  Full Lean and independent Comparator passed Action #333;
-  independent scientific assessment remains separate.
+  The selected theorem is Lean- and Comparator-verified; independent
+  scientific assessment remains separate.
 
-**Longer-term priority: controlled preparation of two-mode superpositions (open)**
+**Verified L7 objective — exact zero-leakage two-mode preparation**
+
+L7a uses the eight-edge *coordinated local perturbation* `M`. The following
+static, algebraic and switched dynamical results are Lean-verified in §§4.99–4.105.
+
+- [x] Construct eight genuine, distinct, mutually disjoint adjacent pairs.
+- [x] Define the bounded symmetric finite sum and certify matching amplitudes.
+- [x] Prove `M D=0` and `M F=2F`, with `M a=a-b` and `M b=b-a`.
+- [x] Establish `Q M P=0` and natural-domain invariance under both controls.
+- [x] **L7b (first part):** derive the exact dark/bright matrix, its Pauli
+  decomposition and the three complex generator commutators.
+- [x] **L7b (completion):** prove full real su(2) generation and constructive
+  three-rotation reachability from dark for every normalized complex pair,
+  with independent signed real generator coefficients.
+- [x] **L7c.1:** exact single-axis real/imaginary Schrödinger trajectories,
+  conserved norm, natural-domain lifts and zero leakage at every time;
+  full real self-adjointness for both controls together.
+- [x] **L7c.2:** identify the single-axis trajectories with Euler rotations
+  including the common scalar phases, and certify identity at zero time
+  and compatibility with matrix multiplication.
+- [x] **L7c.3:** compose the three pulses with matching endpoint states,
+  continuous full-space components, natural-domain membership, exact
+  piecewise Schrödinger equations, norm conservation and zero leakage at
+  every time, including the switches.
+- [x] **L7c.4:** prove arbitrary normalized target preparation from dark up
+  to the explicit global phase with `‖Qψ(t)‖=0` at every time, continuous
+  natural-domain trajectories and full piecewise Schrödinger equations.
+- [ ] Construct a general full complex Hilbert-space unitary propagator.
+
+Static invariance and Lie generation alone would not suffice for a
+preparation theorem; the explicit natural-domain trajectories and endpoint
+proof now supply it. See the [verified L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-l7--exact-two-mode-preparation-without-leakage-verified).
+
+**Deferred original research direction: L6 — single-edge approximate control (PRESERVED, OPEN)**
+
+The original two-control plan remains a separate future target:
+use only the single selected inter-ring edge `W` and the
+eight-site parameter `t`, while proving an explicit small-leakage
+and reachability budget for general complex Schrödinger dynamics.
+Because `‖QWF‖²=7/16`, this one-edge correction does not preserve
+the original dark–bright plane exactly. Verified conditional
+uniform leakage estimates and static control identities remain
+useful ingredients; no complete L6 target-state theorem is claimed.
+The following original research narrative and
+[edge-control note](docs/edge-control-reachability.md) are retained
+for later investigation. Its original compact-mode discussion uses the
+`a/b` basis; in the `D/F` basis, detuning `t` does mix dark and bright.
 
 The eight-site parameter `t` already gives a simple, exact energy response:
 moving `t` away from `t_*` shifts one compact mode's energy and leaves the
@@ -4815,7 +5566,7 @@ and
 build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
 Their exact operator identities have passed the full Lean build; the
-dynamic no-go theorem and any successful preparation protocol remain open.
+dynamic single-edge no-go theorem and the L6 preparation protocol remain open. The separate coordinated L7 preparation protocol is now proved in §4.105.
 Sections 4.81–4.91 now add an exact qubit/leakage decomposition,
 the reduced-gap and exact-edge norm, quantitative **conditional**
 time-uniform bounds for a selected-edge pulse and subsequent
@@ -4833,11 +5584,11 @@ theorem, not the conditional pulse-error bounds themselves.
   the `112ε²` energy law (L4), and has a signed
   shift and consolidated full-domain theorem (L5).
   The compressed energy expectation alone is not the theorem.
-- [ ] **Define the controlled dynamics.** Extend the relevant setting to
+- [ ] **L6 (deferred): define the single-edge controlled dynamics.** Extend the relevant setting to
   complex quantum states and a time-dependent edge weight, while keeping
   the underlying infinite operator and its domain well defined. Determine
   how the two compact-mode amplitudes interact with the remaining modes.
-- [ ] **Characterize reachability and test a two-control protocol.**
+- [ ] **L6 (deferred): characterize reachability and test a two-control protocol.**
   Prove the conserved dark-state occupation for edge-only time-dependent
   dynamics. Starting from one compact mode, test a weak edge pulse to
   change the amplitudes, then restore the edge and detune `t` to
@@ -4859,16 +5610,15 @@ theorem, not the conditional pulse-error bounds themselves.
   This is **one solution**, not a constructed complex
   propagator on the full space.
 - [x] **Verify the bright-amplitude forcing bridge (§4.91).**
-  The maintainer reports the PR #86 Action green for the original fourteen
-  bright generator declarations. The exact forcing term and bound are
-  static, full-infinite-graph identities, not integrated dynamical control.
+  The fourteen bright generator declarations are Lean-verified. The exact
+  forcing term and bound are static, full-infinite-graph identities, not
+  integrated dynamical control.
 - [x] **Verify the existing static dark/bright identities (§4.92).**
   The established combined theorem and source dependencies passed full Lean
-  and independent statement checks at the previously verified commit.
+  and independent statement checks.
   Those identities by themselves do not assert a moving level;
   that **later existence theorem** is independently proved in §4.93.
-- [ ] **Construct general complex dynamics and prepare controlled
-  A/B superpositions.** Build the genuine complex-Hilbert-space
+- [ ] **General complex dynamics and L6 controlled A/B preparation (open).** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
   commutation, apply the proved leakage bounds to it, and then
   certify nontrivial bright-mode mixing, target amplitudes,
@@ -4905,18 +5655,21 @@ Palomar registration remains unchanged.
 - [ ] Compare the proved multiplicity-two classification of §4.78 with
   the compact-state literature and obtain an expert assessment (§6.8).
 
-The radius-two intervention gives the nine-level full-product response of
-§4.72. The first-ring intervention gives the exact crossing eigenspace of
-§4.78 and the conservative real spectral gap of §4.79. The new first
-research priority begins with a quantitative study of the one-edge change
-and then asks whether it can prepare a coherent superposition with controlled
-leakage. The certified unperturbed isolation alone does not supply a
-perturbed eigenvalue law or dynamical preparation. The generator-level
-bright response (§4.91) and subsequent true perturbed eigenvalue
-existence (§4.93), isolated simple splitting (§4.94),
-eigenvector geometry (§4.95) and quadratic energy law (§4.96)
-are separately certified; complex quantum dynamics remains open. The spectral-product
-and relative-determinant objectives remain unchanged.
+The radius-two intervention gives the nine-level full-product response
+of §4.72. The first-ring intervention gives the exact crossing
+eigenspace (§4.78) and real spectral gap (§4.79). L1–L5 now also
+certify the distinct moving level, isolated signed splitting and
+quantitative bright geometry (§§4.93–4.97); these do **not** certify
+quantum state preparation. L7a now proves exact invariance of the original
+plane under both coordinated controls, and L7b establishes the effective
+matrix, full Lie generation and constructive Euler state reachability
+(§§4.99–4.101). The verified L7c.1 single-axis trajectories (§4.102) solve the full
+natural-domain Schrödinger equations with exact zero leakage. L7c.2 identifies them with the exact phase-weighted rotations (§4.103).
+L7c.3 proves their continuous three-pulse composition with exact zero
+leakage (§4.104). L7c.4 proves the arbitrary-target endpoint theorem
+from dark for this verified trajectory (§4.105).
+The one-edge, small-leakage preparation route remains open, and the
+spectral-product and relative-determinant objectives are unchanged.
 
 ### 6.5. Local geometric defects and relative spectral products
 
@@ -5041,34 +5794,32 @@ are kept as an archive, with exact snapshots of its original
 Challenge and Solution. It has **not** been claimed as
 a separate registered Palomar theorem.
 
-**Current proposed selection (§4.98).** The active root
-Challenge and Solution now select the stronger theorem
-`crossing_final_signed_bright_spectral_splitting`.
-Its separate [Comparator file](palomar/signed-bright-splitting/comparator.json)
-lives under the candidate's own Palomar directory, **not**
-at the repository root. The one scientific theorem has
-six necessary concrete-model witnesses. The standalone
-Mathlib-only Challenge is 558 lines and under 19 KiB,
-within the submission size limits, with no definition holes.
+**L5 selection and editorial history (§4.98).** The preserved L5
+Challenge and Solution select
+`crossing_final_signed_bright_spectral_splitting`, with six
+necessary concrete-model witnesses. Its theorem-specific
+[Comparator](palomar/signed-bright-splitting/comparator.json)
+is preserved; the earlier unsubmitted generator-response candidate
+remains archived under `palomar/dark-bright/`.
 
-- [x] Preserve the exact published source theorem and the
-  earlier candidate's archive.
-- [x] Set the candidate's Challenge, Solution, metadata and
-  per-theorem Comparator to the same final L5 statement.
-- [x] Remove the redundant root Comparator and update
-  the repository's independent verification scripts.
-- [x] Confirm full Lean, static layout and independent
-  Comparator, including NanoDa and con-ron, on the
-  **exact package source commit** `0709981b15fc99cbf18f6e63856ae20860333b73`
-  (Action #335).
-- [ ] Submit the checked candidate to Palomar only through
-  an authorized submission process; the current work
-  is **preparation, not external registration**.
+- [x] Preserve the original registered theorem, source proof
+  and archived candidate without rewriting their history.
+- [x] Complete the original L5 independent Challenge/Solution
+  package and verification.
+- [x] Submit the original L5 package; mechanical and renderability checks
+  passed, while the automated editorial review requested an explicit
+  existence statement for the fixed dark eigenstate.
+- [x] Strengthen the selected theorem and independent Challenge with
+  `crossingDark ≠ 0` and the full fixed-dark eigenvector equation;
+  verify the corrected package with full Lean and Comparator.
+- [x] Record the separate L5 registration
+  [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 (§4.98).
 
-**Registration boundary.** Creating a fully checked
-candidate is not itself a Palomar submission or registration.
-No external acceptance is asserted here. The original
-registration remains historical and unchanged.
+**Third candidate (§4.105).** The Lean-verified exact preparation theorem is selected with its concrete graph witnesses and local-edge certificates. The [independent package](palomar/exact-leakage-free-preparation/) has passed full Lean and independent Comparator verification. Submission and registration remain separate.
+
+**Registration boundary.** The historical first registration
+`PALOMAR-2026-11-06-000012` remains unchanged.
+Successful Lean checks and a successful Comparator alone are **not** Palomar registration. The separate registry record [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) subsequently registered L5 on 23 November 2026.
 
 **Potential research interest, without a priority claim.** The compact
 A/B patterns are known in quasicrystal tight-binding research
@@ -5096,13 +5847,15 @@ evolution. The [scientific-audience overview](#scientific-audience-and-possible-
 explains these connections and their limitations.
 
 These possible readerships and the originality of the results have
-not been independently assessed. No general complex quantum
-dynamics, arbitrary state preparation or experimental realization is
-claimed.
+not been independently assessed. The coordinated L7 result adds exact
+normalized target preparation from dark with zero leakage on the full
+infinite graph (§4.105), in contrast to the conditional single-edge pulse
+bounds. No general complex full-space propagator, arbitrary-initial-state
+preparation theorem or experimental realization is claimed.
 
 - [ ] Compare the precise new theorem against the specialist
   literature and obtain independent expert assessment of interest
-  and novelty before discussing registration.
+  and novelty independently of registry verification.
 - [ ] Continue the separate scalar cofactor and finite-patch
   certificates required in §§6.3, 6.5 and 6.6.
 
@@ -5117,11 +5870,16 @@ For Palomar, preserve a separate Comparator inside each
 `palomar/<candidate>/` directory, preserve predecessor packages,
 and never place a redundant Comparator at the repository root.
 
-Keep the **executive summary scientific, concise and durable**:
-**never include references to pull requests, PR numbers, GitHub Actions,
-Action numbers or commit identifiers in the executive summary**. Put
-operational provenance, exact commits, CI checks and independent
-Comparator outcomes only in the relevant technical verification
-sections and roadmap. Never mark a new theorem or Comparator package
-independently verified until all required checks have passed on the
-exact referenced source commit.
+Keep the **entire README scientific, cumulative and readable in plain English**.
+Explain each result's mathematical meaning, assumptions, exact conclusions,
+limitations and relationship to earlier theorems. Retain formulas and Lean
+declaration names where useful, but explain them in accessible language.
+Do not include commit hashes, pull request references, numbered CI runs,
+build logs, failed proof attempts or operational development chronology
+in the README. Such provenance belongs in the repository history and CI
+records, or in separate technical notes when needed. Keep existing Palomar
+registry identifiers and links, because they identify independently
+registered mathematical statements. Report verification status and scope
+without operational identifiers. Never mark a result as verified before
+the required checks have succeeded, and distinguish full Lean verification
+from independent comparison of the selected Palomar statements.

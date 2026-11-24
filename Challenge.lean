@@ -5,26 +5,13 @@ public import Mathlib
 public section
 
 /-!
-# Signed splitting of two localized energies on an infinite octagonal graph
+# Exact Leakage-Free Quantum State Preparation on an Infinite Ammann--Beenker Graph
 
-This Mathlib-only Challenge defines the same concrete infinite
-Ammann--Beenker vertex graph, confining potential, two compact localized
-modes and one selected edge as the verified proof library.
-
-The one selected scientific theorem states that a sufficiently small
-nonzero change to this edge leaves the dark eigenvalue and its simple
-eigenspace fixed while producing exactly one other simple eigenvalue in
-a precisely stated neighborhood. It gives the sign and quantitative
-second-order error of the moving energy and controls its true
-infinite-dimensional eigenvector outside the original localized plane.
-
-All conclusions concern real eigenvalues and the original natural
-domain of the full infinite operator. No complex quantum evolution,
-two-state approximation or state-preparation theorem is asserted.
-
-Six supporting proposition placeholders are needed to define the
-concrete graph and its compact modes; they are not additional selected
-scientific results. All definitions remain concrete, with no holes.
+Independent Mathlib-only statement for the concrete infinite graph,
+its coordinated local controls and the full natural-domain continuous
+three-pulse preparation theorem. All model and trajectory definitions
+are concrete. Selected proposition placeholders are model witnesses,
+locality certificates and the one bundled dynamical conclusion.
 -/
 
 namespace SpectralGeometry
@@ -356,6 +343,9 @@ theorem mate_involutive (c : Color) : Function.Involutive (mate c) := by
 @[expose] def interaction : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
   infiniteLocalMatchingLaplacian 8 matching8 (fun _ => 1 / 16)
 
+@[expose] def Adjacent (v w : Vertex) : Prop :=
+  ∃ i : Fin 4, w.val = v.val + basis i ∨ w.val = v.val - basis i
+
 end
 
 -- Source module: SpectralGeometry.AmmannBeenkerOperator
@@ -424,23 +414,11 @@ open scoped Classical
 @[expose] def domainLatticeSingle (n : Lattice) : infiniteOnsiteDomain potential :=
   ⟨latticeSingle n, latticeSingle_mem_domain n⟩
 
-theorem compactSiteA_admitted : Admitted (![1, 0, 0, 0] : Lattice) := by
-  sorry
-
-theorem compactSiteB_admitted : Admitted (![1, 1, 0, 0] : Lattice) := by
-  sorry
-
 @[expose] def domainCompactA : infiniteOnsiteDomain potential :=
   ⟨compactA, compactA_mem_domain⟩
 
 @[expose] def domainCompactB : infiniteOnsiteDomain potential :=
   ⟨compactB, compactB_mem_domain⟩
-
-@[expose] def compactSiteA : Vertex :=
-  latticeVertex ![1, 0, 0, 0] compactSiteA_admitted
-
-@[expose] def compactSiteB : Vertex :=
-  latticeVertex ![1, 1, 0, 0] compactSiteB_admitted
 
 end
 
@@ -456,13 +434,11 @@ section
 
 @[expose] def crossingEnergy : ℝ := 13 / 4 + 2 * alpha
 
-@[expose] def crossingEdge : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  InnerProductSpace.rankOne ℝ
-    (infiniteEdgeVector compactSiteA compactSiteB)
-    (infiniteEdgeVector compactSiteA compactSiteB)
-
 @[expose] def crossingBright : TileHilbert Vertex :=
   (1 / 4 : ℝ) • (compactA - compactB)
+
+@[expose] def domainCrossingBright : infiniteOnsiteDomain potential :=
+  (1 / 4 : ℝ) • (domainCompactA - domainCompactB)
 
 end
 
@@ -498,60 +474,210 @@ section
 
 end
 
--- Source module: SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
+-- Source module: SpectralGeometry.AmmannBeenkerCentralPatch
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
 section
 
-/-- The proposed scientific theorem: a small change to one edge of the
-specified infinite octagonal graph preserves one simple localized energy
-and produces one other simple nearby energy. The new energy moves in the
-direction of the edge change, with an explicit quadratic error bound;
-the true moving eigenvector has a nonzero bright part and a controlled
-exterior component. All claims concern the original infinite operator
-and its natural domain. The six other selected propositions are
-necessary model witnesses, not separate scientific submissions. -/
-theorem crossing_final_signed_bright_spectral_splitting
-    (ε : ℝ) (hε : ε ≠ 0) (hsmall : |ε| ≤ 1 / 1024) :
-    ∃ (energy : ℝ) (x : infiniteOnsiteDomain potential),
-      energy ≠ crossingEnergy ∧
-      |energy - crossingEnergy| ≤ 2 * |ε| ∧
-      (x : TileHilbert Vertex) ≠ 0 ∧
-      onsitePlusBounded potential
-          (ringInteraction crossingParameter + ε • crossingEdge) x =
-        energy • (x : TileHilbert Vertex) ∧
-      (0 < ε → crossingEnergy < energy) ∧
-      (ε < 0 → energy < crossingEnergy) ∧
-      |energy - (crossingEnergy + ε / 4)| ≤ 112 * ε ^ 2 ∧
-      inner ℝ crossingDark (x : TileHilbert Vertex) = 0 ∧
-      inner ℝ crossingBright (x : TileHilbert Vertex) ≠ 0 ∧
-      crossingQubitPart (x : TileHilbert Vertex) =
-        (inner ℝ crossingBright (x : TileHilbert Vertex)) • crossingBright ∧
-      ‖crossingLeakage (x : TileHilbert Vertex)‖ ≤
-        256 * |ε| *
-          |inner ℝ crossingBright (x : TileHilbert Vertex)| *
-          ‖crossingLeakage (crossingEdge crossingBright)‖ ∧
-      crossingDark ≠ 0 ∧
-      onsitePlusBounded potential
-          (ringInteraction crossingParameter + ε • crossingEdge)
-          domainCrossingDark = crossingEnergy • crossingDark ∧
-      (∀ (t : ℝ) (y : infiniteOnsiteDomain potential),
-        (y : TileHilbert Vertex) ≠ 0 →
-        onsitePlusBounded potential
-            (ringInteraction crossingParameter + ε • crossingEdge) y =
-          t • (y : TileHilbert Vertex) →
-        |t - crossingEnergy| ≤ 1 / 256 →
-        t = crossingEnergy ∨ t = energy) ∧
-      (∀ y : infiniteOnsiteDomain potential,
-        onsitePlusBounded potential
-            (ringInteraction crossingParameter + ε • crossingEdge) y =
-          energy • (y : TileHilbert Vertex) →
-        ∃ c : ℝ, (y : TileHilbert Vertex) = c • (x : TileHilbert Vertex)) ∧
-      (∀ y : infiniteOnsiteDomain potential,
-        onsitePlusBounded potential
-            (ringInteraction crossingParameter + ε • crossingEdge) y =
-          crossingEnergy • (y : TileHilbert Vertex) →
-        ∃ c : ℝ, (y : TileHilbert Vertex) = c • crossingDark) := by
+@[expose] def centralLift (i : Fin 17) : Lattice :=
+  ![![0, 0, 0, 0],
+    ![1, 0, 0, 0],
+    ![0, 1, 0, 0],
+    ![0, 0, 1, 0],
+    ![0, 0, 0, 1],
+    ![-1, 0, 0, 0],
+    ![0, -1, 0, 0],
+    ![0, 0, -1, 0],
+    ![0, 0, 0, -1],
+    ![1, 1, 0, 0],
+    ![0, 1, 1, 0],
+    ![0, 0, 1, 1],
+    ![-1, 0, 0, 1],
+    ![-1, -1, 0, 0],
+    ![0, -1, -1, 0],
+    ![0, 0, -1, -1],
+    ![1, 0, 0, -1]] i
+
+theorem centralLift_admitted (i : Fin 17) : Admitted (centralLift i) := by
+  sorry
+
+@[expose] def centralVertex (i : Fin 17) : Vertex :=
+  latticeVertex (centralLift i) (centralLift_admitted i)
+
+/-- Explicit index bounds for the two rings in the central enumeration. -/
+theorem firstRingIndex_lt (i : Fin 8) : i.val + 1 < 17 :=
+  Nat.lt_trans (Nat.add_lt_add_right i.isLt 1) (by decide)
+
+theorem secondRingIndex_lt (i : Fin 8) : i.val + 9 < 17 :=
+  Nat.add_lt_add_right i.isLt 9
+
+@[expose] def firstRingVertex (i : Fin 8) : Vertex :=
+  centralVertex ⟨i.val + 1, firstRingIndex_lt i⟩
+
+@[expose] def secondRingVertex (i : Fin 8) : Vertex :=
+  centralVertex ⟨i.val + 9, secondRingIndex_lt i⟩
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedRingControl
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+open scoped BigOperators Classical
+
+@[expose] def coordinatedRingPair (i : Fin 8) : Vertex × Vertex :=
+  (firstRingVertex i, secondRingVertex i)
+
+theorem coordinatedRingPair_adjacent (i : Fin 8) :
+    Adjacent (coordinatedRingPair i).1 (coordinatedRingPair i).2 := by
+  sorry
+
+theorem coordinatedRing_disjoint (i j : Fin 8) :
+    firstRingVertex i ≠ secondRingVertex j := by
+  sorry
+
+theorem coordinatedRing_matching (i j : Fin 8) (h : i ≠ j) :
+    firstRingVertex i ≠ firstRingVertex j ∧
+    secondRingVertex i ≠ secondRingVertex j ∧
+    firstRingVertex i ≠ secondRingVertex j ∧
+    secondRingVertex i ≠ firstRingVertex j := by
+  sorry
+
+@[expose] def coordinatedRingEdge (i : Fin 8) :
+    TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
+  InnerProductSpace.rankOne ℝ
+    (infiniteEdgeVector (firstRingVertex i) (secondRingVertex i))
+    (infiniteEdgeVector (firstRingVertex i) (secondRingVertex i))
+
+@[expose] def coordinatedRingControl : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
+  ∑ i : Fin 8, coordinatedRingEdge i
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedEuler
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedPhase (t : ℝ) : ℂ :=
+  Complex.exp ((t : ℂ) * Complex.I)
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedCorrection (δ η : ℝ) : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
+  ringInteraction (crossingParameter + δ) + η • coordinatedRingControl
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedRotationDynamics
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedApplyPair (M : Matrix (Fin 2) (Fin 2) ℂ)
+    (a b : ℂ) : ℂ × ℂ :=
+  (M 0 0 * a + M 0 1 * b, M 1 0 * a + M 1 1 * b)
+
+@[expose] def coordinatedEmbedReal (a b : ℂ) : TileHilbert Vertex :=
+  a.re • crossingDark + b.re • crossingBright
+
+@[expose] def coordinatedEmbedImag (a b : ℂ) : TileHilbert Vertex :=
+  a.im • crossingDark + b.im • crossingBright
+
+@[expose] def coordinatedXAxisMatrix (δ τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  let p := coordinatedPhase (-(crossingEnergy + δ) * τ)
+  let q := coordinatedPhase (-crossingEnergy * τ)
+  !![(p + q) / 2, (p - q) / 2; (p - q) / 2, (p + q) / 2]
+
+@[expose] def coordinatedZAxisMatrix (η τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  !![coordinatedPhase (-crossingEnergy * τ), 0;
+     0, coordinatedPhase (-(crossingEnergy + 2 * η) * τ)]
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedPulseComposition
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+open Filter Set
+open scoped Topology
+
+@[expose] def coordinatedPulseX (δ τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
+  coordinatedApplyPair (coordinatedXAxisMatrix δ τ) w.1 w.2
+
+@[expose] def coordinatedPulseZ (η τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
+  coordinatedApplyPair (coordinatedZAxisMatrix η τ) w.1 w.2
+
+@[expose] def coordinatedStateReal (w : ℂ × ℂ) : TileHilbert Vertex :=
+  coordinatedEmbedReal w.1 w.2
+
+@[expose] def coordinatedStateImag (w : ℂ × ℂ) : TileHilbert Vertex :=
+  coordinatedEmbedImag w.1 w.2
+
+@[expose] def domainCoordinatedStateReal (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
+  w.1.re • domainCrossingDark + w.2.re • domainCrossingBright
+
+@[expose] def domainCoordinatedStateImag (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
+  w.1.im • domainCrossingDark + w.2.im • domainCrossingBright
+
+@[expose] def coordinatedClock (s : ℝ) : ℝ := min (max s 0) 1
+
+@[expose] def coordinatedProtocolPair (p t q : ℝ) (w : ℂ × ℂ)
+    (τ : ℝ) : ℂ × ℂ :=
+  coordinatedPulseZ q (coordinatedClock (τ-2))
+    (coordinatedPulseX (-2*t) (coordinatedClock (τ-1))
+      (coordinatedPulseZ p (coordinatedClock τ) w))
+
+@[expose] def coordinatedSolvesAt (δ η : ℝ) (f : ℝ → ℂ × ℂ) (s : ℝ) : Prop :=
+  HasDerivAt (fun τ => coordinatedStateReal (f τ))
+    (onsitePlusBounded potential (coordinatedCorrection δ η)
+      (domainCoordinatedStateImag (f s))) s ∧
+  HasDerivAt (fun τ => coordinatedStateImag (f τ))
+    (-(onsitePlusBounded potential (coordinatedCorrection δ η)
+      (domainCoordinatedStateReal (f s)))) s
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedProtocolAngle (p t q : ℝ) : ℝ :=
+  -(crossingEnergy + q) + -(crossingEnergy - t) + -(crossingEnergy + p)
+
+theorem coordinatedProtocol_exact_preparation (a b : ℂ)
+    (hn : ‖a‖ ^ 2 + ‖b‖ ^ 2 = 1) :
+    ∃ p t q : ℝ, 0 ≤ t ∧ t ≤ Real.pi / 2 ∧
+      let f := coordinatedProtocolPair p t q (1,0)
+      let z := coordinatedPhase (coordinatedProtocolAngle p t q)
+      ‖z‖ = 1 ∧
+      f 0 = (1,0) ∧
+      coordinatedStateReal (f 0) = crossingDark ∧
+      coordinatedStateImag (f 0) = 0 ∧
+      f 3 = (z*a,z*b) ∧
+      coordinatedStateReal (f 3) =
+        (z*a).re • crossingDark + (z*b).re • crossingBright ∧
+      coordinatedStateImag (f 3) =
+        (z*a).im • crossingDark + (z*b).im • crossingBright ∧
+      Continuous f ∧
+      Continuous (fun τ => coordinatedStateReal (f τ)) ∧
+      Continuous (fun τ => coordinatedStateImag (f τ)) ∧
+      (∀ τ : ℝ, coordinatedStateReal (f τ) ∈ infiniteOnsiteDomain potential ∧
+        coordinatedStateImag (f τ) ∈ infiniteOnsiteDomain potential ∧
+        ‖coordinatedStateReal (f τ)‖ ^ 2 + ‖coordinatedStateImag (f τ)‖ ^ 2 = 1 ∧
+        crossingLeakage (coordinatedStateReal (f τ)) = 0 ∧
+        crossingLeakage (coordinatedStateImag (f τ)) = 0) ∧
+      (∀ τ : ℝ, 0 < τ → τ < 1 → coordinatedSolvesAt 0 p f τ) ∧
+      (∀ τ : ℝ, 1 < τ → τ < 2 → coordinatedSolvesAt (-2*t) 0 f τ) ∧
+      (∀ τ : ℝ, 2 < τ → τ < 3 → coordinatedSolvesAt 0 q f τ) := by
   sorry
 
 end

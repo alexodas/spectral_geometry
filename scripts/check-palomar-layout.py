@@ -17,6 +17,9 @@ for name in (
     "formalization.yaml",
     "palomar/dark-bright/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
+    "palomar/exact-leakage-free-preparation/comparator.json",
+    "palomar/signed-bright-splitting/formalization.yaml",
+    "palomar/exact-leakage-free-preparation/formalization.yaml",
     "lake-manifest.json",
 ):
     try: json.loads((root/name).read_text(encoding="utf-8"))
