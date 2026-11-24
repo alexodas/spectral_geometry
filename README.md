@@ -8,7 +8,7 @@ zeros of analytic functions built from those levels.**
 
 We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
 
-At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar as PALOMAR-2026-11-06-000012, proved that these two patterns account for all independent states at that energy in the entire infinite network.
+At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar on 6 November 2026 as [PALOMAR-2026-11-06-000012 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1), proved that these two patterns account for all independent states at that energy in the entire infinite network.
 
 Further results proved in Lean establish that, at this special setting, no other real energy level lies within a distance of 1/128 of their common energy.
 
@@ -18,9 +18,11 @@ The first is to change a parameter that affects the first ring of the network. T
 
 The second is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.
 
-Our main theorem proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
+Our main theorem, separately registered with Palomar on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) (source commit [`7b68540`](https://github.com/alexodas/spectral_geometry/commit/7b68540619ab45e5233b2d5ec8273829b3fbba77)), proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
 
 The theorem also gives two precise numerical guarantees. The moving energy differs from the original energy plus one quarter of the edge change by no more than 112 times the square of that change. For a normalized wave at the moving energy, the size of the part extending beyond the original two-state space is at most 64 times the square root of 7, multiplied by the absolute size of the edge change.
+
+The two Palomar records concern distinct exact formal statements: the crossing multiplicity and the signed one-edge splitting. The separate baseline gap and conditional pulse estimates are not independently selected statements in either record. Registration establishes mechanical verification of the selected statements, not human peer review, novelty, or physical controllability.
 
 This means that we can make the external part of the moving wave as small as desired while keeping the two energy levels distinct. These are exact results for the infinite system, not predictions from a simplified two-state model.
 
@@ -130,7 +132,7 @@ The table below separates proved results from remaining research tasks.
 | Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. The preliminary theorem passed Action #326; the sharp one passed Action #328 |
 | True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`; complete Lean and independent Comparator verification in Action #331 |
 | Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts strictly in the direction of ε. The consolidated theorem explicitly asserts **both nonzero eigenvectors**, including the exact fixed-dark eigenvalue equation, and establishes the two simple eigenspaces, point-spectrum window, quadratic `112ε²` energy law and external bright control. The stronger selected theorem passed full Lean and independent Comparator in Action #340 after the Palomar editorial request. |
-| L5 Palomar candidate and editorial follow-up | §4.98: the L5 submission passed mechanical verification but received an **automated editorial change request** to state the nonzero dark eigenvector and its equation explicitly. PR #89 corrected both the source and Mathlib-only Challenge; Action #340 passed, with the Comparator and archived earlier candidate preserved. Revised L5 registration by Palomar is **not** asserted. |
+| L5 Palomar candidate and editorial follow-up | §4.98: the L5 submission passed mechanical verification but received an **automated editorial change request** to state the nonzero dark eigenvector and its equation explicitly. PR #89 corrected both the source and Mathlib-only Challenge; Action #340 passed, with the Comparator and archived earlier candidate preserved. The revised L5 theorem was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) at commit `7b68540`. |
 | Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
 | Two-mode controllability research, L7 and L6 | **Open**. L7a exact eight-edge invariance is the immediate next Lean goal. L7b–L7c complex dynamics and target-state reachability, and the original L6 single-edge approximate-control theorem, are distinct subsequent targets (§6.4). |
 
@@ -4384,7 +4386,7 @@ static-package and independent NanoDa/con-ron checks
 An eventual Palomar submission must use a publicly
 accessible immutable commit with successful checks.
 
-**Distinct Palomar registration identity.** The original
+**Distinct Palomar registration identity (historical preparation note).** The original
 registered theorem remains attached to its historical immutable
 revision and has **not** been revised or resubmitted. The earlier
 generator-response candidate is an unsubmitted archive under
@@ -4393,9 +4395,7 @@ Comparator and root-module snapshots are preserved for reproducibility.
 The **currently proposed** signed-splitting theorem instead uses
 [`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
 The local CI and packaging checks now explicitly select this
-per-theorem path, never a root Comparator. An eventual separate
-submission must use a verified immutable source hash and must
-not reuse the earlier registered result's ID.
+per-theorem path, never a root Comparator. The separate submission has since been registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) at immutable commit `7b68540`; the earlier ID remains unchanged.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -5142,9 +5142,7 @@ remains archived under `palomar/dark-bright/`.
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
-Successful Lean checks and a successful Comparator are **not**
-Palomar editorial acceptance. No subsequent Palomar L5
-registration is asserted here.
+Successful Lean checks and a successful Comparator alone are **not** Palomar registration. The separate registry record [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) subsequently registered L5 on 23 November 2026 at immutable commit `7b68540619ab45e5233b2d5ec8273829b3fbba77`.
 
 **Potential research interest, without a priority claim.** The compact
 A/B patterns are known in quasicrystal tight-binding research
