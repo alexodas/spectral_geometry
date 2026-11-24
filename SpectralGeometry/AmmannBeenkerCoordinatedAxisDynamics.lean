@@ -8,7 +8,7 @@ public section
 /-!
 # Exact natural-domain dynamics for the two pure control axes (L7c)
 
-Both controls admit a complete pair of exact compact eigenvectors on
+Both controls have a complete pair of exact compact eigenvectors on
 the original plane. For X use compact A/B; for Z use dark/bright.
 The constructed trajectories solve the coupled real/imaginary equations
 of the full graph and preserve their norm and zero leakage at all times.
