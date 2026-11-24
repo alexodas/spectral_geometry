@@ -113,6 +113,7 @@ public import SpectralGeometry.AmmannBeenkerCoordinatedLieGeneration
 public import SpectralGeometry.AmmannBeenkerCoordinatedEuler
 public import SpectralGeometry.AmmannBeenkerCoordinatedPairDynamics
 public import SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
+public import SpectralGeometry.AmmannBeenkerCoordinatedRotationDynamics
 
 public section
 
