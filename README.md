@@ -36,7 +36,7 @@ The third intervention changes eight matched edges together. Lean proves that th
 
 The two controls have an exact two-by-two matrix representation, not an approximation to the infinite system. Apart from a common energy shift, the detuning and the coordinated edge strength act along two different Pauli directions. Their order matters: the verified matrix commutators give a third independent direction. The two directions generate the entire algebra of two-state rotations after removing the common phase.
 
-A further theorem gives a constructive sequence of three two-by-two rotation matrices that transforms the dark coordinate into any chosen normalized pair of complex amplitudes, including the pure bright state. The rotation angles follow from the magnitudes and phases of the desired amplitudes. We now also have exact time-dependent solutions for either control used alone, starting from any complex mixture of the two localized waves. The real and imaginary parts satisfy the Schrödinger equations on the full infinite network, conserve the squared complex norm and have no component outside the original two-state space at any time. The exact single-axis trajectories have now also been identified with the two rotation matrices multiplied by their respective common scalar phases, for every complex initial pair, real strength and real time. Three such pulses have now been joined into a single continuous trajectory for arbitrary initial coefficients and real control strengths. The full-graph Schrödinger equations hold on each open pulse interval, and the state has conserved norm, natural-domain membership and zero exterior component at every time, including switches. The remaining preparation theorem must choose the pulse parameters for any prescribed normalized target and identify the final state up to its common phase. A general complex quantum propagator on the entire infinite Hilbert space has not yet been constructed. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
+A further theorem gives a constructive sequence of three two-by-two rotation matrices that transforms the dark coordinate into any chosen normalized pair of complex amplitudes, including the pure bright state. The rotation angles follow from the magnitudes and phases of the desired amplitudes. We now also have exact time-dependent solutions for either control used alone, starting from any complex mixture of the two localized waves. The real and imaginary parts satisfy the Schrödinger equations on the full infinite network, conserve the squared complex norm and have no component outside the original two-state space at any time. The exact single-axis trajectories have now also been identified with the two rotation matrices multiplied by their respective common scalar phases, for every complex initial pair, real strength and real time. Three such pulses have now been joined into a single continuous trajectory for arbitrary initial coefficients and real control strengths. The full-graph Schrödinger equations hold on each open pulse interval, and the state has conserved norm, natural-domain membership and zero exterior component at every time, including switches. The final preparation theorem now proves that for every prescribed normalized complex target pair, three unit-duration pulses can be chosen to reach that target from dark up to an explicit common phase. This is exact zero-leakage preparation on the infinite graph, in the real/imaginary representation of the complex state, under independently tunable signed controls. A general complex quantum propagator on the entire infinite Hilbert space has not yet been constructed. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
 
@@ -48,11 +48,11 @@ of its original goals:
 | Track | Question | Status and next steps |
 | --- | --- | --- |
 | **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
-| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–3 verified** (§§4.102–4.104): exact single-axis Schrödinger trajectories, phase-weighted rotations and continuous three-pulse composition with conserved norm and zero leakage at all times; final target preparation and general full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
 
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
-Neither L6 nor L7 is a proved target-state preparation theorem.
+L7 now proves exact normalized target preparation from dark under coordinated controls; the distinct L6 single-edge approximate preparation theorem remains open.
 See the [L7/L6 research roadmap](docs/bright-spectral-splitting-roadmap.md)
 and the preserved [single-edge research note](docs/edge-control-reachability.md).
 The detailed Lean-module catalogue and all existing theorem descriptions
@@ -87,10 +87,11 @@ remain below.
     - [4.102. Exact natural-domain Schrödinger trajectories for both control axes](#4102-exact-natural-domain-schrödinger-trajectories-for-both-control-axes)
     - [4.103. Exact identification of physical pulses with Pauli rotations](#4103-exact-identification-of-physical-pulses-with-pauli-rotations)
     - [4.104. Continuous three-pulse protocol with exact zero leakage](#4104-continuous-three-pulse-protocol-with-exact-zero-leakage)
+    - [4.105. Exact arbitrary target preparation from dark without leakage](#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)
 - [5. Building and verification](#5-building-and-verification)
 - [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
   - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
-  - [6.4. L7 immediate priority; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - [6.4. L7 exact preparation verified; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
   - [6.5–6.7. Relative products, finite patches and exploratory zeros](#65-local-geometric-defects-and-relative-spectral-products)
   - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
 
@@ -100,7 +101,7 @@ The results concern one explicitly defined **confined infinite Ammann–Beenker 
 
 - **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The main result identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component.
 - **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization. The coordinated matching (§§4.99–4.100) supplies a distinct bounded symmetric intervention that preserves the whole two-mode plane exactly.
-- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. They do not establish a general physical propagator, experimental feasibility or arbitrary preparation of two-mode mixtures.
+- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. These conditional single-edge bounds do not establish a general physical propagator or the L6 preparation theorem. The distinct coordinated-control theorem (§4.105) does establish exact arbitrary normalized target preparation from dark, not experimental feasibility.
 - **Researchers in formalized mathematics** may be interested in how natural domains of unbounded operators, complete real eigenbases, explicit spectral gaps and quantitative perturbation estimates are handled in Lean 4 and Mathlib.
 
 These are **plausible research audiences**, not evidence of originality, practical usefulness or scientific impact. Independent expert evaluation and comparison with the specialist literature are still needed.
@@ -132,7 +133,7 @@ The table below separates proved results from remaining research tasks.
 | Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing is not claimed by this result; separate edge-change splitting estimates are proved in §§4.93–4.97 |
 | Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
 | Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
-| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate, complex unitary evolution and actual state preparation remain open |
+| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate and general complex unitary evolution remain separate; L7 exact preparation is established by a different coordinated-control construction in §4.105 |
 | Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
 | Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
 | Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The stronger L5 theorem is the registered selection of §4.98 |
@@ -151,7 +152,8 @@ The table below separates proved results from remaining research tasks.
 | Exact single-axis Schrödinger trajectories, L7c.1 | §4.102: arbitrary complex compact-mode coefficients, exact coupled real/imaginary full-domain equations, conserved squared complex norm and zero leakage of both components for all real times; the combined real Hamiltonian is self-adjoint at arbitrary real control strengths. Lean-verified |
 | Exact phase-weighted rotation action, L7c.2 | §4.103: the full natural-domain single-axis trajectories equal the embeddings of the X and Z rotation matrices with their common phases, for every complex initial pair and real strength and time. Lean-verified |
 | Continuous three-pulse protocol, L7c.3 | §4.104: exact Z–X–Z composition for arbitrary complex initial pairs and real strengths, continuous full-space components and exact switch matching, natural-domain membership, conserved squared complex norm and zero leakage at every time, with full Schrödinger equations on each open pulse interval. Lean-verified |
-| Two-mode controllability research, L7 and L6 | L7c final target-state preparation and general complex propagator, and the distinct original L6 approximate-control theorem remain open (§6.4) |
+| Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified |
+| Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
 enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
@@ -162,7 +164,7 @@ identity and certified finite-patch comparisons remain open (§6).
 The registered crossing result (§4.78), the separately proved gap (§4.79),
 the certified dark/bright generator algebra (§§4.80–4.91), the archived
 unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
-(§§4.93–4.98), exact coordinated-plane invariance, full Lie generation, constructive matrix reachability, exact single-axis phase-weighted rotations and continuous zero-leakage three-pulse dynamics (§§4.99–4.104), and
+(§§4.93–4.98), exact coordinated-plane invariance, full Lie generation, constructive matrix reachability, exact single-axis phase-weighted rotations, continuous three-pulse dynamics and exact arbitrary target preparation from dark (§§4.99–4.105), and
 the still-open dynamical coherent-control problem (§6.4) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
@@ -4340,7 +4342,8 @@ foundation of L7b, completed at the algebraic level in §4.101.
 The subsequent §4.102 establishes exact single-axis Schrödinger trajectories
 with zero leakage at every time. Section 4.103 identifies their rotation
 matrices including the common phase; §4.104 proves their continuous
-three-pulse composition with exact zero leakage throughout.
+three-pulse composition with exact zero leakage throughout. Section 4.105
+proves arbitrary normalized target preparation from dark up to global phase.
 These results have not been independently selected for Palomar registration.
 The original single-edge L1–L6 route and Track A remain distinct.
 
@@ -4435,7 +4438,8 @@ edge weights or bounded-strength hardware constraint is imposed by
 this theorem. The equality between these rotations and the actual single-axis
 natural-domain trajectories, including the common phase, is proved in
 §4.103. The continuous switched protocol is proved in §4.104;
-its arbitrary-target endpoint theorem and general complex propagator remain separate.
+its arbitrary-target endpoint theorem is proved in §4.105. A general
+complex full-space propagator remains separate.
 
 | Lean theorem | Meaning |
 | --- | --- |
@@ -4458,8 +4462,9 @@ Section 4.102 constructs the exact single-axis full-graph Schrödinger
 trajectories in real and imaginary components, with zero exterior component
 throughout each segment. Section 4.103 proves the exact phase-weighted
 rotation identification, and §4.104 proves continuous pulse composition
-with zero leakage at every time. The remaining tasks are the final
-target preparation theorem and a general complex full-space propagator. L7a and L7b have not been independently selected for
+with zero leakage at every time. Section 4.105 proves the final arbitrary
+target preparation theorem from dark. A general complex full-space propagator
+remains open. L7a and L7b have not been independently selected for
 Palomar registration. The original single-edge L6 goal and the
 analytic spectral-geometry program remain separate.
 
@@ -4570,8 +4575,8 @@ not a general complex-Hilbert-space propagator for arbitrary initial
 data. Section 4.103 (L7c.2) identifies the exact coefficient action
 with the rotations of §4.101, including the scalar phases. Section 4.104
 (L7c.3) joins the segments with matching initial and final states and
-zero leakage throughout. L7c.4 must prove arbitrary target-state preparation up to global
-phase with no leakage at any time in the protocol. A general
+zero leakage throughout. Section 4.105 (L7c.4) proves arbitrary normalized
+target preparation from dark up to global phase with zero leakage throughout. A general
 complex unitary group remains a separate outstanding objective.
 These L7 results are not independently selected for Palomar
 registration. The separate L6 and Track A goals are preserved.
@@ -4666,7 +4671,7 @@ is complete. For unit-duration pulses the X parameter t requires
 δ=-2t and the Z parameter p requires η=p. The Z–X–Z protocol
 uses independently tunable signed real strengths. Its composition
 with matched endpoints and piecewise Schrödinger equations is
-proved in §4.104 (L7c.3); its arbitrary-target theorem is L7c.4.
+proved in §4.104 (L7c.3); its arbitrary-target theorem is proved in §4.105 (L7c.4).
 A general unitary propagator on the full complex infinite Hilbert
 space is not constructed by these results. These L7 results have not been independently
 selected for Palomar registration. The original L6 approximate
@@ -4785,7 +4790,7 @@ works for arbitrary initial coefficient pairs in the compact
 plane and arbitrary real p,t,q. It supplies an actual continuous
 piecewise differentiable full-graph trajectory in the real/imaginary
 representation, not just a product of endpoint matrices.
-L7c.4 must combine the final coefficient product with the
+Section 4.105 (L7c.4) combines the final coefficient product with the
 constructive Euler reachability theorem of §4.101 to choose the
 parameters for every normalized target from dark, retaining the
 common scalar phase. The general complex Hilbert-space unitary
@@ -4796,9 +4801,111 @@ independently selected for Palomar registration. L6 and Track A
 remain preserved.
 
 
+### 4.105. Exact arbitrary target preparation from dark without leakage
+
+**Plain-English result.** Any normalized mixture of the two original
+localized waves can be prepared from the dark wave by three consecutive
+local control pulses on the actual infinite Ammann–Beenker graph.
+The final state differs from the chosen target only by a common phase.
+During the whole protocol no amplitude escapes the original two-mode
+plane, the norm remains one, and the state is continuous. The two
+real Hilbert-space components satisfy the exact natural-domain
+Schrödinger equations on the open pulse intervals. This completes
+the central L7 preparation objective without assuming a general
+propagator or making a small-perturbation approximation.
+
+The module
+[`AmmannBeenkerCoordinatedExactPreparation.lean`](SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean)
+combines the constructive matrix reachability of §4.101 with the
+actual phase-retaining trajectories of §§4.102–4.104.
+
+**Exact final phase.** Let E_* be the crossing energy and D,F the
+normalized dark and bright modes. The three unit-duration controls
+are (δ,η)=(0,p),(-2t,0),(0,q). The physical endpoint matrix is
+
+```math
+U_Z(q,1)U_X(-2t,1)U_Z(p,1)
+=e^{i\theta}R_Z(q)R_X(t)R_Z(p),
+\qquad \theta=-3E_*+t-p-q.
+```
+
+The scalar factor has modulus one. This identity holds for arbitrary
+real p,t,q, including when applied to any initial coefficient pair.
+In particular the final coefficients starting from dark are
+
+```math
+e^{i\theta}\left(\cos(t)e^{i(p+q)},
+i\sin(t)e^{i(p-q)}\right).
+```
+
+For a chosen complex pair (α,β) with |α|²+|β|²=1, the earlier
+constructive Euler proof chooses t=arccos|α|, with
+0≤t≤π/2, and p=(u+v)/2, q=(u−v)/2, where u=arg(α)
+and v=arg(−iβ). Its phase identities also cover zero coefficients.
+Thus there exist p,t,q for which the physical endpoint is exactly
+e^{iθ}(α,β). The phase is not removed between pulses.
+
+**Bundled full-graph theorem.** The theorem
+`coordinatedProtocol_exact_preparation` proves the existence
+of those parameters and all of the following properties for
+the same trajectory f=coordinatedProtocolPair p t q (1,0).
+Writing u and v for its real and imaginary full-space embeddings,
+the initial state is u(0)=D, v(0)=0, and the final components are
+
+```math
+u(3)=\operatorname{Re}(e^{i\theta}\alpha)D+
+      \operatorname{Re}(e^{i\theta}\beta)F,\qquad
+v(3)=\operatorname{Im}(e^{i\theta}\alpha)D+
+      \operatorname{Im}(e^{i\theta}\beta)F.
+```
+
+The coefficient path and both graph components are continuous.
+For every real time both components belong to the original
+natural onsite domain, and
+
+```math
+\|u(\tau)\|^2+\|v(\tau)\|^2=1,\qquad
+Qu(\tau)=Qv(\tau)=0.
+```
+
+On the three open intervals (0,1), (1,2), (2,3), respectively,
+the components satisfy u'=H_{δ,η}v and v'=−H_{δ,η}u
+for the actual full Hamiltonian at the stated strengths.
+The norm and zero-leakage identities include all switching times
+and endpoints; differentiability across a control jump is not
+required. The constant extension outside the protocol is not
+asserted to solve a physical evolution equation there.
+
+| Lean theorem | Meaning |
+| --- | --- |
+| `coordinatedProtocolAngle_eq`, `coordinatedProtocolPhase_norm` | Exact accumulated scalar phase and its unit modulus |
+| `coordinatedProtocolMatrix_rotation` | Exact physical three-pulse matrix equals the phase-weighted Euler product |
+| `coordinatedProtocol_final_rotation` | Physical endpoint for arbitrary initial coefficient pairs |
+| `coordinatedProtocol_final_dark` | Explicit endpoint coefficients starting from dark |
+| `coordinatedProtocol_reaches_from_dark` | Existence of parameters reaching every normalized complex target up to the stated phase |
+| `coordinatedState_dark_initial`, `coordinatedProtocol_dark_weight` | Exact dark initial state and unit squared complex norm |
+| `coordinatedProtocol_exact_preparation` | Combined endpoint, continuity, domain, norm, zero leakage and full piecewise Schrödinger equations |
+
+**Status and limits.** The ten public theorems, one private
+supporting lemma and one definition are Lean-verified. L7a–L7c.4
+complete the exact dark-to-arbitrary-target preparation objective.
+The state is represented by real and imaginary vectors of the full
+infinite graph. A separate construction of a general complex
+Hilbert-space unitary propagator for arbitrary initial data is
+still open. The theorem starts from dark; arbitrary initial-to-target
+control as a separately formalized result, exact phase-sensitive
+preparation without quotienting by global phase, constraints on
+physical edge strengths, experimental feasibility, and minimal
+control resources are not claimed. The two independently tunable
+controls are those defined in §§4.99–4.100; this is not the original
+single-edge L6 preparation theorem. L7 has not been independently
+selected for Palomar registration. The earlier registrations
+and all Track A objectives remain unchanged.
+
+
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **115 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It imports **116 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and one infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
@@ -4887,7 +4994,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`FullSpectralZeroCounts.lean`](SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (37):**
+- **Explicit octagonal geometry, operator and spectral products (38):**
   - [`AmmannBeenkerCutProject.lean`](SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -4919,6 +5026,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeo
   - [`AmmannBeenkerCoordinatedAxisDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean) *(single-axis Schrödinger equations, norm conservation, zero leakage and full real self-adjointness; §4.102)*
   - [`AmmannBeenkerCoordinatedRotationDynamics.lean`](SpectralGeometry/AmmannBeenkerCoordinatedRotationDynamics.lean) *(exact phase-weighted rotation action and embedding into full natural-domain trajectories; §4.103)*
   - [`AmmannBeenkerCoordinatedPulseComposition.lean`](SpectralGeometry/AmmannBeenkerCoordinatedPulseComposition.lean) *(continuous three-pulse trajectory, switch matching, full-domain equations, conserved norm and zero leakage; §4.104)*
+  - [`AmmannBeenkerCoordinatedExactPreparation.lean`](SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean) *(exact arbitrary normalized target preparation from dark up to global phase with continuous full-domain zero-leakage dynamics; §4.105)*
   - [`AmmannBeenkerCentralPatch.lean`](SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -4961,10 +5069,10 @@ imports the substantive bright-splitting proof module.
 Six extra proposition witnesses are necessary to reconstruct
 the concrete graph and its domain; those are not additional
 submitted scientific results. There are seven deliberate
-definition holes and no proof holes in the full **115-module**
+definition holes and no proof holes in the full **116-module**
 substantive library. The original and later Palomar registrations remain
 distinct. The complete Lean library and the selected L5 Comparator have
-passed verification. L7a, L7b and L7c.1–3 are Lean-verified but
+passed verification. L7a, L7b and L7c.1–4 are Lean-verified but
 are not independently selected in that Comparator.
 
 **Distinct Palomar registration identity (historical preparation note).** The original
@@ -5038,20 +5146,21 @@ of its formal infrastructure.
    preserve the entire original dark–bright plane exactly under both
    controls. **L7b is complete algebraically (§§4.100–4.101):** full
    su(2) generation and constructive matrix reachability from dark.
-   L7c.1–3 verify exact single-axis trajectories, phase-weighted rotations
-   and continuous three-pulse dynamics with zero leakage (§§4.102–4.104);
-   final target preparation and general complex unitary evolution remain open. **L6 remains the deferred original
+   L7c.1–4 verify exact single-axis trajectories, phase-weighted rotations,
+   continuous three-pulse dynamics and arbitrary normalized target preparation
+   from dark with zero leakage (§§4.102–4.105). General complex unitary
+   evolution remains open. **L6 remains the deferred original
    single-edge approximate-control program**, not a cancelled goal.
    The [detailed control roadmap](docs/bright-spectral-splitting-roadmap.md)
    separates these tasks and their proof obligations.
 
 **Research status and verification.** L5 is registered as described in §4.98.
-L7a, L7b and L7c.1–3 are Lean-verified (§§4.99–4.104); these new
+L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); these new
 statements have not been independently selected for Palomar registration.
-No general complex quantum propagator, L6 reachability theorem or L7
-zero-leakage controllability theorem has yet been proved. Earlier
-conditional time-uniform leakage bounds and a single exact dark
-Schrödinger trajectory do not replace these missing results.
+The L7 exact zero-leakage preparation theorem from dark is proved.
+A general complex quantum propagator and the distinct L6 reachability
+theorem remain open. Earlier conditional time-uniform leakage bounds
+retain their separate scope.
 
 A checked item below denotes an actual substantive Lean result
 under its stated hypotheses; an unchecked item is an open task.
@@ -5271,7 +5380,7 @@ analytic-product consequences have their own hypotheses.
 **Relationship to the two research tracks.** This section retains
 the full original geometric and spectral-product objectives (Track A),
 followed by the newer compact-mode control direction (Track B).
-The **active** control target is L7c.4: combine the verified continuous three-pulse protocol (§4.104) with the constructive Euler reachability theorem (§4.101) to establish arbitrary normalized target preparation from dark up to the exact common scalar phase, with zero leakage throughout.
+The L7 central control objective is now **verified** (§4.105): arbitrary normalized target preparation from dark up to an explicit global phase with zero leakage throughout. General complex full-space propagation, stronger control theorems, and the distinct L6 program remain open.
 The earlier single-edge preparation narrative and its open tasks
 remain here as the **preserved, deferred L6 program**; they are not
 the present priority and are not already proved.
@@ -5394,10 +5503,10 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
   The selected theorem is Lean- and Comparator-verified; independent
   scientific assessment remains separate.
 
-**Immediate research priority: L7 — exact zero-leakage two-mode control**
+**Verified L7 objective — exact zero-leakage two-mode preparation**
 
 L7a uses the eight-edge *coordinated local perturbation* `M`. The following
-static, algebraic and switched dynamical results are Lean-verified in §§4.99–4.104.
+static, algebraic and switched dynamical results are Lean-verified in §§4.99–4.105.
 
 - [x] Construct eight genuine, distinct, mutually disjoint adjacent pairs.
 - [x] Define the bounded symmetric finite sum and certify matching amplitudes.
@@ -5418,13 +5527,14 @@ static, algebraic and switched dynamical results are Lean-verified in §§4.99�
   continuous full-space components, natural-domain membership, exact
   piecewise Schrödinger equations, norm conservation and zero leakage at
   every time, including the switches.
-- [ ] **L7c.4:** prove arbitrary normalized target preparation from dark up
-  to global phase with `‖Qψ(t)‖=0` at every time.
+- [x] **L7c.4:** prove arbitrary normalized target preparation from dark up
+  to the explicit global phase with `‖Qψ(t)‖=0` at every time, continuous
+  natural-domain trajectories and full piecewise Schrödinger equations.
 - [ ] Construct a general full complex Hilbert-space unitary propagator.
 
-Static invariance, full Lie generation and matrix state reachability do not
-by themselves constitute a dynamical control theorem. See the
-[active L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-active-next-theorem-l7--exact-two-mode-control-without-leakage-open).
+Static invariance and Lie generation alone would not suffice for a
+preparation theorem; the explicit natural-domain trajectories and endpoint
+proof now supply it. See the [verified L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-l7--exact-two-mode-preparation-without-leakage-verified).
 
 **Deferred original research direction: L6 — single-edge approximate control (PRESERVED, OPEN)**
 
@@ -5465,7 +5575,7 @@ and
 build directly on the crossing equations, adding the exact coupling,
 the normalized dark eigenstate and the response to detuning (§4.80).
 Their exact operator identities have passed the full Lean build; the
-dynamic no-go theorem and any successful preparation protocol remain open.
+dynamic single-edge no-go theorem and the L6 preparation protocol remain open. The separate coordinated L7 preparation protocol is now proved in §4.105.
 Sections 4.81–4.91 now add an exact qubit/leakage decomposition,
 the reduced-gap and exact-edge norm, quantitative **conditional**
 time-uniform bounds for a selected-edge pulse and subsequent
@@ -5517,8 +5627,7 @@ theorem, not the conditional pulse-error bounds themselves.
   and independent statement checks.
   Those identities by themselves do not assert a moving level;
   that **later existence theorem** is independently proved in §4.93.
-- [ ] **Shared L6/L7 prerequisite: construct general complex dynamics; L6
-  subsequently prepares controlled A/B superpositions.** Build the genuine complex-Hilbert-space
+- [ ] **General complex dynamics and L6 controlled A/B preparation (open).** Build the genuine complex-Hilbert-space
   unitary evolution with natural-domain invariance and generator
   commutation, apply the proved leakage bounds to it, and then
   certify nontrivial bright-mode mixing, target amplitudes,
@@ -5566,8 +5675,8 @@ matrix, full Lie generation and constructive Euler state reachability
 (§§4.99–4.101). The verified L7c.1 single-axis trajectories (§4.102) solve the full
 natural-domain Schrödinger equations with exact zero leakage. L7c.2 identifies them with the exact phase-weighted rotations (§4.103).
 L7c.3 proves their continuous three-pulse composition with exact zero
-leakage (§4.104). The next task is L7c.4, the arbitrary-target endpoint
-theorem for this verified trajectory.
+leakage (§4.104). L7c.4 proves the arbitrary-target endpoint theorem
+from dark for this verified trajectory (§4.105).
 The one-edge, small-leakage preparation route remains open, and the
 spectral-product and relative-determinant objectives are unchanged.
 
