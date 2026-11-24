@@ -14,9 +14,9 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**Current priority: L7c.4, arbitrary normalized target preparation from dark.** L7a and algebraic L7b are complete. L7c.1–2 prove exact natural-domain single-axis Schrödinger trajectories and their identification with the phase-weighted X and Z rotations. L7c.3 now proves a continuous three-pulse trajectory with exact matching at switches, natural-domain membership, conserved squared complex norm and zero leakage at every real time, and full-graph Schrödinger equations on each open pulse interval ([README §4.104](../README.md#4104-continuous-three-pulse-protocol-with-exact-zero-leakage)). Next combine this construction with the Euler reachability theorem to choose the pulse parameters for every normalized target from dark up to its common phase. The general complex full-space propagator remains open; L6 is preserved.
+**L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator, stronger control results and independent L7 registration remain separate. L6 and Track A are preserved.
 
-**Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This is **not** a proof of general quantum dynamics, L6 reachability or time-dependent L7 zero-leakage controllability.
+**Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
 ## 1. Established starting point
 
@@ -235,9 +235,10 @@ none is claimed in this theorem. No comparison package changed.
    count, simplicity, sharp energy law and full-exterior
    eigenvector control on the original natural domain.
    Both full Lean and the independent Comparator passed.
-10. **New priority: L7a (open)**: construct and verify the eight-edge
-    operator preserving the original dark–bright plane exactly.
-    L7b–L7c, physical reachability and complex propagation remain open.
+10. **L7a–L7c.4 (verified)**: construct and verify the eight-edge
+    operator preserving the original dark–bright plane exactly, the
+    Lie algebra and the continuous three-pulse preparation theorem.
+    General complex propagation remains open.
     **Original L6** (single-edge controlled small leakage), independent
     novelty assessment and analytic-product research are retained
     for future work; none follows automatically from L5.
@@ -298,7 +299,9 @@ new commit, not the earlier reviewed one.
 
 
 
-## 6. Active next theorem: L7 — exact two-mode control without leakage (OPEN)
+<a id="6-active-next-theorem-l7--exact-two-mode-control-without-leakage-open"></a>
+
+## 6. L7 — exact two-mode preparation without leakage (VERIFIED)
 
 **Motivation.** The single selected edge `W` has
 `‖Q W F‖² = 7/16 > 0`: it does not preserve the original
@@ -363,7 +366,7 @@ quantum theorem.
 These are finite-dimensional matrix results, not a proof of the
 infinite-system time evolution or arbitrary initial-state propagator.
 
-### L7c — exact complex quantum evolution (PARTIALLY VERIFIED)
+### L7c — exact complex compact-plane preparation (VERIFIED)
 
 - [x] **L7c.1:** Construct exact full natural-domain single-axis trajectories
       in real/imaginary components for arbitrary complex amplitudes.
@@ -378,9 +381,10 @@ infinite-system time evolution or arbitrary initial-state propagator.
       continuous full-space components, piecewise full-domain Schrödinger
       equations, conserved squared complex norm, natural-domain membership
       and zero leakage at every time, including the switches.
-- [ ] **L7c.4:** Prove arbitrary normalized target preparation from dark
-      up to global phase, with exact zero leakage throughout, under
-      independently tunable signed real controls.
+- [x] **L7c.4:** Prove arbitrary normalized target preparation from dark
+      up to the explicit global phase, with exact zero leakage throughout,
+      under independently tunable signed real controls. The bundled
+      theorem is coordinatedProtocol_exact_preparation.
 - [ ] Construct the general complex Hilbert-space model and unitary
       full-space propagators; distinguish the explicit plane trajectories
       from evolution for arbitrary infinite-space initial data.
@@ -391,8 +395,10 @@ infinite-system time evolution or arbitrary initial-state propagator.
 **L7 completion criterion:** an explicit, physically local finite-edge
 control with kernel-checked full-operator invariance **and** a
 quantum-dynamical arbitrary-target theorem with exact zero leakage
-for every time of the protocol. L7a alone is a useful intermediate
-lemma but not this complete controllability result.
+for every time of the protocol. This criterion is now met by L7a–L7c.4
+for preparation from dark in the real/imaginary representation.
+It does not assert a general complex unitary group, preparation from
+arbitrary initial states as a separate theorem, or experimental feasibility.
 
 ## 7. Preserved original direction: L6 — single-edge approximate control (DEFERRED, NOT CANCELLED)
 
@@ -427,10 +433,10 @@ single-edge protocol are not proved by those conditional statements.
       exact controllability for L6 nor an optimality assertion for L7
       is presently established.
 
-**Priority decision:** implement **L7a first** because exact finite-edge
-invariance may reduce the dynamical problem to the rigorously closed
-two-mode plane. Keep **L6 as the original future path** for a
-less demanding, physically more economical single-edge control.
+**Research decision and outcome:** L7a was prioritized because exact finite-edge
+invariance reduces the dynamical problem to the rigorously closed two-mode
+plane. L7c.4 now establishes the intended preparation theorem. Keep **L6 as
+the original future path** for a potentially more economical single-edge control.
 Existing L6 research and
 [the edge-control reachability note](edge-control-reachability.md)
 are preserved; no earlier research conclusions are withdrawn.
