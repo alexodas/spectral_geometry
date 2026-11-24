@@ -111,6 +111,8 @@ public import SpectralGeometry.AmmannBeenkerCoordinatedInvariantPlane
 public import SpectralGeometry.AmmannBeenkerCoordinatedLieAlgebra
 public import SpectralGeometry.AmmannBeenkerCoordinatedLieGeneration
 public import SpectralGeometry.AmmannBeenkerCoordinatedEuler
+public import SpectralGeometry.AmmannBeenkerCoordinatedPairDynamics
+public import SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
 
 public section
 
