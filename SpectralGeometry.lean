@@ -115,6 +115,7 @@ public import SpectralGeometry.AmmannBeenkerCoordinatedPairDynamics
 public import SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
 public import SpectralGeometry.AmmannBeenkerCoordinatedRotationDynamics
 public import SpectralGeometry.AmmannBeenkerCoordinatedPulseComposition
+public import SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation
 
 public section
 
