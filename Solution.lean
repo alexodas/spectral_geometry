@@ -1,9 +1,8 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerBrightSpectralSplitting
+public import SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation
 
 /-!
-The substantive source proof of the consolidated signed splitting theorem
-on the original infinite Ammann--Beenker graph and its natural domain.
-The Mathlib-only Challenge states the selected theorem independently.
+The substantive full infinite-graph preparation proof and the locality
+certificates are imported independently of the Mathlib-only Challenge.
 -/

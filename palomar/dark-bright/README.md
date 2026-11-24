@@ -14,11 +14,10 @@ The archived Comparator deliberately preserves its original module
 names `Challenge` and `Solution`; to rerun it in an isolated
 checkout, restore the archived snapshots as root modules and select
 this archived Comparator. The **current** root Challenge and Solution
-instead describe the stronger signed spectral-splitting candidate,
-whose active Comparator is
-[`../signed-bright-splitting/comparator.json`](../signed-bright-splitting/comparator.json).
+instead describe the exact leakage-free preparation candidate, whose
+Comparator is in [`../exact-leakage-free-preparation/`](../exact-leakage-free-preparation/).
+The registered signed-splitting package is preserved separately in
+[`../signed-bright-splitting/`](../signed-bright-splitting/).
 
-The archive preserves the history of this candidate. It does not
-mean that a second theorem was submitted to, or accepted by, Palomar.
-The earlier registered exact-multiplicity theorem and its
-registration number are unchanged.
+This historical generator-response candidate was not submitted.
+The two separate registered theorems retain their original registration identities.

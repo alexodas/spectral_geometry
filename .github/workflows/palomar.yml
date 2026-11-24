@@ -64,7 +64,7 @@ jobs:
           fi
       - name: Build complete mathematical library and Comparator modules
         run: lake build SpectralGeometry Challenge Solution
-      - name: Compare signed bright spectral splitting with bundled kernels
+      - name: Compare exact leakage-free preparation with bundled kernels
         id: comparator
         run: |
           sudo apt-get update -qq >/dev/null

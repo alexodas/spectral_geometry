@@ -14,7 +14,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "palomar/signed-bright-splitting/comparator.json"
+config_path = root / "palomar/exact-leakage-free-preparation/comparator.json"
 archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
@@ -33,9 +33,10 @@ per_theorem_configs = sorted(path.relative_to(root).as_posix()
     for path in (root / "palomar").glob("*/comparator.json"))
 if per_theorem_configs != [
     "palomar/dark-bright/comparator.json",
+    "palomar/exact-leakage-free-preparation/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
 ]:
-    errors.append("Expected exactly the archival and active per-theorem Comparators")
+    errors.append("Expected both predecessor Comparators and the active preparation Comparator")
 try:
     archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
     old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
@@ -53,22 +54,32 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerBrightSpectralSplitting"
-# Six auxiliary proposition witnesses are selected only because their
-# proofs inhabit concrete model definitions inside the independent Challenge.
-# The sole selected scientific conclusion is the final signed splitting theorem.
+proof_module = "SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation"
+# Five model witnesses, three local-edge certificates, one preparation theorem.
 expected_sources = {
-    f"{namespace}.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
-    f"{namespace}.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
-    f"{namespace}.compactA_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
-    f"{namespace}.compactB_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
-    f"{namespace}.compactSiteA_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
-    f"{namespace}.compactSiteB_admitted": "SpectralGeometry.AmmannBeenkerCompactStates",
-    f"{namespace}.crossing_final_signed_bright_spectral_splitting": proof_module,
+    "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
+    "SpectralGeometry.AmmannBeenker.compactA_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
+    "SpectralGeometry.AmmannBeenker.compactB_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_matching": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+    "SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation": "SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation",
 }
+for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml"):
+    if (root / filename).read_bytes() != (config_path.parent / filename).read_bytes():
+        errors.append(f"Active root {filename} differs from its candidate snapshot")
+registered = root / "palomar/signed-bright-splitting"
+for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "comparator.json"):
+    if not (registered / filename).is_file():
+        errors.append(f"Registered L5 snapshot missing: {filename}")
+registered_cfg = json.loads((registered / "comparator.json").read_text())
+if registered_cfg.get("theorem_names", [])[-1:] != [f"{namespace}.crossing_final_signed_bright_spectral_splitting"]:
+    errors.append("Registered L5 target must be preserved")
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the one signed-splitting conclusion and six required model witnesses")
+    errors.append("Select the preparation conclusion, five model witnesses and three locality certificates")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):

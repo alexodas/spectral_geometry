@@ -1,32 +1,7 @@
-# Palomar candidate: signed dark/bright spectral splitting
+# Registered Palomar package: signed dark/bright spectral splitting
 
-This directory holds the **active, theorem-specific** Comparator configuration:
-[`comparator.json`](comparator.json).
+Selected theorem: `SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`. Registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1). Its immutable registered revision is unchanged.
 
-Selected scientific theorem:
-`SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`.
+This folder preserves the original theorem-specific [Comparator](comparator.json), [Challenge](Challenge.lean), [Solution](Solution.lean) and [formalization metadata](formalization.yaml) as exact snapshots of the previous active files. Restore the root-module snapshots in an isolated checkout to rerun the historical Comparator, which retains its original module names. The six model witnesses are not separate scientific submissions.
 
-The six other selected declarations are required model witnesses for
-the independently stated octagonal graph; they are not six separate
-scientific submissions. The root [`Challenge.lean`](../../Challenge.lean)
-defines the full model using only Mathlib and leaves only selected
-proof obligations blank. [`Solution.lean`](../../Solution.lean)
-imports the verified source theorem and does not import Challenge.
-
-The theorem concerns **real natural-domain eigenvectors of the entire
-infinite operator** for `0<|ε|≤1/1024`. It proves one protected
-simple energy and one unique simple nearby moving energy, the signed
-direction of the shift, its `112ε²` error, and the exterior
-eigenvector bound. It does not assert quantum control or a
-separate theorem for complex spectrum.
-
-The project verification script explicitly reads this directory's
-Comparator, runs the Lean full build, and invokes the bundled
-independent kernel checkers. There is intentionally **no**
-`comparator.json` at repository root. Only a fully green
-verification on an immutable source commit can support an eventual
-Palomar submission; preparing this package is not itself a
-Palomar registration or acceptance.
-
-The earlier *unsubmitted* generator-response candidate is preserved
-at [`../dark-bright/`](../dark-bright/).
+The new active candidate is [exact leakage-free preparation](../exact-leakage-free-preparation/). The unsubmitted predecessor remains in [dark-bright](../dark-bright/). There is no root Comparator.

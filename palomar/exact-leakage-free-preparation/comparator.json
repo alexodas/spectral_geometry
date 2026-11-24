@@ -1,0 +1,21 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SpectralGeometry.AmmannBeenker.admitted_zero",
+    "SpectralGeometry.AmmannBeenker.mate_involutive",
+    "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted",
+    "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_matching",
+    "SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

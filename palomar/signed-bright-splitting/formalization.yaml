@@ -1,0 +1,170 @@
+{
+  "version": "v0.4",
+  "project": {
+    "name": "A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph",
+    "description": "We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.\n\nAt a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar as PALOMAR-2026-11-06-000012, proved that these two patterns account for all independent states at that energy in the entire infinite network.\n\nFurther results proved in Lean establish that, at this special setting, no other real energy level lies within a distance of 1/128 of their common energy.\n\nWe can influence the two localized patterns in two different ways.\n\nThe first is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.\n\nThe second is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.\n\nOur main theorem proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.\n\nThe theorem also gives two precise numerical guarantees. The moving energy differs from the original energy plus one quarter of the edge change by no more than 112 times the square of that change. For a normalized wave at the moving energy, the size of the part extending beyond the original two-state space is at most 64 times the square root of 7, multiplied by the absolute size of the edge change.\n\nThis means that we can make the external part of the moving wave as small as desired while keeping the two energy levels distinct. These are exact results for the infinite system, not predictions from a simplified two-state model.\n\nWhat happens if the edge change is temporary? Separate theorems, already proved in Lean, study an edge change applied for a period of time and then switched off. They give a bound on the wave's component outside the original two-state space: no more than 512 times the absolute size of the edge change, multiplied by the initial wave's size. This bound is independent of the duration of the pulse and of the time elapsed after switching it off.\n\nThese temporal conclusions are conditional: they assume that the supplied evolution preserves norms, preserves the operator's mathematical domain, and commutes with the relevant Hamiltonian during each stage. A general physical quantum propagator has not yet been constructed in this formalization.\n\nThe results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.\n\nTogether, these results provide a mathematical foundation for investigating whether changes to the first-ring parameter and to the connecting edge can be combined to control localized waves. They do not yet prove that any desired mixture of the two original patterns can be prepared. The results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.\n\nThe research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.",
+    "authors": [
+      "Alessandro Odasso"
+    ],
+    "license": "Apache-2.0",
+    "responsible_maintainers": [
+      "Alessandro Odasso"
+    ]
+  },
+  "classification": {
+    "arxiv": [
+      "math.SP",
+      "cond-mat.mes-hall"
+    ],
+    "msc2020": [
+      "47A55",
+      "47B25"
+    ]
+  },
+  "sources": [
+    {
+      "title": "Formal proof of a signed split between two nearby energies on an infinite octagonal graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "type": "original-proof",
+      "relationship": "other",
+      "id": "https://github.com/alexodas/spectral_geometry",
+      "note": "This is the original complete mathematical development of the stated theorem. Alessandro Odasso, who is not a mathematician, conceived and directs the project; according to the maintainer, AI generated the proof development and formalization under his direction. Independent human review of novelty or scientific priority has not been completed."
+    },
+    {
+      "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
+      "authors": [
+        "M. Ö. Oktel"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.104.014204",
+      "note": "Background for the known compact localized wave patterns in octagonal quasicrystals. The present theorem studies a specific confined infinite network and a small change to one selected edge; it does not claim to discover those patterns."
+    },
+    {
+      "title": "Compact localized states and flat bands from local symmetry partitioning",
+      "authors": [
+        "M. Röntgen",
+        "C. V. Morfonios",
+        "P. Schmelcher"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.97.035161",
+      "note": "Background on protected and coupled localized wave patterns. It does not establish the signed split or quantitative energy error for this particular infinite operator."
+    },
+    {
+      "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
+      "authors": [
+        "F. P. M. Beenker"
+      ],
+      "type": "other",
+      "relationship": "background",
+      "id": "https://pure.tue.nl/ws/files/4269555/253166.pdf",
+      "note": "Geometric origin of square-rhombus octagonal tiling models. The present theorem concerns one centered admitted-vertex graph and does not claim polygonal coverage, aperiodicity of the hull, or validity for every Ammann–Beenker realization."
+    },
+    {
+      "title": "Mathlib4 — Lean mathematical library",
+      "type": "other",
+      "relationship": "background",
+      "id": "https://github.com/leanprover-community/mathlib4",
+      "note": "Provides the Hilbert-space, linear-algebra and verification infrastructure."
+    }
+  ],
+  "status": {
+    "scope": "One theorem proves what a small nonzero change to a single edge does to two nearby energy levels of the full infinite network. Exactly one simple level stays fixed, and one other simple level moves in the direction of the edge change. Its movement has an explicit quadratic error bound, and the associated wave has a controlled contribution outside the original two localized patterns. Six additional statements are necessary checks for the particular network and its localized patterns, not separate submitted results. The earlier exact-multiplicity registration remains unchanged.",
+    "sorry_count": 0,
+    "sorry_in_definitions": 0,
+    "axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  },
+  "automation": {
+    "methods": [
+      {
+        "method": "agent",
+        "models": [
+          "OpenAI ChatGPT GPT-6"
+        ],
+        "framework": "ChatGPT",
+        "tool_setup": "OpenAI ChatGPT generated mathematical theorem statements, Lean formalizations and proof code in an iterative research process directed by Alessandro Odasso. The resulting proof terms are subject to Lean kernel checking; human direction does not imply that the maintainer personally authored the formal mathematics.",
+        "prompting_notes": "Alessandro Odasso is not a mathematician. He originated the project and directs its questions and goals to investigate the ability of large language models to conduct scientific research. According to his account, theorem statements, formal proof development and Lean code were generated by AI. Individual contributions and the research's novelty have not been independently audited."
+      }
+    ],
+    "spend_usd": "not tracked",
+    "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
+  },
+  "fidelity": {
+    "divergences": "The result concerns one specified infinite octagonal network with a confining potential, not every quasicrystal. It classifies real energy levels represented by eigenvectors in the operator's natural domain, within a stated small energy window and for changes no greater than 1/1024 in absolute size. Both nearby eigenspaces are one-dimensional. The moving energy has the same direction as the edge change and a rigorously bounded second-order error; the moving wave's component beyond the original two patterns is also bounded. No separate claim is made about the complete complex spectrum, general quantum time evolution, state preparation, experimental realization or a universal property of all such graphs. The earlier registered exact-multiplicity result is established background, not a newly selected conclusion."
+  },
+  "review": {
+    "status": "The theorem has a Lean formal proof and has passed the independent comparison checks on its checked source revision. Independent human mathematical review of its novelty and significance has not been completed. A new Palomar acceptance or registration is not asserted by this metadata.",
+    "reviewers": [],
+    "notes": "The possible audience includes mathematical researchers in spectral theory, discrete Schrödinger operators, localized states and finite-rank perturbations, as well as physicists studying quasicrystals, flat bands and photonic networks. The result is about the full infinite system: one localized energy stays fixed, the other moves in a rigorously controlled direction, and the moving state's external component is bounded. Related techniques and wave patterns are known; no claim of independent priority or experimental realization is made."
+  },
+  "alignment": {
+    "namespace": "SpectralGeometry.AmmannBeenker",
+    "statements": [
+      {
+        "source": "README §§4.68, 4.69; concrete octagonal model",
+        "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
+        "module": "SpectralGeometry.AmmannBeenkerCutProject",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "Origin lift lies inside the open octagonal acceptance window."
+      },
+      {
+        "source": "README §4.69; concrete infinite graph",
+        "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
+        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "Matching involutions used to define the infinite graph Laplacian."
+      },
+      {
+        "source": "README §4.74; compact first-ring mode",
+        "lean": "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+        "module": "SpectralGeometry.AmmannBeenkerCompactModes",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "Compact first-ring mode belongs to the natural domain of the confining operator."
+      },
+      {
+        "source": "README §4.74; compact second-ring mode",
+        "lean": "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+        "module": "SpectralGeometry.AmmannBeenkerCompactModes",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "Compact second-ring mode belongs to the natural domain."
+      },
+      {
+        "source": "README §4.75; selected geometric edge",
+        "lean": "SpectralGeometry.AmmannBeenker.compactSiteA_admitted",
+        "module": "SpectralGeometry.AmmannBeenkerCompactStates",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "First endpoint is a genuine vertex in the acceptance window."
+      },
+      {
+        "source": "README §4.75; selected geometric edge",
+        "lean": "SpectralGeometry.AmmannBeenker.compactSiteB_admitted",
+        "module": "SpectralGeometry.AmmannBeenkerCompactStates",
+        "status": "Proved supporting statement for the independent model description.",
+        "note": "Second endpoint is a genuine vertex in the acceptance window."
+      },
+      {
+        "source": "README §4.97, the signed and quantitative spectral-splitting theorem",
+        "lean": "SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting",
+        "module": "SpectralGeometry.AmmannBeenkerBrightSpectralSplitting",
+        "status": "Proved in the substantive Lean source; independent comparison must pass for the exact submission commit.",
+        "note": "The one selected scientific conclusion: one fixed simple dark level, one other simple nearby energy that shifts with the edge change, its explicit quadratic error and the true moving wave's controlled external component."
+      }
+    ]
+  },
+  "acknowledgements": "Alessandro Odasso, who is not a mathematician, conceived and directs this research to explore the scientific capabilities of large language models. The theorem statements and Lean proof development were generated with OpenAI ChatGPT under his direction, according to his account. Lean and Mathlib provide machine-checked formal proofs; Palomar provides an independent statement-verification framework. No independent human mathematical peer review is claimed.",
+  "related_formalizations": [
+    {
+      "id": "PALOMAR-2026-11-06-000012",
+      "relationship": "builds-on",
+      "note": "Earlier registered theorem proving exactly two independent localized states at the original energy in the full infinite system. The new theorem builds on it to describe the two levels after changing one connecting edge."
+    }
+  ]
+}

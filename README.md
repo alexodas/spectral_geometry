@@ -8,21 +8,23 @@ zeros of analytic functions built from those levels.**
 
 We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
 
+### First Palomar result — Exactly two localized crossing states
+
 At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar on 6 November 2026 as [PALOMAR-2026-11-06-000012 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1), proved that these two patterns account for all independent states at that energy in the entire infinite network.
 
 Further results proved in Lean establish that, at this special setting, no other real energy level lies within a distance of 1/128 of their common energy.
 
-Three ways of changing the energies of the localized patterns are now established.
+The exact multiplicity is the registered result; the quantitative baseline gap is a separate Lean-verified theorem.
 
-The first is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
+### Second Palomar result — A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph
 
-The second is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.
+One way to change the energies is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
 
-Our main theorem, separately registered with Palomar on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1), proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
+Another way is to change the strength of a single edge connecting the two rings. Here the situation is more subtle. One combination of the original patterns, called the dark state, remains protected at the original energy. The other, called the bright state, responds to the change and interacts with the rest of the infinite network.
+
+The second theorem, separately registered with Palomar on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1), proves what actually happens in this second case. For a sufficiently small, nonzero edge change, there are exactly two distinct real energy levels represented by eigenvectors in a specified narrow range. One remains fixed, while the other moves upward when the edge is strengthened and downward when it is weakened. Each level has only one independent wave pattern.
 
 The theorem also gives two precise numerical guarantees. The moving energy differs from the original energy plus one quarter of the edge change by no more than 112 times the square of that change. For a normalized wave at the moving energy, the size of the part extending beyond the original two-state space is at most 64 times the square root of 7, multiplied by the absolute size of the edge change.
-
-The two Palomar records concern distinct exact formal statements: the crossing multiplicity and the signed one-edge splitting. The separate baseline gap and conditional pulse estimates are not independently selected statements in either record. Registration establishes mechanical verification of the selected statements, not human peer review, novelty, or physical controllability.
 
 This means that we can make the external part of the moving wave as small as desired while keeping the two energy levels distinct. These are exact results for the infinite system, not predictions from a simplified two-state model.
 
@@ -32,11 +34,21 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-The third intervention changes eight matched edges together. Lean proves that their equally weighted sum leaves the dark state unchanged and shifts the bright state's energy by exactly twice the edge-strength change. Unlike the single-edge correction, this coordinated operator never creates an exterior component when acting on a combination of the two original waves. The same two-state space is preserved by any combination of the first-ring detuning and coordinated edge changes.
+The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected in either registration.
 
-The two controls have an exact two-by-two matrix representation, not an approximation to the infinite system. Apart from a common energy shift, the detuning and the coordinated edge strength act along two different Pauli directions. Their order matters: the verified matrix commutators give a third independent direction. The two directions generate the entire algebra of two-state rotations after removing the common phase.
+### Third result — Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
 
-A further theorem gives a constructive sequence of three two-by-two rotation matrices that transforms the dark coordinate into any chosen normalized pair of complex amplitudes, including the pure bright state. The rotation angles follow from the magnitudes and phases of the desired amplitudes. We now also have exact time-dependent solutions for either control used alone, starting from any complex mixture of the two localized waves. The real and imaginary parts satisfy the Schrödinger equations on the full infinite network, conserve the squared complex norm and have no component outside the original two-state space at any time. The exact single-axis trajectories have now also been identified with the two rotation matrices multiplied by their respective common scalar phases, for every complex initial pair, real strength and real time. Three such pulses have now been joined into a single continuous trajectory for arbitrary initial coefficients and real control strengths. The full-graph Schrödinger equations hold on each open pulse interval, and the state has conserved norm, natural-domain membership and zero exterior component at every time, including switches. The final preparation theorem now proves that for every prescribed normalized complex target pair, three unit-duration pulses can be chosen to reach that target from dark up to an explicit common phase. This is exact zero-leakage preparation on the infinite graph, in the real/imaginary representation of the complex state, under independently tunable signed controls. A general complex quantum propagator on the entire infinite Hilbert space has not yet been constructed. The spectral results concern the real infinite-operator model, not a separately proved classification of the complete complex spectrum.
+We study a particular infinite Ammann–Beenker network, an octagonal mathematical graph with a confining potential. At a special energy it supports two localized wave patterns, A and B. Their normalized sum is called the dark state, and their normalized difference the bright state. Earlier registered results prove that the two patterns account for all independent states at the crossing energy, and that changing a single edge splits this energy while allowing a small part of the bright-derived wave to spread into the rest of the network.
+
+The new theorem asks whether we can prepare any desired mixture of the dark and bright waves without any such spreading. The answer is yes, under two independently adjustable signed real controls. The first changes a common parameter on the eight vertices of the first ring, shifting the energy of A relative to B. The second changes eight genuine edges connecting corresponding sites on the two rings, all by the same amount. These edges are distinct and share no endpoints. Their combined effect leaves the dark state unchanged and shifts the bright energy by twice the edge-strength change. Both controls preserve the original two-state space exactly on the full infinite graph.
+
+The controls change the state in different ways: one mixes the dark and bright amplitudes, while the other changes their relative phase. By applying three consecutive pulses of unit duration (edge control, first-ring control, edge control), we can start with the dark wave and reach any chosen normalized pair of complex dark and bright amplitudes, including the pure bright wave. The final state differs from the desired state only by a common phase of modulus one, which does not change the relative amplitudes or the physical ray. The accumulated phase is given explicitly. The pulse strengths can be chosen from the magnitudes and phases of the desired amplitudes.
+
+The result concerns the actual infinite operator, not a numerical simulation or a two-state approximation. Lean constructs a continuous time-dependent state as two real square-summable graph vectors representing its real and imaginary parts. These vectors lie in the natural domain of the unbounded Hamiltonian at every time and satisfy the coupled full-graph Schrödinger equations during each open pulse interval. The total squared complex norm stays exactly one. The part of each vector outside the original localized two-state space is exactly zero throughout the protocol, including both switching times and the final state. No small-control assumption or pre-existing time-evolution map is required. The Hamiltonian may change discontinuously at the switches, so differentiability at the switching instants is not asserted.
+
+This is an existence theorem for preparation from the dark state in this specified compact plane with independently tunable signed controls. It does not construct a general complex unitary propagator for arbitrary initial data on the infinite graph, prove phase-sensitive equality without a common phase, claim an optimal number of controlled edges, or establish experimental feasibility or originality. The earlier single-edge spectral-splitting theorem is a separate result.
+
+**Verification status.** The mathematical theorem is Lean-verified. Its independent Palomar package is prepared for separate statement comparison; no third registration or acceptance is claimed. The first two Palomar registrations remain unchanged. Registration establishes mechanical verification of selected statements, not human peer review, novelty or experimental feasibility.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
 
@@ -61,6 +73,9 @@ remain below.
 ## Table of contents
 
 - [Executive summary](#executive-summary)
+  - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
+  - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
+  - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
 - [Research tracks and current priority](#research-tracks-and-current-priority)
 - [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
 - [Current status and verified milestones](#current-status-and-verified-milestones)
@@ -3752,9 +3767,9 @@ discoveries. The Challenge is kept below 300 lines if possible, but
 that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](palomar/dark-bright/comparator.json)
-and root-file snapshots are preserved unchanged. The active Comparator now selects the stronger final spectral theorem,
-registered separately in §4.98; the first Palomar registration in §4.78
-remains historically intact and was not replaced.
+and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
+The active Comparator now selects the exact preparation theorem (§4.105);
+both registrations and the earlier candidate remain historically intact.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -4146,33 +4161,7 @@ the original two localized states. The result concerns the
 entire infinite network and its natural domain; it is
 not a time-evolution or experimental-control result.
 
-**Independent submission package.** The root
-[`Challenge.lean`](Challenge.lean) imports **only Mathlib**
-and reconstructs the necessary concrete model without importing
-the source proofs. The challenge has **562 lines** (less than
-19 KiB) and one scientific theorem with a single proof
-placeholder. Six additional selected proposition placeholders
-are required to construct the origin, graph, compact states
-and selected edge. These are technical model witnesses, not
-six more scientific discoveries; all definitions are concrete.
-
-The root [`Solution.lean`](Solution.lean) imports the
-substantive module containing the verified proof and does
-not import Challenge. The **active theorem-specific**
-configuration is
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The previous candidate's
-[`Comparator`](palomar/dark-bright/comparator.json) and
-[`Challenge`](palomar/dark-bright/Challenge.lean) /
-[`Solution`](palomar/dark-bright/Solution.lean) snapshots
-are preserved as an archive. Each candidate has its own
-Comparator inside `palomar/`; there is deliberately
-**no `comparator.json` at repository root**.
-
-[`formalization.yaml`](formalization.yaml) retains its
-[`formalization.yaml`](formalization.yaml) gives a self-contained,
-plain-English description of the selected scientific theorem.
-The theorem-specific Comparator and predecessor package are preserved.
+**Independent registered package.** The L5 [Challenge](palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](palomar/signed-bright-splitting/comparator.json) and [formalization metadata](palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](palomar/dark-bright/) is also preserved. The active root files now describe the distinct third candidate (§4.105). Each Comparator remains in its own directory; there is no root Comparator.
 
 **Verification and registration.** The L5 mathematical source and
 independently assembled package passed full Lean and independent kernel
@@ -4242,8 +4231,8 @@ two-mode plane.
 definitions are Lean-verified. Dark cancellation alone does not prove
 invariance of the two-mode plane; the subsequent §4.100 establishes
 that stronger result. The single-edge approximate-control route remains
-a distinct research direction. Neither new module is selected in the
-existing L5 Comparator.
+a distinct research direction. Neither new module was selected in the historical L5 Comparator.
+The third candidate now includes the local-edge certificates from this module.
 
 <a id="4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending"></a>
 
@@ -4344,7 +4333,7 @@ with zero leakage at every time. Section 4.103 identifies their rotation
 matrices including the common phase; §4.104 proves their continuous
 three-pulse composition with exact zero leakage throughout. Section 4.105
 proves arbitrary normalized target preparation from dark up to global phase.
-These results have not been independently selected for Palomar registration.
+The active L7 candidate selects the final preparation theorem and supporting locality certificates (§4.105).
 The original single-edge L1–L6 route and Track A remain distinct.
 
 
@@ -4464,8 +4453,8 @@ throughout each segment. Section 4.103 proves the exact phase-weighted
 rotation identification, and §4.104 proves continuous pulse composition
 with zero leakage at every time. Section 4.105 proves the final arbitrary
 target preparation theorem from dark. A general complex full-space propagator
-remains open. L7a and L7b have not been independently selected for
-Palomar registration. The original single-edge L6 goal and the
+remains open. The third candidate selects supporting locality statements and the final
+preparation theorem; it does not independently select the Lie-algebra results. The original single-edge L6 goal and the
 analytic spectral-geometry program remain separate.
 
 
@@ -4578,8 +4567,7 @@ with the rotations of §4.101, including the scalar phases. Section 4.104
 zero leakage throughout. Section 4.105 (L7c.4) proves arbitrary normalized
 target preparation from dark up to global phase with zero leakage throughout. A general
 complex unitary group remains a separate outstanding objective.
-These L7 results are not independently selected for Palomar
-registration. The separate L6 and Track A goals are preserved.
+The final L7 preparation theorem is selected for the independent candidate (§4.105); the intermediate trajectory results are not separate submissions. The separate L6 and Track A goals are preserved.
 
 
 ### 4.103. Exact identification of physical pulses with Pauli rotations
@@ -4673,8 +4661,8 @@ uses independently tunable signed real strengths. Its composition
 with matched endpoints and piecewise Schrödinger equations is
 proved in §4.104 (L7c.3); its arbitrary-target theorem is proved in §4.105 (L7c.4).
 A general unitary propagator on the full complex infinite Hilbert
-space is not constructed by these results. These L7 results have not been independently
-selected for Palomar registration. The original L6 approximate
+space is not constructed by these results. The third candidate selects the final preparation theorem and supporting
+locality statements; other intermediate results are not separate submissions. The original L6 approximate
 control problem and Track A remain separate.
 
 
@@ -4796,8 +4784,8 @@ parameters for every normalized target from dark, retaining the
 common scalar phase. The general complex Hilbert-space unitary
 propagator for arbitrary infinite-space initial data remains a
 separate objective. No experimental feasibility or minimal number
-of controlled edges is claimed. These L7 results have not been
-independently selected for Palomar registration. L6 and Track A
+of controlled edges is claimed. The third candidate selects the final preparation theorem and locality
+statements; the intermediate composition results are not separate submissions. L6 and Track A
 remain preserved.
 
 
@@ -4898,9 +4886,16 @@ preparation without quotienting by global phase, constraints on
 physical edge strengths, experimental feasibility, and minimal
 control resources are not claimed. The two independently tunable
 controls are those defined in §§4.99–4.100; this is not the original
-single-edge L6 preparation theorem. L7 has not been independently
-selected for Palomar registration. The earlier registrations
+single-edge L6 preparation theorem. L7 is now selected for a separate independent Palomar package; comparison
+and registration have not yet been established. The earlier registrations
 and all Track A objectives remain unchanged.
+
+**Independent preparation package.** The [Mathlib-only Challenge](Challenge.lean)
+contains 680 lines, five model witnesses, three local-edge certificates
+and the single scientific preparation theorem. All definitions are concrete.
+The [Solution](Solution.lean) imports the verified source, and the
+[Comparator](palomar/exact-leakage-free-preparation/comparator.json) is kept
+in the third candidate directory. Independent comparison is pending.
 
 
 ## 5. Building and verification
@@ -5052,39 +5047,35 @@ contains deliberate statement placeholders (`sorry`), and is judged
 against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
-**Palomar / independent statement verification:** the active
-[`Challenge.lean`](Challenge.lean) and
-[`Solution.lean`](Solution.lean) now select exactly one
-new scientific theorem,
-`SpectralGeometry.AmmannBeenker.crossing_final_signed_bright_spectral_splitting`
-(§4.98). Their active **per-theorem Comparator** is
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The earlier, unsubmitted generator-response candidate and its
-dedicated Comparator plus original Challenge/Solution snapshots
-are preserved under [`palomar/dark-bright/`](palomar/dark-bright/).
-No root `comparator.json` exists.
+**Palomar / independent statement verification.** The active root
+[Challenge](Challenge.lean), [Solution](Solution.lean) and
+[formalization metadata](formalization.yaml) describe the third result:
+Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph (§4.105).
+The selected scientific conclusion is
+`SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation`.
+Five supporting model witnesses and three locality certificates are
+selected alongside it. The Mathlib-only Challenge contains concrete
+definitions and nine deliberate proposition proof placeholders; no
+definition holes are selected. The Solution imports the substantive
+preparation proof module, not Challenge.
 
-The active Challenge imports only Mathlib and the Solution
-imports the substantive bright-splitting proof module.
-Six extra proposition witnesses are necessary to reconstruct
-the concrete graph and its domain; those are not additional
-submitted scientific results. There are seven deliberate
-definition holes and no proof holes in the full **116-module**
-substantive library. The original and later Palomar registrations remain
-distinct. The complete Lean library and the selected L5 Comparator have
-passed verification. L7a, L7b and L7c.1–4 are Lean-verified but
-are not independently selected in that Comparator.
+The active [theorem-specific Comparator](palomar/exact-leakage-free-preparation/comparator.json)
+and matching package snapshots reside in
+[`palomar/exact-leakage-free-preparation/`](palomar/exact-leakage-free-preparation/).
+The complete 116-module substantive library is Lean-verified with no
+proof holes. The third independent comparison is pending; no third
+registration is claimed.
 
-**Distinct Palomar registration identity (historical preparation note).** The original
-registered theorem remains attached to its historical immutable
-revision and has **not** been revised or resubmitted. The earlier
-generator-response candidate is an unsubmitted archive under
-[`palomar/dark-bright/`](palomar/dark-bright/); its original
-Comparator and root-module snapshots are preserved for reproducibility.
-The **separately registered** signed-splitting theorem uses
-[`palomar/signed-bright-splitting/comparator.json`](palomar/signed-bright-splitting/comparator.json).
-The local CI and packaging checks now explicitly select this
-per-theorem path, never a root Comparator. The separate submission has since been registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1); the earlier ID remains unchanged.
+The first registered exact-multiplicity theorem remains attached to
+its original immutable revision. The second registered signed-splitting
+package, with [Comparator](palomar/signed-bright-splitting/comparator.json),
+Challenge, Solution and metadata snapshots, is preserved in
+[`palomar/signed-bright-splitting/`](palomar/signed-bright-splitting/).
+It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
+The unsubmitted generator-response package remains archived under
+[`palomar/dark-bright/`](palomar/dark-bright/).
+No root `comparator.json` exists. The local packaging and verification
+checks select the third candidate's Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -5155,8 +5146,7 @@ of its formal infrastructure.
    separates these tasks and their proof obligations.
 
 **Research status and verification.** L5 is registered as described in §4.98.
-L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); these new
-statements have not been independently selected for Palomar registration.
+L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparation theorem and supporting locality certificates now form the third independent candidate, not a third registration.
 The L7 exact zero-leakage preparation theorem from dark is proved.
 A general complex quantum propagator and the distinct L6 reachability
 theorem remain open. Earlier conditional time-uniform leakage bounds
@@ -5803,7 +5793,7 @@ are kept as an archive, with exact snapshots of its original
 Challenge and Solution. It has **not** been claimed as
 a separate registered Palomar theorem.
 
-**L5 selection and editorial history (§4.98).** The active root
+**L5 selection and editorial history (§4.98).** The preserved L5
 Challenge and Solution select
 `crossing_final_signed_bright_spectral_splitting`, with six
 necessary concrete-model witnesses. Its theorem-specific
@@ -5823,6 +5813,8 @@ remains archived under `palomar/dark-bright/`.
   verify the corrected package with full Lean and Comparator.
 - [x] Record the separate L5 registration
   [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 (§4.98).
+
+**Third candidate (§4.105).** The Lean-verified exact preparation theorem is selected with its concrete graph witnesses and local-edge certificates. The [independent package](palomar/exact-leakage-free-preparation/) has been prepared; its independent comparison and any future submission remain separate from full Lean verification.
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
