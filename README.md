@@ -4305,8 +4305,14 @@ tasks; the earlier L6 one-edge approximate-control route remains preserved.
 two new source modules were committed together at
 [`0035a33`](https://github.com/alexodas/spectral_geometry/commit/0035a33fe8fedea23215fdfd4c655ad773887353).
 [Action #345](https://github.com/alexodas/spectral_geometry/actions/runs/45452130708)
-was queued at the time of this documentation update. The verified
-scientific frontier remains §4.99 until the new full Lean build succeeds.
+and [Action #346](https://github.com/alexodas/spectral_geometry/actions/runs/45452238523)
+both failed at the initial compact-A and compact-B full-space proofs.
+The subsequent Lie-algebra module and Comparator were not reached.
+The correction at [`710f151`](https://github.com/alexodas/spectral_geometry/commit/710f1512cd917504edefa789fc3494a38468dd44)
+replaces finite vector normalization with coordinatewise evaluation on
+both matched rings and their entire exterior, using the verified matching
+and support lemmas. This correction is pending CI. The verified scientific
+frontier remains §4.99 until the new full Lean build succeeds.
 
 - [`AmmannBeenkerCoordinatedInvariantPlane.lean`](SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean):
   nine proposed source theorems, from the exact full-space actions
@@ -4337,7 +4343,7 @@ claimed by this pending checkpoint.
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **109 Lean modules** (107 verified at Action #342; two additional modules pending Action #345): eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
+The canonical import list is maintained in [`SpectralGeometry.lean`](SpectralGeometry.lean). It currently imports **109 Lean modules** (107 verified at Action #342; two additional modules awaiting successful CI after Actions #345–#346 failed): eleven analytic and window modules, four finite-dimensional geometry modules, and ninety-four infinite geometry/operator/spectral modules (including domain-generic interfaces). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93. The full Lean and Comparator results must be read from the checks associated with each exact commit; green CI for an earlier commit never certifies later modifications.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](SpectralGeometry/CanonicalProduct.lean)
