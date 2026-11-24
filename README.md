@@ -4789,7 +4789,37 @@ See the [research roadmap](docs/bright-spectral-splitting-roadmap.md).
   Full Lean and independent Comparator passed Action #333;
   independent scientific assessment remains separate.
 
-**Longer-term priority: controlled preparation of two-mode superpositions (open)**
+**Immediate research priority: L7 — exact zero-leakage two-mode control (OPEN)**
+
+The next development branch is
+[`research/l7-exact-leakage-free-control`](https://github.com/alexodas/spectral_geometry/tree/research/l7-exact-leakage-free-control),
+starting from the verified post-PR-#89 L5 commit. Its first target
+**L7a** is an eight-edge *coordinated local perturbation* `M`: pair the
+eight alternating sites of the first compact ring with actual adjacent
+sites of the second ring, and formally prove on the **full infinite graph**
+`M a = a-b`, `M b = b-a`, hence `M D=0`, `M F=2F` and
+`Q M P=0`. These identities are **proposed, not yet Lean verified**.
+L7b then targets the exact two-control algebra with the already
+verified `t` detuning; L7c targets complex unitary evolution and
+arbitrary target-state preparation while maintaining `‖Qψ(t)‖=0`
+at every time. Invariance alone does not constitute a complete
+quantum control theorem. See the
+[active L7 and preserved L6 roadmap](docs/bright-spectral-splitting-roadmap.md#6-active-next-theorem-l7--exact-two-mode-control-without-leakage-open).
+
+**Deferred original research direction: L6 — single-edge approximate control (PRESERVED, OPEN)**
+
+The original two-control plan remains a separate future target:
+use only the single selected inter-ring edge `W` and the
+eight-site parameter `t`, while proving an explicit small-leakage
+and reachability budget for general complex Schrödinger dynamics.
+Because `‖QWF‖²=7/16`, this one-edge correction does not preserve
+the original dark–bright plane exactly. Verified conditional
+uniform leakage estimates and static control identities remain
+useful ingredients; no complete L6 target-state theorem is claimed.
+The following original research narrative and
+[edge-control note](docs/edge-control-reachability.md) are retained
+for later investigation. Its original compact-mode discussion uses the
+`a/b` basis; in the `D/F` basis, detuning `t` does mix dark and bright.
 
 The eight-site parameter `t` already gives a simple, exact energy response:
 moving `t` away from `t_*` shifts one compact mode's energy and leaves the
