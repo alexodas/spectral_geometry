@@ -121,15 +121,25 @@ theorem coordinatedPair_Schrodinger
   · have hd := ((coordinatedEigenCoeff_re_deriv E a τ).smul_const
         (x : TileHilbert Vertex)).add
         ((coordinatedEigenCoeff_re_deriv F b τ).smul_const (y : TileHilbert Vertex))
-    convert hd using 1
-    simp only [domainCoordinatedPairImag, map_add, map_smul, hx, hy]
-    module
+    have he :
+        onsitePlusBounded potential B (domainCoordinatedPairImag x y E F a b τ) =
+          (E * (coordinatedEigenCoeff E a τ).im) • (x : TileHilbert Vertex) +
+          (F * (coordinatedEigenCoeff F b τ).im) • (y : TileHilbert Vertex) := by
+      simp only [domainCoordinatedPairImag, map_add, map_smul, hx, hy]
+      module
+    rw [he]
+    exact hd
   · have hd := ((coordinatedEigenCoeff_im_deriv E a τ).smul_const
         (x : TileHilbert Vertex)).add
         ((coordinatedEigenCoeff_im_deriv F b τ).smul_const (y : TileHilbert Vertex))
-    convert hd using 1
-    simp only [domainCoordinatedPairReal, map_add, map_smul, hx, hy]
-    module
+    have he :
+        -(onsitePlusBounded potential B (domainCoordinatedPairReal x y E F a b τ)) =
+          (-(E * (coordinatedEigenCoeff E a τ).re)) • (x : TileHilbert Vertex) +
+          (-(F * (coordinatedEigenCoeff F b τ).re)) • (y : TileHilbert Vertex) := by
+      simp only [domainCoordinatedPairReal, map_add, map_smul, hx, hy]
+      module
+    rw [he]
+    exact hd
 
 private theorem coordinatedPair_real_norm_sq (x y : TileHilbert Vertex)
     (hxy : inner ℝ x y = 0) (u v : ℝ) :
