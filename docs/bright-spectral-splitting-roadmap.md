@@ -1,10 +1,20 @@
 # Dark–bright spectral splitting and control — Lean research roadmap
 
+**Relationship to the original program.** This is the **specialized
+localized-modes/control roadmap** (Track B). The repo's original
+spectral-geometry and analytic-zero program (Track A) remains active,
+with its verified canonical-product results and open relative
+determinant, cofactor, finite-patch and zero-statistics objectives
+in the [main README §6](../README.md#6-roadmap-proof-status-and-next-steps).
+L7's priority is **operational**, not a withdrawal of those goals.
+The original single-edge proposal is retained below as L6 and in
+the [historical L6 note](edge-control-reachability.md).
+
 **Active research branch:** `research/l7-exact-leakage-free-control` (branched from the verified `main` commit `7b68540619ab45e5233b2d5ec8273829b3fbba77`).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**Current priority: L7a, an exact zero-leakage control using eight coordinated, genuine inter-ring graph edges.** First establish the proposed full-operator identities `M a = a - b` and `M b = b - a`, hence `M D = 0`, `M F = 2 F` and `Q M P = 0`. **These are research targets, not yet proved in Lean.** L7b (two-control Lie algebra) and L7c (complex unitary dynamics and state reachability) follow only after L7a. The originally chosen **L6 single-edge, small-but-controlled-leakage** approach remains an explicit future research direction, **not abandoned**; see §§6–7 below.
+**Current priority: L7a, a candidate exact zero-leakage control using eight coordinated, genuine inter-ring graph edges.** First establish the proposed full-operator identities `M a = a - b` and `M b = b - a`, hence `M D = 0`, `M F = 2 F` and `Q M P = 0`. **These are research targets, not yet proved in Lean.** L7b (two-control Lie algebra) and L7c (complex unitary dynamics and state reachability) follow only after L7a. The originally chosen **L6 single-edge, small-but-controlled-leakage** approach remains an explicit future research direction, **not abandoned**; see §§6–7 below.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This is **not** a proof of general quantum dynamics, L6 reachability or L7 zero-leakage control.
 
@@ -232,7 +242,7 @@ none is claimed in this theorem. No comparison package changed.
     novelty assessment and analytic-product research are retained
     for future work; none follows automatically from L5.
 
-## 5. Palomar candidate packaging after L5
+## 5. L5 Palomar candidate, editorial feedback and correction
 
 The newly selected scientific result is the single consolidated
 `crossing_final_signed_bright_spectral_splitting` theorem (§4.97),
