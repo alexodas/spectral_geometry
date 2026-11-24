@@ -664,7 +664,7 @@ candidate was later archived as `palomar/dark-bright/`.
 The independently checked and subsequently editorially revised
 L5 package now lives under `palomar/signed-bright-splitting/`
 (see README §4.98 and the
-[L5 roadmap](bright-spectral-splitting-roadmap.md#5-palomar-candidate-packaging-after-l5)).
+[L5 roadmap](bright-spectral-splitting-roadmap.md#5-l5-palomar-candidate-editorial-feedback-and-correction)).
 These static assertions do **not** construct a time-dependent propagator.
 
 For every real full-domain `x`, with the original two-mode projection
