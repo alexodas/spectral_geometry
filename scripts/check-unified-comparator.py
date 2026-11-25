@@ -14,7 +14,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "palomar/exact-leakage-free-preparation/comparator.json"
+config_path = root / "palomar/spectral-protection-during-coordinated-control/comparator.json"
 archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
@@ -35,8 +35,9 @@ if per_theorem_configs != [
     "palomar/dark-bright/comparator.json",
     "palomar/exact-leakage-free-preparation/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
+    "palomar/spectral-protection-during-coordinated-control/comparator.json",
 ]:
-    errors.append("Expected both predecessor Comparators and the active preparation Comparator")
+    errors.append("Expected three predecessor Comparators and the active spectral-protection Comparator")
 try:
     archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
     old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
@@ -54,8 +55,8 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation"
-# Five model witnesses, three local-edge certificates, one preparation theorem.
+proof_module = "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics"
+# Five model witnesses, three locality certificates and the spectral protection statements.
 expected_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
@@ -65,7 +66,13 @@ expected_sources = {
     "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
     "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
     "SpectralGeometry.AmmannBeenker.coordinatedRing_matching": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-    "SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation": "SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation",
+    "SpectralGeometry.AmmannBeenker.coordinatedLevelRadius_eq_zero_iff": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedPlane_eigenvalue_iff": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_plane_commutes": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_complement_commutes": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_condition_of_budget": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_gap_ge": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
 }
 for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml"):
     if (root / filename).read_bytes() != (config_path.parent / filename).read_bytes():
@@ -77,9 +84,19 @@ for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "compa
 registered_cfg = json.loads((registered / "comparator.json").read_text())
 if registered_cfg.get("theorem_names", [])[-1:] != [f"{namespace}.crossing_final_signed_bright_spectral_splitting"]:
     errors.append("Registered L5 target must be preserved")
+preparation = root / "palomar/exact-leakage-free-preparation"
+for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "comparator.json"):
+    if not (preparation / filename).is_file():
+        errors.append(f"Registered preparation snapshot missing: {filename}")
+preparation_cfg = json.loads((preparation / "comparator.json").read_text())
+if preparation_cfg.get("theorem_names", [])[-1:] != [f"{namespace}.coordinatedProtocol_exact_preparation"]:
+    errors.append("Registered preparation target must be preserved")
+summary = (root / "README.md").read_text(encoding="utf-8").split("### Spectral protection during coordinated control\n\n", 1)[1].split("\n\nThe research direction was conceived", 1)[0]
+if summary != metadata.get("project", {}).get("description"):
+    errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the preparation conclusion, five model witnesses and three locality certificates")
+    errors.append("Select the spectral protection conclusions, five model witnesses and three locality certificates")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):

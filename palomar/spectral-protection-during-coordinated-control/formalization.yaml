@@ -1,0 +1,236 @@
+{
+  "version": "v0.4",
+  "project": {
+    "name": "Spectral Protection During Coordinated Control on an Infinite Ammann–Beenker Graph",
+    "description": "An infinite Ammann–Beenker network is a mathematical graph with octagonal geometry. In this particular network, two localized wave patterns share a special energy, as established in the [first Palomar result](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1). A [second result](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) describes how changing a single edge splits their energy. A [third result](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1) shows how two coordinated controls can prepare any normalized mixture of the two patterns, up to a common phase, without leakage. The present theorem asks whether their energies can also remain separated from all the other energies while those controls are active.\n\nThe first control changes a common onsite parameter on eight first-ring vertices by a signed amount δ. The second changes eight distinct inter-ring edges, with no shared endpoints, by a signed amount η. The two localized patterns span a space that both controls preserve exactly. Its two energy levels have midpoint E* + δ/2 + η, where E* is their original common energy, and half-spacing s = √(δ²/4 + η²). Both levels have genuine nonzero eigenvectors of the full infinite operator; they coincide only when both controls vanish. The orthogonal complement is also preserved on the natural operator domain.\n\nAt zero control, the certified gap around E* is 1/128. Write ρ = |δ| + 2|η| for the combined control size. The new theorem proves that if ρ/2 + s is less than 1/128, the complete real spectrum contains exactly the two controlled energies in the closed interval between them. Each is separated from every other real spectral energy by at least 1/128 − ρ/2 − s, which is strictly positive. Every eigenvector at either controlled energy lies entirely in the original localized space. The case of coincident energies at zero control is included.\n\nSince s is at most ρ/2, the simpler condition ρ < 1/128 also guarantees protection, with separation at least 1/128 − ρ. This includes either control acting alone, with |δ| < 1/128 or |η| < 1/256, respectively. These bounds are sufficient, not claimed optimal.\n\nThe result is proved in Lean for the full infinite operator with its confining potential and natural domain, not for a finite sample or a two-state approximation. It adds a quantitative energy gap to exact geometric decoupling. It provides a foundation for studying imperfect controls, but does not prove noise tolerance, arbitrary-strength protection, experimental feasibility or general quantum dynamics.",
+    "authors": [
+      "Alessandro Odasso"
+    ],
+    "license": "Apache-2.0",
+    "responsible_maintainers": [
+      "Alessandro Odasso"
+    ]
+  },
+  "classification": {
+    "arxiv": [
+      "math.SP",
+      "cond-mat.mes-hall"
+    ],
+    "msc2020": [
+      "47A55",
+      "47B25"
+    ]
+  },
+  "sources": [
+    {
+      "title": "Spectral Protection During Coordinated Control on an Infinite Ammann–Beenker Graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "type": "original-proof",
+      "relationship": "other",
+      "id": "https://github.com/alexodas/spectral_geometry",
+      "note": "Original complete mathematical development of the controlled infinite-graph spectral protection theorem. Alessandro Odasso, who is not a mathematician, conceived and directs the project; according to the maintainer, AI generated the proof development and formalization under his direction. Independent human review of novelty or scientific priority has not been completed."
+    },
+    {
+      "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
+      "authors": [
+        "M. Ö. Oktel"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.104.014204",
+      "note": "Background for known compact localized wave patterns; not a source of the quantified controlled spectral isolation theorem."
+    },
+    {
+      "title": "Compact localized states and flat bands from local symmetry partitioning",
+      "authors": [
+        "M. Röntgen",
+        "C. V. Morfonios",
+        "P. Schmelcher"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.97.035161",
+      "note": "Background on protected and coupled localized waves, not a source of the specific spectral isolation theorem."
+    },
+    {
+      "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
+      "authors": [
+        "F. P. M. Beenker"
+      ],
+      "type": "other",
+      "relationship": "background",
+      "id": "https://pure.tue.nl/ws/files/4269555/253166.pdf",
+      "note": "Geometric origin of square-rhombus octagonal tiling models. The present theorem concerns one centered admitted-vertex graph and does not claim polygonal coverage, aperiodicity of the hull, or validity for every Ammann–Beenker realization."
+    },
+    {
+      "title": "Mathlib4 — Lean mathematical library",
+      "type": "other",
+      "relationship": "background",
+      "id": "https://github.com/leanprover-community/mathlib4",
+      "note": "Provides the Hilbert-space, linear-algebra and verification infrastructure."
+    }
+  ],
+  "status": {
+    "scope": "One principal scientific theorem proves full real bounded-inverse spectral isolation of the exact controlled localized energies with positive separation 1/128−ρ/2−s whenever ρ/2+s<1/128. Supporting exact plane eigenvalue and degeneracy statements, natural-domain reduction, sufficient budget and gap corollaries, five concrete model witnesses and three locality certificates accompany it. All three previous registrations remain unchanged.",
+    "sorry_count": 0,
+    "sorry_in_definitions": 0,
+    "axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  },
+  "automation": {
+    "methods": [
+      {
+        "method": "agent",
+        "models": [
+          "OpenAI ChatGPT GPT-6"
+        ],
+        "framework": "ChatGPT",
+        "tool_setup": "OpenAI ChatGPT generated mathematical theorem statements, Lean formalizations and proof code in an iterative research process directed by Alessandro Odasso. The resulting proof terms are subject to Lean kernel checking; human direction does not imply that the maintainer personally authored the formal mathematics.",
+        "prompting_notes": "Alessandro Odasso is not a mathematician. He originated the project and directs its questions and goals to investigate the ability of large language models to conduct scientific research. According to his account, theorem statements, formal proof development and Lean code were generated by AI. Individual contributions and the research's novelty have not been independently audited."
+      }
+    ],
+    "spend_usd": "not tracked",
+    "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
+  },
+  "fidelity": {
+    "divergences": "One specified confined infinite Ammann–Beenker graph, real Hilbert space and full natural-domain real bounded-inverse spectrum. The controls are independently adjustable signed real strengths and are exactly coordinated. The explicit gap is a sufficient lower bound, not an optimal threshold. No general complex-spectrum or time-dependent noise theorem, arbitrary-strength gap, universality or experimental feasibility is asserted."
+  },
+  "review": {
+    "status": "The substantive strengthened spectral isolation proof passed full Lean/Mathlib verification; the existing registered preparation Comparator also passed. Independent comparison of the newly selected spectral-protection statements and registry review are pending. No independent human review of novelty or significance has been completed.",
+    "reviewers": [],
+    "notes": "Possible audiences include spectral theory, discrete Schrödinger operators, localized states, quasicrystals, flat bands, photonic networks and coherent control. This is a static infinite-operator spectral protection theorem, not a hardware demonstration or priority claim."
+  },
+  "alignment": {
+    "namespace": "SpectralGeometry.AmmannBeenker",
+    "statements": [
+      {
+        "source": "README §§4.68–4.69",
+        "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
+        "module": "SpectralGeometry.AmmannBeenkerCutProject",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "Origin is admitted."
+      },
+      {
+        "source": "README §4.69",
+        "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
+        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "Matching involutions define the graph Laplacian."
+      },
+      {
+        "source": "README §4.74",
+        "lean": "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+        "module": "SpectralGeometry.AmmannBeenkerCompactModes",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "First-ring mode belongs to the natural domain."
+      },
+      {
+        "source": "README §4.74",
+        "lean": "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+        "module": "SpectralGeometry.AmmannBeenkerCompactModes",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "Second-ring mode belongs to the natural domain."
+      },
+      {
+        "source": "README §4.99",
+        "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
+        "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "All explicitly enumerated central lifts are admitted."
+      },
+      {
+        "source": "README §4.99",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "Each pair is a genuine graph edge."
+      },
+      {
+        "source": "README §4.99",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "The two rings have disjoint vertices."
+      },
+      {
+        "source": "README §4.99",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_matching",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
+        "status": "Proved supporting statement; prior registered preparation comparison passed. New candidate comparison pending.",
+        "note": "Distinct pairs have no shared endpoints."
+      },
+      {
+        "source": "README §4.107",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedLevelRadius_eq_zero_iff",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "Half-spacing vanishes precisely at zero controls."
+      },
+      {
+        "source": "README §4.107",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedPlane_eigenvalue_iff",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "Exact full-domain nonzero compact-plane eigenvectors at the two energies, and only those energies."
+      },
+      {
+        "source": "README §4.107",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_plane_commutes",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "Natural-domain plane projection commutes with the full controlled operator."
+      },
+      {
+        "source": "README §4.107",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_complement_commutes",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "Natural-domain complement projection commutes with the full controlled operator."
+      },
+      {
+        "source": "README §4.110 and Executive summary, Spectral protection during coordinated control",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_condition_of_budget",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "The simpler control budget ρ<1/128 implies the strengthened sufficient condition."
+      },
+      {
+        "source": "README §4.110 and Executive summary, Spectral protection during coordinated control",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_gap_ge",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "The stronger bound is at least 1/128−ρ."
+      },
+      {
+        "source": "README §4.110 and Executive summary, Spectral protection during coordinated control",
+        "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation",
+        "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
+        "status": "Proved in substantive Lean source; new independent statement comparison pending.",
+        "note": "Full real spectrum has precisely the two levels in their closed interval, zero leakage there and positive separation from every other real spectral energy and every energy of an eigenvector with nonzero leakage."
+      }
+    ]
+  },
+  "acknowledgements": "Alessandro Odasso, who is not a mathematician, conceived and directs this research to explore the scientific capabilities of large language models. The theorem statements and Lean proof development were generated with OpenAI ChatGPT under his direction, according to his account. Lean and Mathlib provide machine-checked formal proofs; Palomar provides an independent statement-verification framework. No independent human mathematical peer review is claimed.",
+  "related_formalizations": [
+    {
+      "id": "PALOMAR-2026-11-06-000012",
+      "relationship": "builds-on",
+      "note": "Earlier exact crossing multiplicity on the infinite graph."
+    },
+    {
+      "id": "PALOMAR-2026-11-23-000017",
+      "relationship": "builds-on",
+      "note": "Earlier signed single-edge spectral splitting; the current theorem uses coordinated controls."
+    },
+    {
+      "id": "PALOMAR-2026-11-25-000001",
+      "relationship": "builds-on",
+      "note": "Exact leakage-free preparation under the same coordinated controls; the new theorem establishes static energetic protection."
+    }
+  ]
+}

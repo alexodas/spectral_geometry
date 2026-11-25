@@ -20,6 +20,8 @@ for name in (
     "palomar/exact-leakage-free-preparation/comparator.json",
     "palomar/signed-bright-splitting/formalization.yaml",
     "palomar/exact-leakage-free-preparation/formalization.yaml",
+    "palomar/spectral-protection-during-coordinated-control/comparator.json",
+    "palomar/spectral-protection-during-coordinated-control/formalization.yaml",
     "lake-manifest.json",
 ):
     try: json.loads((root/name).read_text(encoding="utf-8"))
