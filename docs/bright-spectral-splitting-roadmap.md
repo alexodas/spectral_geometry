@@ -18,7 +18,7 @@ the [historical L6 note](edge-control-reachability.md).
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
-**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 remains open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
+**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 is Lean-verified: explicit positive cluster isolation in the complete real spectrum ([README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)). The central L8a objective is complete; sharper bounds remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
 ## 1. Established starting point
 
@@ -443,9 +443,9 @@ are preserved; no earlier research conclusions are withdrawn.
 
 ## 8. L8 — robustness of the embedded qubit (OPEN)
 
-### L8a — Quantitative spectral protection under coordinated controls (OPEN)
+### L8a — Quantitative spectral protection under coordinated controls (VERIFIED; refinements open)
 
-**Current research priority; L8a.1–3 verified, overall L8a open.** L7 proves that the
+**Central static objective verified (L8a.1–4); refinements open.** L7 proves that the
 two localized modes can be manipulated without any leakage when both
 controls are applied exactly as prescribed. That protection is
 geometric: the two-mode plane is invariant even for large signed
@@ -544,7 +544,7 @@ Full Lean verification, static checks and the existing independent L7
 Comparator passed. These are not independently selected Palomar
 statements. See [README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels).
 
-**Remaining proof target.** A conservative candidate lower bound on the
+**L8a.4 — verified consolidated quantitative cluster isolation.** A conservative lower bound on the
 separation between the controlled two-mode spectral cluster and
 the spectrum on the orthogonal complement is
 
@@ -553,8 +553,27 @@ g_{\rm protected}(\delta,\eta)\ \ge\ g-2\rho
 \qquad\text{when }2\rho<g.
 ```
 
-This is a proposed bound to formalize, not a new Lean-certified
-constant. The distance concerns the two-mode cluster versus the
+This is now a Lean-certified sufficient bound: for ρ < 1/256, both
+plane levels are genuine real spectral points, the closed radius-ρ
+window contains precisely those levels, every eigenvector at either
+level has zero leakage, and all other real spectral energies (and
+energies of eigenvectors with nonzero leakage) are at distance at least
+1/128−2ρ > 0 from either plane level. Zero controls are included.
+The shift estimate follows by applying the bounded perturbation to
+a nonzero plane eigenvector, since the baseline Hamiltonian acts
+there as E_* times the identity.
+
+The new definition and seven theorems in
+[AmmannBeenkerCoordinatedAxisDynamics.lean](../SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean)
+are `CoordinatedPlaneLevel`, `coordinatedPlaneLevel_shift_le`,
+`coordinatedPlaneLevel_mem_realSpectrum`,
+`coordinatedPlaneLevel_complement_residual_lower`,
+`coordinatedPlaneLevel_exterior_distance`,
+`coordinatedPlaneLevel_otherRealSpectrum_distance`,
+`coordinatedPlaneLevel_in_protected_window`, and
+`coordinatedCluster_isolation`. Full Lean verification, static checks
+and the existing L7 Comparator passed. See [README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster).
+This is not a new independent Palomar selection. The distance concerns the two-mode cluster versus the
 exterior spectrum, not the spacing between its two levels, which
 may coincide. Seek sharper bounds from the actual matrix eigenvalues
 and the complement residual estimate. Do not infer loss of protection
@@ -569,15 +588,14 @@ when the conservative sufficient condition fails.
 - [x] **L8a.3:** Quantitative exterior residual and eigenvalue exclusion,
   full real-spectrum characterization and zero leakage in the explicit
   open window.
-- [ ] **L8a.4:** State and prove a consolidated full-infinite-operator cluster
-  isolation theorem with explicit admissible control strengths and
-  a positive separation bound, including the degenerate zero-control case.
+- [x] **L8a.4:** Consolidated full-real-spectrum isolation for ρ < 1/256,
+  with positive separation 1/128−2ρ, including zero controls.
 - [ ] Investigate sharper control-dependent bounds and their relevance
   to the three-pulse protocol; if weak controls require longer pulses,
   treat variable-duration preparation as a separate proof obligation.
 
-**Scope and continuation.** L8a is a static spectral-protection theorem
-target for ideal controls. Later L8b–L8e may address nonuniform control
+**Scope and continuation.** L8a is a verified static spectral-protection
+theorem for ideal controls. Later L8b–L8e may address nonuniform control
 errors, leakage, preparation fidelity and robust pulse design.
 No dynamical noise bound, arbitrary-strength spectral gap, hardware
 robustness or fourth Palomar registration is asserted. L6 and all
