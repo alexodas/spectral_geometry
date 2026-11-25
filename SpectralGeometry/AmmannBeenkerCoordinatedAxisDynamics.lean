@@ -189,5 +189,247 @@ theorem coordinatedZAxis_leakage_zero (η : ℝ) (a b : ℂ) (τ : ℝ) :
   coordinatedPair_leakage_zero domainCrossingDark domainCrossingBright
     crossingDark_leakage_zero coordinatedBright_leakage_zero _ _ _ _ _
 
+
+/-!
+## L8a.2 — Exact controlled plane levels and reduction on the natural domain
+
+The spectral characterization below concerns eigenvectors in the original
+compact plane. No claim about separation from exterior levels is made here.
+-/
+
+/-- The midpoint of the two controlled compact-plane energies. -/
+@[expose] def coordinatedLevelCenter (δ η : ℝ) : ℝ :=
+  crossingEnergy + δ / 2 + η
+
+/-- The nonnegative half-spacing of the controlled compact-plane energies. -/
+@[expose] def coordinatedLevelRadius (δ η : ℝ) : ℝ :=
+  Real.sqrt ((δ / 2) ^ 2 + η ^ 2)
+
+theorem coordinatedLevelRadius_sq (δ η : ℝ) :
+    coordinatedLevelRadius δ η ^ 2 = (δ / 2) ^ 2 + η ^ 2 := by
+  unfold coordinatedLevelRadius
+  exact Real.sq_sqrt (by positivity)
+
+theorem coordinatedLevelRadius_eq_zero_iff (δ η : ℝ) :
+    coordinatedLevelRadius δ η = 0 ↔ δ = 0 ∧ η = 0 := by
+  constructor
+  · intro h
+    have hs := coordinatedLevelRadius_sq δ η
+    rw [h] at hs
+    constructor <;> nlinarith [sq_nonneg (δ / 2), sq_nonneg η]
+  · rintro ⟨rfl, rfl⟩
+    simp [coordinatedLevelRadius]
+
+/-- Elementary real symmetric traceless two-by-two eigenvalue equation,
+including the case in which both matrix entries vanish. -/
+private theorem coordinated_traceless_eigen_iff (a b z : ℝ) :
+    (∃ r s : ℝ, (r ≠ 0 ∨ s ≠ 0) ∧
+      a * r + b * s = z * r ∧ b * r - a * s = z * s) ↔
+      z ^ 2 = a ^ 2 + b ^ 2 := by
+  constructor
+  · rintro ⟨r, s, hn, h₁, h₂⟩
+    have hr : (z ^ 2 - (a ^ 2 + b ^ 2)) * r = 0 := by
+      linear_combination -(a + z) * h₁ - b * h₂
+    have hs : (z ^ 2 - (a ^ 2 + b ^ 2)) * s = 0 := by
+      linear_combination -b * h₁ + (a - z) * h₂
+    rcases hn with hn | hn
+    · exact sub_eq_zero.mp ((mul_eq_zero.mp hr).resolve_right hn)
+    · exact sub_eq_zero.mp ((mul_eq_zero.mp hs).resolve_right hn)
+  · intro hz
+    by_cases hb : b = 0
+    · subst b
+      have hprod : (z - a) * (z + a) = 0 := by nlinarith only [hz]
+      rcases mul_eq_zero.mp hprod with h | h
+      · have he : z = a := sub_eq_zero.mp h
+        subst z
+        exact ⟨1, 0, Or.inl one_ne_zero, by ring, by ring⟩
+      · have he : z = -a := by linarith
+        subst z
+        exact ⟨0, 1, Or.inr one_ne_zero, by ring, by ring⟩
+    · refine ⟨b, z - a, Or.inl hb, ?_, ?_⟩
+      · ring
+      · linear_combination -hz
+
+/-- Coefficient characterization of an exact full-Hamiltonian eigenpair
+with input in the compact A/B plane. -/
+theorem coordinatedCompact_eigen_iff (δ η energy r s : ℝ) :
+    onsitePlusBounded potential (coordinatedCorrection δ η)
+      (r • domainCompactA + s • domainCompactB) =
+        energy • (r • compactA + s • compactB) ↔
+      (δ / 2) * r + (-η) * s =
+        (energy - coordinatedLevelCenter δ η) * r ∧
+      (-η) * r - (δ / 2) * s =
+        (energy - coordinatedLevelCenter δ η) * s := by
+  change onsitePlusBounded potential
+    (ringInteraction (crossingParameter + δ) + η • coordinatedRingControl)
+    (r • domainCompactA + s • domainCompactB) = _ ↔ _
+  rw [coordinatedControls_compact_action, smul_add, smul_smul, smul_smul]
+  constructor
+  · intro h
+    have ha := congrArg crossingCoeffA h
+    have hb := congrArg crossingCoeffB h
+    simp only [crossingCoeffA_pair] at ha
+    simp only [crossingCoeffB_pair] at hb
+    unfold coordinatedLevelCenter
+    constructor <;> linarith only [ha, hb]
+  · rintro ⟨ha, hb⟩
+    unfold coordinatedLevelCenter at ha hb
+    have h₁ : (crossingEnergy + δ + η) * r - η * s = energy * r := by
+      linarith only [ha]
+    have h₂ : (crossingEnergy + η) * s - η * r = energy * s := by
+      linarith only [hb]
+    rw [h₁, h₂]
+
+/-- Precisely the two explicit energies occur as eigenvalues of the
+full natural-domain Hamiltonian on the original compact plane.
+The statement is valid also when the two energies coincide. -/
+theorem coordinatedPlane_eigenvalue_iff (δ η energy : ℝ) :
+    (∃ x : infiniteOnsiteDomain potential,
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      crossingLeakage (x : TileHilbert Vertex) = 0 ∧
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        energy • (x : TileHilbert Vertex)) ↔
+      energy = coordinatedLevelCenter δ η - coordinatedLevelRadius δ η ∨
+      energy = coordinatedLevelCenter δ η + coordinatedLevelRadius δ η := by
+  have hscalar := coordinated_traceless_eigen_iff (δ / 2) (-η)
+    (energy - coordinatedLevelCenter δ η)
+  have hs := coordinatedLevelRadius_sq δ η
+  constructor
+  · rintro ⟨x, hn, hq, he⟩
+    let r := crossingCoeffA (x : TileHilbert Vertex)
+    let s := crossingCoeffB (x : TileHilbert Vertex)
+    have hx : (x : TileHilbert Vertex) = r • compactA + s • compactB :=
+      (crossingLeakage_eq_zero_iff _).mp hq
+    have hd : x = r • domainCompactA + s • domainCompactB := by
+      apply Subtype.ext
+      exact hx
+    have hne : r ≠ 0 ∨ s ≠ 0 := by
+      by_contra! hh
+      apply hn
+      rw [hx, hh.1, hh.2, zero_smul, zero_smul, add_zero]
+    have hcoeff := (coordinatedCompact_eigen_iff δ η energy r s).mp
+      (by simpa only [hd] using he)
+    have hz := hscalar.mp ⟨r, s, hne, hcoeff⟩
+    have hp : (energy - coordinatedLevelCenter δ η -
+        coordinatedLevelRadius δ η) *
+        (energy - coordinatedLevelCenter δ η +
+          coordinatedLevelRadius δ η) = 0 := by
+      nlinarith only [hz, hs]
+    rcases mul_eq_zero.mp hp with h | h
+    · right
+      linarith only [h]
+    · left
+      linarith only [h]
+  · intro he
+    have hz : (energy - coordinatedLevelCenter δ η) ^ 2 =
+        (δ / 2) ^ 2 + (-η) ^ 2 := by
+      rcases he with h | h <;> rw [h] <;> nlinarith only [hs]
+    obtain ⟨r, s, hn, hcoeff⟩ := hscalar.mpr hz
+    refine ⟨r • domainCompactA + s • domainCompactB, ?_, ?_, ?_⟩
+    · change r • compactA + s • compactB ≠ 0
+      intro h
+      have ha := congrArg crossingCoeffA h
+      have hb := congrArg crossingCoeffB h
+      simp only [crossingCoeffA_pair, crossingCoeffA, inner_zero_right,
+        zero_div] at ha
+      simp only [crossingCoeffB_pair, crossingCoeffB, inner_zero_right,
+        zero_div] at hb
+      rcases hn with hn | hn
+      · exact hn ha
+      · exact hn hb
+    · exact crossingLeakage_pair_zero r s
+    · exact (coordinatedCompact_eigen_iff δ η energy r s).mpr hcoeff
+
+/-- Natural-domain lifts of the orthogonal projections onto the original
+compact plane and its complement. -/
+@[expose] def coordinatedPlaneDomainPart (x : infiniteOnsiteDomain potential) :
+    infiniteOnsiteDomain potential :=
+  crossingCoeffA (x : TileHilbert Vertex) • domainCompactA +
+    crossingCoeffB (x : TileHilbert Vertex) • domainCompactB
+
+@[expose] def coordinatedComplementDomainPart (x : infiniteOnsiteDomain potential) :
+    infiniteOnsiteDomain potential :=
+  x - coordinatedPlaneDomainPart x
+
+theorem coordinatedPlaneDomainPart_coe (x : infiniteOnsiteDomain potential) :
+    (coordinatedPlaneDomainPart x : TileHilbert Vertex) =
+      crossingQubitPart (x : TileHilbert Vertex) := rfl
+
+theorem coordinatedComplementDomainPart_coe (x : infiniteOnsiteDomain potential) :
+    (coordinatedComplementDomainPart x : TileHilbert Vertex) =
+      crossingLeakage (x : TileHilbert Vertex) := rfl
+
+/-- The full Hamiltonian commutes with the compact-plane projection,
+where the projected input is lifted to the original natural domain. -/
+theorem coordinatedHamiltonian_plane_commutes (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    crossingQubitPart (onsitePlusBounded potential (coordinatedCorrection δ η) x) =
+      onsitePlusBounded potential (coordinatedCorrection δ η)
+        (coordinatedPlaneDomainPart x) := by
+  let H := onsitePlusBounded potential (coordinatedCorrection δ η)
+  have hA : H domainCompactA =
+      (crossingEnergy + δ + η) • compactA + (-η) • compactB := by
+    simpa [H, coordinatedCorrection] using
+      coordinatedControls_compact_action δ η 1 0
+  have hB : H domainCompactB =
+      (-η) • compactA + (crossingEnergy + η) • compactB := by
+    simpa [H, coordinatedCorrection] using
+      coordinatedControls_compact_action δ η 0 1
+  have hsA : inner ℝ (H domainCompactA) (x : TileHilbert Vertex) =
+      inner ℝ compactA (H x) :=
+    onsitePlusBounded_symmetric potential (coordinatedCorrection δ η)
+      (coordinatedCorrection_symmetric δ η) domainCompactA x
+  have hsB : inner ℝ (H domainCompactB) (x : TileHilbert Vertex) =
+      inner ℝ compactB (H x) :=
+    onsitePlusBounded_symmetric potential (coordinatedCorrection δ η)
+      (coordinatedCorrection_symmetric δ η) domainCompactB x
+  have ha : crossingCoeffA (H x) =
+      (crossingEnergy + δ + η) * crossingCoeffA (x : TileHilbert Vertex) -
+        η * crossingCoeffB (x : TileHilbert Vertex) := by
+    unfold crossingCoeffA crossingCoeffB
+    rw [← hsA, hA, inner_add_left, real_inner_smul_left, real_inner_smul_left]
+    ring
+  have hb : crossingCoeffB (H x) =
+      (crossingEnergy + η) * crossingCoeffB (x : TileHilbert Vertex) -
+        η * crossingCoeffA (x : TileHilbert Vertex) := by
+    unfold crossingCoeffA crossingCoeffB
+    rw [← hsB, hB, inner_add_left, real_inner_smul_left, real_inner_smul_left]
+    ring
+  change crossingQubitPart (H x) = H (coordinatedPlaneDomainPart x)
+  unfold crossingQubitPart coordinatedPlaneDomainPart
+  rw [ha, hb, map_add, map_smul, map_smul, hA, hB]
+  module
+
+/-- The orthogonal complement is reducing as well; the statement
+includes domain preservation through the explicit projected input. -/
+theorem coordinatedHamiltonian_complement_commutes (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    crossingLeakage (onsitePlusBounded potential (coordinatedCorrection δ η) x) =
+      onsitePlusBounded potential (coordinatedCorrection δ η)
+        (coordinatedComplementDomainPart x) := by
+  rw [crossingLeakage, coordinatedHamiltonian_plane_commutes,
+    coordinatedComplementDomainPart, map_sub]
+
+/-- Every domain vector already in the complement has a full
+Hamiltonian image orthogonal to both compact modes. -/
+theorem coordinatedHamiltonian_complement_invariant (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (ha : inner ℝ compactA (x : TileHilbert Vertex) = 0)
+    (hb : inner ℝ compactB (x : TileHilbert Vertex) = 0) :
+    inner ℝ compactA (onsitePlusBounded potential (coordinatedCorrection δ η) x) = 0 ∧
+      inner ℝ compactB (onsitePlusBounded potential (coordinatedCorrection δ η) x) = 0 := by
+  have hp : coordinatedPlaneDomainPart x = 0 := by
+    simp [coordinatedPlaneDomainPart, crossingCoeffA, crossingCoeffB, ha, hb]
+  have hq : coordinatedComplementDomainPart x = x := by
+    simp [coordinatedComplementDomainPart, hp]
+  have h := coordinatedHamiltonian_complement_commutes δ η x
+  rw [hq] at h
+  constructor
+  · rw [← h]
+    exact crossingLeakage_inner_compactA _
+  · rw [← h]
+    exact crossingLeakage_inner_compactB _
+
+
 end
 end SpectralGeometry.AmmannBeenker
