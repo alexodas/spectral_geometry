@@ -619,5 +619,180 @@ theorem coordinatedRealSpectrum_near_iff (δ η energy : ℝ)
     exact ⟨x, hn, he⟩
 
 
+
+/-!
+## L8a.4 — Consolidated quantitative isolation of the controlled cluster
+
+The shift of either compact-plane level is bounded by the perturbation
+norm on its genuine full-domain eigenvector. Together with the verified
+exterior exclusion, this gives a positive separation in the complete
+real bounded-inverse spectrum throughout an explicit control range.
+-/
+
+/-- Membership in the exact two-level set; at zero controls it is a
+singleton, not an artificially distinct pair. -/
+@[expose] def CoordinatedPlaneLevel (δ η e : ℝ) : Prop :=
+  e = coordinatedLevelCenter δ η - coordinatedLevelRadius δ η ∨
+  e = coordinatedLevelCenter δ η + coordinatedLevelRadius δ η
+
+/-- The actual eigenvectors of the full operator give the displacement
+bound directly, without an additional scalar square-root estimate. -/
+theorem coordinatedPlaneLevel_shift_le (δ η e : ℝ)
+    (hl : CoordinatedPlaneLevel δ η e) :
+    |e - crossingEnergy| ≤ |δ| + 2 * |η| := by
+  obtain ⟨x, hn, hq, he⟩ :=
+    (coordinatedPlane_eigenvalue_iff δ η e).mpr hl
+  have hx : (x : TileHilbert Vertex) =
+      crossingQubitPart (x : TileHilbert Vertex) :=
+    (crossingLeakage_eq_zero_iff _).mp hq
+  have hd : x = coordinatedPlaneDomainPart x := by
+    apply Subtype.ext
+    rw [coordinatedPlaneDomainPart_coe]
+    exact hx
+  have hbase :
+      onsitePlusBounded potential (ringInteraction crossingParameter) x =
+        crossingEnergy • (x : TileHilbert Vertex) := by
+    calc
+      _ = onsitePlusBounded potential (ringInteraction crossingParameter)
+          (coordinatedPlaneDomainPart x) := congrArg
+            (onsitePlusBounded potential (ringInteraction crossingParameter)) hd
+      _ = crossingEnergy • crossingQubitPart (x : TileHilbert Vertex) :=
+        crossingQubitPart_restored_eigenvector (x : TileHilbert Vertex)
+      _ = _ := congrArg (fun y : TileHilbert Vertex => crossingEnergy • y) hx.symm
+  have hdecomp :
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        onsitePlusBounded potential (ringInteraction crossingParameter) x +
+          coordinatedControlPerturbation δ η (x : TileHilbert Vertex) :=
+    coordinatedControlHamiltonian_decomposition δ η x
+  have hB :
+      coordinatedControlPerturbation δ η (x : TileHilbert Vertex) =
+        (e - crossingEnergy) • (x : TileHilbert Vertex) := by
+    calc
+      _ = onsitePlusBounded potential (coordinatedCorrection δ η) x -
+          crossingEnergy • (x : TileHilbert Vertex) := by
+        rw [hdecomp, hbase]
+        abel
+      _ = _ := by
+        rw [he]
+        module
+  have h := coordinatedControlPerturbation_apply_norm_le δ η (x : TileHilbert Vertex)
+  rw [hB, norm_smul, Real.norm_eq_abs] at h
+  exact le_of_mul_le_mul_right h (norm_pos_iff.mpr hn)
+
+/-- Every plane energy belongs to the complete real spectrum. -/
+theorem coordinatedPlaneLevel_mem_realSpectrum (δ η e : ℝ)
+    (hl : CoordinatedPlaneLevel δ η e) :
+    e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) := by
+  obtain ⟨x, hn, _, he⟩ :=
+    (coordinatedPlane_eigenvalue_iff δ η e).mpr hl
+  exact (coordinatedRealSpectrum_iff_full_eigenvector δ η e).mpr ⟨x, hn, he⟩
+
+/-- At either exact plane level the exterior residual is bounded below
+by the uniform cluster gap candidate, for every exterior domain vector. -/
+theorem coordinatedPlaneLevel_complement_residual_lower (δ η e : ℝ)
+    (hl : CoordinatedPlaneLevel δ η e)
+    (x : infiniteOnsiteDomain potential)
+    (ha : inner ℝ compactA (x : TileHilbert Vertex) = 0)
+    (hb : inner ℝ compactB (x : TileHilbert Vertex) = 0) :
+    (crossingGapCandidate - 2 * (|δ| + 2 * |η|)) *
+        ‖(x : TileHilbert Vertex)‖ ≤
+      ‖onsitePlusBounded potential (coordinatedCorrection δ η) x -
+        e • (x : TileHilbert Vertex)‖ := by
+  calc
+    _ ≤ (crossingGapCandidate - (|δ| + 2 * |η|) -
+          |e - crossingEnergy|) * ‖(x : TileHilbert Vertex)‖ :=
+      mul_le_mul_of_nonneg_right
+        (by linarith only [coordinatedPlaneLevel_shift_le δ η e hl])
+        (norm_nonneg _)
+    _ ≤ _ := coordinatedComplement_residual_lower δ η e x ha hb
+
+/-- A full eigenvector with nonzero leakage is separated from each
+plane energy by the uniform cluster gap candidate. -/
+theorem coordinatedPlaneLevel_exterior_distance (δ η e level : ℝ)
+    (hl : CoordinatedPlaneLevel δ η level)
+    (x : infiniteOnsiteDomain potential)
+    (he : onsitePlusBounded potential (coordinatedCorrection δ η) x =
+      e • (x : TileHilbert Vertex))
+    (hq : crossingLeakage (x : TileHilbert Vertex) ≠ 0) :
+    crossingGapCandidate - 2 * (|δ| + 2 * |η|) ≤ |e - level| := by
+  have h := coordinatedEigenvector_complement_distance δ η e x he hq
+  have hshift := coordinatedPlaneLevel_shift_le δ η level hl
+  have ht : |e - crossingEnergy| ≤ |e - level| + |level - crossingEnergy| :=
+    abs_sub_le e level crossingEnergy
+  linarith only [h, hshift, ht]
+
+/-- Separation from every other point of the complete real spectrum,
+not just a supplied exterior eigenvalue. -/
+theorem coordinatedPlaneLevel_otherRealSpectrum_distance (δ η e level : ℝ)
+    (hl : CoordinatedPlaneLevel δ η level)
+    (he : e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η))
+    (hne : ¬ CoordinatedPlaneLevel δ η e) :
+    crossingGapCandidate - 2 * (|δ| + 2 * |η|) ≤ |e - level| := by
+  have hshift := coordinatedPlaneLevel_shift_le δ η level hl
+  have ht : |e - crossingEnergy| ≤ |e - level| + |level - crossingEnergy| :=
+    abs_sub_le e level crossingEnergy
+  by_contra! hlt
+  have hnear : |δ| + 2 * |η| + |e - crossingEnergy| <
+      crossingGapCandidate := by linarith only [hshift, ht, hlt]
+  exact hne ((coordinatedRealSpectrum_near_iff δ η e hnear).mp he)
+
+/-- Both plane energies lie in the explicit open window for small
+controls, and every full-domain eigenvector there has zero leakage. -/
+theorem coordinatedPlaneLevel_in_protected_window (δ η e : ℝ)
+    (hsmall : 2 * (|δ| + 2 * |η|) < crossingGapCandidate)
+    (hl : CoordinatedPlaneLevel δ η e) :
+    |δ| + 2 * |η| + |e - crossingEnergy| < crossingGapCandidate := by
+  linarith only [hsmall, coordinatedPlaneLevel_shift_le δ η e hl]
+
+/-- Consolidated full-infinite-operator isolation theorem with explicit
+numerical admissible controls and separation. Both compact levels belong
+to the full real spectrum, are the entire spectrum in the closed
+control-budget window, and have no exterior eigenvectors. Every other
+spectral energy and every eigenvector with nonzero exterior component
+are separated from each plane level by the stated positive constant.
+The zero-control case is included. -/
+theorem coordinatedCluster_isolation (δ η : ℝ)
+    (hsmall : |δ| + 2 * |η| < 1 / 256) :
+    0 < (1 / 128 : ℝ) - 2 * (|δ| + 2 * |η|) ∧
+    (∀ level : ℝ, CoordinatedPlaneLevel δ η level →
+      level ∈ infiniteBoundedOnsiteRealSpectrum potential
+        (coordinatedCorrection δ η) ∧
+      |level - crossingEnergy| ≤ |δ| + 2 * |η| ∧
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          level • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) = 0) ∧
+    (∀ e : ℝ, |e - crossingEnergy| ≤ |δ| + 2 * |η| →
+      (e ∈ infiniteBoundedOnsiteRealSpectrum potential
+        (coordinatedCorrection δ η) ↔ CoordinatedPlaneLevel δ η e)) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      e ∈ infiniteBoundedOnsiteRealSpectrum potential
+        (coordinatedCorrection δ η) →
+      ¬ CoordinatedPlaneLevel δ η e →
+      (1 / 128 : ℝ) - 2 * (|δ| + 2 * |η|) ≤ |e - level|) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          e • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) ≠ 0 →
+        (1 / 128 : ℝ) - 2 * (|δ| + 2 * |η|) ≤ |e - level|) := by
+  have hs : 2 * (|δ| + 2 * |η|) < crossingGapCandidate := by
+    change 2 * (|δ| + 2 * |η|) < (1 / 128 : ℝ)
+    linarith only [hsmall]
+  refine ⟨by linarith only [hsmall], ?_, ?_, ?_, ?_⟩
+  · intro level hl
+    refine ⟨coordinatedPlaneLevel_mem_realSpectrum δ η level hl,
+      coordinatedPlaneLevel_shift_le δ η level hl, ?_⟩
+    intro x he
+    exact coordinatedEigenvector_leakage_zero_of_near δ η level x he
+      (coordinatedPlaneLevel_in_protected_window δ η level hs hl)
+  · intro e hnear
+    exact coordinatedRealSpectrum_near_iff δ η e (by linarith only [hs, hnear])
+  · intro e level hl he hne
+    exact coordinatedPlaneLevel_otherRealSpectrum_distance δ η e level hl he hne
+  · intro e level hl x he hq
+    exact coordinatedPlaneLevel_exterior_distance δ η e level hl x he hq
+
+
 end
 end SpectralGeometry.AmmannBeenker
