@@ -10,6 +10,7 @@ zeros of analytic functions built from those levels.**
   - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
   - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
   - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
+  - [L8a.1 — Sharp bounds for coordinated control](#l8a1--sharp-bounds-for-coordinated-control)
 - [Research tracks and current priority](#research-tracks-and-current-priority)
 - [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
 - [Current status and verified milestones](#current-status-and-verified-milestones)
@@ -91,6 +92,8 @@ The result concerns the actual infinite operator, not a numerical simulation or 
 This is an existence theorem for preparation from the dark state in this specified compact plane with independently tunable signed controls. It does not construct a general complex unitary propagator for arbitrary initial data on the infinite graph, prove phase-sensitive equality without a common phase, claim an optimal number of controlled edges, or establish experimental feasibility or originality. The earlier single-edge spectral-splitting theorem is a separate result.
 
 **Palomar registration.** The third result was registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). Full Lean verification, independent statement comparison and Challenge renderability passed. The automated editorial review reported no identified problems with the selected statements, their presentation or their research relevance. The first two Palomar registrations remain unchanged. Registration establishes mechanical verification of selected statements, not human peer review, novelty or experimental feasibility.
+
+### L8a.1 — Sharp bounds for coordinated control
 
 The first step toward energetic protection during coordinated control is now proved (§4.106, L8a.1). The first-ring onsite projection has exact operator norm one, and the sum of the eight matched edge corrections has exact operator norm two, not sixteen. For any signed real control strengths, the change of the infinite Hamiltonian is exactly a bounded operator with norm at most the absolute onsite change plus twice the absolute edge change. This controls the size of the intervention on every square-summable state, not only on the original two-mode plane. It does not yet certify a positive gap between the controlled two-mode energies and the exterior spectrum, or protection against imperfect controls.
 
