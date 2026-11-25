@@ -18,7 +18,7 @@ the [historical L6 note](edge-control-reachability.md).
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
-**Next research priority (open): L8a — quantitative spectral protection during coordinated control.** See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open). No new result is claimed before full Lean verification.
+**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2–4 remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
 ## 1. Established starting point
 
@@ -445,7 +445,7 @@ are preserved; no earlier research conclusions are withdrawn.
 
 ### L8a — Quantitative spectral protection under coordinated controls (OPEN)
 
-**Current research priority, not a verified result.** L7 proves that the
+**Current research priority; L8a.1 verified, overall L8a open.** L7 proves that the
 two localized modes can be manipulated without any leakage when both
 controls are applied exactly as prescribed. That protection is
 geometric: the two-mode plane is invariant even for large signed
@@ -469,12 +469,29 @@ are algebraically given by
 = E_*+\delta/2+\eta\ \pm\sqrt{\delta^2/4+\eta^2}.
 ```
 
-**Proposed proof target.** Write the change from the zero-control
-Hamiltonian as `B = δ R + η M`, where `R` is the first-ring onsite
-projection and `M` is the sum of the eight matched edge operators.
-Aim to certify `‖R‖ ≤ 1` and `‖M‖ ≤ 2` using the actual disjoint
-endpoints, rather than the crude sum of eight separate edge norms.
-Set `ρ = |δ| + 2|η|`. A conservative candidate lower bound on the
+**L8a.1 — verified sharp control norms and bounded decomposition.**
+The new definition and seven theorems in
+[AmmannBeenkerCoordinatedInvariantPlane.lean](../SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean)
+prove the following on the complete real square-summable space and, for
+Hamiltonian identities, on the unchanged natural domain. The disjoint
+matched endpoints give `M²x = 2Mx` for every vector `x`; symmetry then
+gives `‖M‖ ≤ 2`, and the existing nonzero bright eigenvector attains it.
+The first-ring coordinate projection is a contraction attaining norm one
+on the nonzero compact mode A. Thus `‖R‖ = 1` and `‖M‖ = 2` exactly.
+The change from the zero-control Hamiltonian is exactly the bounded map
+`B = δ R + η M`, with `‖B‖ ≤ ρ = |δ| + 2|η|` for every signed real δ, η.
+
+The declarations are `coordinatedRingControl_sq_apply`,
+`coordinatedRingControl_norm_le_two`, `coordinatedRingControl_opNorm`,
+`coordinatedOnsiteProjection_opNorm`, `coordinatedControlPerturbation`,
+`coordinatedControlCorrection_decomposition`,
+`coordinatedControlHamiltonian_decomposition`, and
+`coordinatedControlPerturbation_norm_le`. Full Lean verification, static
+checks and the existing independent L7 Comparator passed. The new L8a.1
+statements are not independently selected in that registered package.
+No new module or Palomar package was introduced. See [README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation).
+
+**Remaining proof target.** A conservative candidate lower bound on the
 separation between the controlled two-mode spectral cluster and
 the spectrum on the orthogonal complement is
 
@@ -492,14 +509,14 @@ when the conservative sufficient condition fails.
 
 **L8a proof obligations**
 
-- [ ] Establish the exact bounded control decomposition and a norm
-  bound for the coordinated matching, using its disjoint endpoints.
-- [ ] Certify the controlled two-mode eigenvalues and the reducing
+- [x] **L8a.1:** Exact bounded control decomposition, `M² = 2M`, exact
+  norms `‖R‖ = 1`, `‖M‖ = 2`, and `‖B‖ ≤ |δ| + 2|η|`.
+- [ ] **L8a.2:** Certify the controlled two-mode eigenvalues and the reducing
   complement on the natural domain of the infinite Hamiltonian.
-- [ ] Prove quantitative exclusion of the remaining real spectrum,
+- [ ] **L8a.3:** Prove quantitative exclusion of the remaining real spectrum,
   using the existing reduced-gap estimate and the applicable
   compact-resolvent spectral characterization.
-- [ ] State and prove a consolidated full-infinite-operator cluster
+- [ ] **L8a.4:** State and prove a consolidated full-infinite-operator cluster
   isolation theorem with explicit admissible control strengths and
   a positive separation bound, including the degenerate zero-control case.
 - [ ] Investigate sharper control-dependent bounds and their relevance
