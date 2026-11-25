@@ -203,5 +203,121 @@ theorem coordinatedControls_dark_bright_action (δ η u v : ℝ) :
   simp only [crossingDark, crossingBright]
   module
 
+/-!
+## L8a.1 — Sharp bounded control estimates
+
+The local matching identities give a scaled orthogonal projection on
+the whole real Hilbert space. The norm estimate does not sum eight
+individual edge norms.
+-/
+
+/-- Disjoint matched endpoints imply the exact full-space quadratic
+identity M² = 2M. -/
+theorem coordinatedRingControl_sq_apply (x : TileHilbert Vertex) :
+    coordinatedRingControl (coordinatedRingControl x) =
+      (2 : ℝ) • coordinatedRingControl x := by
+  apply lp.ext
+  funext v
+  change (coordinatedRingControl (coordinatedRingControl x)) v =
+    (2 : ℝ) * (coordinatedRingControl x) v
+  by_cases ha : ∃ i : Fin 8, v = firstRingVertex i
+  · obtain ⟨i, rfl⟩ := ha
+    rw [coordinatedRing_first_eval (coordinatedRingControl x) i,
+      coordinatedRing_first_eval x i, coordinatedRing_second_eval x i]
+    ring
+  · by_cases hb : ∃ i : Fin 8, v = secondRingVertex i
+    · obtain ⟨i, rfl⟩ := hb
+      rw [coordinatedRing_second_eval (coordinatedRingControl x) i,
+        coordinatedRing_second_eval x i, coordinatedRing_first_eval x i]
+      ring
+    · have hA : ∀ i : Fin 8, v ≠ firstRingVertex i :=
+        fun i hi => ha ⟨i, hi⟩
+      have hB : ∀ i : Fin 8, v ≠ secondRingVertex i :=
+        fun i hi => hb ⟨i, hi⟩
+      rw [coordinatedRing_outside_eval (coordinatedRingControl x) v hA hB,
+        coordinatedRing_outside_eval x v hA hB, mul_zero]
+
+/-- A sharp uniform matching bound, obtained from symmetry and M²=2M. -/
+theorem coordinatedRingControl_norm_le_two : ‖coordinatedRingControl‖ ≤ 2 := by
+  apply ContinuousLinearMap.opNorm_le_bound _ (by norm_num)
+  intro x
+  have hs : ‖coordinatedRingControl x‖ ^ 2 =
+      2 * inner ℝ x (coordinatedRingControl x) := by
+    rw [← real_inner_self_eq_norm_sq,
+      ← coordinatedRingControl_symmetric x (coordinatedRingControl x),
+      coordinatedRingControl_sq_apply, real_inner_smul_right]
+  have hc := real_inner_le_norm x (coordinatedRingControl x)
+  by_contra! hn
+  have hp : 0 < ‖coordinatedRingControl x‖ :=
+    lt_of_le_of_lt (mul_nonneg (by norm_num) (norm_nonneg x)) hn
+  have ht := mul_lt_mul_of_pos_right hn hp
+  nlinarith only [hs, hc, ht]
+
+/-- The existing bright eigenvector attains the sharp bound. -/
+theorem coordinatedRingControl_opNorm : ‖coordinatedRingControl‖ = 2 := by
+  apply le_antisymm coordinatedRingControl_norm_le_two
+  have h := ContinuousLinearMap.le_opNorm coordinatedRingControl crossingBright
+  rw [coordinatedRingControl_bright, norm_smul, Real.norm_eq_abs,
+    abs_of_nonneg (by norm_num : 0 ≤ (2 : ℝ))] at h
+  have hp : 0 < ‖crossingBright‖ := by
+    have hs := crossingBright_norm_sq
+    have hn := norm_nonneg crossingBright
+    by_contra! hz
+    have he : ‖crossingBright‖ = 0 := le_antisymm hz hn
+    rw [he] at hs
+    norm_num at hs
+  exact le_of_mul_le_mul_right h hp
+
+/-- The first-ring onsite projection is a contraction, and compact A
+attains its norm. -/
+theorem coordinatedOnsiteProjection_opNorm :
+    ‖finiteSectorProjection (neighbors origin)‖ = 1 := by
+  apply le_antisymm (finiteSectorProjection_norm_le _)
+  have h := ContinuousLinearMap.le_opNorm
+    (finiteSectorProjection (neighbors origin)) compactA
+  rw [projection_compactA] at h
+  have hp : 0 < ‖compactA‖ := norm_pos_iff.mpr compactA_ne_zero
+  apply le_of_mul_le_mul_right _ hp
+  simpa only [one_mul] using h
+
+/-- The change relative to zero controls, as a bounded full-space map. -/
+@[expose] def coordinatedControlPerturbation (δ η : ℝ) :
+    TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
+  δ • finiteSectorProjection (neighbors origin) + η • coordinatedRingControl
+
+/-- Exact decomposition of the bounded interaction part. -/
+theorem coordinatedControlCorrection_decomposition (δ η : ℝ) :
+    ringInteraction (crossingParameter + δ) + η • coordinatedRingControl =
+      ringInteraction crossingParameter + coordinatedControlPerturbation δ η := by
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [ringInteraction, coordinatedControlPerturbation,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply]
+  module
+
+/-- Exact decomposition of the full Hamiltonian on its unchanged
+natural onsite domain. -/
+theorem coordinatedControlHamiltonian_decomposition (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    onsitePlusBounded potential
+      (ringInteraction (crossingParameter + δ) + η • coordinatedRingControl) x =
+      onsitePlusBounded potential (ringInteraction crossingParameter) x +
+        coordinatedControlPerturbation δ η (x : TileHilbert Vertex) := by
+  rw [coordinatedControlCorrection_decomposition]
+  simp only [onsitePlusBounded_apply, ContinuousLinearMap.add_apply]
+  abel
+
+/-- Conservative operator-norm bound for both independently signed controls. -/
+theorem coordinatedControlPerturbation_norm_le (δ η : ℝ) :
+    ‖coordinatedControlPerturbation δ η‖ ≤ |δ| + 2 * |η| := by
+  unfold coordinatedControlPerturbation
+  calc
+    _ ≤ ‖δ • finiteSectorProjection (neighbors origin)‖ +
+        ‖η • coordinatedRingControl‖ := norm_add_le _ _
+    _ = |δ| + 2 * |η| := by
+      rw [norm_smul, norm_smul, Real.norm_eq_abs, Real.norm_eq_abs,
+        coordinatedOnsiteProjection_opNorm, coordinatedRingControl_opNorm]
+      ring
+
 end
 end SpectralGeometry.AmmannBeenker

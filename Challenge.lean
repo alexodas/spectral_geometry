@@ -5,13 +5,13 @@ public import Mathlib
 public section
 
 /-!
-# Exact Leakage-Free Quantum State Preparation on an Infinite Ammann--Beenker Graph
+# Spectral Protection During Coordinated Control on an Infinite Ammann--Beenker Graph
 
-Independent Mathlib-only statement for the concrete infinite graph,
-its coordinated local controls and the full natural-domain continuous
-three-pulse preparation theorem. All model and trajectory definitions
-are concrete. Selected proposition placeholders are model witnesses,
-locality certificates and the one bundled dynamical conclusion.
+Independent Mathlib-only statements for the concrete infinite graph,
+its coordinated local controls and the complete real bounded-inverse
+spectral isolation theorem. All model, domain, spectral and control
+definitions are concrete. Selected proposition placeholders cover model
+witnesses, locality, exact energies, reducing projections and isolation.
 -/
 
 namespace SpectralGeometry
@@ -272,6 +272,57 @@ variable (d : Submodule ℝ H) (A : d →ₗ[ℝ] H)
 
 @[expose] def domainEigenspace (ev : ℝ) : Submodule ℝ d :=
   LinearMap.ker (A - ev • d.subtype)
+
+end
+
+-- Source module: SpectralGeometry.InfiniteLocalCompactResolvent
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+variable {Tile : Type*}
+
+abbrev OnsiteEnd (Tile : Type*) :=
+  TileHilbert Tile →L[ℝ] TileHilbert Tile
+
+/-- The bounded shift of onsite multiplication by a continuous correction,
+defined on the unchanged natural onsite domain. -/
+@[expose] noncomputable def infiniteBoundedOnsiteShift
+    (V : Tile → ℝ) (a : ℝ) (B : OnsiteEnd Tile)
+    (ψ : infiniteOnsiteDomain V) : TileHilbert Tile :=
+  infiniteOnsiteOperator V ψ - a • (ψ.1 : TileHilbert Tile) + B ψ.1
+
+end
+
+-- Source module: SpectralGeometry.InfiniteLocalFullRealResolvent
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+variable {Tile : Type*} [DecidableEq Tile]
+
+abbrev ShiftEnd (Tile : Type*) :=
+  TileHilbert Tile →L[ℝ] TileHilbert Tile
+
+/-- A real parameter belongs to the bounded-resolvent set of the full
+unbounded onsite-plus-bounded operator on D(V) if a continuous linear
+inverse exists, takes values in the natural domain, and obeys both
+inverse equations. The existence is nontrivial: the inverse is bounded
+even when M_V is not. -/
+@[expose] def infiniteBoundedOnsiteRealRegular
+    (V : Tile → ℝ) (B : ShiftEnd Tile) (b : ℝ) : Prop :=
+  ∃ Q : ShiftEnd Tile,
+    (∀ f : TileHilbert Tile,
+      ∃ ψ : infiniteOnsiteDomain V,
+        (ψ.1 : TileHilbert Tile) = Q f ∧
+          infiniteBoundedOnsiteShift V b B ψ = f) ∧
+    (∀ ψ : infiniteOnsiteDomain V,
+      Q (infiniteBoundedOnsiteShift V b B ψ) =
+        (ψ.1 : TileHilbert Tile))
+
+@[expose] def infiniteBoundedOnsiteRealSpectrum (V : Tile → ℝ)
+    (B : ShiftEnd Tile) : Set ℝ :=
+  {b | ¬ infiniteBoundedOnsiteRealRegular V B b}
 
 end
 
@@ -555,16 +606,6 @@ theorem coordinatedRing_matching (i j : Fin 8) (h : i ≠ j) :
 
 end
 
--- Source module: SpectralGeometry.AmmannBeenkerCoordinatedEuler
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-
-section
-
-@[expose] def coordinatedPhase (t : ℝ) : ℂ :=
-  Complex.exp ((t : ℂ) * Complex.I)
-
-end
-
 -- Source module: SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 
@@ -573,115 +614,93 @@ section
 @[expose] def coordinatedCorrection (δ η : ℝ) : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
   ringInteraction (crossingParameter + δ) + η • coordinatedRingControl
 
-end
+@[expose] def coordinatedLevelCenter (δ η : ℝ) : ℝ :=
+  crossingEnergy + δ / 2 + η
 
--- Source module: SpectralGeometry.AmmannBeenkerCoordinatedRotationDynamics
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+@[expose] def coordinatedLevelRadius (δ η : ℝ) : ℝ :=
+  Real.sqrt ((δ / 2) ^ 2 + η ^ 2)
 
-section
+@[expose] def coordinatedPlaneDomainPart (x : infiniteOnsiteDomain potential) :
+    infiniteOnsiteDomain potential :=
+  crossingCoeffA (x : TileHilbert Vertex) • domainCompactA +
+    crossingCoeffB (x : TileHilbert Vertex) • domainCompactB
 
-@[expose] def coordinatedApplyPair (M : Matrix (Fin 2) (Fin 2) ℂ)
-    (a b : ℂ) : ℂ × ℂ :=
-  (M 0 0 * a + M 0 1 * b, M 1 0 * a + M 1 1 * b)
+@[expose] def coordinatedComplementDomainPart (x : infiniteOnsiteDomain potential) :
+    infiniteOnsiteDomain potential :=
+  x - coordinatedPlaneDomainPart x
 
-@[expose] def coordinatedEmbedReal (a b : ℂ) : TileHilbert Vertex :=
-  a.re • crossingDark + b.re • crossingBright
+@[expose] def CoordinatedPlaneLevel (δ η e : ℝ) : Prop :=
+  e = coordinatedLevelCenter δ η - coordinatedLevelRadius δ η ∨
+  e = coordinatedLevelCenter δ η + coordinatedLevelRadius δ η
 
-@[expose] def coordinatedEmbedImag (a b : ℂ) : TileHilbert Vertex :=
-  a.im • crossingDark + b.im • crossingBright
+theorem coordinatedLevelRadius_eq_zero_iff (δ η : ℝ) :
+    coordinatedLevelRadius δ η = 0 ↔ δ = 0 ∧ η = 0 := by
+  sorry
 
-@[expose] def coordinatedXAxisMatrix (δ τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  let p := coordinatedPhase (-(crossingEnergy + δ) * τ)
-  let q := coordinatedPhase (-crossingEnergy * τ)
-  !![(p + q) / 2, (p - q) / 2; (p - q) / 2, (p + q) / 2]
+theorem coordinatedPlane_eigenvalue_iff (δ η energy : ℝ) :
+    (∃ x : infiniteOnsiteDomain potential,
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      crossingLeakage (x : TileHilbert Vertex) = 0 ∧
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        energy • (x : TileHilbert Vertex)) ↔
+      energy = coordinatedLevelCenter δ η - coordinatedLevelRadius δ η ∨
+      energy = coordinatedLevelCenter δ η + coordinatedLevelRadius δ η := by
+  sorry
 
-@[expose] def coordinatedZAxisMatrix (η τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  !![coordinatedPhase (-crossingEnergy * τ), 0;
-     0, coordinatedPhase (-(crossingEnergy + 2 * η) * τ)]
+theorem coordinatedHamiltonian_plane_commutes (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    crossingQubitPart (onsitePlusBounded potential (coordinatedCorrection δ η) x) =
+      onsitePlusBounded potential (coordinatedCorrection δ η)
+        (coordinatedPlaneDomainPart x) := by
+  sorry
 
-end
+theorem coordinatedHamiltonian_complement_commutes (δ η : ℝ)
+    (x : infiniteOnsiteDomain potential) :
+    crossingLeakage (onsitePlusBounded potential (coordinatedCorrection δ η) x) =
+      onsitePlusBounded potential (coordinatedCorrection δ η)
+        (coordinatedComplementDomainPart x) := by
+  sorry
 
--- Source module: SpectralGeometry.AmmannBeenkerCoordinatedPulseComposition
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+theorem coordinatedCluster_centered_condition_of_budget (δ η : ℝ)
+    (hsmall : |δ| + 2 * |η| < 1 / 128) :
+    (|δ| + 2 * |η|) / 2 + coordinatedLevelRadius δ η < 1 / 128 := by
+  sorry
 
-section
+theorem coordinatedCluster_centered_gap_ge (δ η : ℝ) :
+    (1 / 128 : ℝ) - (|δ| + 2 * |η|) ≤
+      1 / 128 - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η := by
+  sorry
 
-open Filter Set
-open scoped Topology
-
-@[expose] def coordinatedPulseX (δ τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
-  coordinatedApplyPair (coordinatedXAxisMatrix δ τ) w.1 w.2
-
-@[expose] def coordinatedPulseZ (η τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
-  coordinatedApplyPair (coordinatedZAxisMatrix η τ) w.1 w.2
-
-@[expose] def coordinatedStateReal (w : ℂ × ℂ) : TileHilbert Vertex :=
-  coordinatedEmbedReal w.1 w.2
-
-@[expose] def coordinatedStateImag (w : ℂ × ℂ) : TileHilbert Vertex :=
-  coordinatedEmbedImag w.1 w.2
-
-@[expose] def domainCoordinatedStateReal (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
-  w.1.re • domainCrossingDark + w.2.re • domainCrossingBright
-
-@[expose] def domainCoordinatedStateImag (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
-  w.1.im • domainCrossingDark + w.2.im • domainCrossingBright
-
-@[expose] def coordinatedClock (s : ℝ) : ℝ := min (max s 0) 1
-
-@[expose] def coordinatedProtocolPair (p t q : ℝ) (w : ℂ × ℂ)
-    (τ : ℝ) : ℂ × ℂ :=
-  coordinatedPulseZ q (coordinatedClock (τ-2))
-    (coordinatedPulseX (-2*t) (coordinatedClock (τ-1))
-      (coordinatedPulseZ p (coordinatedClock τ) w))
-
-@[expose] def coordinatedSolvesAt (δ η : ℝ) (f : ℝ → ℂ × ℂ) (s : ℝ) : Prop :=
-  HasDerivAt (fun τ => coordinatedStateReal (f τ))
-    (onsitePlusBounded potential (coordinatedCorrection δ η)
-      (domainCoordinatedStateImag (f s))) s ∧
-  HasDerivAt (fun τ => coordinatedStateImag (f τ))
-    (-(onsitePlusBounded potential (coordinatedCorrection δ η)
-      (domainCoordinatedStateReal (f s)))) s
-
-end
-
--- Source module: SpectralGeometry.AmmannBeenkerCoordinatedExactPreparation
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-
-section
-
-@[expose] def coordinatedProtocolAngle (p t q : ℝ) : ℝ :=
-  -(crossingEnergy + q) + -(crossingEnergy - t) + -(crossingEnergy + p)
-
-theorem coordinatedProtocol_exact_preparation (a b : ℂ)
-    (hn : ‖a‖ ^ 2 + ‖b‖ ^ 2 = 1) :
-    ∃ p t q : ℝ, 0 ≤ t ∧ t ≤ Real.pi / 2 ∧
-      let f := coordinatedProtocolPair p t q (1,0)
-      let z := coordinatedPhase (coordinatedProtocolAngle p t q)
-      ‖z‖ = 1 ∧
-      f 0 = (1,0) ∧
-      coordinatedStateReal (f 0) = crossingDark ∧
-      coordinatedStateImag (f 0) = 0 ∧
-      f 3 = (z*a,z*b) ∧
-      coordinatedStateReal (f 3) =
-        (z*a).re • crossingDark + (z*b).re • crossingBright ∧
-      coordinatedStateImag (f 3) =
-        (z*a).im • crossingDark + (z*b).im • crossingBright ∧
-      Continuous f ∧
-      Continuous (fun τ => coordinatedStateReal (f τ)) ∧
-      Continuous (fun τ => coordinatedStateImag (f τ)) ∧
-      (∀ τ : ℝ, coordinatedStateReal (f τ) ∈ infiniteOnsiteDomain potential ∧
-        coordinatedStateImag (f τ) ∈ infiniteOnsiteDomain potential ∧
-        ‖coordinatedStateReal (f τ)‖ ^ 2 + ‖coordinatedStateImag (f τ)‖ ^ 2 = 1 ∧
-        crossingLeakage (coordinatedStateReal (f τ)) = 0 ∧
-        crossingLeakage (coordinatedStateImag (f τ)) = 0) ∧
-      (∀ τ : ℝ, 0 < τ → τ < 1 → coordinatedSolvesAt 0 p f τ) ∧
-      (∀ τ : ℝ, 1 < τ → τ < 2 → coordinatedSolvesAt (-2*t) 0 f τ) ∧
-      (∀ τ : ℝ, 2 < τ → τ < 3 → coordinatedSolvesAt 0 q f τ) := by
+theorem coordinatedCluster_centered_isolation (δ η : ℝ)
+    (hsmall : (|δ| + 2 * |η|) / 2 + coordinatedLevelRadius δ η < 1 / 128) :
+    0 < (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ∧
+    (∀ level : ℝ, CoordinatedPlaneLevel δ η level →
+      level ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ∧
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          level • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) = 0) ∧
+    (∀ e : ℝ, |e - coordinatedLevelCenter δ η| ≤ coordinatedLevelRadius δ η →
+      (e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ↔
+        CoordinatedPlaneLevel δ η e)) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) →
+      ¬ CoordinatedPlaneLevel δ η e →
+      (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ≤
+        |e - level|) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          e • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) ≠ 0 →
+        (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ≤
+          |e - level|) := by
   sorry
 
 end
 
 end AmmannBeenker
+
 end
+
 end SpectralGeometry

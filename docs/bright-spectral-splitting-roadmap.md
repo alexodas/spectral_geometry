@@ -6,7 +6,7 @@ spectral-geometry and analytic-zero program (Track A) remains active,
 with its verified canonical-product results and open relative
 determinant, cofactor, finite-patch and zero-statistics objectives
 in the [main README §6](../README.md#6-roadmap-proof-status-and-next-steps).
-L7's priority is **operational**, not a withdrawal of those goals.
+L8a is now the active research priority following the registered L7 result; this does not withdraw those goals.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -14,9 +14,11 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third candidate](../palomar/exact-leakage-free-preparation/) has passed full Lean and Comparator verification with the bundled kernels; a third registration has not yet been established. L6 and Track A are preserved.
+**L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third package](../palomar/exact-leakage-free-preparation/) passed full Lean and Comparator verification with the bundled kernels, Palomar mechanical and renderability checks, and automated editorial review with no blocking problem. Registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). L6 and Track A are preserved.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
+
+**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 is Lean-verified: explicit positive cluster isolation in the complete real spectrum ([README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)). The central L8a objective and centered refinement are complete ([README §4.110](../README.md#4110-spectral-protection-during-coordinated-control)); separate independent comparison has passed; registry submission and further refinements remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
 ## 1. Established starting point
 
@@ -290,9 +292,7 @@ the PR was merged into `main` at
 `7b68540619ab45e5233b2d5ec8273829b3fbba77`.
 The Comparator selection remains
 `palomar/signed-bright-splitting/comparator.json`.
-**A new Palomar editorial acceptance or registration has not been
-established by these GitHub checks.** Any resubmission must use the
-new commit, not the earlier reviewed one.
+**Historical verification boundary:** these GitHub checks alone did not establish Palomar registration. The corrected L5 result was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
 
 **Protected historical registration:** the separate first Palomar record
 `PALOMAR-2026-11-06-000012` remains unchanged.
@@ -344,7 +344,7 @@ strengths.
 - [x] Verify matching amplitudes and exact full-space action on both modes.
 - [x] Deduce the dark and bright identities and `Q M P=0`.
 - [x] Establish the natural-domain action and plane invariance of both controls.
-- [x] Complete full Lean verification; three locality statements are selected alongside the final L7 preparation theorem in the independently verified candidate.
+- [x] Complete full Lean verification; three locality statements are selected alongside the final L7 preparation theorem in the independently verified registered package.
 
 **Meaning of zero leakage:** `Q ψ = 0` means *no component orthogonal
 to the two compact modes*, not merely no amplitude outside the central
@@ -440,3 +440,189 @@ the original future path** for a potentially more economical single-edge control
 Existing L6 research and
 [the edge-control reachability note](edge-control-reachability.md)
 are preserved; no earlier research conclusions are withdrawn.
+
+## 8. L8 — robustness of the embedded qubit (OPEN)
+
+### L8a — Quantitative spectral protection under coordinated controls (VERIFIED; refinements open)
+
+**Central static objective and centered refinement verified; further refinements open.** L7 proves that the
+two localized modes can be manipulated without any leakage when both
+controls are applied exactly as prescribed. That protection is
+geometric: the two-mode plane is invariant even for large signed
+control strengths. It does not by itself show that the two controlled
+energy levels remain separated from the rest of the spectrum.
+L8 begins by asking how much energetic protection survives while the
+controls are active. This is a prerequisite for investigating the
+effect of imperfections, not a proof of robustness against noise.
+
+**Verified starting point.** At zero control strengths, the complete
+real bounded-inverse spectrum has no other point in the closed
+radius-`g = 1/128` window about `E_*` (README §4.79). The original dark/bright
+plane `P` and its orthogonal complement `Q = I - P` reduce the ideal
+controlled Hamiltonian by exact invariance and symmetry
+(README §§4.99–4.102 and §4.107, which verifies the domain lifts and
+commutation identities). The two plane eigenvalues are now characterized
+exactly in Lean:
+
+```math
+\lambda_\pm(\delta,\eta)
+= E_*+\delta/2+\eta\ \pm\sqrt{\delta^2/4+\eta^2}.
+```
+
+**L8a.1 — verified sharp control norms and bounded decomposition.**
+The new definition and seven theorems in
+[AmmannBeenkerCoordinatedInvariantPlane.lean](../SpectralGeometry/AmmannBeenkerCoordinatedInvariantPlane.lean)
+prove the following on the complete real square-summable space and, for
+Hamiltonian identities, on the unchanged natural domain. The disjoint
+matched endpoints give `M²x = 2Mx` for every vector `x`; symmetry then
+gives `‖M‖ ≤ 2`, and the existing nonzero bright eigenvector attains it.
+The first-ring coordinate projection is a contraction attaining norm one
+on the nonzero compact mode A. Thus `‖R‖ = 1` and `‖M‖ = 2` exactly.
+The change from the zero-control Hamiltonian is exactly the bounded map
+`B = δ R + η M`, with `‖B‖ ≤ ρ = |δ| + 2|η|` for every signed real δ, η.
+
+The declarations are `coordinatedRingControl_sq_apply`,
+`coordinatedRingControl_norm_le_two`, `coordinatedRingControl_opNorm`,
+`coordinatedOnsiteProjection_opNorm`, `coordinatedControlPerturbation`,
+`coordinatedControlCorrection_decomposition`,
+`coordinatedControlHamiltonian_decomposition`, and
+`coordinatedControlPerturbation_norm_le`. Full Lean verification, static
+checks and the existing independent L7 Comparator passed. The new L8a.1
+statements are not independently selected in that registered package.
+No new module or Palomar package was introduced. See [README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation).
+
+**L8a.2 — verified controlled plane energies and natural-domain reduction.**
+The full natural-domain equation with a nonzero input and zero leakage
+holds at energy e if and only if e equals one of the two displayed roots.
+The constructive proof uses the traceless A/B matrix with entries
+a = δ/2 and b = −η, and z = e − (E_* + δ/2 + η). Its scalar eigenvector
+equations have a nonzero solution exactly when z² = a²+b². If b ≠ 0,
+the pair (b,z−a) works; if b=0 a coordinate vector works. Compact
+coefficient extraction establishes nonvanishing in the full Hilbert
+space. The radius vanishes iff both controls vanish. The explicit lifts
+of P and Q preserve the natural domain, and both projections commute
+with the full controlled Hamiltonian on that domain.
+
+The new definitions and theorems are in
+[AmmannBeenkerCoordinatedAxisDynamics.lean](../SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean):
+`coordinatedLevelCenter`, `coordinatedLevelRadius`,
+`coordinatedLevelRadius_sq`, `coordinatedLevelRadius_eq_zero_iff`,
+`coordinatedCompact_eigen_iff`, `coordinatedPlane_eigenvalue_iff`,
+`coordinatedPlaneDomainPart`, `coordinatedComplementDomainPart`,
+their two `_coe` theorems, and
+`coordinatedHamiltonian_plane_commutes`,
+`coordinatedHamiltonian_complement_commutes`,
+`coordinatedHamiltonian_complement_invariant`. Full Lean verification
+and the existing independent L7 Comparator passed. L8a.2 is not a new
+Palomar selection. No global simplicity is asserted by L8a.2 alone; L8a.3 below now
+provides quantitative exterior exclusion. See [README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction).
+
+**L8a.3 — verified quantitative exterior exclusion in the full real spectrum.**
+With g = 1/128 and ρ = |δ| + 2|η|, every exterior natural-domain vector
+x satisfies (g−ρ−|e−E_*|)‖x‖ ≤ ‖Hx−ex‖, for every real e.
+This follows from the baseline reduced-gap estimate, the exact
+perturbation decomposition and the triangle inequality. Any eigenvector
+with nonzero leakage yields an exterior eigenvector at the same energy
+by the reducing projection of L8a.2, hence satisfies g ≤ ρ+|e−E_*|.
+Properness and the lower bound of the concrete onsite potential supply
+the compact shift for the controlled operator at every real δ, η.
+The complete real bounded-inverse spectrum is therefore characterized
+by genuine full-domain eigenvectors. In the open window
+ρ+|e−E_*|<g, every eigenvector has zero leakage and real-spectrum
+membership is equivalent to e being one of the two explicit plane levels.
+
+The seven new theorems in
+[AmmannBeenkerCoordinatedAxisDynamics.lean](../SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean)
+are `coordinatedControlPerturbation_apply_norm_le`,
+`coordinatedComplement_residual_lower`,
+`coordinatedComplement_eigenvalue_distance`,
+`coordinatedEigenvector_complement_distance`,
+`coordinatedRealSpectrum_iff_full_eigenvector`,
+`coordinatedEigenvector_leakage_zero_of_near`, and
+`coordinatedRealSpectrum_near_iff`.
+Full Lean verification, static checks and the existing independent L7
+Comparator passed. These are not independently selected Palomar
+statements. See [README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels).
+
+**L8a.4 — verified consolidated quantitative cluster isolation.** A conservative lower bound on the
+separation between the controlled two-mode spectral cluster and
+the spectrum on the orthogonal complement is
+
+```math
+g_{\rm protected}(\delta,\eta)\ \ge\ g-2\rho
+\qquad\text{when }2\rho<g.
+```
+
+This is now a Lean-certified sufficient bound: for ρ < 1/256, both
+plane levels are genuine real spectral points, the closed radius-ρ
+window contains precisely those levels, every eigenvector at either
+level has zero leakage, and all other real spectral energies (and
+energies of eigenvectors with nonzero leakage) are at distance at least
+1/128−2ρ > 0 from either plane level. Zero controls are included.
+The shift estimate follows by applying the bounded perturbation to
+a nonzero plane eigenvector, since the baseline Hamiltonian acts
+there as E_* times the identity.
+
+The new definition and seven theorems in
+[AmmannBeenkerCoordinatedAxisDynamics.lean](../SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean)
+are `CoordinatedPlaneLevel`, `coordinatedPlaneLevel_shift_le`,
+`coordinatedPlaneLevel_mem_realSpectrum`,
+`coordinatedPlaneLevel_complement_residual_lower`,
+`coordinatedPlaneLevel_exterior_distance`,
+`coordinatedPlaneLevel_otherRealSpectrum_distance`,
+`coordinatedPlaneLevel_in_protected_window`, and
+`coordinatedCluster_isolation`. Full Lean verification, static checks
+and the existing L7 Comparator passed. See [README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster).
+This is not a new independent Palomar selection. The distance concerns the two-mode cluster versus the
+exterior spectrum, not the spacing between its two levels, which
+may coincide. The centered refinement below improves this estimate.
+Do not infer loss of protection when a sufficient condition fails.
+
+**Verified centered spectral protection.** With the exact midpoint c and
+half-spacing s, the centered controls satisfy
+‖(R−I/2)x‖=‖x‖/2 and ‖(M−I)x‖=‖x‖. The centered perturbation has
+force bound ρ‖x‖/2; the exterior residual is at least
+(g−ρ/2−|e−c|)‖x‖. Thus if ρ/2+s<1/128, the complete real spectrum in
+[c−s,c+s] consists precisely of the two controlled energies, every
+eigenvector there has zero leakage, and the distance to every other
+real spectral energy (or energy of an eigenvector with nonzero leakage)
+is at least 1/128−ρ/2−s>0. Since s≤ρ/2, ρ<1/128 suffices with
+gap at least 1/128−ρ. This doubles the earlier pure-axis sufficient
+ranges. Full Lean and the existing preparation Comparator passed.
+The new principal theorem is `coordinatedCluster_centered_isolation`,
+with numerical corollaries `coordinatedCluster_centered_condition_of_budget`
+and `coordinatedCluster_centered_gap_ge`. See [README §4.110](../README.md#4110-spectral-protection-during-coordinated-control)
+for the complete declarations and proof. The separate
+[Palomar candidate](../palomar/spectral-protection-during-coordinated-control/) passed full Lean and independent comparison of all 15 selected propositions with the bundled NanoDa and con-ron kernels. It is ready for separate registry submission, not registered.
+
+**L8a proof obligations**
+
+- [x] **L8a.1:** Exact bounded control decomposition, `M² = 2M`, exact
+  norms `‖R‖ = 1`, `‖M‖ = 2`, and `‖B‖ ≤ |δ| + 2|η|`.
+- [x] **L8a.2:** Exact two-way controlled plane eigenvalue characterization,
+  degeneracy criterion and reducing projections on the natural domain.
+- [x] **L8a.3:** Quantitative exterior residual and eigenvalue exclusion,
+  full real-spectrum characterization and zero leakage in the explicit
+  open window.
+- [x] **L8a.4:** Consolidated full-real-spectrum isolation for ρ < 1/256,
+  with positive separation 1/128−2ρ, including zero controls.
+- [x] Verify the centered spectral-protection refinement.
+- [x] Independently compare the new spectral-protection candidate.
+- [ ] Submit the candidate for separate registry verification.
+- [ ] After consolidation of the current registry candidate, generalize
+  the exact three-pulse preparation to variable durations. For any normalized
+  target and any prescribed fraction strictly between zero and one of the
+  certified baseline gap, seek a finite-duration protocol with sufficiently
+  weak controls, exact zero leakage, conserved norm, preparation up to global
+  phase, and the prescribed static spectral separation in every pulse stage.
+  This remains a distinct proof obligation; longer pulses do not by themselves
+  establish robustness to noise.
+- [ ] Investigate further sharp bounds and imperfect control dynamics.
+
+**Scope and continuation.** L8a is a verified static spectral-protection
+theorem for ideal controls. Later L8b–L8e may address nonuniform control
+errors, leakage, preparation fidelity and robust pulse design.
+No dynamical noise bound, arbitrary-strength spectral gap, hardware
+robustness or fourth Palomar registration is asserted. L6 and all
+Track A objectives remain open as before.
+
