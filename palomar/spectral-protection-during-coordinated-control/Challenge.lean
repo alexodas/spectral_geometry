@@ -699,8 +699,8 @@ theorem coordinatedCluster_centered_isolation (δ η : ℝ)
 
 end
 
-end
-
 end AmmannBeenker
+
+end
 
 end SpectralGeometry
