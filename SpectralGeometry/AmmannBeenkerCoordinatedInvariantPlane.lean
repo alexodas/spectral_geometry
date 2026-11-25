@@ -289,8 +289,11 @@ theorem coordinatedOnsiteProjection_opNorm :
 theorem coordinatedControlCorrection_decomposition (δ η : ℝ) :
     ringInteraction (crossingParameter + δ) + η • coordinatedRingControl =
       ringInteraction crossingParameter + coordinatedControlPerturbation δ η := by
-  simp only [ringInteraction, coordinatedControlPerturbation, add_smul]
-  abel
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [ringInteraction, coordinatedControlPerturbation,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply]
+  module
 
 /-- Exact decomposition of the full Hamiltonian on its unchanged
 natural onsite domain. -/
