@@ -134,9 +134,9 @@ remain below.
 
 The results concern one explicitly defined **confined infinite Ammann–Beenker graph**. Their value is not that dark states, localized waves or single-edge perturbations are new ideas, but that several spectral statements have been proved for the complete infinite operator rather than inferred from a finite sample.
 
-- **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The main result identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component.
+- **Mathematicians studying spectral theory and discrete Schrödinger operators** may be interested in the exact two-dimensional crossing eigenspace, the certified real spectral gap, and the response to a rank-one edge change. The signed single-edge theorem (§4.97) identifies the two nearby simple eigenvalues, the direction of the moving level, a quadratic energy-error bound and a bound on the moving eigenvector's exterior component. For the different coordinated controls, §§4.107–4.110 identify the two exact plane energies and establish a quantitative separation from the complete exterior real spectrum under explicit sufficient control bounds.
 - **Researchers on quasicrystals, compact localized states and flat bands** may find the contrast between two interventions useful. Changing the first-ring parameter shifts one compact mode's energy exactly while preserving both mode shapes. Changing the connecting edge instead protects the dark combination but gives the bright-derived state a controlled coupling to the rest of the infinite network. The original localized patterns themselves were known before this formalization. The coordinated matching (§§4.99–4.100) supplies a distinct bounded symmetric intervention that preserves the whole two-mode plane exactly.
-- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. These conditional single-edge bounds do not establish a general physical propagator or the L6 preparation theorem. The distinct coordinated-control theorem (§4.105) does establish exact arbitrary normalized target preparation from dark, not experimental feasibility.
+- **Theorists working on wave control, photonic lattices or coupled-resonator networks** may find the temporary-edge results relevant as a mathematical starting point. The proved duration-independent leakage estimates require supplied norm-preserving, domain-preserving evolutions that intertwine their respective Hamiltonians. These conditional single-edge bounds do not establish a general physical propagator or the L6 preparation theorem. The distinct coordinated-control theorem (§4.105) constructs three unit-duration pulses preparing any normalized target from dark up to a common phase, with exact zero leakage throughout. The centered spectral theorem (§4.110) additionally guarantees static isolation for sufficiently weak ideal controls. Whether arbitrary target preparation can retain a prescribed fraction of the certified baseline gap through longer, weaker pulses is a separate open theorem, not an experimental or noise-robustness claim.
 - **Researchers in formalized mathematics** may be interested in how natural domains of unbounded operators, complete real eigenbases, explicit spectral gaps and quantitative perturbation estimates are handled in Lean 4 and Mathlib.
 
 These are **plausible research audiences**, not evidence of originality, practical usefulness or scientific impact. Independent expert evaluation and comparison with the specialist literature are still needed.
@@ -193,7 +193,7 @@ The table below separates proved results from remaining research tasks.
 | L8a.3 — quantitative exterior spectral exclusion | §4.108: full-domain complement residual bound `(g−ρ−|e−E_*|)‖x‖`, exterior eigenvalue distance, complete real-spectrum characterization in the open window `ρ+|e−E_*|<g`, and zero leakage of every eigenvector there. Lean-verified. |
 | L8a.4 — consolidated spectral protection | §4.109: for `ρ=|δ|+2|η|<1/256`, both plane energies lie in the complete real spectrum, exhaust its closed radius-ρ window, have only zero-leakage eigenvectors and are separated from all other spectral energies by at least `1/128−2ρ>0`. Lean-verified, including zero controls. |
 | Centered spectral protection | §4.110: with `s=√(δ²/4+η²)`, `ρ/2+s<1/128` gives full real spectral isolation by at least `1/128−ρ/2−s>0`. In particular `ρ<1/128` suffices, doubling the earlier guaranteed pure-axis ranges. Lean-verified and independently compared; registry submission pending. |
-| Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
+| Remaining control research | Arbitrary-target preparation with variable durations and a prescribed fraction of the certified baseline gap throughout the pulses (§6.9); general complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem (§6.4) remain open. |
 
 The program already has formal results on infinite-operator spectral
 enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
@@ -205,7 +205,7 @@ The registered crossing result (§4.78), the separately proved gap (§4.79),
 the certified dark/bright generator algebra (§§4.80–4.91), the archived
 unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
 (§§4.93–4.98), exact coordinated-plane invariance, full Lie generation, constructive matrix reachability, exact single-axis phase-weighted rotations, continuous three-pulse dynamics and exact arbitrary target preparation from dark (§§4.99–4.105), the sharp full-space control norms and bounded perturbation decomposition (§4.106), exact controlled plane energies and natural-domain reduction (§4.107), quantitative exterior exclusion in the complete real spectrum (§4.108), consolidated positive cluster isolation (§4.109), stronger centered spectral protection (§4.110), and
-the still-open dynamical coherent-control problem (§6.4) have distinct scopes.
+the still-open single-edge approximate-control problem (§6.4) and variable-duration spectrally protected preparation problem (§6.9) have distinct scopes.
 
 The chosen affine line is part of the definition of the analytic family.
 Originality and research significance must come from the geometric and spectral
@@ -2880,14 +2880,18 @@ dark state by the exact identity
 
 Thus the edge alone leaves the dark direction fixed, while detuning
 `t` changes it within the compact-mode plane. Neither identity asserts
-a controlled quantum evolution. The crucial open work is to establish a
-complex unitary dynamics and bound the excitation of the rest of the
-infinite spectrum under a finite edge pulse.
+a controlled quantum evolution. For the original single-edge route, the remaining work is to construct
+the requisite complex unitary dynamics and prove approximate target
+preparation. Conditional pulse leakage bounds are established later
+in §§4.85–4.88; a different coordinated-control construction proves
+exact preparation in §4.105.
 
 See [the edge-control research note](docs/edge-control-reachability.md) for
 the proposed two-pulse strategy, the predicted obstruction to edge-only
 universal preparation, and its currently unproved dynamical requirements.
-This new work is **not** part of the previous Palomar-registered theorem.
+These static single-edge and detuning identities are distinct from the
+registered crossing theorem and from the later registered preparation
+theorem using coordinated edges.
 
 ### 4.81. Exact qubit/leakage bookkeeping after a temporary pulse
 
@@ -2968,7 +2972,7 @@ that leakage is possible: it is an exact nonzero numerical certificate
 in the complete infinite graph, not a truncated finite model. The
 exact calculation has passed Lean CI verification.
 
-**Full two-control response.** The latest Lean extension also
+**Full single-edge and detuning response.** This Lean result also
 treats the complete natural-domain action of both available controls,
 `K_(t_*+δ)+εW`. For any real compact-mode input `ra+sb`,
 the off-plane response has the exact squared norm
@@ -2982,7 +2986,8 @@ The detuning `δ` disappears *exactly*: changing `t`
 does not directly excite external modes, whereas the connecting
 edge does whenever `r≠s`. These are static natural-domain
 identities, **not** bounds on the leakage after a finite pulse.
-This two-control result belongs to the latest Lean-verified extension.
+This identity concerns the original single-edge and detuning controls,
+not the later coordinated matching of §4.99.
 
 **Careful distinction:** this number measures the *off-plane
 component of the perturbation vector*, not leakage probability
@@ -3067,7 +3072,7 @@ and is not yet instantiated with the Ammann–Beenker Hamiltonian or
 a complex Schrödinger propagator. It does not prove that a useful
 qubit rotation can be reached.
 
-**Graph-specific goals still open.** The existing full crossing gap
+**Graph-specific projector goals still open for the single-edge route.** The existing full crossing gap
 `g=1/128` suggests constructing a two-dimensional perturbed
 spectral projector `P_ε` for a sufficiently weak fixed edge
 perturbation and proving an operator-norm estimate
@@ -3083,7 +3088,9 @@ arbitrary target.
 This sequence distinguishes three different assertions:
 the exact static off-plane response (§4.81), the **conditional**
 time-uniform estimate (this section), and the still-unproved
-full infinite-graph coherent-control protocol (§6.4).
+single-edge approximate preparation protocol (L6, §6.4). The alternative
+coordinated-control protocol is proved in §§4.102–4.105, without using
+this perturbed-projector construction.
 
 ### 4.83. From the certified 1/128 gap to a quantitative bound on nearby eigenvectors
 
@@ -3125,13 +3132,14 @@ In a complete self-adjoint spectral decomposition this is the
 quantitative form of spectral isolation: every component outside
 the `E_*` eigenspace has spectral distance at least `g`.
 The graph's real spectral exclusion within radius `g` is already
-certified (§4.79). The latest new lemma
-`crossingReducedGapResidualEstimate_full` now also derives
+certified (§4.79). The lemma
+`crossingReducedGapResidualEstimate_full` derives
 this norm inequality from the previously proved full eigenbasis
-existence and operator symmetry (§4.84); **these graph-specific declarations passed Lean CI before the new §4.85 extension**.
+existence and operator symmetry (§4.84). These graph-specific
+declarations are Lean-verified.
 
 **Quantitative theorem, with the gap hypothesis now discharged
-in source:** the latest declaration derives
+in source:** the full gap-bound declaration derives
 
 ```math
 g\,\|Qx\|\le
@@ -3169,9 +3177,10 @@ in pulse duration directly from residual conservation, without a
 perturbed spectral projector. The isolated simple point-spectrum pair is now
 established in §§4.93–4.97; constructing its spectral projector and proving
 the operator-norm projector estimate of §4.82 remain open as a separate,
-potentially sharper route; the
-physical complex quantum propagator and nontrivial rotation
-also remain open.
+potentially sharper route. A general complex quantum propagator and
+approximate target preparation using the original single-edge controls
+remain open; exact nontrivial rotations and preparation using the
+coordinated controls are proved in §§4.102–4.105.
 
 ### 4.84. Why spectral isolation yields a residual bound: infinite-dimensional Parseval
 
@@ -3221,7 +3230,7 @@ inequality is an **unconditional Lean-verified theorem for the
 actual infinite graph**, not merely a supplied hypothesis.
 **The gap-to-residual Lean code has passed CI.**
 
-Consequently, the latest `crossingEdge_perturbed_eigenvector_gap_bound_full`
+Consequently, `crossingEdge_perturbed_eigenvector_gap_bound_full`
 states without any *additional* gap assumption that
 
 ```math
@@ -3483,13 +3492,13 @@ bound is uniform over **both** elapsed times. There is
 no approximation that treats the unperturbed and
 perturbed residuals as if they were identical.
 
-**What remains open:** these real-linear intertwining
-families are supplied as assumptions. We have not yet
-constructed a complex Schrödinger propagator or
-demonstrated nontrivial A/B rotations. This result
-certifies the consequences of the two segment-wise
-conservation laws, **not** the existence of the
-physical dynamics.
+**Scope and remaining obligations:** these real-linear intertwining
+families are supplied as assumptions. This single-edge result
+certifies the consequences of the two segment-wise conservation
+laws, **not** the existence of the general physical dynamics or
+approximate target preparation by these controls. The distinct
+coordinated-control construction in §§4.102–4.105 proves exact
+nontrivial rotations and zero-leakage preparation on the original plane.
 
 **Lean status:** §4.88 and its root import have passed the
 full Lean verification, along with §§4.85–4.87.
@@ -3654,7 +3663,7 @@ This is **one explicit Schrödinger solution**,
 not a full complex unitary group, and contains no
 bright-mode rotation.
 
-**Open obligations.** Construct the complexified
+**Historical open obligations for the single-edge route (L6).** Construct the complexified
 self-adjoint Hamiltonian and its strongly continuous
 unitary Schrödinger group, prove domain invariance
 and generator commutation, integrate the now-exact bright-mode
@@ -3663,9 +3672,13 @@ which `αA+βB` targets are reachable using the
 same edge and the existing `t` detuning.
 The static dark eigenstate indicates an edge-only
 reachability obstruction, but the general
-time-dependent quantum no-go theorem and a complete
-two-control preparation protocol are **not yet
-Lean-certified**. The original relative-product and
+time-dependent quantum no-go theorem and approximate preparation
+using the original single edge and detuning remain open. The distinct
+coordinated-control route has since proved exact arbitrary normalized
+target preparation from dark (§4.105), and static energetic protection
+under sufficiently small ideal controls (§4.110). Simultaneous
+arbitrary-target preparation with a prescribed spectral gap through
+variable-duration pulses remains open (§6.9). The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
 **Historical scientific checkpoint.** The §§4.80–4.89 results were
@@ -4334,7 +4347,9 @@ parametrization of the three generator directions. These are the
 algebraic ingredients of the standard two-state rotation algebra.
 The subsequent §4.101 establishes equality of the generated Lie algebra
 with all of `su(2)` and constructive reachability by a three-rotation
-matrix product. Its realization by actual infinite-system pulses remains open.
+matrix product. The subsequent §§4.102–4.105 realize these rotations
+by actual infinite-system pulses, culminating in exact arbitrary
+normalized target preparation from dark up to global phase.
 
 | Lean theorem | Meaning |
 | --- | --- |
@@ -4369,8 +4384,9 @@ generate every infinitesimal rotation of a two-state quantum system,
 after a common energy shift is removed. Moreover, one can explicitly
 choose three rotation angles that transform the dark coordinate into
 any normalized pair of complex amplitudes. This is a theorem about
-exact matrices, not yet a construction of the time evolution of the
-infinite Ammann–Beenker graph.
+exact matrices; this section alone does not construct the time evolution
+of the infinite Ammann–Beenker graph. That construction is provided by
+§§4.102–4.105.
 
 **Full Lie generation.** In
 [§4.100](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
@@ -5022,10 +5038,10 @@ or fourth Palomar registration is asserted.
 **Plain-English result (L8a.2).** Both energies of the ideal controlled
 two-state plane are known exactly, even when the controls are not small.
 The full infinite operator respects both the original localized plane
-and its orthogonal complement on its natural domain. This makes the
-remaining energetic-isolation question precise: an exterior level may
-still coincide with a plane level until a quantitative exclusion
-theorem is proved.
+and its orthogonal complement on its natural domain. Invariance alone
+does not exclude coincidence between an exterior energy and a plane
+energy. The quantitative exclusion and isolation results of §§4.108–4.110
+supply this additional protection under explicit control bounds.
 
 **Exact eigenvalue characterization.** In the compact A/B coordinates,
 the Hamiltonian action of §4.100 is given by the matrix
@@ -5256,9 +5272,10 @@ $(g-2\rho)\|x\|$ for every exterior domain vector.
 
 **Verification and scope.** Full Lean/Mathlib and the existing
 independent L7 Comparator passed. The central L8a static spectral
-protection objective is complete. The new theorem is Lean-verified
-but not yet independently selected for Palomar. The sufficient range
-is conservative; §4.110 now verifies a stronger centered estimate.
+protection objective is complete. This conservative theorem is
+Lean-verified; the stronger centered estimate of §4.110 is the separately
+selected scientific conclusion of the independently compared
+spectral-protection candidate. The sufficient range here is conservative.
 Further refinements remain a research opportunity. The ideal-control static gap is not a bound on
 leakage under imperfect time-dependent controls. All previous results,
 including the distinct L6 and Track A objectives, retain their scope.
@@ -5616,7 +5633,10 @@ L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparati
 The L7 exact zero-leakage preparation theorem from dark is proved.
 A general complex quantum propagator and the distinct L6 reachability
 theorem remain open. Earlier conditional time-uniform leakage bounds
-retain their separate scope.
+retain their separate scope. The centered spectral-protection candidate
+(§4.110) has passed independent comparison; registry submission remains
+pending. The next coordinated-control objective is variable-duration
+preparation with prescribed energetic protection (§6.9).
 
 A checked item below denotes an actual substantive Lean result
 under its stated hypotheses; an unchecked item is an open task.
@@ -6096,8 +6116,10 @@ The existing dark/bright results (§§4.80–4.92) provide
 certified algebraic inputs. The complete spectral analysis
 in §§4.93–4.97 now additionally proves **genuine isolated,
 signed and quantitatively controlled spectral splitting**
-on the infinite graph. Coherent-control and state-preparation
-questions are separate downstream goals. The immutable first
+on the infinite graph. The distinct coordinated-control route has
+since established exact preparation (§4.105) and quantitative static
+spectral protection (§4.110). The original single-edge approximate
+preparation goal remains open. The immutable first
 Palomar registration remains unchanged.
 
 **Remaining tasks for the original spectral-product program**
@@ -6300,25 +6322,33 @@ external coupling. These statements avoid the unjustified
 assumption that the two original localized states form an
 exactly invariant closed two-level system.
 
-The clearest possible **mathematical interest** is the
-fully infinite-operator conclusion: a protected simple eigenstate,
-a distinct simple moving level with a signed and quantitatively
-controlled energy shift, and a bound on the moving eigenvector's
-coupling to the exterior. For **theoretical condensed-matter and
-wave-network researchers**, the contrast between exact first-ring
-detuning and a single connecting-edge change provides a concrete
-example of localized states, protected dark combinations and
-bright-state response. The time-uniform ON/OFF pulse bounds may
-motivate further analysis but remain conditional on the supplied
-evolution. The [scientific-audience overview](#scientific-audience-and-possible-relevance)
+A complementary **mathematical interest** is the contrast between
+single-edge coupling to the exterior and exact reducing subspaces
+under coordinated local controls. The latter yields a constructive
+three-pulse preparation theorem on the full natural domain (§4.105),
+followed by quantitative full-real-spectrum isolation (§4.110) with
+exact plane energies and explicit sufficient control bounds. These
+conclusions are stronger than a phenomenological two-state approximation:
+the exterior component is exactly zero for the ideal preparation,
+and the spectral separation is proved against the entire exterior
+real spectrum for weak ideal controls.
+
+For **theoretical condensed-matter and wave-network researchers**,
+these results offer a concrete model in which local interventions
+can preserve or couple localized waves in different ways. The original
+single-edge ON/OFF pulse bounds remain conditional on the supplied
+evolution. The coordinated preparation and static isolation theorems
+are independent conclusions; their combination into arbitrary-target
+preparation with a prescribed fraction of the baseline gap throughout
+variable-duration pulses is still a research objective (§6.9).
+The [scientific-audience overview](#scientific-audience-and-possible-relevance)
 explains these connections and their limitations.
 
-These possible readerships and the originality of the results have
-not been independently assessed. The coordinated L7 result adds exact
-normalized target preparation from dark with zero leakage on the full
-infinite graph (§4.105), in contrast to the conditional single-edge pulse
-bounds. No general complex full-space propagator, arbitrary-initial-state
-preparation theorem or experimental realization is claimed.
+These possible readerships, the novelty and the significance of the
+results have not been independently assessed. No general complex
+full-space propagator, arbitrary-initial-state preparation theorem,
+noise tolerance, optimal control range or experimental realization
+is claimed.
 
 - [ ] Compare the precise new theorem against the specialist
   literature and obtain independent expert assessment of interest
