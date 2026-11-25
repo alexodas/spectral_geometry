@@ -124,7 +124,7 @@ of its original goals:
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
 L7 now proves exact normalized target preparation from dark under coordinated controls; the distinct L6 single-edge approximate preparation theorem remains open.
-L8a's static protection objective is verified (§§4.106–4.110), including a stronger centered estimate. The new spectral-protection candidate is prepared for independent statement verification; further refinements and imperfect controls remain research directions (§6.9).
+L8a's static protection objective is verified (§§4.106–4.110), including a stronger centered estimate. The new spectral-protection candidate passed independent statement verification and is ready for separate registry submission. Variable-duration preparation with simultaneous energetic protection, further refinements and imperfect controls remain research directions (§6.9).
 See the [localized-mode control roadmap](docs/bright-spectral-splitting-roadmap.md)
 and the preserved [single-edge research note](docs/edge-control-reachability.md).
 The detailed Lean-module catalogue and all existing theorem descriptions
@@ -192,7 +192,7 @@ The table below separates proved results from remaining research tasks.
 | L8a.2 — exact controlled plane levels and reduction | §4.107: exactly the two explicit energies have nonzero full-domain eigenvectors in the original plane; their half-spacing vanishes iff both controls vanish. Both projections preserve the natural domain and commute with the full Hamiltonian. Lean-verified. |
 | L8a.3 — quantitative exterior spectral exclusion | §4.108: full-domain complement residual bound `(g−ρ−|e−E_*|)‖x‖`, exterior eigenvalue distance, complete real-spectrum characterization in the open window `ρ+|e−E_*|<g`, and zero leakage of every eigenvector there. Lean-verified. |
 | L8a.4 — consolidated spectral protection | §4.109: for `ρ=|δ|+2|η|<1/256`, both plane energies lie in the complete real spectrum, exhaust its closed radius-ρ window, have only zero-leakage eigenvectors and are separated from all other spectral energies by at least `1/128−2ρ>0`. Lean-verified, including zero controls. |
-| Centered spectral protection | §4.110: with `s=√(δ²/4+η²)`, `ρ/2+s<1/128` gives full real spectral isolation by at least `1/128−ρ/2−s>0`. In particular `ρ<1/128` suffices, doubling the earlier guaranteed pure-axis ranges. Lean-verified; new independent package pending. |
+| Centered spectral protection | §4.110: with `s=√(δ²/4+η²)`, `ρ/2+s<1/128` gives full real spectral isolation by at least `1/128−ρ/2−s>0`. In particular `ρ<1/128` suffices, doubling the earlier guaranteed pure-axis ranges. Lean-verified and independently compared; registry submission pending. |
 | Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
@@ -5349,8 +5349,10 @@ Comparator passed for the strengthened substantive proof. The new
 [Solution](palomar/spectral-protection-during-coordinated-control/Solution.lean),
 [Comparator](palomar/spectral-protection-during-coordinated-control/comparator.json)
 and [metadata](palomar/spectral-protection-during-coordinated-control/formalization.yaml)
-are prepared for separate independent comparison. No new registry
-record or independent human review is asserted. The theorem concerns
+have passed full Lean verification and independent comparison of all
+15 selected propositions, including NanoDa and con-ron. The candidate
+is ready for separate registry submission. No new registry record or
+independent human review is asserted. The theorem concerns
 static protection for ideal controls on the specified infinite graph;
 imperfect controls and variable-duration preparation remain distinct
 research questions.
@@ -5518,8 +5520,9 @@ substantive controlled spectral proof, not Challenge.
 The active [theorem-specific Comparator](palomar/spectral-protection-during-coordinated-control/comparator.json)
 and matching snapshots are in [`palomar/spectral-protection-during-coordinated-control/`](palomar/spectral-protection-during-coordinated-control/).
 The complete 116-module substantive library is Lean-verified with no
-proof holes. Independent comparison of the newly selected statements
-is pending; no fourth registration is claimed.
+proof holes. Independent comparison of all 15 newly selected statements passed,
+including the bundled NanoDa and con-ron kernels; no fourth registration
+is claimed.
 
 The third registered preparation package (§4.105) remains preserved in
 [`palomar/exact-leakage-free-preparation/`](palomar/exact-leakage-free-preparation/),
@@ -6279,7 +6282,7 @@ remains archived under `palomar/dark-bright/`.
 
 **Third registration (§4.105).** The Lean-verified exact preparation theorem was selected with its concrete graph witnesses and local-edge certificates. The [independent package](palomar/exact-leakage-free-preparation/) passed full Lean and independent Comparator verification, Palomar mechanical verification and renderability checks. The automated editorial review identified no blocking problem. The result was registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1).
 
-**New candidate (§4.110).** Spectral protection during coordinated control is Lean-verified; the [independent package](palomar/spectral-protection-during-coordinated-control/) is prepared for separate verification. No fourth registration is claimed.
+**New candidate (§4.110).** Spectral protection during coordinated control is Lean-verified; the [independent package](palomar/spectral-protection-during-coordinated-control/) passed full Lean verification and independent statement comparison, including NanoDa and con-ron. Ready for separate registry submission; no fourth registration is claimed.
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
@@ -6390,8 +6393,8 @@ centering at the controlled midpoint gives the full-space perturbation
 bound `ρ/2`. If `ρ/2+s<1/128`, the complete real spectrum is isolated
 by at least `1/128−ρ/2−s>0`, with exactly the two levels in their closed
 interval and no leakage at either. In particular `ρ<1/128` suffices and
-the gap is at least `1/128−ρ`. A separate Palomar candidate is prepared;
-its independent comparison and registration are pending.
+the gap is at least `1/128−ρ`. The separate Palomar candidate passed
+independent comparison; registry submission and review remain pending.
 
 **L8a proof obligations**
 
@@ -6407,10 +6410,15 @@ its independent comparison and registration are pending.
   degenerate zero-control case (§4.109).
 - [x] Verify the stronger centered control bound and consolidated spectral
   protection (§4.110).
-- [ ] Independently compare the new spectral-protection candidate and submit
-  it for registry verification.
-- [ ] Investigate further sharp bounds and their relevance to the three-pulse
-  protocol; variable-duration preparation is a separate proof obligation.
+- [x] Independently compare the new spectral-protection candidate.
+- [ ] Submit it for separate registry verification.
+- [ ] After consolidation of the current registry candidate, prove exact
+  variable-duration preparation with arbitrarily weak ideal controls,
+  zero leakage and a prescribed fraction of the certified baseline gap
+  maintained throughout all pulse stages. This is a separate theorem
+  target, not a result already established by the static gap or unit-duration
+  preparation theorems.
+- [ ] Investigate further sharp bounds and imperfect control dynamics.
 
 **Scope and continuation.** L8a is a verified static spectral-protection
 theorem for ideal controls. Later L8b–L8e may address nonuniform control

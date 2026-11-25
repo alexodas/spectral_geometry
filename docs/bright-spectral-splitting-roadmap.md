@@ -18,7 +18,7 @@ the [historical L6 note](edge-control-reachability.md).
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
-**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 is Lean-verified: explicit positive cluster isolation in the complete real spectrum ([README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)). The central L8a objective and centered refinement are complete ([README §4.110](../README.md#4110-spectral-protection-during-coordinated-control)); separate Palomar comparison and further refinements remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
+**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 is Lean-verified: explicit positive cluster isolation in the complete real spectrum ([README §4.109](../README.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)). The central L8a objective and centered refinement are complete ([README §4.110](../README.md#4110-spectral-protection-during-coordinated-control)); separate independent comparison has passed; registry submission and further refinements remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
 ## 1. Established starting point
 
@@ -593,7 +593,7 @@ The new principal theorem is `coordinatedCluster_centered_isolation`,
 with numerical corollaries `coordinatedCluster_centered_condition_of_budget`
 and `coordinatedCluster_centered_gap_ge`. See [README §4.110](../README.md#4110-spectral-protection-during-coordinated-control)
 for the complete declarations and proof. The separate
-[Palomar candidate](../palomar/spectral-protection-during-coordinated-control/) is prepared, not registered.
+[Palomar candidate](../palomar/spectral-protection-during-coordinated-control/) passed full Lean and independent comparison of all 15 selected propositions with the bundled NanoDa and con-ron kernels. It is ready for separate registry submission, not registered.
 
 **L8a proof obligations**
 
@@ -607,9 +607,17 @@ for the complete declarations and proof. The separate
 - [x] **L8a.4:** Consolidated full-real-spectrum isolation for ρ < 1/256,
   with positive separation 1/128−2ρ, including zero controls.
 - [x] Verify the centered spectral-protection refinement.
-- [ ] Independently compare and submit the new spectral-protection candidate.
-- [ ] Investigate further sharp bounds and their relevance to the three-pulse
-  protocol; variable-duration preparation is a separate proof obligation.
+- [x] Independently compare the new spectral-protection candidate.
+- [ ] Submit the candidate for separate registry verification.
+- [ ] After consolidation of the current registry candidate, generalize
+  the exact three-pulse preparation to variable durations. For any normalized
+  target and any prescribed fraction strictly between zero and one of the
+  certified baseline gap, seek a finite-duration protocol with sufficiently
+  weak controls, exact zero leakage, conserved norm, preparation up to global
+  phase, and the prescribed static spectral separation in every pulse stage.
+  This remains a distinct proof obligation; longer pulses do not by themselves
+  establish robustness to noise.
+- [ ] Investigate further sharp bounds and imperfect control dynamics.
 
 **Scope and continuation.** L8a is a verified static spectral-protection
 theorem for ideal controls. Later L8b–L8e may address nonuniform control
