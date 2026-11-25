@@ -18,7 +18,7 @@ the [historical L6 note](edge-control-reachability.md).
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
-**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3–4 remain open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
+**Active research priority: L8a — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](../README.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 remains open. See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
 ## 1. Established starting point
 
@@ -445,7 +445,7 @@ are preserved; no earlier research conclusions are withdrawn.
 
 ### L8a — Quantitative spectral protection under coordinated controls (OPEN)
 
-**Current research priority; L8a.1–2 verified, overall L8a open.** L7 proves that the
+**Current research priority; L8a.1–3 verified, overall L8a open.** L7 proves that the
 two localized modes can be manipulated without any leakage when both
 controls are applied exactly as prescribed. That protection is
 geometric: the two-mode plane is invariant even for large signed
@@ -514,8 +514,35 @@ their two `_coe` theorems, and
 `coordinatedHamiltonian_complement_commutes`,
 `coordinatedHamiltonian_complement_invariant`. Full Lean verification
 and the existing independent L7 Comparator passed. L8a.2 is not a new
-Palomar selection. No global simplicity or exterior spectral separation
-is claimed yet. See [README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction).
+Palomar selection. No global simplicity is asserted by L8a.2 alone; L8a.3 below now
+provides quantitative exterior exclusion. See [README §4.107](../README.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction).
+
+**L8a.3 — verified quantitative exterior exclusion in the full real spectrum.**
+With g = 1/128 and ρ = |δ| + 2|η|, every exterior natural-domain vector
+x satisfies (g−ρ−|e−E_*|)‖x‖ ≤ ‖Hx−ex‖, for every real e.
+This follows from the baseline reduced-gap estimate, the exact
+perturbation decomposition and the triangle inequality. Any eigenvector
+with nonzero leakage yields an exterior eigenvector at the same energy
+by the reducing projection of L8a.2, hence satisfies g ≤ ρ+|e−E_*|.
+Properness and the lower bound of the concrete onsite potential supply
+the compact shift for the controlled operator at every real δ, η.
+The complete real bounded-inverse spectrum is therefore characterized
+by genuine full-domain eigenvectors. In the open window
+ρ+|e−E_*|<g, every eigenvector has zero leakage and real-spectrum
+membership is equivalent to e being one of the two explicit plane levels.
+
+The seven new theorems in
+[AmmannBeenkerCoordinatedAxisDynamics.lean](../SpectralGeometry/AmmannBeenkerCoordinatedAxisDynamics.lean)
+are `coordinatedControlPerturbation_apply_norm_le`,
+`coordinatedComplement_residual_lower`,
+`coordinatedComplement_eigenvalue_distance`,
+`coordinatedEigenvector_complement_distance`,
+`coordinatedRealSpectrum_iff_full_eigenvector`,
+`coordinatedEigenvector_leakage_zero_of_near`, and
+`coordinatedRealSpectrum_near_iff`.
+Full Lean verification, static checks and the existing independent L7
+Comparator passed. These are not independently selected Palomar
+statements. See [README §4.108](../README.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels).
 
 **Remaining proof target.** A conservative candidate lower bound on the
 separation between the controlled two-mode spectral cluster and
@@ -539,9 +566,9 @@ when the conservative sufficient condition fails.
   norms `‖R‖ = 1`, `‖M‖ = 2`, and `‖B‖ ≤ |δ| + 2|η|`.
 - [x] **L8a.2:** Exact two-way controlled plane eigenvalue characterization,
   degeneracy criterion and reducing projections on the natural domain.
-- [ ] **L8a.3:** Prove quantitative exclusion of the remaining real spectrum,
-  using the existing reduced-gap estimate and the applicable
-  compact-resolvent spectral characterization.
+- [x] **L8a.3:** Quantitative exterior residual and eigenvalue exclusion,
+  full real-spectrum characterization and zero leakage in the explicit
+  open window.
 - [ ] **L8a.4:** State and prove a consolidated full-infinite-operator cluster
   isolation theorem with explicit admissible control strengths and
   a positive separation bound, including the degenerate zero-control case.
