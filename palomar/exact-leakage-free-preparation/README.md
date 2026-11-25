@@ -1,7 +1,7 @@
-# Palomar candidate: Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
+# Registered Palomar package: Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
 
 The selected scientific theorem is `SpectralGeometry.AmmannBeenker.coordinatedProtocol_exact_preparation` (README §4.105). Five model witnesses and three locality certificates accompany it. The Mathlib-only Challenge defines the concrete graph, controls and trajectory without definition holes; the Solution imports the substantive proof module, never Challenge.
 
-The active root Challenge, Solution and formalization metadata match the copies here. The Comparator lives only in this directory. Full mathematical Lean verification and independent statement comparison with NanoDa and con-ron have passed. No third registration is claimed.
+The active root Challenge, Solution and formalization metadata match the copies here. The Comparator lives only in this directory. Full mathematical Lean verification and independent statement comparison with NanoDa and con-ron have passed. Registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). Palomar mechanical verification and renderability passed; automated editorial review identified no problems. The immutable registered revision is `7e3c8d998ad2a3474397ee53b6f5601a430c519c`. The status in the working metadata is updated after registration; the original submission remains preserved at its registered revision.
 
 The earlier packages remain in [dark-bright](../dark-bright/) (unsubmitted generator-response candidate) and [signed-bright-splitting](../signed-bright-splitting/) (registered L5). The first crossing-multiplicity registration is unchanged.

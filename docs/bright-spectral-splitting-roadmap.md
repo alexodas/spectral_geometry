@@ -14,7 +14,7 @@ the [historical L6 note](edge-control-reachability.md).
 **Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
 **Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
 
-**L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third candidate](../palomar/exact-leakage-free-preparation/) has passed full Lean and Comparator verification with the bundled kernels; a third registration has not yet been established. L6 and Track A are preserved.
+**L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third package](../palomar/exact-leakage-free-preparation/) passed full Lean and Comparator verification with the bundled kernels, Palomar mechanical and renderability checks, and automated editorial review with no blocking problem. Registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). L6 and Track A are preserved.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
@@ -290,9 +290,7 @@ the PR was merged into `main` at
 `7b68540619ab45e5233b2d5ec8273829b3fbba77`.
 The Comparator selection remains
 `palomar/signed-bright-splitting/comparator.json`.
-**A new Palomar editorial acceptance or registration has not been
-established by these GitHub checks.** Any resubmission must use the
-new commit, not the earlier reviewed one.
+**Historical verification boundary:** these GitHub checks alone did not establish Palomar registration. The corrected L5 result was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
 
 **Protected historical registration:** the separate first Palomar record
 `PALOMAR-2026-11-06-000012` remains unchanged.
@@ -344,7 +342,7 @@ strengths.
 - [x] Verify matching amplitudes and exact full-space action on both modes.
 - [x] Deduce the dark and bright identities and `Q M P=0`.
 - [x] Establish the natural-domain action and plane invariance of both controls.
-- [x] Complete full Lean verification; three locality statements are selected alongside the final L7 preparation theorem in the independently verified candidate.
+- [x] Complete full Lean verification; three locality statements are selected alongside the final L7 preparation theorem in the independently verified registered package.
 
 **Meaning of zero leakage:** `Q ψ = 0` means *no component orthogonal
 to the two compact modes*, not merely no amplitude outside the central

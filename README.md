@@ -34,7 +34,7 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected in either registration.
+The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected in any of the three registrations.
 
 ### Third result — Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
 
@@ -48,7 +48,7 @@ The result concerns the actual infinite operator, not a numerical simulation or 
 
 This is an existence theorem for preparation from the dark state in this specified compact plane with independently tunable signed controls. It does not construct a general complex unitary propagator for arbitrary initial data on the infinite graph, prove phase-sensitive equality without a common phase, claim an optimal number of controlled edges, or establish experimental feasibility or originality. The earlier single-edge spectral-splitting theorem is a separate result.
 
-**Verification status.** The mathematical theorem and its independent Palomar package have passed full Lean verification and independent statement comparison with the bundled kernels. No third registration or acceptance is claimed. The first two Palomar registrations remain unchanged. Registration establishes mechanical verification of selected statements, not human peer review, novelty or experimental feasibility.
+**Palomar registration.** The third result was registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). Full Lean verification, independent statement comparison and Challenge renderability passed. The automated editorial review reported no identified problems with the selected statements, their presentation or their research relevance. The first two Palomar registrations remain unchanged. Registration establishes mechanical verification of selected statements, not human peer review, novelty or experimental feasibility.
 
 The research direction was conceived and directed by Alessandro Odasso, who is not a mathematician. According to the maintainer, AI generated the mathematical proofs and Lean formalizations under his direction. The originality and scientific significance of these results have not yet been independently assessed.
 
@@ -60,7 +60,7 @@ of its original goals:
 | Track | Question | Status and next steps |
 | --- | --- | --- |
 | **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
-| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7 independent candidate verified.** **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7 registered.** **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
 
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
@@ -167,7 +167,7 @@ The table below separates proved results from remaining research tasks.
 | Exact single-axis Schrödinger trajectories, L7c.1 | §4.102: arbitrary complex compact-mode coefficients, exact coupled real/imaginary full-domain equations, conserved squared complex norm and zero leakage of both components for all real times; the combined real Hamiltonian is self-adjoint at arbitrary real control strengths. Lean-verified |
 | Exact phase-weighted rotation action, L7c.2 | §4.103: the full natural-domain single-axis trajectories equal the embeddings of the X and Z rotation matrices with their common phases, for every complex initial pair and real strength and time. Lean-verified |
 | Continuous three-pulse protocol, L7c.3 | §4.104: exact Z–X–Z composition for arbitrary complex initial pairs and real strengths, continuous full-space components and exact switch matching, natural-domain membership, conserved squared complex norm and zero leakage at every time, with full Schrödinger equations on each open pulse interval. Lean-verified |
-| Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified |
+| Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified and registered as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1) |
 | Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
@@ -2803,7 +2803,7 @@ crossing under arbitrary perturbations, identify the moving eigenvalue
 after the one-edge change, or provide a derivative, remainder or
 finite-patch zero certificate. The **historical first Palomar registration** selected the
 exact-multiplicity statements of §4.78. The gap theorems are not
-selected as separate statements in either Palomar registration (§§4.78, 4.98), but remain included
+selected as separate statements in any of the three Palomar registrations (§§4.78, 4.98), but remain included
 in the full Lean/Mathlib source build.
 
 ### 4.80. First exact algebraic results for controlling the two compact modes
@@ -3769,7 +3769,7 @@ lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](palomar/dark-bright/comparator.json)
 and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
 The active Comparator now selects the exact preparation theorem (§4.105);
-both registrations and the earlier candidate remain historically intact.
+all three registrations and the earlier unsubmitted candidate remain historically intact.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -4161,7 +4161,7 @@ the original two localized states. The result concerns the
 entire infinite network and its natural domain; it is
 not a time-evolution or experimental-control result.
 
-**Independent registered package.** The L5 [Challenge](palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](palomar/signed-bright-splitting/comparator.json) and [formalization metadata](palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](palomar/dark-bright/) is also preserved. The active root files now describe the distinct third candidate (§4.105). Each Comparator remains in its own directory; there is no root Comparator.
+**Independent registered package.** The L5 [Challenge](palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](palomar/signed-bright-splitting/comparator.json) and [formalization metadata](palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](palomar/dark-bright/) is also preserved. The active root files now describe the distinct third registered result (§4.105). Each Comparator remains in its own directory; there is no root Comparator.
 
 **Verification and registration.** The L5 mathematical source and
 independently assembled package passed full Lean and independent kernel
@@ -4232,7 +4232,7 @@ definitions are Lean-verified. Dark cancellation alone does not prove
 invariance of the two-mode plane; the subsequent §4.100 establishes
 that stronger result. The single-edge approximate-control route remains
 a distinct research direction. Neither new module was selected in the historical L5 Comparator.
-The third candidate now includes the local-edge certificates from this module.
+The third registered package includes the local-edge certificates from this module.
 
 <a id="4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending"></a>
 
@@ -4333,7 +4333,7 @@ with zero leakage at every time. Section 4.103 identifies their rotation
 matrices including the common phase; §4.104 proves their continuous
 three-pulse composition with exact zero leakage throughout. Section 4.105
 proves arbitrary normalized target preparation from dark up to global phase.
-The active L7 candidate selects the final preparation theorem and supporting locality certificates (§4.105).
+The registered L7 package selects the final preparation theorem and supporting locality certificates (§4.105).
 The original single-edge L1–L6 route and Track A remain distinct.
 
 
@@ -4453,7 +4453,7 @@ throughout each segment. Section 4.103 proves the exact phase-weighted
 rotation identification, and §4.104 proves continuous pulse composition
 with zero leakage at every time. Section 4.105 proves the final arbitrary
 target preparation theorem from dark. A general complex full-space propagator
-remains open. The third candidate selects supporting locality statements and the final
+remains open. The third registered package selects supporting locality statements and the final
 preparation theorem; it does not independently select the Lie-algebra results. The original single-edge L6 goal and the
 analytic spectral-geometry program remain separate.
 
@@ -4567,7 +4567,7 @@ with the rotations of §4.101, including the scalar phases. Section 4.104
 zero leakage throughout. Section 4.105 (L7c.4) proves arbitrary normalized
 target preparation from dark up to global phase with zero leakage throughout. A general
 complex unitary group remains a separate outstanding objective.
-The final L7 preparation theorem is selected for the independent candidate (§4.105); the intermediate trajectory results are not separate submissions. The separate L6 and Track A goals are preserved.
+The final L7 preparation theorem is selected for the independently verified registered package (§4.105); the intermediate trajectory results are not separate submissions. The separate L6 and Track A goals are preserved.
 
 
 ### 4.103. Exact identification of physical pulses with Pauli rotations
@@ -4661,7 +4661,7 @@ uses independently tunable signed real strengths. Its composition
 with matched endpoints and piecewise Schrödinger equations is
 proved in §4.104 (L7c.3); its arbitrary-target theorem is proved in §4.105 (L7c.4).
 A general unitary propagator on the full complex infinite Hilbert
-space is not constructed by these results. The third candidate selects the final preparation theorem and supporting
+space is not constructed by these results. The third registered package selects the final preparation theorem and supporting
 locality statements; other intermediate results are not separate submissions. The original L6 approximate
 control problem and Track A remain separate.
 
@@ -4784,7 +4784,7 @@ parameters for every normalized target from dark, retaining the
 common scalar phase. The general complex Hilbert-space unitary
 propagator for arbitrary infinite-space initial data remains a
 separate objective. No experimental feasibility or minimal number
-of controlled edges is claimed. The third candidate selects the final preparation theorem and locality
+of controlled edges is claimed. The third registered package selects the final preparation theorem and locality
 statements; the intermediate composition results are not separate submissions. L6 and Track A
 remain preserved.
 
@@ -4886,8 +4886,7 @@ preparation without quotienting by global phase, constraints on
 physical edge strengths, experimental feasibility, and minimal
 control resources are not claimed. The two independently tunable
 controls are those defined in §§4.99–4.100; this is not the original
-single-edge L6 preparation theorem. L7 is selected for a separate independent Palomar package and has passed
-independent comparison. A third registration has not yet been established. The earlier registrations
+single-edge L6 preparation theorem. L7 has passed independent comparison and was registered separately on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). The earlier registrations
 and all Track A objectives remain unchanged.
 
 **Independent preparation package.** The [Mathlib-only Challenge](Challenge.lean)
@@ -4895,8 +4894,8 @@ contains 687 lines, five model witnesses, three local-edge certificates
 and the single scientific preparation theorem. All definitions are concrete.
 The [Solution](Solution.lean) imports the verified source, and the
 [Comparator](palomar/exact-leakage-free-preparation/comparator.json) is kept
-in the third candidate directory. Full Lean verification and independent
-statement comparison with NanoDa and con-ron have passed.
+in the third registered package directory. Full Lean verification and independent
+statement comparison with NanoDa and con-ron have passed. Palomar's mechanical and renderability checks passed, and its automated editorial review identified no blocking problem.
 
 
 ## 5. Building and verification
@@ -5065,7 +5064,7 @@ and matching package snapshots reside in
 [`palomar/exact-leakage-free-preparation/`](palomar/exact-leakage-free-preparation/).
 The complete 116-module substantive library is Lean-verified with no
 proof holes. The third independent comparison has passed, including
-NanoDa and con-ron; no third registration is claimed.
+NanoDa and con-ron. The third result is registered as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1).
 
 The first registered exact-multiplicity theorem remains attached to
 its original immutable revision. The second registered signed-splitting
@@ -5076,7 +5075,7 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](palomar/dark-bright/).
 No root `comparator.json` exists. The local packaging and verification
-checks select the third candidate's Comparator explicitly.
+checks select the third registered package's Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
@@ -5147,7 +5146,7 @@ of its formal infrastructure.
    separates these tasks and their proof obligations.
 
 **Research status and verification.** L5 is registered as described in §4.98.
-L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparation theorem and supporting locality certificates have passed independent statement comparison as the third candidate, not a third registration.
+L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparation theorem and supporting locality certificates have passed independent statement comparison and are registered as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1).
 The L7 exact zero-leakage preparation theorem from dark is proved.
 A general complex quantum propagator and the distinct L6 reachability
 theorem remain open. Earlier conditional time-uniform leakage bounds
@@ -5815,7 +5814,7 @@ remains archived under `palomar/dark-bright/`.
 - [x] Record the separate L5 registration
   [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 (§4.98).
 
-**Third candidate (§4.105).** The Lean-verified exact preparation theorem is selected with its concrete graph witnesses and local-edge certificates. The [independent package](palomar/exact-leakage-free-preparation/) has passed full Lean and independent Comparator verification. Submission and registration remain separate.
+**Third registration (§4.105).** The Lean-verified exact preparation theorem is selected with its concrete graph witnesses and local-edge certificates. The [independent package](palomar/exact-leakage-free-preparation/) passed full Lean and independent Comparator verification, Palomar mechanical verification and renderability checks. The automated editorial review identified no blocking problem. The result was registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1).
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
