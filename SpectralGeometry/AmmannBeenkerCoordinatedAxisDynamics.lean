@@ -794,5 +794,269 @@ theorem coordinatedCluster_isolation (δ η : ℝ)
     exact coordinatedPlaneLevel_exterior_distance δ η e level hl x he hq
 
 
+
+/-!
+## L8a refinement — Centered control estimates
+
+Subtracting the midpoint shift from the bounded perturbation avoids
+counting the same scalar displacement twice. Each centered individual
+control is a scaled isometry on the full real Hilbert space.
+-/
+
+private theorem coordinated_eq_of_nonneg_sq (a b : ℝ)
+    (ha : 0 ≤ a) (hb : 0 ≤ b) (h : a ^ 2 = b ^ 2) : a = b := by
+  have hp : (a - b) * (a + b) = 0 := by nlinarith only [h]
+  rcases mul_eq_zero.mp hp with h₁ | h₂
+  · exact sub_eq_zero.mp h₁
+  · linarith only [ha, hb, h₂]
+
+/-- Centering the first-ring orthogonal projection gives an exact
+half-isometry on every vector, including exterior vectors. -/
+theorem coordinatedOnsite_centered_norm (x : TileHilbert Vertex) :
+    ‖finiteSectorProjection (neighbors origin) x - (1 / 2 : ℝ) • x‖ =
+      (1 / 2 : ℝ) * ‖x‖ := by
+  let y := finiteSectorProjection (neighbors origin) x
+  have hi : inner ℝ x y = ‖y‖ ^ 2 :=
+    finiteSectorProjection_inner (neighbors origin) x
+  have hj : inner ℝ y x = ‖y‖ ^ 2 := by
+    rw [real_inner_comm, hi]
+  change ‖y - (1 / 2 : ℝ) • x‖ = (1 / 2 : ℝ) * ‖x‖
+  apply coordinated_eq_of_nonneg_sq _ _ (norm_nonneg _) (by positivity)
+  rw [← real_inner_self_eq_norm_sq]
+  simp only [inner_sub_left, inner_sub_right, real_inner_smul_left,
+    real_inner_smul_right, real_inner_self_eq_norm_sq, hi, hj]
+  ring
+
+/-- M-I is an exact isometry because the matching operator is
+symmetric and satisfies M²=2M. -/
+theorem coordinatedRing_centered_norm (x : TileHilbert Vertex) :
+    ‖coordinatedRingControl x - x‖ = ‖x‖ := by
+  have hi : ‖coordinatedRingControl x‖ ^ 2 =
+      2 * inner ℝ x (coordinatedRingControl x) := by
+    rw [← real_inner_self_eq_norm_sq,
+      ← coordinatedRingControl_symmetric x (coordinatedRingControl x),
+      coordinatedRingControl_sq_apply, real_inner_smul_right]
+  have hj : inner ℝ (coordinatedRingControl x) x =
+      inner ℝ x (coordinatedRingControl x) := real_inner_comm _ _
+  apply coordinated_eq_of_nonneg_sq _ _ (norm_nonneg _) (norm_nonneg _)
+  rw [← real_inner_self_eq_norm_sq]
+  simp only [inner_sub_left, inner_sub_right, real_inner_self_eq_norm_sq, hj]
+  linarith only [hi]
+
+/-- Centered perturbation force bound: half the original control
+budget, uniformly on the whole Hilbert space. -/
+theorem coordinatedControl_centered_apply_norm_le (δ η : ℝ)
+    (x : TileHilbert Vertex) :
+    ‖coordinatedControlPerturbation δ η x - (δ / 2 + η) • x‖ ≤
+      ((|δ| + 2 * |η|) / 2) * ‖x‖ := by
+  have he : coordinatedControlPerturbation δ η x - (δ / 2 + η) • x =
+      δ • (finiteSectorProjection (neighbors origin) x - (1 / 2 : ℝ) • x) +
+        η • (coordinatedRingControl x - x) := by
+    simp only [coordinatedControlPerturbation, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.smul_apply]
+    module
+  rw [he]
+  calc
+    _ ≤ ‖δ • (finiteSectorProjection (neighbors origin) x - (1 / 2 : ℝ) • x)‖ +
+        ‖η • (coordinatedRingControl x - x)‖ := norm_add_le _ _
+    _ = _ := by
+      rw [norm_smul, norm_smul, Real.norm_eq_abs, Real.norm_eq_abs,
+        coordinatedOnsite_centered_norm, coordinatedRing_centered_norm]
+      ring
+
+theorem coordinatedLevelRadius_le_half_budget (δ η : ℝ) :
+    coordinatedLevelRadius δ η ≤ (|δ| + 2 * |η|) / 2 := by
+  have hs := coordinatedLevelRadius_sq δ η
+  have hδ : |δ| ^ 2 = δ ^ 2 := sq_abs δ
+  have hη : |η| ^ 2 = η ^ 2 := sq_abs η
+  have hp := mul_nonneg (abs_nonneg δ) (abs_nonneg η)
+  have hsq : coordinatedLevelRadius δ η ^ 2 ≤
+      ((|δ| + 2 * |η|) / 2) ^ 2 := by
+    nlinarith only [hs, hδ, hη, hp]
+  have hr : 0 ≤ coordinatedLevelRadius δ η := Real.sqrt_nonneg _
+  have hb : 0 ≤ (|δ| + 2 * |η|) / 2 := by positivity
+  by_contra! hn
+  have ht := mul_pos (sub_pos.mpr hn)
+    (show 0 < coordinatedLevelRadius δ η + (|δ| + 2 * |η|) / 2 by
+      linarith only [hn, hb])
+  nlinarith only [ht, hsq]
+
+theorem coordinatedPlaneLevel_center_distance (δ η e : ℝ)
+    (hl : CoordinatedPlaneLevel δ η e) :
+    |e - coordinatedLevelCenter δ η| = coordinatedLevelRadius δ η := by
+  have hr : 0 ≤ coordinatedLevelRadius δ η := Real.sqrt_nonneg _
+  rcases hl with h | h
+  · rw [h]
+    have he : coordinatedLevelCenter δ η - coordinatedLevelRadius δ η -
+        coordinatedLevelCenter δ η = -coordinatedLevelRadius δ η := by ring
+    rw [he, abs_neg, abs_of_nonneg hr]
+  · rw [h]
+    have he : coordinatedLevelCenter δ η + coordinatedLevelRadius δ η -
+        coordinatedLevelCenter δ η = coordinatedLevelRadius δ η := by ring
+    rw [he, abs_of_nonneg hr]
+
+/-- The centered residual bound for every exterior domain vector. -/
+theorem coordinatedComplement_centered_residual_lower (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (ha : inner ℝ compactA (x : TileHilbert Vertex) = 0)
+    (hb : inner ℝ compactB (x : TileHilbert Vertex) = 0) :
+    (crossingGapCandidate - (|δ| + 2 * |η|) / 2 -
+      |energy - coordinatedLevelCenter δ η|) * ‖(x : TileHilbert Vertex)‖ ≤
+      ‖onsitePlusBounded potential (coordinatedCorrection δ η) x -
+        energy • (x : TileHilbert Vertex)‖ := by
+  have hq : crossingLeakage (x : TileHilbert Vertex) =
+      (x : TileHilbert Vertex) := by
+    simp [crossingLeakage, crossingQubitPart, crossingCoeffA,
+      crossingCoeffB, ha, hb]
+  have hg := crossingReducedGapResidualEstimate_full x
+  rw [hq] at hg
+  have hdecomp :
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        onsitePlusBounded potential (ringInteraction crossingParameter) x +
+          coordinatedControlPerturbation δ η (x : TileHilbert Vertex) :=
+    coordinatedControlHamiltonian_decomposition δ η x
+  have hres :
+      onsitePlusBounded potential (ringInteraction crossingParameter) x -
+        crossingEnergy • (x : TileHilbert Vertex) =
+      (onsitePlusBounded potential (coordinatedCorrection δ η) x -
+        energy • (x : TileHilbert Vertex)) +
+      ((energy - coordinatedLevelCenter δ η) • (x : TileHilbert Vertex) -
+        (coordinatedControlPerturbation δ η (x : TileHilbert Vertex) -
+          (δ / 2 + η) • (x : TileHilbert Vertex))) := by
+    rw [hdecomp]
+    unfold coordinatedLevelCenter
+    module
+  rw [hres] at hg
+  have ht := norm_add_le
+    (onsitePlusBounded potential (coordinatedCorrection δ η) x -
+      energy • (x : TileHilbert Vertex))
+    ((energy - coordinatedLevelCenter δ η) • (x : TileHilbert Vertex) -
+      (coordinatedControlPerturbation δ η (x : TileHilbert Vertex) -
+        (δ / 2 + η) • (x : TileHilbert Vertex)))
+  have hs := norm_sub_le
+    ((energy - coordinatedLevelCenter δ η) • (x : TileHilbert Vertex))
+    (coordinatedControlPerturbation δ η (x : TileHilbert Vertex) -
+      (δ / 2 + η) • (x : TileHilbert Vertex))
+  rw [norm_smul, Real.norm_eq_abs] at hs
+  have hB := coordinatedControl_centered_apply_norm_le δ η
+    (x : TileHilbert Vertex)
+  linarith only [hg, ht, hs, hB]
+
+/-- Nonzero leakage forces an eigenvalue outside the centered window. -/
+theorem coordinatedEigenvector_centered_complement_distance (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (he : onsitePlusBounded potential (coordinatedCorrection δ η) x =
+      energy • (x : TileHilbert Vertex))
+    (hq : crossingLeakage (x : TileHilbert Vertex) ≠ 0) :
+    crossingGapCandidate ≤ (|δ| + 2 * |η|) / 2 +
+      |energy - coordinatedLevelCenter δ η| := by
+  let q := coordinatedComplementDomainPart x
+  have hc : (q : TileHilbert Vertex) =
+      crossingLeakage (x : TileHilbert Vertex) :=
+    coordinatedComplementDomainPart_coe x
+  have heq : onsitePlusBounded potential (coordinatedCorrection δ η) q =
+      energy • (q : TileHilbert Vertex) := by
+    change onsitePlusBounded potential (coordinatedCorrection δ η)
+      (coordinatedComplementDomainPart x) = _
+    rw [← coordinatedHamiltonian_complement_commutes, he,
+      crossingLeakage_smul, hc]
+  have ha : inner ℝ compactA (q : TileHilbert Vertex) = 0 := by
+    rw [hc]
+    exact crossingLeakage_inner_compactA _
+  have hb : inner ℝ compactB (q : TileHilbert Vertex) = 0 := by
+    rw [hc]
+    exact crossingLeakage_inner_compactB _
+  have hn : (q : TileHilbert Vertex) ≠ 0 := by rwa [hc]
+  have h := coordinatedComplement_centered_residual_lower δ η energy q ha hb
+  rw [heq, sub_self, norm_zero] at h
+  by_contra! hlt
+  have hp : 0 < crossingGapCandidate - (|δ| + 2 * |η|) / 2 -
+      |energy - coordinatedLevelCenter δ η| := by linarith only [hlt]
+  exact (not_lt_of_ge h) (mul_pos hp (norm_pos_iff.mpr hn))
+
+theorem coordinatedRealSpectrum_centered_near_iff (δ η energy : ℝ)
+    (hnear : (|δ| + 2 * |η|) / 2 +
+      |energy - coordinatedLevelCenter δ η| < crossingGapCandidate) :
+    energy ∈ infiniteBoundedOnsiteRealSpectrum potential
+      (coordinatedCorrection δ η) ↔ CoordinatedPlaneLevel δ η energy := by
+  rw [coordinatedRealSpectrum_iff_full_eigenvector]
+  constructor
+  · rintro ⟨x, hn, he⟩
+    have hq : crossingLeakage (x : TileHilbert Vertex) = 0 := by
+      by_contra h
+      exact (not_le_of_gt hnear)
+        (coordinatedEigenvector_centered_complement_distance δ η energy x he h)
+    exact (coordinatedPlane_eigenvalue_iff δ η energy).mp ⟨x, hn, hq, he⟩
+  · intro h
+    obtain ⟨x, hn, _, he⟩ := (coordinatedPlane_eigenvalue_iff δ η energy).mpr h
+    exact ⟨x, hn, he⟩
+
+/-- Improved cluster separation, with the exact half-spacing and the
+centered half-budget. The old theorem is retained unchanged. -/
+theorem coordinatedCluster_centered_isolation (δ η : ℝ)
+    (hsmall : (|δ| + 2 * |η|) / 2 + coordinatedLevelRadius δ η < 1 / 128) :
+    0 < (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ∧
+    (∀ level : ℝ, CoordinatedPlaneLevel δ η level →
+      level ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ∧
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          level • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) = 0) ∧
+    (∀ e : ℝ, |e - coordinatedLevelCenter δ η| ≤ coordinatedLevelRadius δ η →
+      (e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ↔
+        CoordinatedPlaneLevel δ η e)) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) →
+      ¬ CoordinatedPlaneLevel δ η e →
+      (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ≤
+        |e - level|) ∧
+    (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+      ∀ x : infiniteOnsiteDomain potential,
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          e • (x : TileHilbert Vertex) →
+        crossingLeakage (x : TileHilbert Vertex) ≠ 0 →
+        (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ≤
+          |e - level|) := by
+  have hs : (|δ| + 2 * |η|) / 2 + coordinatedLevelRadius δ η <
+      crossingGapCandidate := hsmall
+  refine ⟨by linarith only [hsmall], ?_, ?_, ?_, ?_⟩
+  · intro level hl
+    refine ⟨coordinatedPlaneLevel_mem_realSpectrum δ η level hl, ?_⟩
+    intro x he
+    by_contra hq
+    have h := coordinatedEigenvector_centered_complement_distance δ η level x he hq
+    rw [coordinatedPlaneLevel_center_distance δ η level hl] at h
+    linarith only [h, hs]
+  · intro e hnear
+    exact coordinatedRealSpectrum_centered_near_iff δ η e (by linarith only [hs, hnear])
+  · intro e level hl he hne
+    have ht := abs_sub_le e level (coordinatedLevelCenter δ η)
+    rw [coordinatedPlaneLevel_center_distance δ η level hl] at ht
+    by_contra! hlt
+    have hnear : (|δ| + 2 * |η|) / 2 +
+        |e - coordinatedLevelCenter δ η| < crossingGapCandidate := by
+      change (|δ| + 2 * |η|) / 2 + |e - coordinatedLevelCenter δ η| < (1 / 128 : ℝ)
+      linarith only [ht, hlt]
+    exact hne ((coordinatedRealSpectrum_centered_near_iff δ η e hnear).mp he)
+  · intro e level hl x he hq
+    have ht := abs_sub_le e level (coordinatedLevelCenter δ η)
+    rw [coordinatedPlaneLevel_center_distance δ η level hl] at ht
+    have h := coordinatedEigenvector_centered_complement_distance δ η e x he hq
+    change (1 / 128 : ℝ) ≤ _ at h
+    linarith only [ht, h]
+
+/-- The entire doubled control diamond is sufficient for the improved
+theorem, whose exact-radius criterion can be still less restrictive. -/
+theorem coordinatedCluster_centered_condition_of_budget (δ η : ℝ)
+    (hsmall : |δ| + 2 * |η| < 1 / 128) :
+    (|δ| + 2 * |η|) / 2 + coordinatedLevelRadius δ η < 1 / 128 := by
+  linarith only [hsmall, coordinatedLevelRadius_le_half_budget δ η]
+
+theorem coordinatedCluster_centered_gap_ge (δ η : ℝ) :
+    (1 / 128 : ℝ) - (|δ| + 2 * |η|) ≤
+      1 / 128 - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η := by
+  linarith only [coordinatedLevelRadius_le_half_budget δ η]
+
+
 end
 end SpectralGeometry.AmmannBeenker
