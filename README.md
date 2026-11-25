@@ -4,6 +4,46 @@
 operators on infinite geometric graphs affect their energy levels and the
 zeros of analytic functions built from those levels.**
 
+## Table of contents
+
+- [Executive summary](#executive-summary)
+  - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
+  - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
+  - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
+- [Research tracks and current priority](#research-tracks-and-current-priority)
+- [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
+- [Current status and verified milestones](#current-status-and-verified-milestones)
+- [1. Research program and geometric model](#1-research-program-and-geometric-model)
+- [2. Canonical products and analytic foundations](#2-canonical-product-and-analytic-foundations)
+- [3. Finite-dimensional geometric operators](#3-finite-dimensional-geometric-operators)
+- [4. Infinite-dimensional operators and spectral theory](#4-infinite-dimensional-geometric-operators-and-spectral-theory)
+  - **Ammann–Beenker model, crossing and controls**
+    - [4.68–4.70. Graph construction and spectral response](#468-an-explicit-octagonal-cut-and-project-vertex-set)
+    - [4.74–4.75. Localized modes and exact crossing](#474-compact-eigenvectors-on-the-infinite-natural-domain)
+    - [4.78. Exactly two crossing states](#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
+    - [4.79. Certified spectral gap](#479-a-conservative-quantitative-real-spectral-gap-at-the-crossing)
+    - [4.80. Two ways to change the energies: ring parameter and connecting edge](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
+    - [4.81. Projection onto the two-mode space and external leakage](#481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse)
+    - [4.85–4.88. Temporary edge pulses and switch-off bounds](#485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector)
+    - [4.89–4.91. Dark-state evolution and bright-state response](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
+  - **Quantitative spectral splitting, registration and coordinated control**
+    - [4.93–4.96. From existence to quantitative bounds](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
+    - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
+    - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
+    - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
+    - [4.100. Exact invariant-plane control and Pauli generator algebra](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
+    - [4.101. Full Lie generation and constructive two-state rotations](#4101-full-lie-generation-and-constructive-two-state-rotations)
+    - [4.102. Exact natural-domain Schrödinger trajectories for both control axes](#4102-exact-natural-domain-schrödinger-trajectories-for-both-control-axes)
+    - [4.103. Exact identification of physical pulses with Pauli rotations](#4103-exact-identification-of-physical-pulses-with-pauli-rotations)
+    - [4.104. Continuous three-pulse protocol with exact zero leakage](#4104-continuous-three-pulse-protocol-with-exact-zero-leakage)
+    - [4.105. Exact arbitrary target preparation from dark without leakage](#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)
+- [5. Building and verification](#5-building-and-verification)
+- [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
+  - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
+  - [6.4. L7 exact preparation verified; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - [6.5–6.7. Relative products, finite patches and exploratory zeros](#65-local-geometric-defects-and-relative-spectral-products)
+  - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
+
 ## Executive summary
 
 We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
@@ -69,46 +109,6 @@ See the [L7/L6 research roadmap](docs/bright-spectral-splitting-roadmap.md)
 and the preserved [single-edge research note](docs/edge-control-reachability.md).
 The detailed Lean-module catalogue and all existing theorem descriptions
 remain below.
-
-## Table of contents
-
-- [Executive summary](#executive-summary)
-  - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
-  - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
-  - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
-- [Research tracks and current priority](#research-tracks-and-current-priority)
-- [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
-- [Current status and verified milestones](#current-status-and-verified-milestones)
-- [1. Research program and geometric model](#1-research-program-and-geometric-model)
-- [2. Canonical products and analytic foundations](#2-canonical-product-and-analytic-foundations)
-- [3. Finite-dimensional geometric operators](#3-finite-dimensional-geometric-operators)
-- [4. Infinite-dimensional operators and spectral theory](#4-infinite-dimensional-geometric-operators-and-spectral-theory)
-  - **Ammann–Beenker model, crossing and controls**
-    - [4.68–4.70. Graph construction and spectral response](#468-an-explicit-octagonal-cut-and-project-vertex-set)
-    - [4.74–4.75. Localized modes and exact crossing](#474-compact-eigenvectors-on-the-infinite-natural-domain)
-    - [4.78. Exactly two crossing states](#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
-    - [4.79. Certified spectral gap](#479-a-conservative-quantitative-real-spectral-gap-at-the-crossing)
-    - [4.80. Two ways to change the energies: ring parameter and connecting edge](#480-first-exact-algebraic-results-for-controlling-the-two-compact-modes)
-    - [4.81. Projection onto the two-mode space and external leakage](#481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse)
-    - [4.85–4.88. Temporary edge pulses and switch-off bounds](#485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector)
-    - [4.89–4.91. Dark-state evolution and bright-state response](#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
-  - **Quantitative spectral splitting, registration and coordinated control**
-    - [4.93–4.96. From existence to quantitative bounds](#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
-    - [4.97. Final L5 theorem: signed bright splitting](#497-signed-shift-and-consolidated-infinite-operator-splitting)
-    - [4.98. Palomar registration and independent verification](#498-palomar-registration-signed-bright-splitting)
-    - [4.99. Coordinated eight-edge matching and exact dark cancellation](#499-coordinated-eight-edge-matching-and-exact-dark-cancellation)
-    - [4.100. Exact invariant-plane control and Pauli generator algebra](#4100-exact-invariant-plane-control-and-pauli-generator-algebra)
-    - [4.101. Full Lie generation and constructive two-state rotations](#4101-full-lie-generation-and-constructive-two-state-rotations)
-    - [4.102. Exact natural-domain Schrödinger trajectories for both control axes](#4102-exact-natural-domain-schrödinger-trajectories-for-both-control-axes)
-    - [4.103. Exact identification of physical pulses with Pauli rotations](#4103-exact-identification-of-physical-pulses-with-pauli-rotations)
-    - [4.104. Continuous three-pulse protocol with exact zero leakage](#4104-continuous-three-pulse-protocol-with-exact-zero-leakage)
-    - [4.105. Exact arbitrary target preparation from dark without leakage](#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)
-- [5. Building and verification](#5-building-and-verification)
-- [6. Roadmap: both research tracks and open questions](#6-roadmap-proof-status-and-next-steps)
-  - [6.1–6.4. Original spectral and geometric program](#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
-  - [6.4. L7 exact preparation verified; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
-  - [6.5–6.7. Relative products, finite patches and exploratory zeros](#65-local-geometric-defects-and-relative-spectral-products)
-  - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
 
 ## Scientific audience and possible relevance
 
