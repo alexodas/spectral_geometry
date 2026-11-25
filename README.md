@@ -7,9 +7,9 @@ zeros of analytic functions built from those levels.**
 ## Table of contents
 
 - [Executive summary](#executive-summary)
-  - [First Palomar result](#first-palomar-result--exactly-two-localized-crossing-states)
-  - [Second Palomar result](#second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph)
-  - [Third result](#third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph)
+  - [Exactly two localized crossing states](#exactly-two-localized-crossing-states)
+  - [A one-edge change splits two energy levels](#a-one-edge-change-splits-two-energy-levels)
+  - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
   - [Spectral protection during coordinated control](#spectral-protection-during-coordinated-control)
 - [Research tracks and current priority](#research-tracks-and-current-priority)
 - [Scientific audience and possible relevance](#scientific-audience-and-possible-relevance)
@@ -55,7 +55,8 @@ zeros of analytic functions built from those levels.**
 
 We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
 
-### First Palomar result — Exactly two localized crossing states
+<a id="first-palomar-result--exactly-two-localized-crossing-states"></a>
+### Exactly two localized crossing states
 
 At a particular energy, the network has two localized wave patterns, which we call A and B. An earlier theorem, registered with Palomar on 6 November 2026 as [PALOMAR-2026-11-06-000012 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1), proved that these two patterns account for all independent states at that energy in the entire infinite network.
 
@@ -63,7 +64,8 @@ Further results proved in Lean establish that, at this special setting, no other
 
 The exact multiplicity is the registered result; the quantitative baseline gap is a separate Lean-verified theorem.
 
-### Second Palomar result — A One-Edge Change Splits Two Energy Levels in an Infinite Ammann–Beenker Graph
+<a id="second-palomar-result--a-one-edge-change-splits-two-energy-levels-in-an-infinite-ammannbeenker-graph"></a>
+### A one-edge change splits two energy levels
 
 One way to change the energies is to change a parameter that affects the first ring of the network. This raises or lowers the energy of A by exactly the parameter change, while leaving the energy of B unchanged. Both patterns remain exact eigenstates of the infinite system, without spreading outside their original localized forms. The spectral gap was proved at the original setting; for sufficiently small changes to this parameter, separation from the other energy levels also follows from the general eigenvalue-stability estimates already established in Lean.
 
@@ -83,7 +85,8 @@ The results fit together in a natural way. Changing the first-ring parameter off
 
 The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected in any of the three registrations.
 
-### Third result — Exact Leakage-Free Quantum State Preparation on an Infinite Ammann–Beenker Graph
+<a id="third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph"></a>
+### Exact leakage-free quantum state preparation
 
 We study a particular infinite Ammann–Beenker network, an octagonal mathematical graph with a confining potential. At a special energy it supports two localized wave patterns, A and B. Their normalized sum is called the dark state, and their normalized difference the bright state. The [first Palomar result](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1) proves that the two patterns account for all independent states at the crossing energy, and the [second Palomar result](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) proves that changing a single edge splits this energy while allowing a small part of the bright-derived wave to spread into the rest of the network.
 
