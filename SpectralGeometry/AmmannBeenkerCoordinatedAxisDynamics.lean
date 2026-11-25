@@ -308,7 +308,9 @@ theorem coordinatedPlane_eigenvalue_iff (δ η energy : ℝ) :
       apply hn
       rw [hx, hh.1, hh.2, zero_smul, zero_smul, add_zero]
     have hcoeff := (coordinatedCompact_eigen_iff δ η energy r s).mp
-      (by simpa only [hd] using he)
+      (by
+        rw [← hd, ← hx]
+        exact he)
     have hz := hscalar.mp ⟨r, s, hne, hcoeff⟩
     have hp : (energy - coordinatedLevelCenter δ η -
         coordinatedLevelRadius δ η) *
@@ -330,10 +332,12 @@ theorem coordinatedPlane_eigenvalue_iff (δ η energy : ℝ) :
       intro h
       have ha := congrArg crossingCoeffA h
       have hb := congrArg crossingCoeffB h
-      simp only [crossingCoeffA_pair, crossingCoeffA, inner_zero_right,
-        zero_div] at ha
-      simp only [crossingCoeffB_pair, crossingCoeffB, inner_zero_right,
-        zero_div] at hb
+      have hzeroA : crossingCoeffA (0 : TileHilbert Vertex) = 0 := by
+        simp [crossingCoeffA]
+      have hzeroB : crossingCoeffB (0 : TileHilbert Vertex) = 0 := by
+        simp [crossingCoeffB]
+      rw [crossingCoeffA_pair, hzeroA] at ha
+      rw [crossingCoeffB_pair, hzeroB] at hb
       rcases hn with hn | hn
       · exact hn ha
       · exact hn hb
