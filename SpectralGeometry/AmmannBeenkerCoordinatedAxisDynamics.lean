@@ -2,6 +2,7 @@ module
 
 public import SpectralGeometry.AmmannBeenkerCoordinatedPairDynamics
 public import SpectralGeometry.AmmannBeenkerPulseSelfAdjoint
+public import SpectralGeometry.AmmannBeenkerNearCrossingEigenvectors
 
 public section
 
@@ -433,6 +434,189 @@ theorem coordinatedHamiltonian_complement_invariant (δ η : ℝ)
     exact crossingLeakage_inner_compactA _
   · rw [← h]
     exact crossingLeakage_inner_compactB _
+
+
+
+/-!
+## L8a.3 — Quantitative exclusion of exterior real spectral levels
+
+The baseline reduced-gap estimate is transferred to the controlled
+Hamiltonian by a bounded perturbation on the unchanged natural domain.
+Compact resolvent then connects genuine eigenvectors to the complete
+real bounded-inverse spectrum.
+-/
+
+/-- Uniform full-space bound for the applied perturbation on a vector. -/
+theorem coordinatedControlPerturbation_apply_norm_le (δ η : ℝ)
+    (x : TileHilbert Vertex) :
+    ‖coordinatedControlPerturbation δ η x‖ ≤
+      (|δ| + 2 * |η|) * ‖x‖ := by
+  calc
+    _ ≤ ‖coordinatedControlPerturbation δ η‖ * ‖x‖ :=
+      ContinuousLinearMap.le_opNorm _ _
+    _ ≤ _ := mul_le_mul_of_nonneg_right
+      (coordinatedControlPerturbation_norm_le δ η) (norm_nonneg _)
+
+/-- An arbitrary real energy residual on the exterior domain has the
+baseline gap lower bound minus both the control budget and the energy
+displacement. The lower bound remains valid even when it is nonpositive. -/
+theorem coordinatedComplement_residual_lower (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (ha : inner ℝ compactA (x : TileHilbert Vertex) = 0)
+    (hb : inner ℝ compactB (x : TileHilbert Vertex) = 0) :
+    (crossingGapCandidate - (|δ| + 2 * |η|) -
+      |energy - crossingEnergy|) * ‖(x : TileHilbert Vertex)‖ ≤
+      ‖onsitePlusBounded potential (coordinatedCorrection δ η) x -
+        energy • (x : TileHilbert Vertex)‖ := by
+  have hq : crossingLeakage (x : TileHilbert Vertex) =
+      (x : TileHilbert Vertex) := by
+    simp [crossingLeakage, crossingQubitPart, crossingCoeffA,
+      crossingCoeffB, ha, hb]
+  have hg := crossingReducedGapResidualEstimate_full x
+  rw [hq] at hg
+  have hdecomp :
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        onsitePlusBounded potential (ringInteraction crossingParameter) x +
+          coordinatedControlPerturbation δ η (x : TileHilbert Vertex) :=
+    coordinatedControlHamiltonian_decomposition δ η x
+  have hres :
+      onsitePlusBounded potential (ringInteraction crossingParameter) x -
+        crossingEnergy • (x : TileHilbert Vertex) =
+      (onsitePlusBounded potential (coordinatedCorrection δ η) x -
+        energy • (x : TileHilbert Vertex)) +
+      ((energy - crossingEnergy) • (x : TileHilbert Vertex) -
+        coordinatedControlPerturbation δ η (x : TileHilbert Vertex)) := by
+    rw [hdecomp]
+    module
+  rw [hres] at hg
+  have ht := norm_add_le
+    (onsitePlusBounded potential (coordinatedCorrection δ η) x -
+      energy • (x : TileHilbert Vertex))
+    ((energy - crossingEnergy) • (x : TileHilbert Vertex) -
+      coordinatedControlPerturbation δ η (x : TileHilbert Vertex))
+  have hs := norm_sub_le
+    ((energy - crossingEnergy) • (x : TileHilbert Vertex))
+    (coordinatedControlPerturbation δ η (x : TileHilbert Vertex))
+  rw [norm_smul, Real.norm_eq_abs] at hs
+  have hB := coordinatedControlPerturbation_apply_norm_le δ η
+    (x : TileHilbert Vertex)
+  linarith only [hg, ht, hs, hB]
+
+/-- Every genuine nonzero exterior eigenvector is outside the open
+baseline-centered window of radius g minus the control budget. -/
+theorem coordinatedComplement_eigenvalue_distance (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (hn : (x : TileHilbert Vertex) ≠ 0)
+    (ha : inner ℝ compactA (x : TileHilbert Vertex) = 0)
+    (hb : inner ℝ compactB (x : TileHilbert Vertex) = 0)
+    (he : onsitePlusBounded potential (coordinatedCorrection δ η) x =
+      energy • (x : TileHilbert Vertex)) :
+    crossingGapCandidate ≤ |δ| + 2 * |η| + |energy - crossingEnergy| := by
+  have h := coordinatedComplement_residual_lower δ η energy x ha hb
+  rw [he, sub_self, norm_zero] at h
+  by_contra! hlt
+  have hp : 0 < crossingGapCandidate - (|δ| + 2 * |η|) -
+      |energy - crossingEnergy| := by linarith only [hlt]
+  have hpos := mul_pos hp (norm_pos_iff.mpr hn)
+  exact (not_lt_of_ge h) hpos
+
+/-- Any full eigenvector with a nonzero exterior component supplies a
+genuine nonzero eigenvector in the reducing orthogonal complement. -/
+theorem coordinatedEigenvector_complement_distance (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (he : onsitePlusBounded potential (coordinatedCorrection δ η) x =
+      energy • (x : TileHilbert Vertex))
+    (hq : crossingLeakage (x : TileHilbert Vertex) ≠ 0) :
+    crossingGapCandidate ≤ |δ| + 2 * |η| + |energy - crossingEnergy| := by
+  let q := coordinatedComplementDomainPart x
+  have hc : (q : TileHilbert Vertex) =
+      crossingLeakage (x : TileHilbert Vertex) :=
+    coordinatedComplementDomainPart_coe x
+  have heq : onsitePlusBounded potential (coordinatedCorrection δ η) q =
+      energy • (q : TileHilbert Vertex) := by
+    change onsitePlusBounded potential (coordinatedCorrection δ η)
+      (coordinatedComplementDomainPart x) = _
+    rw [← coordinatedHamiltonian_complement_commutes, he,
+      crossingLeakage_smul, hc]
+  apply coordinatedComplement_eigenvalue_distance δ η energy q
+  · rwa [hc]
+  · rw [hc]
+    exact crossingLeakage_inner_compactA _
+  · rw [hc]
+    exact crossingLeakage_inner_compactB _
+  · exact heq
+
+/-- Properness of the confining potential gives the complete real
+bounded-inverse spectral characterization at arbitrary coordinated
+control strengths, not just the baseline or the pure axes. -/
+theorem coordinatedRealSpectrum_iff_full_eigenvector (δ η energy : ℝ) :
+    energy ∈ infiniteBoundedOnsiteRealSpectrum potential
+      (coordinatedCorrection δ η) ↔
+      ∃ x : infiniteOnsiteDomain potential,
+        (x : TileHilbert Vertex) ≠ 0 ∧
+        onsitePlusBounded potential (coordinatedCorrection δ η) x =
+          energy • (x : TileHilbert Vertex) := by
+  let B := coordinatedCorrection δ η
+  let σ : Fin 0 → Vertex ≃ Vertex := fun i => Fin.elim0 i
+  let w : Fin 0 → ℝ := fun _ => 0
+  have hB : infiniteLocalBoundedCorrection 0 σ w B 1 0 = B :=
+    zeroMatching_correction B
+  obtain ⟨a, hunit, hsmall, _⟩ :=
+    infiniteBoundedOnsite_exists_compact_shift
+      potential 1 potential_lower potential_proper B
+  have hs :
+      ‖(infiniteLocalBoundedCorrection 0 σ w B 1 0).comp
+        (infiniteOnsiteResolventCLM potential a hunit)‖ < 1 := by
+    simpa only [hB] using hsmall
+  have hspectrum :=
+    infiniteLocalMatching_fullRealSpectrum_iff_hasFullEigenvalue
+      0 potential σ w B 1 0 a hunit potential_proper hs energy
+  rw [hB] at hspectrum
+  change energy ∈ infiniteBoundedOnsiteRealSpectrum potential B ↔
+    (∃ x : infiniteOnsiteDomain potential,
+      (x : TileHilbert Vertex) ≠ 0 ∧
+      infiniteLocalShiftedPerturbedOperator 0 potential σ w B 1 0 x =
+        energy • (x : TileHilbert Vertex)) at hspectrum
+  have hoperator :
+      infiniteLocalShiftedPerturbedOperator 0 potential σ w B 1 0 =
+        onsitePlusBounded potential B := by
+    have h := (onsitePlusBounded_eq_local 0 potential σ w B 1 0).symm
+    simpa only [hB] using h
+  rw [hoperator] at hspectrum
+  exact hspectrum
+
+/-- All eigenvectors in the explicit open window lie in the original
+plane, even if the two controlled levels are degenerate. -/
+theorem coordinatedEigenvector_leakage_zero_of_near (δ η energy : ℝ)
+    (x : infiniteOnsiteDomain potential)
+    (he : onsitePlusBounded potential (coordinatedCorrection δ η) x =
+      energy • (x : TileHilbert Vertex))
+    (hnear : |δ| + 2 * |η| + |energy - crossingEnergy| <
+      crossingGapCandidate) :
+    crossingLeakage (x : TileHilbert Vertex) = 0 := by
+  by_contra hn
+  exact (not_le_of_gt hnear)
+    (coordinatedEigenvector_complement_distance δ η energy x he hn)
+
+/-- Exact characterization of the complete real bounded-inverse
+spectrum inside the explicit baseline-centered open window.
+No point-spectrum-only hypothesis is imposed on the energy. -/
+theorem coordinatedRealSpectrum_near_iff (δ η energy : ℝ)
+    (hnear : |δ| + 2 * |η| + |energy - crossingEnergy| <
+      crossingGapCandidate) :
+    energy ∈ infiniteBoundedOnsiteRealSpectrum potential
+      (coordinatedCorrection δ η) ↔
+      energy = coordinatedLevelCenter δ η - coordinatedLevelRadius δ η ∨
+      energy = coordinatedLevelCenter δ η + coordinatedLevelRadius δ η := by
+  rw [coordinatedRealSpectrum_iff_full_eigenvector]
+  constructor
+  · rintro ⟨x, hn, he⟩
+    exact (coordinatedPlane_eigenvalue_iff δ η energy).mp
+      ⟨x, hn, coordinatedEigenvector_leakage_zero_of_near δ η energy x he hnear, he⟩
+  · intro h
+    obtain ⟨x, hn, _, he⟩ :=
+      (coordinatedPlane_eigenvalue_iff δ η energy).mpr h
+    exact ⟨x, hn, he⟩
 
 
 end
