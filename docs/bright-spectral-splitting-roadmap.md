@@ -6,7 +6,7 @@ spectral-geometry and analytic-zero program (Track A) remains active,
 with its verified canonical-product results and open relative
 determinant, cofactor, finite-patch and zero-statistics objectives
 in the [main README §6](../README.md#6-roadmap-proof-status-and-next-steps).
-L7's priority is **operational**, not a withdrawal of those goals.
+L8a is now the active research priority following the registered L7 result; this does not withdraw those goals.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -17,6 +17,8 @@ the [historical L6 note](edge-control-reachability.md).
 **L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](../README.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third package](../palomar/exact-leakage-free-preparation/) passed full Lean and Comparator verification with the bundled kernels, Palomar mechanical and renderability checks, and automated editorial review with no blocking problem. Registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). L6 and Track A are preserved.
 
 **Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
+
+**Next research priority (open): L8a — quantitative spectral protection during coordinated control.** See §8 below and [README §6.9](../README.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open). No new result is claimed before full Lean verification.
 
 ## 1. Established starting point
 
@@ -438,3 +440,76 @@ the original future path** for a potentially more economical single-edge control
 Existing L6 research and
 [the edge-control reachability note](edge-control-reachability.md)
 are preserved; no earlier research conclusions are withdrawn.
+
+## 8. L8 — robustness of the embedded qubit (OPEN)
+
+### L8a — Quantitative spectral protection under coordinated controls (OPEN)
+
+**Current research priority, not a verified result.** L7 proves that the
+two localized modes can be manipulated without any leakage when both
+controls are applied exactly as prescribed. That protection is
+geometric: the two-mode plane is invariant even for large signed
+control strengths. It does not by itself show that the two controlled
+energy levels remain separated from the rest of the spectrum.
+L8 begins by asking how much energetic protection survives while the
+controls are active. This is a prerequisite for investigating the
+effect of imperfections, not a proof of robustness against noise.
+
+**Verified starting point.** At zero control strengths, the complete
+real bounded-inverse spectrum has no other point in the closed
+radius-`g = 1/128` window about `E_*` (README §4.79). The original dark/bright
+plane `P` and its orthogonal complement `Q = I - P` reduce the ideal
+controlled Hamiltonian by exact invariance and symmetry
+(README §§4.99–4.102; make the domain and reducing-space statements explicit
+where needed). The two eigenvalues of its exact two-by-two matrix
+are algebraically given by
+
+```math
+\lambda_\pm(\delta,\eta)
+= E_*+\delta/2+\eta\ \pm\sqrt{\delta^2/4+\eta^2}.
+```
+
+**Proposed proof target.** Write the change from the zero-control
+Hamiltonian as `B = δ R + η M`, where `R` is the first-ring onsite
+projection and `M` is the sum of the eight matched edge operators.
+Aim to certify `‖R‖ ≤ 1` and `‖M‖ ≤ 2` using the actual disjoint
+endpoints, rather than the crude sum of eight separate edge norms.
+Set `ρ = |δ| + 2|η|`. A conservative candidate lower bound on the
+separation between the controlled two-mode spectral cluster and
+the spectrum on the orthogonal complement is
+
+```math
+g_{\rm protected}(\delta,\eta)\ \ge\ g-2\rho
+\qquad\text{when }2\rho<g.
+```
+
+This is a proposed bound to formalize, not a new Lean-certified
+constant. The distance concerns the two-mode cluster versus the
+exterior spectrum, not the spacing between its two levels, which
+may coincide. Seek sharper bounds from the actual matrix eigenvalues
+and the complement residual estimate. Do not infer loss of protection
+when the conservative sufficient condition fails.
+
+**L8a proof obligations**
+
+- [ ] Establish the exact bounded control decomposition and a norm
+  bound for the coordinated matching, using its disjoint endpoints.
+- [ ] Certify the controlled two-mode eigenvalues and the reducing
+  complement on the natural domain of the infinite Hamiltonian.
+- [ ] Prove quantitative exclusion of the remaining real spectrum,
+  using the existing reduced-gap estimate and the applicable
+  compact-resolvent spectral characterization.
+- [ ] State and prove a consolidated full-infinite-operator cluster
+  isolation theorem with explicit admissible control strengths and
+  a positive separation bound, including the degenerate zero-control case.
+- [ ] Investigate sharper control-dependent bounds and their relevance
+  to the three-pulse protocol; if weak controls require longer pulses,
+  treat variable-duration preparation as a separate proof obligation.
+
+**Scope and continuation.** L8a is a static spectral-protection theorem
+target for ideal controls. Later L8b–L8e may address nonuniform control
+errors, leakage, preparation fidelity and robust pulse design.
+No dynamical noise bound, arbitrary-strength spectral gap, hardware
+robustness or fourth Palomar registration is asserted. L6 and all
+Track A objectives remain open as before.
+

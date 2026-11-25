@@ -43,6 +43,7 @@ zeros of analytic functions built from those levels.**
   - [6.4. L7 exact preparation verified; L6 preserved](#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
   - [6.5–6.7. Relative products, finite patches and exploratory zeros](#65-local-geometric-defects-and-relative-spectral-products)
   - [6.8. Scientific assessment and submission status](#68-independent-statement-verification-and-research-interest-assessment)
+  - [6.9. L8a: Quantitative spectral protection (open)](#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open)
 
 ## Executive summary
 
@@ -100,12 +101,13 @@ of its original goals:
 | Track | Question | Status and next steps |
 | --- | --- | --- |
 | **A — Spectral geometry and analytic zeros (original program)** | How do local changes affect the full infinite-operator spectrum and the zeros of its canonical products? | Extensive formal results (§§2–4, 6.1–6.4); open cofactor and isolation certificates, relative determinant identities, certified finite-patch estimates and exploratory zero statistics (§§6.3, 6.5–6.7). |
-| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7 registered.** **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. The original **L6** single-edge approximate control is kept for later. |
+| **B — Localized modes and coherent control (emergent program)** | Can local graph controls manipulate the dark/bright states of the same infinite Hamiltonian? | L1–L5 verified; L5 registered. **L7 registered.** **L7a complete** (§§4.99–4.100); **L7b complete at the algebraic level** (§§4.100–4.101): exact matrix, full Lie generation and constructive Euler state reachability. **L7c.1–4 complete for compact-plane preparation** (§§4.102–4.105): exact single-axis trajectories, phase-weighted rotations, continuous three-pulse dynamics and arbitrary normalized target preparation from dark up to global phase, with zero leakage at all times. General full-space complex dynamics remain open. **L8a is the next open priority:** quantitative spectral protection during ideal coordinated control (§6.9). The original **L6** single-edge approximate control is kept for later. |
 
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
 L7 now proves exact normalized target preparation from dark under coordinated controls; the distinct L6 single-edge approximate preparation theorem remains open.
-See the [L7/L6 research roadmap](docs/bright-spectral-splitting-roadmap.md)
+The next priority is L8a: certify a positive separation from the exterior spectrum for a quantitative range of ideal control strengths (§6.9), as a foundation for later robustness research.
+See the [localized-mode control roadmap](docs/bright-spectral-splitting-roadmap.md)
 and the preserved [single-edge research note](docs/edge-control-reachability.md).
 The detailed Lean-module catalogue and all existing theorem descriptions
 remain below.
@@ -168,6 +170,7 @@ The table below separates proved results from remaining research tasks.
 | Exact phase-weighted rotation action, L7c.2 | §4.103: the full natural-domain single-axis trajectories equal the embeddings of the X and Z rotation matrices with their common phases, for every complex initial pair and real strength and time. Lean-verified |
 | Continuous three-pulse protocol, L7c.3 | §4.104: exact Z–X–Z composition for arbitrary complex initial pairs and real strengths, continuous full-space components and exact switch matching, natural-domain membership, conserved squared complex norm and zero leakage at every time, with full Schrödinger equations on each open pulse interval. Lean-verified |
 | Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified and registered as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1) |
+| L8a — spectral protection (open) | §6.9: seek an explicit lower bound on separation of the controlled two-mode cluster from the remaining infinite spectrum; no new verified result is asserted |
 | Remaining control research | General complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem remain open (§6.4) |
 
 The program already has formal results on infinite-operator spectral
@@ -5142,6 +5145,8 @@ of its formal infrastructure.
    from dark with zero leakage (§§4.102–4.105). General complex unitary
    evolution remains open. **L6 remains the deferred original
    single-edge approximate-control program**, not a cancelled goal.
+   **L8a is the next open priority (§6.9):** quantify energetic isolation
+   under coordinated controls, before studying imperfect control dynamics.
    The [detailed control roadmap](docs/bright-spectral-splitting-roadmap.md)
    separates these tasks and their proof obligations.
 
@@ -5857,6 +5862,76 @@ preparation theorem or experimental realization is claimed.
   and novelty independently of registry verification.
 - [ ] Continue the separate scalar cofactor and finite-patch
   certificates required in §§6.3, 6.5 and 6.6.
+
+### 6.9. L8a — Quantitative spectral protection under coordinated controls (open)
+
+**Current research priority, not a verified result.** L7 proves that the
+two localized modes can be manipulated without any leakage when both
+controls are applied exactly as prescribed. That protection is
+geometric: the two-mode plane is invariant even for large signed
+control strengths. It does not by itself show that the two controlled
+energy levels remain separated from the rest of the spectrum.
+L8 begins by asking how much energetic protection survives while the
+controls are active. This is a prerequisite for investigating the
+effect of imperfections, not a proof of robustness against noise.
+
+**Verified starting point.** At zero control strengths, the complete
+real bounded-inverse spectrum has no other point in the closed
+radius-`g = 1/128` window about `E_*` (§4.79). The original dark/bright
+plane `P` and its orthogonal complement `Q = I - P` reduce the ideal
+controlled Hamiltonian by exact invariance and symmetry
+(§§4.99–4.102; make the domain and reducing-space statements explicit
+where needed). The two eigenvalues of its exact two-by-two matrix
+are algebraically given by
+
+```math
+\lambda_\pm(\delta,\eta)
+= E_*+\delta/2+\eta\ \pm\sqrt{\delta^2/4+\eta^2}.
+```
+
+**Proposed proof target.** Write the change from the zero-control
+Hamiltonian as `B = δ R + η M`, where `R` is the first-ring onsite
+projection and `M` is the sum of the eight matched edge operators.
+Aim to certify `‖R‖ ≤ 1` and `‖M‖ ≤ 2` using the actual disjoint
+endpoints, rather than the crude sum of eight separate edge norms.
+Set `ρ = |δ| + 2|η|`. A conservative candidate lower bound on the
+separation between the controlled two-mode spectral cluster and
+the spectrum on the orthogonal complement is
+
+```math
+g_{\rm protected}(\delta,\eta)\ \ge\ g-2\rho
+\qquad\text{when }2\rho<g.
+```
+
+This is a proposed bound to formalize, not a new Lean-certified
+constant. The distance concerns the two-mode cluster versus the
+exterior spectrum, not the spacing between its two levels, which
+may coincide. Seek sharper bounds from the actual matrix eigenvalues
+and the complement residual estimate. Do not infer loss of protection
+when the conservative sufficient condition fails.
+
+**L8a proof obligations**
+
+- [ ] Establish the exact bounded control decomposition and a norm
+  bound for the coordinated matching, using its disjoint endpoints.
+- [ ] Certify the controlled two-mode eigenvalues and the reducing
+  complement on the natural domain of the infinite Hamiltonian.
+- [ ] Prove quantitative exclusion of the remaining real spectrum,
+  using the existing reduced-gap estimate and the applicable
+  compact-resolvent spectral characterization.
+- [ ] State and prove a consolidated full-infinite-operator cluster
+  isolation theorem with explicit admissible control strengths and
+  a positive separation bound, including the degenerate zero-control case.
+- [ ] Investigate sharper control-dependent bounds and their relevance
+  to the three-pulse protocol; if weak controls require longer pulses,
+  treat variable-duration preparation as a separate proof obligation.
+
+**Scope and continuation.** L8a is a static spectral-protection theorem
+target for ideal controls. Later L8b–L8e may address nonuniform control
+errors, leakage, preparation fidelity and robust pulse design.
+No dynamical noise bound, arbitrary-strength spectral gap, hardware
+robustness or fourth Palomar registration is asserted. L6 and all
+Track A objectives remain open as before.
 
 **Maintenance rules:** append each new verified result to §4 and to the
 roadmap **without deleting earlier results or historical registrations**;
