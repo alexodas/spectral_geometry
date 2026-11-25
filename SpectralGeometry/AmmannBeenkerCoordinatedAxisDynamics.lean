@@ -825,6 +825,7 @@ theorem coordinatedOnsite_centered_norm (x : TileHilbert Vertex) :
   rw [← real_inner_self_eq_norm_sq]
   simp only [inner_sub_left, inner_sub_right, real_inner_smul_left,
     real_inner_smul_right, real_inner_self_eq_norm_sq, hi, hj]
+  rw [norm_smul, Real.norm_eq_abs, abs_of_nonneg (by norm_num : 0 ≤ (1 / 2 : ℝ))]
   ring
 
 /-- M-I is an exact isometry because the matching operator is
