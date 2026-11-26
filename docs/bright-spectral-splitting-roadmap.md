@@ -10,13 +10,11 @@ Following the registered L7 and L8a results, exact variable-duration preparation
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
-**Active research branch:** `research/l7-exact-leakage-free-control` (branched from the verified `main` commit `7b68540619ab45e5233b2d5ec8273829b3fbba77`).
-**Historical L1–L5 branch:** `research/bright-spectral-splitting-20261122`.
-**Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian; control statements will require a separate complex quantum-dynamics formalization.
+**Scope:** the actual infinite confined Ammann–Beenker cut-and-project vertex graph and natural-domain Hamiltonian. The coordinated-control theorems construct exact trajectories in the original localized plane using real and imaginary full-domain vectors; a general complex full-space propagator remains open.
 
 **L7 central objective verified: exact normalized target preparation from dark.** L7a, L7b and L7c.1–4 are Lean-verified. The three unit-duration pulses with strengths (δ,η)=(0,p),(-2t,0),(0,q) reach every normalized complex dark/bright pair from dark up to the explicit phase exp(i(-3E_*+t-p-q)), with continuous full-graph components, natural-domain membership, conserved unit squared complex norm, zero leakage at every time and exact Schrödinger equations on each open interval ([README §4.105](coordinated-quantum-control.md#4105-exact-arbitrary-target-preparation-from-dark-without-leakage)). The general complex full-space propagator and stronger control results remain separate. The independent [third package](../palomar/exact-leakage-free-preparation/) passed full Lean and Comparator verification with the bundled kernels, Palomar mechanical and renderability checks, and automated editorial review with no blocking problem. Registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1). L6 and Track A are preserved.
 
-**Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (Palomar feedback fix in PR #89; full Lean and independent Comparator passed [Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
+**Established foundation:** **L1–L5 are Lean/Comparator verified** for the full infinite graph. The single-edge perturbation has a fixed simple dark level, one unique simple moving real point-spectrum level in the closed radius-`1/256` window for `0<|ε|≤1/1024`, `‖Qx‖≤256|ε||c|‖QWF‖` with `‖QWF‖²=7/16`, and `|E_b-(E_*+ε/4)|≤112ε²` with a strict signed shift. The consolidated L5 theorem now also explicitly states and proves the **nonzero fixed dark eigenvector and its full-domain eigenvalue equation** (full Lean and independent Comparator verification passed after the strengthened statement). This L5 statement is **not** a proof of general quantum dynamics or L6 reachability; the distinct L7 zero-leakage preparation theorem is now proved by the coordinated controls below.
 
 **Registered L8a result — quantitative spectral protection during coordinated control.** L8a.1 is Lean-verified: exact control norms and bounded perturbation decomposition ([README §4.106](coordinated-quantum-control.md#4106-sharp-coordinated-control-norms-and-exact-bounded-perturbation)). L8a.2 is Lean-verified: exact controlled plane levels and natural-domain reducing projections ([README §4.107](coordinated-quantum-control.md#4107-exact-controlled-plane-energies-and-natural-domain-reduction)). L8a.3 is Lean-verified: quantitative exterior exclusion and complete real-spectrum characterization ([README §4.108](coordinated-quantum-control.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)). L8a.4 is Lean-verified: explicit positive cluster isolation in the complete real spectrum ([README §4.109](coordinated-quantum-control.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)). The central L8a objective and centered refinement are complete ([README §4.110](coordinated-quantum-control.md#4110-spectral-protection-during-coordinated-control)); separate independent comparison passed and the result was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). Further refinements remain open. See §8 below and [README §6.9](research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open).
 
@@ -87,7 +85,7 @@ Because W has rank one and its overlap with a is nonzero,
 The exact representation by a,b and the one-edge formula
 force equal coefficients. Two Lean source declarations are added
 in `AmmannBeenkerNearCrossingEigenvectors.lean`: the edge-zero lemma
-and the dark-only conclusion. **L1 verified** by both PR #88 workflows on commit `464bee37d3477a20f24c3ac48ac116e748fdfd01`.
+and the dark-only conclusion. **L1 verified** in Lean.
 
 **L2 — Genuine isolated pair of simple point-spectrum energies (verified).**
 Construct complete monotone eigenbases of H₀ and Hε from the
@@ -98,20 +96,14 @@ perturbed slots within 2|ε| of E*. When 4|ε|<g, all other slots
 stay away. L1 ensures that only one of the two slots can equal E*,
 so the other corresponds to a new simple bright-derived level.
 The new module packages existence of both complete ordered eigenbases
-and the explicit 2|ε| indexwise stability bound; both are **Lean verified** on commit `bcc0d2971f5c310743c012935ce3547db021b141` (Action #313).
-The exact-double count passed Action #316, and the generic
-consecutive-index theorem plus its concrete crossing corollary passed
-both the full Lean build and independent Comparator in Action #319
-(commit `1f0935439bca41f49d04124cd63ab83d28ae3cf9`).
+and the explicit 2|ε| indexwise stability bound; both are **Lean verified**. The exact-double count, generic consecutive-index theorem and concrete crossing corollary are Lean-verified.
 **L2c is now verified:** `crossing_exists_distinct_perturbed_level_near`
 uses `DomainEigenbasis.ordered_levels_unique` to identify the
 counting and stability sequences, then dark-only rigidity and
 orthonormality to exhibit a *genuine nonzero* perturbed natural-domain
 eigenvector at some `E_b ≠ E_*`, with `|E_b − E_*| ≤ 2|ε|`.
 It holds for **every ε ≠ 0**, without a smallness assumption.
-Both Lean and the independent Comparator passed
-[Action #320](https://github.com/alexodas/spectral_geometry/actions/runs/45050640931)
-on commit `53075f3fd8af3aef9287b30a8ae0e17f4f3dd5e2`.
+The substantive Lean proof passed verification.
 L2c by itself is an existence theorem only. **L2d now proves the
 remaining small-window conclusions:** for `0 < |ε| ≤ 1/1024`,
 `crossing_perturbed_isolated_pair_simple` shows that every
@@ -123,9 +115,7 @@ L2d proves moving simplicity). The new
 `DomainEigenbasis.eigenvalue_occurs` and
 `DomainEigenbasis.eigenvector_eq_smul_of_unique_level`
 lemmas make completeness and geometric simplicity explicit.
-The complete Lean build and independent Comparator passed
-[Action #324](https://github.com/alexodas/spectral_geometry/actions/runs/45054460160)
-on commit `180f1d8aaf867967805d7f59891249961e8cda22`.
+The substantive Lean proof passed verification.
 The theorem establishes **point-spectrum** coverage, not a
 new standalone assertion about the complex spectrum.
 
@@ -144,9 +134,7 @@ so `‖q‖ ≤ 256|ε| |c| ‖v‖`. The new theorems
 `crossing_moving_eigenvector_bright_nonzero` and
 `crossing_exists_moving_bright_sharp_leakage` certify the entire
 statement, including `c≠0` and dark orthogonality, in the actual
-infinite natural domain. Lean and the independent Comparator passed
-Action #328 (commit `0590eb7`); the norm-relative preliminary
-bound `‖Qx‖ ≤ 512|ε|‖x‖` passed Action #326.
+infinite natural domain. The sharp result and the preliminary norm-relative bound `‖Qx‖ ≤ 512|ε|‖x‖` are Lean-verified.
 
 **L4 — Quadratic spectral error for the actual moving eigenvalue (verified).**
 The existing exact bright pairing yields
@@ -167,9 +155,7 @@ external feedback `⟨QWF,Qx⟩`,
 `‖QWF‖²=7/16`. Its existential corollary
 `crossing_exists_moving_level_quadratic_bound` attaches this
 bound to the true unique simple moving point-spectrum energy.
-Both the complete Lean build and independent Comparator passed
-[Action #331](https://github.com/alexodas/spectral_geometry/actions/runs/45059362269)
-at commit `e03f7cfc88b933fe9c2a635d33016927e6d64709`.
+The substantive Lean proof passed verification.
 
 **L5 — Strict signed shift and final full-domain theorem (verified).**
 Theorem `crossing_moving_energy_shift_sign` derives a strict
@@ -185,26 +171,22 @@ full-exterior leakage bound, exhaustive two-level real point
 spectrum in the closed `1/256` window, and simple dark
 and moving eigenspaces. The exact common hypotheses are
 `ε≠0`, `|ε|≤1/1024` and the original infinite
-natural domain. Both full Lean and independent Comparator
-passed [Action #333](https://github.com/alexodas/spectral_geometry/actions/runs/45060461341)
-on source commit `fbd2503d33280d7d0c2fe5306ea2739806628b20`.
+natural domain. The substantive Lean proof passed verification.
 Independent research-interest assessment and the distinct
 complex-dynamics or spectral-product programs remain open;
-none is claimed in this theorem. No comparison package changed.
+none is claimed in this theorem.
 
 ## 4. Efficient Lean development sequence
 
 1. **L1 green**: the dark-only source declarations are Lean verified.
 2. **L2a green**: the ordered-eigenbasis stability and external-edge
-   specializations passed Action #313.
-3. **L2b fully green**: Action #316 certified exact-double
-   multiplicity; Action #319 certified consecutive spectral slots
-   with both Lean and the independent Comparator.
-4. **L2c fully green**: Action #320 certified the existence of a
+   specializations are Lean-verified.
+3. **L2b verified**: exact-double multiplicity and consecutive spectral slots are Lean-verified.
+4. **L2c verified**: Lean proves the existence of a
    true distinct perturbed natural-domain eigenpair for every
    `ε ≠ 0`, with `|E_b − E_*| ≤ 2|ε|`. The independent
    Comparator also passed.
-5. **L2d fully green**: Action #324 certifies
+5. **L2d verified**: Lean proves
    `crossing_perturbed_isolated_pair_simple` on the actual infinite
    operator for `0 < |ε| ≤ 1/1024`, showing the closed radius
    `1/256` contains precisely two distinct simple
@@ -212,31 +194,28 @@ none is claimed in this theorem. No comparison package changed.
    within `2|ε|`. A generic complete DomainEigenbasis interface
    establishes eigenvalue coverage and simplicity for unique slots.
    Both the complete Lean and independent Comparator jobs passed.
-6. **L3a fully green**: Action #326 (commit `4951e87`)
-   verified `crossing_moving_eigenvector_dark_orthogonal`,
+6. **L3a verified**: Lean proves `crossing_moving_eigenvector_dark_orthogonal`,
    `crossingQubitPart_eq_bright_smul_of_dark_orthogonal`,
    `crossing_moving_eigenvector_bright_nonzero`, and
    `crossing_exists_moving_eigenvector_bright_and_leakage`.
    Thus the genuine moving eigenvector is orthogonal to the
    dark direction, has nonzero bright amplitude, and satisfies
    `‖Qx‖ ≤ 512|ε|‖x‖` for `0<|ε|≤1/1024`.
-7. **L3b fully green**: Action #328 verified the exact
+7. **L3b verified**: Lean proves the exact
    full-operator projected residual, nonexpansiveness of `Q`,
    edge-force decomposition, and the sharp inequality
    `‖Qx‖ ≤ 256|ε||c|‖QWF‖`, with `c=⟨F,x⟩≠0`
-   and `‖QWF‖²=7/16`. The full Lean build and independent
-   Comparator passed at commit `0590eb7`.
+   and `‖QWF‖²=7/16`.
 8. **L4 fully green**: the exact external feedback identity,
    real Cauchy–Schwarz argument and quantitative `112ε²`
-   spectral-level estimate passed complete Lean and Comparator
-   CI in Action #331.
-9. **L5 fully green**: Action #333 certifies
+   spectral-level estimate are Lean-verified.
+9. **L5 verified**: Lean proves
    `crossing_moving_energy_shift_sign` and
    `crossing_final_signed_bright_spectral_splitting`,
    combining sign, complete isolated real point-spectrum
    count, simplicity, sharp energy law and full-exterior
    eigenvector control on the original natural domain.
-   Both full Lean and the independent Comparator passed.
+   The final L5 package also passed independent comparison.
 10. **L7a–L7c.4 (verified)**: construct and verify the eight-edge
     operator preserving the original dark–bright plane exactly, the
     Lie algebra and the continuous three-pulse preparation theorem.
@@ -247,52 +226,30 @@ none is claimed in this theorem. No comparison package changed.
 
 ## 5. L5 Palomar candidate, editorial feedback and correction
 
-The newly selected scientific result is the single consolidated
+The registered L5 scientific result is the consolidated
 `crossing_final_signed_bright_spectral_splitting` theorem (§4.97),
 not the earlier generator-response conclusion (§4.92).
-The active Mathlib-only `Challenge.lean` and
-`Solution.lean` now state and prove that exact selected
-theorem, with the six necessary concrete-model witnesses.
+Its Mathlib-only [Challenge](../palomar/signed-bright-splitting/Challenge.lean),
+[Solution](../palomar/signed-bright-splitting/Solution.lean),
+[Comparator](../palomar/signed-bright-splitting/comparator.json) and
+[metadata](../palomar/signed-bright-splitting/formalization.yaml)
+are preserved together, with six concrete-model witnesses and one
+scientific conclusion. The earlier unsubmitted generator-response
+package is archived in [palomar/dark-bright](../palomar/dark-bright/).
+Each Comparator remains in its own directory; the active root files
+now describe the fifth candidate (§4.111).
 
-The active Comparator is kept **per theorem** at
-[`palomar/signed-bright-splitting/comparator.json`](../palomar/signed-bright-splitting/comparator.json).
-The previous **unsubmitted** generator-response candidate
-is archived under [`palomar/dark-bright/`](../palomar/dark-bright/)
-with its original Comparator and snapshots of its Challenge and
-Solution. The redundant root `comparator.json` was deleted;
-the static checks, comparator runner, diagnosis script and
-CI workflow now use the dedicated active configuration.
-
-The project description in [`formalization.yaml`](../formalization.yaml)
-states the theorem in plain English: one simple energy remains
-fixed while exactly one other simple energy moves in the direction
-of a small one-edge change, with explicit bounds for its value
-and its wave pattern. It does not contain workflow,
-pull-request or commit details.
-
-The original candidate package passed the complete Lean build,
-static checks and independent Comparator in
-[Action #335](https://github.com/alexodas/spectral_geometry/actions/runs/45063053611).
-The external L5 submission pinned to commit
-`4c2633d6c8ee6e32b163bc4d27483a31f7c50aae` passed
-mechanical verification and Challenge renderability, but the
-**automated editorial review requested a correction**: the selected
-theorem had proved the uniqueness of the fixed dark eigendirection,
-without explicitly asserting the existence of its nonzero eigenvector.
-The moving bright eigenvector had already been explicitly proved nonzero.
-
-[PR #89](https://github.com/alexodas/spectral_geometry/pull/89)
-strengthened the selected L5 theorem and the Mathlib-only Challenge with
+The L5 metadata explains the fixed simple energy and the unique
+moving simple energy, with explicit energy and wave-pattern bounds.
+Automated editorial review of the earlier L5 candidate requested
+explicit existence of the nonzero fixed dark eigenvector, in addition
+to uniqueness of its eigendirection. The strengthened statement adds
 both `crossingDark ≠ 0` and the exact full-domain equation
-`Hε domainCrossingDark = E_* • crossingDark`, using existing source
-lemmas. The full Lean build, static package checks and independent
-Comparator all passed
-[Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987);
-the PR was merged into `main` at
-`7b68540619ab45e5233b2d5ec8273829b3fbba77`.
-The Comparator selection remains
-`palomar/signed-bright-splitting/comparator.json`.
-**Historical verification boundary:** these GitHub checks alone did not establish Palomar registration. The corrected L5 result was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
+`Hε domainCrossingDark = E_* • crossingDark`. The corrected substantive
+proof and independent candidate passed Lean, static packaging and
+Comparator verification.
+
+**Historical verification boundary:** local verification alone did not establish Palomar registration. The corrected L5 result was subsequently registered on 23 November 2026 as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
 
 **Protected historical registration:** the separate first Palomar record
 `PALOMAR-2026-11-06-000012` remains unchanged.

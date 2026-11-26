@@ -1,32 +1,26 @@
 # Single-edge control of the compact crossing: preserved L6 research note
 
-**Place in the research program:** this is the **original, still open
-L6 direction**: single-edge approximate preparation with explicit
-leakage and pulse-error bounds. It is **deferred, not discarded** while
-the active branch first tests **L7a**, an alternative coordinated
-eight-edge perturbation that aims to preserve the two-mode plane
-*exactly*. The full comparison and proof obligations are recorded in
-the [L7/L6 research roadmap](bright-spectral-splitting-roadmap.md);
-the [README research tracks](research-tracks.md#research-tracks-and-current-priority)
-keep the original spectral-product program intact.
+**Place in the research program:** this is the original, still open
+L6 direction: single-edge approximate preparation with explicit leakage
+and pulse-error bounds. It is deferred, not discarded. The alternative
+coordinated eight-edge route has since established exact preparation from
+dark (§4.105), centered spectral protection (§4.110), and exact preparation
+with arbitrarily weak controls and a prescribed spectral gap (§4.111).
+See the [localized-mode roadmap](bright-spectral-splitting-roadmap.md) and
+[research tracks](research-tracks.md#research-tracks-and-current-priority).
 
 **Verification scope:** the exact full-graph algebra and conditional
-one-edge pulse-leakage bounds described below are verified in Lean.
-The later L1–L5 real spectral splitting theorems, including the
-moving eigenpair and the explicit nonzero fixed dark eigenpair,
-are separately verified. **No arbitrary-target quantum preparation
-or full complex unitary propagator is yet proved.** This document
-preserves the earlier single-edge reasoning and historic PR #85/#86
-evidence for provenance; those historical checkpoints do not exhaust
-the current L5 results.
+one-edge pulse-leakage bounds described below are Lean-verified. The later
+L1–L5 real spectral-splitting results, including the moving eigenpair and
+the explicit nonzero fixed dark eigenpair, are separately verified.
+No arbitrary-target preparation theorem for this single-edge L6 route
+or general full-space complex unitary propagator is claimed.
 
-The first Palomar registration remains the separate crossing result
-[README §4.78](ammann-beenker-geometry.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing).
-The original generator-response candidate (§4.92) is archived, not
-registered; the later L5 signed-splitting candidate (§4.98) received
-automated editorial feedback and was strengthened in PR #89, with
-[Action #340](https://github.com/alexodas/spectral_geometry/actions/runs/45142702987)
-green. A new Palomar L5 registration is **not** claimed here.
+The first registration is the exact crossing result (§4.78). The earlier
+generator-response candidate (§4.92) is archived, not registered.
+The strengthened L5 signed-splitting theorem (§4.98) was registered as
+[PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1).
+The coordinated-control results have separate scopes.
 
 ## Starting point: an infinite-graph theorem, not a two-site model
 
@@ -645,13 +639,12 @@ statement would rule out an arbitrary target under edge-only control,
 using conservation of the dark occupation.
 
 This remains an **open, deferred L6 candidate** for approximate
-two-control preparation and edge-only impossibility, and is **not**
-the current L7a proof goal. It has not been proved as an arbitrary
+two-control preparation and edge-only impossibility, and is distinct from the verified coordinated-control route. It has not been proved as an arbitrary
 target-state quantum theorem. The narrower generator-response
 candidate of [README §4.92](single-edge-control.md#492-earlier-unsubmitted-palomar-candidate-exact-dark-protection-and-bright-feedback)
 concerned only static dark protection and bright forcing and was
 archived when the stronger **L5 spectral splitting** result
-became the active Palomar candidate (§4.98). The original
+was selected for separate registration (§4.98). The original
 2026 Palomar registration remains intact.
 
 ## Verified bright-amplitude generator identity (§4.91) and archived earlier Palomar candidate (§4.92)
@@ -659,7 +652,7 @@ became the active Palomar candidate (§4.98). The original
 **Historical verification checkpoint (retained).** The original
 fourteen results in
 [`AmmannBeenkerBrightAmplitude.lean`](../SpectralGeometry/AmmannBeenkerBrightAmplitude.lean)
-passed the PR #86 full Lean Action. The old combined generator-response
+passed full Lean verification. The old combined generator-response
 candidate was later archived as `palomar/dark-bright/`.
 The independently checked and subsequently editorially revised
 L5 package now lives under `palomar/signed-bright-splitting/`
@@ -710,14 +703,11 @@ eigenvalue at both endpoints `ε=0`, as well as the time-dependent
 spectral subspace and domain requirements. Restoring `K_*` is
 not equivalent to showing `Qψ(T)=0`.
 
-The historical 103-module PR #85 and subsequently added 104th
-module in PR #86 remain recorded as early verification checkpoints.
 The combined theorem `crossingOneEdgeDarkBrightResponse` packages
 three full-graph static conclusions; its earlier independent package
 is preserved in `palomar/dark-bright/`, rather than being described
 as a pending current submission. The later L5
 `crossing_final_signed_bright_spectral_splitting` package is the
-stronger active selection and passed independent checks after the
-explicit-dark correction (Action #340). No general complex quantum
+stronger registered L5 selection and passed independent checks after the explicit-dark correction. No general complex quantum
 propagator or L6 preparation theorem follows from either package,
 and the first Palomar registration has not been rewritten.

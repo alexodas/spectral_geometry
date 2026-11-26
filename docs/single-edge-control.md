@@ -1003,8 +1003,7 @@ that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](../palomar/dark-bright/comparator.json)
 and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
-The active Comparator now selects spectral protection during coordinated control (§4.110);
-all three registrations and the earlier unsubmitted candidate remain historically intact.
+The active Comparator now selects exact protected preparation with arbitrarily weak controls (§4.111); all four earlier registrations and the unsubmitted generator-response candidate are preserved.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -1396,7 +1395,7 @@ the original two localized states. The result concerns the
 entire infinite network and its natural domain; it is
 not a time-evolution or experimental-control result.
 
-**Independent registered package.** The L5 [Challenge](../palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](../palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](../palomar/signed-bright-splitting/comparator.json) and [formalization metadata](../palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](../palomar/dark-bright/) is also preserved. The third registered result (§4.105) is preserved as its own package; the active root files now describe spectral protection (§4.110). Each Comparator remains in its own directory; there is no root Comparator.
+**Independent registered package.** The L5 [Challenge](../palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](../palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](../palomar/signed-bright-splitting/comparator.json) and [formalization metadata](../palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](../palomar/dark-bright/) is also preserved. The third registered result (§4.105) and the fourth registered result (§4.110) are preserved as separate packages; the active root files now describe exact protected preparation (§4.111). Each Comparator remains in its own directory; there is no root Comparator.
 
 **Verification and registration.** The L5 mathematical source and
 independently assembled package passed full Lean and independent kernel

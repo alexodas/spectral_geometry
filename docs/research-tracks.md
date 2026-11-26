@@ -13,7 +13,7 @@ of its original goals:
 Track B emerged from the verified graph geometry and spectral splitting,
 but quantum control is **not a prerequisite** for completing Track A.
 L7 now proves exact normalized target preparation from dark under coordinated controls; the distinct L6 single-edge approximate preparation theorem remains open.
-L8a's static protection objective is verified (§§4.106–4.110), including a stronger centered estimate. The spectral-protection result passed independent statement verification and was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). Variable-duration preparation with simultaneous energetic protection is now Lean-verified (§4.111). Further refinements and imperfect controls remain research directions (§6.9).
+L8a's static protection objective is verified (§§4.106–4.110), including a stronger centered estimate. The spectral-protection result passed independent statement verification and was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). Variable-duration preparation with simultaneous energetic protection is Lean-verified and independently compared (§4.111); separate registry verification remains pending. Further refinements and imperfect controls remain research directions (§6.9).
 See the [localized-mode control roadmap](bright-spectral-splitting-roadmap.md)
 and the preserved [single-edge research note](edge-control-reachability.md).
 The detailed Lean-module catalogue and all existing theorem descriptions

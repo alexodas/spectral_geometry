@@ -454,8 +454,7 @@ other unchanged. Under a time-dependent quantum interpretation, this could
 change the relative phase of a **pre-existing** coherent superposition; the
 phase difference would remain after returning to `t_*`. Because the same two
 modes remain eigenvectors for every `t`, changing `t` alone cannot create
-the missing mode amplitude when starting in only one mode. Quantum time
-evolution and phase control are not yet formalized in this real Lean model.
+the missing mode amplitude when starting in only one mode. At this historical single-edge stage, quantum time evolution and phase control were not formalized. The later coordinated-control theorems (§§4.102–4.105, 4.111) now construct the specified compact-plane dynamics, without resolving the original L6 problem or constructing a general complex propagator.
 
 A change to the weight of the single edge between the two rings is a more
 promising candidate for mixing the amplitudes. The original code already
