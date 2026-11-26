@@ -837,8 +837,8 @@ isolation theorem. Exact geometric invariance and the L7 preparation
 theorem remain valid at arbitrary ideal control strengths.
 The controlled eigenvalues and reducing complement are now verified in
 §4.107 (L8a.2), and exterior spectral exclusion is verified in §4.108
-(L8a.3). Consolidated cluster isolation is verified in §4.109 (L8a.4). No protection against nonuniform errors, new experimental claim,
-or fourth Palomar registration is asserted.
+(L8a.3). Consolidated cluster isolation is verified in §4.109 (L8a.4). No protection against nonuniform errors or experimental claim is asserted.
+The fourth registration selects the centered protection theorem and its supporting statements (§4.110).
 
 ### 4.107. Exact controlled plane energies and natural-domain reduction
 
@@ -926,8 +926,8 @@ selected Palomar result. The equivalence concerns eigenvectors in the
 compact plane only; it does not assert global simplicity or isolation
 for nonzero controls. L8a.3 now quantitatively excludes exterior
 energies in §4.108; L8a.4 consolidates cluster isolation in §4.109,
-including degeneracy at zero controls. L6, Track A and the three registrations
-retain their earlier scope.
+including degeneracy at zero controls. L6, Track A and the earlier registrations
+retain their scope.
 
 ### 4.108. Quantitative exclusion of exterior real spectral levels
 
@@ -1174,8 +1174,8 @@ Comparator passed for the strengthened substantive proof. The new
 [Comparator](../palomar/spectral-protection-during-coordinated-control/comparator.json)
 and [metadata](../palomar/spectral-protection-during-coordinated-control/formalization.yaml)
 have passed full Lean verification and independent comparison of all
-15 selected propositions, including NanoDa and con-ron. The candidate
-is ready for separate registry submission. No new registry record or
+15 selected propositions, including NanoDa and con-ron. The result
+was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). No
 independent human review is asserted. The theorem concerns
 static protection for ideal controls on the specified infinite graph;
 imperfect controls and variable-duration preparation remain distinct

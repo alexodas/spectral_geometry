@@ -55,9 +55,9 @@ L7a, L7b and L7c.1–4 are Lean-verified (§§4.99–4.105); the final preparati
 The L7 exact zero-leakage preparation theorem from dark is proved.
 A general complex quantum propagator and the distinct L6 reachability
 theorem remain open. Earlier conditional time-uniform leakage bounds
-retain their separate scope. The centered spectral-protection candidate
-(§4.110) has passed independent comparison; registry submission remains
-pending. The next coordinated-control objective is variable-duration
+retain their separate scope. The centered spectral-protection result
+(§4.110) passed independent comparison and was registered on
+26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). The next coordinated-control objective is variable-duration
 preparation with prescribed energetic protection (§6.9).
 
 A checked item below denotes an actual substantive Lean result
@@ -726,7 +726,7 @@ remains archived under `palomar/dark-bright/`.
 
 **Third registration (§4.105).** The Lean-verified exact preparation theorem was selected with its concrete graph witnesses and local-edge certificates. The [independent package](../palomar/exact-leakage-free-preparation/) passed full Lean and independent Comparator verification, Palomar mechanical verification and renderability checks. The automated editorial review identified no blocking problem. The result was registered on 25 November 2026 as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1).
 
-**New candidate (§4.110).** Spectral protection during coordinated control is Lean-verified; the [independent package](../palomar/spectral-protection-during-coordinated-control/) passed full Lean verification and independent statement comparison, including NanoDa and con-ron. Ready for separate registry submission; no fourth registration is claimed.
+**Fourth registration (§4.110).** Spectral protection during coordinated control is Lean-verified; the [independent package](../palomar/spectral-protection-during-coordinated-control/) passed full Lean verification and independent statement comparison, including NanoDa and con-ron. Registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
 **Registration boundary.** The historical first registration
 `PALOMAR-2026-11-06-000012` remains unchanged.
@@ -845,8 +845,8 @@ centering at the controlled midpoint gives the full-space perturbation
 bound `ρ/2`. If `ρ/2+s<1/128`, the complete real spectrum is isolated
 by at least `1/128−ρ/2−s>0`, with exactly the two levels in their closed
 interval and no leakage at either. In particular `ρ<1/128` suffices and
-the gap is at least `1/128−ρ`. The separate Palomar candidate passed
-independent comparison; registry submission and review remain pending.
+the gap is at least `1/128−ρ`. The separate Palomar package passed
+independent comparison and was registered as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
 **L8a proof obligations**
 
@@ -863,8 +863,8 @@ independent comparison; registry submission and review remain pending.
 - [x] Verify the stronger centered control bound and consolidated spectral
   protection (§4.110).
 - [x] Independently compare the new spectral-protection candidate.
-- [ ] Submit it for separate registry verification.
-- [ ] After consolidation of the current registry candidate, prove exact
+- [x] Submit it for separate registry verification and record the fourth registration.
+- [ ] Following the fourth registration, prove exact
   variable-duration preparation with arbitrarily weak ideal controls,
   zero leakage and a prescribed fraction of the certified baseline gap
   maintained throughout all pulse stages. This is a separate theorem
@@ -876,7 +876,7 @@ independent comparison; registry submission and review remain pending.
 theorem for ideal controls. Later L8b–L8e may address nonuniform control
 errors, leakage, preparation fidelity and robust pulse design.
 No dynamical noise bound, arbitrary-strength spectral gap, hardware
-robustness or fourth Palomar registration is asserted. L6 and all
+robustness is asserted. The fourth registration concerns static spectral protection. L6 and all
 Track A objectives remain open as before.
 
 See [Chapter 7 — Research methodology and maintenance rules](maintenance-rules.md#7-research-methodology-and-maintenance-rules) for the repository's documentation and verification policy.

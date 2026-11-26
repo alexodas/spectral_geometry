@@ -164,8 +164,8 @@ The active [theorem-specific Comparator](../palomar/spectral-protection-during-c
 and matching snapshots are in [`palomar/spectral-protection-during-coordinated-control/`](../palomar/spectral-protection-during-coordinated-control/).
 The complete 116-module substantive library is Lean-verified with no
 proof holes. Independent comparison of all 15 newly selected statements passed,
-including the bundled NanoDa and con-ron kernels; no fourth registration
-is claimed.
+including the bundled NanoDa and con-ron kernels. The fourth result was
+registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
 The third registered preparation package (§4.105) remains preserved in
 [`palomar/exact-leakage-free-preparation/`](../palomar/exact-leakage-free-preparation/),
