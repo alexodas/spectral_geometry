@@ -6,7 +6,7 @@ spectral-geometry and analytic-zero program (Track A) remains active,
 with its verified canonical-product results and open relative
 determinant, cofactor, finite-patch and zero-statistics objectives
 in the [main README §6](research-roadmap.md#6-roadmap-proof-status-and-next-steps).
-Following the registered L7 and L8a results, the next research priority is exact variable-duration preparation with prescribed energetic protection; this does not withdraw those goals.
+Following the registered L7 and L8a results, exact variable-duration preparation with prescribed energetic protection is Lean-verified (§4.111); independent comparison of the fifth candidate is separate. This does not withdraw the earlier goals.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -609,14 +609,10 @@ for the complete declarations and proof. The separate
 - [x] Verify the centered spectral-protection refinement.
 - [x] Independently compare the new spectral-protection candidate.
 - [x] Submit the candidate for separate registry verification and record the fourth registration.
-- [ ] Following the fourth registration, generalize
-  the exact three-pulse preparation to variable durations. For any normalized
-  target and any prescribed fraction strictly between zero and one of the
-  certified baseline gap, seek a finite-duration protocol with sufficiently
-  weak controls, exact zero leakage, conserved norm, preparation up to global
-  phase, and the prescribed static spectral separation in every pulse stage.
-  This remains a distinct proof obligation; longer pulses do not by themselves
-  establish robustness to noise.
+- [x] Exact variable-duration three-pulse preparation with arbitrarily weak ideal controls,
+  normalized continuous zero-leakage evolution, target up to global phase,
+  and prescribed real spectral separation in each setting (§4.111). Lean-verified.
+- [ ] Independently compare the fifth candidate and record registry verification only if completed.
 - [ ] Investigate further sharp bounds and imperfect control dynamics.
 
 **Scope and continuation.** L8a is a verified static spectral-protection

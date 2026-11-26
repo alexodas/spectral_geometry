@@ -57,8 +57,7 @@ A general complex quantum propagator and the distinct L6 reachability
 theorem remain open. Earlier conditional time-uniform leakage bounds
 retain their separate scope. The centered spectral-protection result
 (§4.110) passed independent comparison and was registered on
-26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). The next coordinated-control objective is variable-duration
-preparation with prescribed energetic protection (§6.9).
+26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). The subsequent variable-duration preparation theorem with prescribed energetic protection is Lean-verified (§4.111); its independent candidate comparison is separate (§6.9).
 
 A checked item below denotes an actual substantive Lean result
 under its stated hypotheses; an unchecked item is an open task.
@@ -762,7 +761,7 @@ single-edge ON/OFF pulse bounds remain conditional on the supplied
 evolution. The coordinated preparation and static isolation theorems
 are independent conclusions; their combination into arbitrary-target
 preparation with a prescribed fraction of the baseline gap throughout
-variable-duration pulses is still a research objective (§6.9).
+variable-duration pulses is now Lean-verified (§4.111; §6.9).
 The [scientific-audience overview](scientific-audience.md#scientific-audience-and-possible-relevance)
 explains these connections and their limitations.
 
@@ -864,12 +863,10 @@ independent comparison and was registered as [PALOMAR-2026-11-26-000015 (version
   protection (§4.110).
 - [x] Independently compare the new spectral-protection candidate.
 - [x] Submit it for separate registry verification and record the fourth registration.
-- [ ] Following the fourth registration, prove exact
-  variable-duration preparation with arbitrarily weak ideal controls,
-  zero leakage and a prescribed fraction of the certified baseline gap
-  maintained throughout all pulse stages. This is a separate theorem
-  target, not a result already established by the static gap or unit-duration
-  preparation theorems.
+- [x] Exact variable-duration preparation with arbitrarily weak ideal controls,
+  zero leakage and a prescribed fraction of the certified baseline gap (§4.111).
+  The substantive proof is Lean-verified.
+- [ ] Independently compare the fifth candidate and record registry verification only if completed.
 - [ ] Investigate further sharp bounds and imperfect control dynamics.
 
 **Scope and continuation.** L8a is a verified static spectral-protection

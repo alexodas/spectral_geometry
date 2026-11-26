@@ -1,8 +1,8 @@
 [← Main README and table of contents](../README.md)
 
-# 4. Infinite-dimensional geometric operators and spectral theory — §§4.99–4.110
+# 4. Infinite-dimensional geometric operators and spectral theory — §§4.99–4.111
 
-**Chapter 4 navigation:** [4.1–4.67. Infinite-dimensional spectral theory](infinite-spectral-theory.md) · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · [4.80–4.98. Single-edge control and spectral splitting](single-edge-control.md) · **4.99–4.110. Coordinated quantum control and spectral protection**
+**Chapter 4 navigation:** [4.1–4.67. Infinite-dimensional spectral theory](infinite-spectral-theory.md) · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · [4.80–4.98. Single-edge control and spectral splitting](single-edge-control.md) · **4.99–4.111. Coordinated quantum control and spectral protection**
 
 <details>
 <summary>Contents of this document</summary>
@@ -18,6 +18,7 @@
 - [4.108. Quantitative exclusion of exterior real spectral levels](#4108-quantitative-exclusion-of-exterior-real-spectral-levels)
 - [4.109. Consolidated quantitative isolation of the controlled cluster](#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)
 - [4.110. Spectral protection during coordinated control](#4110-spectral-protection-during-coordinated-control)
+- [4.111. Exact protected state preparation with arbitrarily weak controls](#4111-exact-protected-state-preparation-with-arbitrarily-weak-controls)
 
 </details>
 
@@ -1178,6 +1179,55 @@ have passed full Lean verification and independent comparison of all
 was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). No
 independent human review is asserted. The theorem concerns
 static protection for ideal controls on the specified infinite graph;
-imperfect controls and variable-duration preparation remain distinct
-research questions.
+imperfect controls remain a distinct research question. The later exact
+variable-duration result is established in §4.111.
 
+### 4.111. Exact protected state preparation with arbitrarily weak controls
+
+The previous results establish exact preparation using three unit-duration
+pulses (§4.105) and centered spectral isolation for sufficiently weak ideal
+controls (§4.110). Neither alone guarantees that the target can be reached
+with an arbitrarily small control budget while retaining a prescribed gap.
+The following theorem supplies that guarantee.
+
+Let a,b be normalized complex dark/bright amplitudes, let `ε > 0`,
+and let `0 < f < 1`. Put `g = 1/128`. The constructive Euler angles
+`p,t,q` have `0 ≤ t ≤ π/2`. Define the maximum unit-duration control budget
+`B = max(2|p|, 2|t|, 2|q|)`, the positive allowance
+`m = min(ε, (1−f)g)`, and the common duration `k = 1 + B/m`.
+Then `k ≥ 1`, and `B/k ≤ m`, including the case B = 0.
+
+Use three successive settings `(δ,η) = (0,p/k), (−2t/k,0), (0,q/k)`,
+each for duration k. Scaling strengths inversely with duration retains
+the Euler rotation, with the exact common phase
+`exp(i(−3kE* + t − p − q))`. The trajectory starts from dark
+and ends at the desired normalized pair up to that phase at time 3k.
+The clamped pulse clocks give continuity at both switches. The embedded
+real and imaginary graph vectors remain on the natural domain, with
+total squared norm one and exactly zero leakage for all real times.
+The coupled full-graph Schrödinger equations hold on the three open
+pulse intervals; no derivative at a switch is claimed.
+
+In each setting `ρ = |δ| + 2|η| ≤ m ≤ ε` and `ρ ≤ (1−f)g < g`.
+By §4.110 the two controlled levels exhaust the real spectrum in their
+closed interval, every eigenvector there is in the localized plane,
+and their distance from every other real spectral energy (and from
+energies of eigenvectors with nonzero leakage) is at least
+`g−ρ ≥ fg = f/128`. This includes coincident levels at zero control.
+The separation is a sufficient bound for each active Hamiltonian, not
+a dynamical noise estimate.
+
+**Lean statements.** The variable-duration trajectory is developed in
+[AmmannBeenkerCoordinatedVariableDuration.lean](../SpectralGeometry/AmmannBeenkerCoordinatedVariableDuration.lean).
+The main result in
+[AmmannBeenkerCoordinatedProtectedPreparation.lean](../SpectralGeometry/AmmannBeenkerCoordinatedProtectedPreparation.lean)
+is `coordinatedProtocol_protected_exact_preparation`, supported by
+`coordinatedDurationAngle_scaled`, `coordinatedProtocolStretch_bounds`
+and `coordinatedProtectedSetting_of_budget`.
+
+The substantive proof passed full Lean/Mathlib kernel verification.
+Independent comparison for this fifth candidate and registry verification
+are separate steps. The four preceding registrations are preserved.
+The result does not assert a general complex propagator, optimal durations,
+preparation at zero control strength for arbitrary targets, retention of
+the entire certified gap, or resilience to imperfect controls.

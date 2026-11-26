@@ -11,6 +11,7 @@ zeros of analytic functions built from those levels.**
   - [A one-edge change splits two energy levels](#a-one-edge-change-splits-two-energy-levels)
   - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
   - [Spectral protection during coordinated control](#spectral-protection-during-coordinated-control)
+  - [Exact protected state preparation with arbitrarily weak controls](#exact-protected-state-preparation-with-arbitrarily-weak-controls)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -21,7 +22,7 @@ zeros of analytic functions built from those levels.**
   - [4.1–4.67. Infinite-dimensional spectral theory](docs/infinite-spectral-theory.md)
   - [4.68–4.79. Ammann–Beenker geometry and the compact crossing](docs/ammann-beenker-geometry.md)
   - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
-  - [4.99–4.110. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
+  - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
@@ -47,6 +48,7 @@ zeros of analytic functions built from those levels.**
     - <a id="4108-quantitative-exclusion-of-exterior-real-spectral-levels"></a>[4.108. Quantitative exclusion of exterior real spectral levels](docs/coordinated-quantum-control.md#4108-quantitative-exclusion-of-exterior-real-spectral-levels)
     - <a id="4109-consolidated-quantitative-isolation-of-the-controlled-cluster"></a>[4.109. Consolidated quantitative isolation of the controlled cluster](docs/coordinated-quantum-control.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)
     - <a id="4110-spectral-protection-during-coordinated-control"></a>[4.110. Spectral protection during coordinated control](docs/coordinated-quantum-control.md#4110-spectral-protection-during-coordinated-control)
+    - <a id="4111-exact-protected-state-preparation-with-arbitrarily-weak-controls"></a>[4.111. Exact protected state preparation with arbitrarily weak controls](docs/coordinated-quantum-control.md#4111-exact-protected-state-preparation-with-arbitrarily-weak-controls)
 - <a id="5-building-and-verification"></a>[5. Building and verification](docs/building-and-verification.md#5-building-and-verification)
 - <a id="6-roadmap-proof-status-and-next-steps"></a>[6. Roadmap: both research tracks and open questions](docs/research-roadmap.md#6-roadmap-proof-status-and-next-steps)
   - <a id="61-p2--spectral-foundations-and-the-complex-resolvent-interface"></a>[6.1–6.4. Original spectral and geometric program](docs/research-roadmap.md#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
@@ -121,6 +123,20 @@ The research direction was conceived and directed by Alessandro Odasso, who is n
 
 **Palomar registration.** The fourth result was registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
+
+### Exact protected state preparation with arbitrarily weak controls
+
+Can we prepare a chosen quantum state using very weak controls while keeping its energy levels separated from the rest of an infinite network? For the particular confined Ammann–Beenker graph studied here, the answer is yes.
+
+Earlier results establish two localized wave patterns at a common energy, a certified gap of 1/128 from the other real spectral energies, exact preparation without leakage using two coordinated controls, and spectral protection for sufficiently small controls. The new theorem brings these results together.
+
+Starting from the dark state, choose any normalized mixture of the dark and bright states, including either state alone. Also choose any positive limit ε on control strength and any fraction f strictly between zero and one of the certified gap that you wish to retain. The theorem constructs three consecutive pulses, each of the same finite duration, that reach the chosen state exactly up to a common phase of modulus one.
+
+The first and third pulses change eight inter-ring edges by the same signed amount; the middle pulse changes a common onsite parameter at eight first-ring vertices. By making the pulses longer and reducing their strengths in inverse proportion, we preserve the desired rotation while making the combined control size |δ| + 2|η| at most ε, where δ is the onsite change and η the edge-strength change.
+
+Throughout the protocol the state remains normalized, with exactly zero leakage outside the original two-state space, including at both switching times. In each of the three control settings, the two localized energy levels are separated from every other energy in the full real spectrum by at least f/128. Every eigenvector at either level is confined to the original space, and there are no other real spectral energies between them. The two levels may coincide when both controls vanish. The theorem gives an explicit duration and common phase.
+
+This is an exact result for the unbounded Hamiltonian on the full infinite graph, not a two-state approximation or a finite simulation. The constructed state is continuous, its real and imaginary parts lie in the natural operator domain, and it satisfies the full Schrödinger equations on each open pulse interval. Differentiability at the switches is not asserted. The result does not claim a general quantum evolution map, arbitrary-target preparation at zero control strength, retention of the entire certified gap, robustness to noise or imperfect coordination, optimal pulse durations, or experimental feasibility.
 
 ## Detailed section index
 
