@@ -7,7 +7,7 @@ the active branch first tests **L7a**, an alternative coordinated
 eight-edge perturbation that aims to preserve the two-mode plane
 *exactly*. The full comparison and proof obligations are recorded in
 the [L7/L6 research roadmap](bright-spectral-splitting-roadmap.md);
-the [README research tracks](../README.md#research-tracks-and-current-priority)
+the [README research tracks](research-tracks.md#research-tracks-and-current-priority)
 keep the original spectral-product program intact.
 
 **Verification scope:** the exact full-graph algebra and conditional
@@ -21,7 +21,7 @@ evidence for provenance; those historical checkpoints do not exhaust
 the current L5 results.
 
 The first Palomar registration remains the separate crossing result
-[README §4.78](../README.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing).
+[README §4.78](ammann-beenker-geometry.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing).
 The original generator-response candidate (§4.92) is archived, not
 registered; the later L5 signed-splitting candidate (§4.98) received
 automated editorial feedback and was strengthened in PR #89, with
@@ -648,7 +648,7 @@ This remains an **open, deferred L6 candidate** for approximate
 two-control preparation and edge-only impossibility, and is **not**
 the current L7a proof goal. It has not been proved as an arbitrary
 target-state quantum theorem. The narrower generator-response
-candidate of [README §4.92](../README.md#492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback)
+candidate of [README §4.92](single-edge-control.md#492-earlier-unsubmitted-palomar-candidate-exact-dark-protection-and-bright-feedback)
 concerned only static dark protection and bright forcing and was
 archived when the stronger **L5 spectral splitting** result
 became the active Palomar candidate (§4.98). The original
