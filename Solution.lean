@@ -1,8 +1,8 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics
+public import SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation
 
 /-!
-The substantive infinite-graph spectral protection proof and supporting
-certificates are imported independently of the Mathlib-only Challenge.
+The substantive full-graph proof of exact weak-control preparation with
+prescribed spectral protection is imported independently of Challenge.
 -/
