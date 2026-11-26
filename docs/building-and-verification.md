@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **116 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and one infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **118 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and three infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -91,7 +91,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`FullSpectralZeroCounts.lean`](../SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](../SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (38):**
+- **Explicit octagonal geometry, operator and spectral products (40):**
   - [`AmmannBeenkerCutProject.lean`](../SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](../SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](../SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -124,6 +124,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`AmmannBeenkerCoordinatedRotationDynamics.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedRotationDynamics.lean) *(exact phase-weighted rotation action and embedding into full natural-domain trajectories; §4.103)*
   - [`AmmannBeenkerCoordinatedPulseComposition.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedPulseComposition.lean) *(continuous three-pulse trajectory, switch matching, full-domain equations, conserved norm and zero leakage; §4.104)*
   - [`AmmannBeenkerCoordinatedExactPreparation.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean) *(exact arbitrary normalized target preparation from dark up to global phase with continuous full-domain zero-leakage dynamics; §4.105)*
+  - [`AmmannBeenkerCoordinatedVariableDuration.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedVariableDuration.lean) *(exact variable-duration three-pulse dynamics, phase and full-domain equations; §4.111)*
+  - [`AmmannBeenkerCoordinatedProtectedPreparation.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedProtectedPreparation.lean) *(arbitrarily weak exact preparation with prescribed real spectral gap; §4.111)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -151,21 +153,24 @@ treated as an independently proved library.
 
 **Palomar / independent statement verification.** The active root
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
-[formalization metadata](../formalization.yaml) describe **Spectral Protection During Coordinated Control on an Infinite Ammann–Beenker Graph** (§4.110).
-The principal selected theorem is
-`SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation`.
-Five concrete model witnesses, three locality certificates and supporting
-plane-energy, domain-reduction and numerical-bound theorems accompany it.
-All definitions are concrete; the independent Mathlib-only Challenge
-uses proposition proof placeholders only. Solution publicly imports the
-substantive controlled spectral proof, not Challenge.
+[formalization metadata](../formalization.yaml) describe **Exact Leakage-Free Quantum State Preparation with Arbitrarily Weak Controls and Prescribed Spectral Protection on an Infinite Ammann–Beenker Graph** (§4.111).
+The principal theorem is `SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation`.
+The [Comparator](../palomar/protected-exact-preparation/comparator.json) selects 19 propositions:
+the previous 15 model, locality and spectral certificates, the phase,
+stretching and protected-setting statements, and the new principal theorem.
+All definitions are concrete; the Mathlib-only Challenge uses proposition
+proof placeholders only. Solution publicly imports the substantive proof,
+not Challenge. Matching snapshots are in [the fifth candidate package](../palomar/protected-exact-preparation/).
+The complete 118-module substantive library is Lean-verified with no proof
+holes. All 19 selected propositions passed independent statement comparison;
+the Lean default, NanoDa and con-ron kernels accepted the solution.
+Separate registry verification and registration remain pending.
 
-The active [theorem-specific Comparator](../palomar/spectral-protection-during-coordinated-control/comparator.json)
-and matching snapshots are in [`palomar/spectral-protection-during-coordinated-control/`](../palomar/spectral-protection-during-coordinated-control/).
-The complete 116-module substantive library is Lean-verified with no
-proof holes. Independent comparison of all 15 newly selected statements passed,
-including the bundled NanoDa and con-ron kernels. The fourth result was
-registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
+The fourth registered package (§4.110) remains preserved in
+[the spectral-protection directory](../palomar/spectral-protection-during-coordinated-control/).
+Independent comparison of its 15 selected propositions passed, including
+NanoDa and con-ron. The result was registered on 26 November 2026 as
+[PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
 The third registered preparation package (§4.105) remains preserved in
 [`palomar/exact-leakage-free-preparation/`](../palomar/exact-leakage-free-preparation/),
@@ -183,7 +188,7 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](../palomar/dark-bright/).
 No root `comparator.json` exists. Local packaging and verification
-checks select the new spectral-protection Comparator explicitly.
+checks select the new protected-preparation Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between

@@ -1,6 +1,6 @@
 [← Main README and table of contents](../README.md)
 
-**Chapter 4 navigation:** **4.1–4.67. Infinite-dimensional spectral theory** · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · [4.80–4.98. Single-edge control and spectral splitting](single-edge-control.md) · [4.99–4.110. Coordinated quantum control and spectral protection](coordinated-quantum-control.md)
+**Chapter 4 navigation:** **4.1–4.67. Infinite-dimensional spectral theory** · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · [4.80–4.98. Single-edge control and spectral splitting](single-edge-control.md) · [4.99–4.111. Coordinated quantum control and spectral protection](coordinated-quantum-control.md)
 
 <details>
 <summary>Contents of this document</summary>

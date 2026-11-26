@@ -2,7 +2,7 @@
 
 # 4. Infinite-dimensional geometric operators and spectral theory — §§4.80–4.98
 
-**Chapter 4 navigation:** [4.1–4.67. Infinite-dimensional spectral theory](infinite-spectral-theory.md) · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · **4.80–4.98. Single-edge control and spectral splitting** · [4.99–4.110. Coordinated quantum control and spectral protection](coordinated-quantum-control.md)
+**Chapter 4 navigation:** [4.1–4.67. Infinite-dimensional spectral theory](infinite-spectral-theory.md) · [4.68–4.79. Ammann–Beenker geometry and the compact crossing](ammann-beenker-geometry.md) · **4.80–4.98. Single-edge control and spectral splitting** · [4.99–4.111. Coordinated quantum control and spectral protection](coordinated-quantum-control.md)
 
 <details>
 <summary>Contents of this document</summary>
@@ -875,7 +875,7 @@ coordinated-control route has since proved exact arbitrary normalized
 target preparation from dark (§4.105), and static energetic protection
 under sufficiently small ideal controls (§4.110). Simultaneous
 arbitrary-target preparation with a prescribed spectral gap through
-variable-duration pulses remains open (§6.9). The original relative-product and
+variable-duration pulses is now Lean-verified (§4.111; §6.9). The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
 **Historical scientific checkpoint.** The §§4.80–4.89 results were
@@ -1003,8 +1003,7 @@ that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](../palomar/dark-bright/comparator.json)
 and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
-The active Comparator now selects spectral protection during coordinated control (§4.110);
-all three registrations and the earlier unsubmitted candidate remain historically intact.
+The active Comparator now selects exact protected preparation with arbitrarily weak controls (§4.111); all four earlier registrations and the unsubmitted generator-response candidate are preserved.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
@@ -1396,7 +1395,7 @@ the original two localized states. The result concerns the
 entire infinite network and its natural domain; it is
 not a time-evolution or experimental-control result.
 
-**Independent registered package.** The L5 [Challenge](../palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](../palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](../palomar/signed-bright-splitting/comparator.json) and [formalization metadata](../palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](../palomar/dark-bright/) is also preserved. The third registered result (§4.105) is preserved as its own package; the active root files now describe spectral protection (§4.110). Each Comparator remains in its own directory; there is no root Comparator.
+**Independent registered package.** The L5 [Challenge](../palomar/signed-bright-splitting/Challenge.lean) imports only Mathlib and reconstructs the necessary concrete model without source proofs. Its seven selected propositions consist of six technical model witnesses and one scientific conclusion. All definitions are concrete. Its [Solution](../palomar/signed-bright-splitting/Solution.lean) imports the verified proof module and never Challenge. Its [Comparator](../palomar/signed-bright-splitting/comparator.json) and [formalization metadata](../palomar/signed-bright-splitting/formalization.yaml) are preserved with those root-file snapshots. The earlier unsubmitted [generator-response package](../palomar/dark-bright/) is also preserved. The third registered result (§4.105) and the fourth registered result (§4.110) are preserved as separate packages; the active root files now describe exact protected preparation (§4.111). Each Comparator remains in its own directory; there is no root Comparator.
 
 **Verification and registration.** The L5 mathematical source and
 independently assembled package passed full Lean and independent kernel

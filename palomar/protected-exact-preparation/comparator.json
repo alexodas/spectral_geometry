@@ -1,0 +1,31 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SpectralGeometry.AmmannBeenker.admitted_zero",
+    "SpectralGeometry.AmmannBeenker.mate_involutive",
+    "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
+    "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted",
+    "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint",
+    "SpectralGeometry.AmmannBeenker.coordinatedRing_matching",
+    "SpectralGeometry.AmmannBeenker.coordinatedLevelRadius_eq_zero_iff",
+    "SpectralGeometry.AmmannBeenker.coordinatedPlane_eigenvalue_iff",
+    "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_plane_commutes",
+    "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_complement_commutes",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_condition_of_budget",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_gap_ge",
+    "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation",
+    "SpectralGeometry.AmmannBeenker.coordinatedDurationAngle_scaled",
+    "SpectralGeometry.AmmannBeenker.coordinatedProtocolStretch_bounds",
+    "SpectralGeometry.AmmannBeenker.coordinatedProtectedSetting_of_budget",
+    "SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

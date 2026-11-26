@@ -5,13 +5,13 @@ public import Mathlib
 public section
 
 /-!
-# Spectral Protection During Coordinated Control on an Infinite Ammann--Beenker Graph
+# Exact Leakage-Free Quantum State Preparation with Arbitrarily Weak Controls and Prescribed Spectral Protection on an Infinite Ammann--Beenker Graph
 
 Independent Mathlib-only statements for the concrete infinite graph,
-its coordinated local controls and the complete real bounded-inverse
-spectral isolation theorem. All model, domain, spectral and control
-definitions are concrete. Selected proposition placeholders cover model
-witnesses, locality, exact energies, reducing projections and isolation.
+its coordinated local controls, continuous three-pulse preparation, and
+prescribed protection in the complete real bounded-inverse spectrum.
+All model, domain, spectral, control and trajectory definitions are concrete.
+Only selected propositions have proof placeholders.
 -/
 
 namespace SpectralGeometry
@@ -695,6 +695,184 @@ theorem coordinatedCluster_centered_isolation (δ η : ℝ)
         crossingLeakage (x : TileHilbert Vertex) ≠ 0 →
         (1 / 128 : ℝ) - (|δ| + 2 * |η|) / 2 - coordinatedLevelRadius δ η ≤
           |e - level|) := by
+  sorry
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedEuler
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedPhase (t : ℝ) : ℂ :=
+  Complex.exp ((t : ℂ) * Complex.I)
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedRotationDynamics
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedApplyPair (M : Matrix (Fin 2) (Fin 2) ℂ)
+    (a b : ℂ) : ℂ × ℂ :=
+  (M 0 0 * a + M 0 1 * b, M 1 0 * a + M 1 1 * b)
+
+@[expose] def coordinatedEmbedReal (a b : ℂ) : TileHilbert Vertex :=
+  a.re • crossingDark + b.re • crossingBright
+
+@[expose] def coordinatedEmbedImag (a b : ℂ) : TileHilbert Vertex :=
+  a.im • crossingDark + b.im • crossingBright
+
+@[expose] def coordinatedXAxisMatrix (δ τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  let p := coordinatedPhase (-(crossingEnergy + δ) * τ)
+  let q := coordinatedPhase (-crossingEnergy * τ)
+  !![(p + q) / 2, (p - q) / 2; (p - q) / 2, (p + q) / 2]
+
+@[expose] def coordinatedZAxisMatrix (η τ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  !![coordinatedPhase (-crossingEnergy * τ), 0;
+     0, coordinatedPhase (-(crossingEnergy + 2 * η) * τ)]
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedPulseComposition
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+open Filter Set
+open scoped Topology
+
+@[expose] def coordinatedPulseX (δ τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
+  coordinatedApplyPair (coordinatedXAxisMatrix δ τ) w.1 w.2
+
+@[expose] def coordinatedPulseZ (η τ : ℝ) (w : ℂ × ℂ) : ℂ × ℂ :=
+  coordinatedApplyPair (coordinatedZAxisMatrix η τ) w.1 w.2
+
+@[expose] def coordinatedStateReal (w : ℂ × ℂ) : TileHilbert Vertex :=
+  coordinatedEmbedReal w.1 w.2
+
+@[expose] def coordinatedStateImag (w : ℂ × ℂ) : TileHilbert Vertex :=
+  coordinatedEmbedImag w.1 w.2
+
+@[expose] def domainCoordinatedStateReal (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
+  w.1.re • domainCrossingDark + w.2.re • domainCrossingBright
+
+@[expose] def domainCoordinatedStateImag (w : ℂ × ℂ) : infiniteOnsiteDomain potential :=
+  w.1.im • domainCrossingDark + w.2.im • domainCrossingBright
+
+@[expose] def coordinatedSolvesAt (δ η : ℝ) (f : ℝ → ℂ × ℂ) (s : ℝ) : Prop :=
+  HasDerivAt (fun τ => coordinatedStateReal (f τ))
+    (onsitePlusBounded potential (coordinatedCorrection δ η)
+      (domainCoordinatedStateImag (f s))) s ∧
+  HasDerivAt (fun τ => coordinatedStateImag (f τ))
+    (-(onsitePlusBounded potential (coordinatedCorrection δ η)
+      (domainCoordinatedStateReal (f s)))) s
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedVariableDuration
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+open Filter Set
+open scoped Topology
+
+@[expose] def coordinatedDurationClock (k s : ℝ) : ℝ := min (max s 0) k
+
+@[expose] def coordinatedDurationProtocol (k p t q : ℝ) (w : ℂ × ℂ)
+    (s : ℝ) : ℂ × ℂ :=
+  coordinatedPulseZ q (coordinatedDurationClock k (s-2*k))
+    (coordinatedPulseX (-2*t) (coordinatedDurationClock k (s-k))
+      (coordinatedPulseZ p (coordinatedDurationClock k s) w))
+
+@[expose] def coordinatedDurationAngle (k p t q : ℝ) : ℝ :=
+  -(crossingEnergy + q)*k + -(crossingEnergy - t)*k + -(crossingEnergy + p)*k
+
+theorem coordinatedDurationAngle_scaled (k p t q : ℝ) (hk : 0 < k) :
+    coordinatedDurationAngle k (p/k) (t/k) (q/k) =
+      -3*k*crossingEnergy + t-p-q := by
+  sorry
+
+end
+
+-- Source module: SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+
+section
+
+@[expose] def coordinatedProtocolBudget (p t q : ℝ) : ℝ :=
+  max (2*|p|) (max (2*|t|) (2*|q|))
+
+@[expose] def coordinatedProtocolStretch (p t q ε fraction : ℝ) : ℝ :=
+  1 + coordinatedProtocolBudget p t q / min ε ((1-fraction)*(1/128))
+
+@[expose] def CoordinatedProtectedSetting (ε fraction δ η : ℝ) : Prop :=
+  |δ| + 2*|η| ≤ ε ∧
+  (∀ level : ℝ, CoordinatedPlaneLevel δ η level →
+    level ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ∧
+    ∀ x : infiniteOnsiteDomain potential,
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        level • (x : TileHilbert Vertex) →
+      crossingLeakage (x : TileHilbert Vertex) = 0) ∧
+  (∀ e : ℝ, |e-coordinatedLevelCenter δ η| ≤ coordinatedLevelRadius δ η →
+    (e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) ↔
+      CoordinatedPlaneLevel δ η e)) ∧
+  (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+    e ∈ infiniteBoundedOnsiteRealSpectrum potential (coordinatedCorrection δ η) →
+    ¬ CoordinatedPlaneLevel δ η e → fraction*(1/128) ≤ |e-level|) ∧
+  (∀ e level : ℝ, CoordinatedPlaneLevel δ η level →
+    ∀ x : infiniteOnsiteDomain potential,
+      onsitePlusBounded potential (coordinatedCorrection δ η) x =
+        e • (x : TileHilbert Vertex) →
+      crossingLeakage (x : TileHilbert Vertex) ≠ 0 →
+      fraction*(1/128) ≤ |e-level|)
+
+theorem coordinatedProtocolStretch_bounds (p t q ε fraction : ℝ)
+    (hε : 0 < ε) (hf0 : 0 < fraction) (hf1 : fraction < 1) :
+    let k := coordinatedProtocolStretch p t q ε fraction
+    1 ≤ k ∧ coordinatedProtocolBudget p t q / k ≤ ε ∧
+      coordinatedProtocolBudget p t q / k ≤ (1-fraction)*(1/128) := by
+  sorry
+
+theorem coordinatedProtectedSetting_of_budget (ε fraction δ η : ℝ)
+    (hf0 : 0 < fraction)
+    (hε : |δ| + 2*|η| ≤ ε)
+    (hb : |δ| + 2*|η| ≤ (1-fraction)*(1/128)) :
+    CoordinatedProtectedSetting ε fraction δ η := by
+  sorry
+
+theorem coordinatedProtocol_protected_exact_preparation (a b : ℂ)
+    (hn : ‖a‖ ^ 2 + ‖b‖ ^ 2 = 1) (ε fraction : ℝ)
+    (hε : 0 < ε) (hf0 : 0 < fraction) (hf1 : fraction < 1) :
+    ∃ p t q : ℝ, 0 ≤ t ∧ t ≤ Real.pi / 2 ∧
+      let k := coordinatedProtocolStretch p t q ε fraction
+      let v := coordinatedDurationProtocol k (p/k) (t/k) (q/k) (1,0)
+      let z := coordinatedPhase (coordinatedDurationAngle k (p/k) (t/k) (q/k))
+      1 ≤ k ∧ 0 < 3*k ∧ ‖z‖ = 1 ∧
+      v 0 = (1,0) ∧
+      coordinatedStateReal (v 0) = crossingDark ∧
+      coordinatedStateImag (v 0) = 0 ∧
+      v (3*k) = (z*a,z*b) ∧
+      coordinatedStateReal (v (3*k)) =
+        (z*a).re • crossingDark + (z*b).re • crossingBright ∧
+      coordinatedStateImag (v (3*k)) =
+        (z*a).im • crossingDark + (z*b).im • crossingBright ∧
+      Continuous v ∧
+      Continuous (fun s => coordinatedStateReal (v s)) ∧
+      Continuous (fun s => coordinatedStateImag (v s)) ∧
+      (∀ s : ℝ, coordinatedStateReal (v s) ∈ infiniteOnsiteDomain potential ∧
+        coordinatedStateImag (v s) ∈ infiniteOnsiteDomain potential ∧
+        ‖coordinatedStateReal (v s)‖ ^ 2 + ‖coordinatedStateImag (v s)‖ ^ 2 = 1 ∧
+        crossingLeakage (coordinatedStateReal (v s)) = 0 ∧
+        crossingLeakage (coordinatedStateImag (v s)) = 0) ∧
+      (∀ s : ℝ, 0 < s → s < k → coordinatedSolvesAt 0 (p/k) v s) ∧
+      (∀ s : ℝ, k < s → s < 2*k → coordinatedSolvesAt (-2*(t/k)) 0 v s) ∧
+      (∀ s : ℝ, 2*k < s → s < 3*k → coordinatedSolvesAt 0 (q/k) v s) ∧
+      CoordinatedProtectedSetting ε fraction 0 (p/k) ∧
+      CoordinatedProtectedSetting ε fraction (-2*(t/k)) 0 ∧
+      CoordinatedProtectedSetting ε fraction 0 (q/k) := by
   sorry
 
 end
