@@ -183,13 +183,19 @@ theorem coordinatedProtocol_protected_exact_preparation (a b : ℂ)
   refine ⟨hs.1, by linarith, coordinatedPhase_norm _, hi, ?_, ?_, he, ?_, ?_,
     coordinatedDurationProtocol_continuous _ _ _ _ _, hc.1, hc.2,
     ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · rw [hi]
+  · change coordinatedStateReal (v 0) = crossingDark
+    rw [hi]
     exact coordinatedState_dark_initial.1
-  · rw [hi]
+  · change coordinatedStateImag (v 0) = 0
+    rw [hi]
     exact coordinatedState_dark_initial.2
-  · rw [he]
+  · change coordinatedStateReal (v (3*k)) =
+      (z*a).re • crossingDark + (z*b).re • crossingBright
+    rw [he]
     rfl
-  · rw [he]
+  · change coordinatedStateImag (v (3*k)) =
+      (z*a).im • crossingDark + (z*b).im • crossingBright
+    rw [he]
     rfl
   · intro s
     have hd := coordinatedState_domain (v s)
