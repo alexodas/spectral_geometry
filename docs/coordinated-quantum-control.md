@@ -1225,9 +1225,7 @@ is `coordinatedProtocol_protected_exact_preparation`, supported by
 `coordinatedDurationAngle_scaled`, `coordinatedProtocolStretch_bounds`
 and `coordinatedProtectedSetting_of_budget`.
 
-The substantive proof passed full Lean/Mathlib kernel verification.
-Independent comparison for this fifth candidate and registry verification
-are separate steps. The four preceding registrations are preserved.
+The substantive proof and the standalone [candidate package](../palomar/protected-exact-preparation/) passed full Lean/Mathlib verification and independent statement comparison of all 19 selected propositions, including the Lean default, NanoDa and con-ron kernels. Separate registry verification and registration have not yet been completed. The four preceding registrations are preserved.
 The result does not assert a general complex propagator, optimal durations,
 preparation at zero control strength for arbitrary targets, retention of
 the entire certified gap, or resilience to imperfect controls.

@@ -101,7 +101,7 @@
     "divergences": "One specified confined infinite Ammann–Beenker graph; complex state represented by two real Hilbert-space vectors on the natural domain. Exact independently adjustable signed controls and open-interval Schrödinger equations, continuous at switches. The gap concerns the full real bounded-inverse spectrum for each active setting. No general full-space complex propagator, robustness to noise, arbitrary-target preparation at zero controls, optimal timing or experimental feasibility is asserted."
   },
   "review": {
-    "status": "The substantive proof passed full Lean/Mathlib kernel verification. Independent comparison of this new candidate, registry mechanical and renderability checks, and editorial review have not yet been reported. No independent human review of novelty or significance has been completed.",
+    "status": "The substantive proof and the independent candidate package passed full Lean/Mathlib verification and independent statement comparison of all 19 selected propositions. The Lean default, NanoDa and con-ron kernels accepted the solution. The candidate is ready for separate registry submission; registry mechanical and renderability checks and editorial review have not yet been reported. No independent human review of novelty or significance has been completed.",
     "reviewers": [],
     "notes": "Possible audiences include spectral theory, discrete Schrödinger operators, localized states, quasicrystals, flat bands, photonic networks and coherent control. This is an exact mathematical existence theorem for ideal controls, not a hardware demonstration or priority claim."
   },
@@ -112,133 +112,133 @@
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
         "module": "SpectralGeometry.AmmannBeenkerCutProject",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Origin is admitted."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
         "module": "SpectralGeometry.AmmannBeenkerGraph",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Matching involutions define the graph Laplacian."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.compactA_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "First-ring mode belongs to the natural domain."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.compactB_mem_domain",
         "module": "SpectralGeometry.AmmannBeenkerCompactModes",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Second-ring mode belongs to the natural domain."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "All explicitly enumerated central lifts are admitted."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRingPair_adjacent",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Each pair is a genuine graph edge."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_disjoint",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The two rings have disjoint vertices."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedRing_matching",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedRingControl",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Distinct pairs have no shared endpoints."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedLevelRadius_eq_zero_iff",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Half-spacing vanishes precisely at zero controls."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedPlane_eigenvalue_iff",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Exact full-domain nonzero compact-plane eigenvectors at the two energies, and only those energies."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_plane_commutes",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Natural-domain plane projection commutes with the full controlled operator."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedHamiltonian_complement_commutes",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Natural-domain complement projection commutes with the full controlled operator."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_condition_of_budget",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The simpler control budget ρ<1/128 implies the strengthened sufficient condition."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_gap_ge",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The stronger bound is at least 1/128−ρ."
       },
       {
         "source": "README §4.110 and §4.111",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedAxisDynamics",
-        "status": "Lean-verified and independently compared in the fourth registered package; comparison in this candidate pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Full real spectrum has precisely the two levels in their closed interval, zero leakage there and positive separation from every other real spectral energy and every energy of an eigenvector with nonzero leakage."
       },
       {
         "source": "README §4.111 and Executive summary, Exact protected state preparation with arbitrarily weak controls",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedDurationAngle_scaled",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedVariableDuration",
-        "status": "Proved in substantive Lean source; independent candidate comparison pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The accumulated common phase angle is −3kE* + t − p − q."
       },
       {
         "source": "README §4.111 and Executive summary, Exact protected state preparation with arbitrarily weak controls",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedProtocolStretch_bounds",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
-        "status": "Proved in substantive Lean source; independent candidate comparison pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The explicit common duration simultaneously bounds the control budget and the allowed loss of gap."
       },
       {
         "source": "README §4.111 and Executive summary, Exact protected state preparation with arbitrarily weak controls",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedProtectedSetting_of_budget",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
-        "status": "Proved in substantive Lean source; independent candidate comparison pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "The budget implies full real-spectral protection with the prescribed fraction."
       },
       {
         "source": "README §4.111 and Executive summary, Exact protected state preparation with arbitrarily weak controls",
         "lean": "SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation",
         "module": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
-        "status": "Proved in substantive Lean source; independent candidate comparison pending.",
+        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
         "note": "Principal theorem: exact full-domain preparation from dark up to common phase, continuous normalized zero-leakage evolution, open-interval Schrödinger equations, and the prescribed gap for every pulse setting."
       }
     ]

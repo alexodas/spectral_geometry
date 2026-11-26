@@ -162,7 +162,9 @@ All definitions are concrete; the Mathlib-only Challenge uses proposition
 proof placeholders only. Solution publicly imports the substantive proof,
 not Challenge. Matching snapshots are in [the fifth candidate package](../palomar/protected-exact-preparation/).
 The complete 118-module substantive library is Lean-verified with no proof
-holes. Independent comparison of this candidate is a separate step.
+holes. All 19 selected propositions passed independent statement comparison;
+the Lean default, NanoDa and con-ron kernels accepted the solution.
+Separate registry verification and registration remain pending.
 
 The fourth registered package (§4.110) remains preserved in
 [the spectral-protection directory](../palomar/spectral-protection-during-coordinated-control/).
