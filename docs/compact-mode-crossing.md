@@ -53,7 +53,7 @@ does not determine the motion of a second eigenvalue.
   two real coordinates, and proves that its dimension is exactly two.
   The historically registered declarations are `crossingEigenspace_finrank`
   and `crossing_eigenvector_representation`; see
-  [README §4.78](../README.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
+  [README §4.78](ammann-beenker-geometry.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
   for their statements and the original registration reference. The current
   independent Challenge instead targets the later dark/bright theorem.
 - An explicit isolation interval and a quantitative estimate for the

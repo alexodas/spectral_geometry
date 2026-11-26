@@ -1,0 +1,74 @@
+[← Main README and table of contents](../README.md)
+
+## Current status and verified milestones
+
+The table below separates proved results from remaining research tasks.
+
+| Part of the program | Status |
+| --- | --- |
+| Natural-domain operators, bounded matching interactions, conditional self-adjointness and compact resolvents | Formalized under the explicit hypotheses documented in §4 |
+| Real spectral completeness, exact geometric multiplicities, ordered infinite enumeration and qualitative divergence | Formalized under the additional hypotheses of §§4.23–4.38 |
+| Finite-coordinate detection and the multiplicity bound for one low-energy eigenspace | Formalized in §4.40; foundational observation result |
+| Simultaneous quantitative observation and total low-energy multiplicity counting | Formalized in §§4.41–4.43, with symmetry for simultaneous spectral control |
+| Variational characterization, ordered onsite comparison and finite-sector eigenvalue response | Formalized in §§4.44–4.47 with complete eigenbases, exact multiplicities and explicit infinite-indexing conditions |
+| Positive full-spectrum inverse-square summability and its preservation under nonnegative finite-sector interventions | Formalized under §4.48's signed-correction criterion and §4.58's positive-interaction criterion |
+| Entire canonical products and exact zero divisors for admissible positive full spectra | Formalized in §§2.4 and 4.49: every zero has its exact geometric multiplicity; normalization and paired symmetry are proved |
+| Indexed finite-sector response of full spectral-product zeros, with operator-specific exact geometric orders | Formalized in §§4.50–4.52 and 6.3 for the positive finite-sector family under the stated infinite-indexing, gap and summability conditions |
+| Exact zero-cluster certificates under small symmetric bounded operator errors | Formalized in §§4.53–4.56: finite boundary margins certify both reflected zero sets and their total multiplicity |
+| Onsite ordering from properness and sharpened positive-interaction spectral and zero response | Formalized in §§4.57–4.59: the onsite gap is preserved without a small interaction-norm assumption; the onsite ordering is constructed |
+| Scalar analytic approximation and local zero certificates with multiplicities | Formalized in §§4.60–4.65: explicit product-tail errors, multiplicity-dependent location bounds and exact total zero counts under a strict circular-boundary error; no simplicity assumption |
+| Numerical tail rates and a worked scalar zero certificate | Formalized in §§4.66–4.67: explicit radius, cofactor bound and cutoff for the linear onsite model; numerical tail bounds also hold after symmetric nonnegative bounded interactions |
+| Explicit octagonal cut-and-project vertex graph and nine-level finite-sector response | Formalized in §§4.68–4.70: infinite embedded vertices, exact central star, matching Laplacian and a nonempty controlled window |
+| Planar vertex counting, geometric summability and full-product zero response | Formalized in §§4.71–4.72 for the explicit graph, with a nonempty nine-level window and no supplied summability hypothesis |
+| Radial barrier, compact eigenvectors and ring-induced crossing | Formalized in §§4.73–4.75; includes a stationary one-edge state and an exact Rayleigh response; the later certified split spectral pair is in §§4.93–4.97 |
+| Exact central sector and its boundary | Formalized in §4.76: origin and two eight-site rings, complete internal adjacency, ring degrees three and four, and exactly sixteen edges to the exterior |
+| Complete central crossing kernel and supported eigenvectors | Formalized in §4.77; the central-support hypothesis remains explicit |
+| Central support and exact global crossing multiplicity | Proved in §4.78: the two seed amplitudes give coordinates on the entire natural-domain eigenspace, of real dimension exactly two |
+| Conservative quantitative real spectral gap at the crossing | Proved in §4.79: for $K_{t_*}$ the complete real bounded-inverse spectrum has no point other than $E_*$ within the closed radius $1/128$; exact spacing is not claimed by this result; separate edge-change splitting estimates are proved in §§4.93–4.97 |
+| Exact edge and detuning control algebra | Formalized in §4.80 and two Lean modules: exact two-mode edge coupling, a normalized dark eigenstate on the full natural domain, and exact detuning identities. These are static operator results, not a quantum-control protocol |
+| Qubit/leakage bookkeeping and control response | §4.81: Lean-verified orthogonal real-space decomposition, squared-norm budget, restored eigenstate and exact two-control off-plane formula |
+| Uniform leakage estimate from nearby invariant planes | §4.82: Lean-verified generic conditional norm inequality independent of pulse duration; the graph spectral projector estimate and general complex unitary evolution remain separate; L7 exact preparation is established by a different coordinated-control construction in §4.105 |
+| Pulse-residual and post-pulse control bounds | §§4.85–4.88: Lean-verified full-graph, duration-independent leakage inequalities for supplied norm-preserving, domain-preserving, Hamiltonian-intertwining real evolutions, plus full real self-adjointness; they do not construct the physical propagator |
+| Explicit dark-state Schrödinger solution | §4.89: Lean-verified full-natural-domain, real/imaginary Schrödinger equations for the normalized dark mode, exact norm conservation and zero leakage; one trajectory, not arbitrary-state evolution or an A/B rotation |
+| Exact bright generator response and preserved earlier Palomar candidate | §4.91: fourteen source theorems establish the full bright identity, dark amplitude and external-feedback bound. §4.92 documents the previous, unsubmitted generator-response candidate; its independent Challenge/Solution snapshots and Comparator are preserved in `palomar/dark-bright/`. The stronger L5 theorem is the registered selection of §4.98 |
+| Explicit gap-to-eigenvector stability reduction | §§4.83–4.84: Lean-verified edge norm 2, reduced-gap residual bound and explicit nearby-eigenvector estimate; full perturbed spectral projector bounds remain open |
+| Dark simplicity and genuine mobile spectral-level existence | §4.93: L1 dark-only eigenspace for ε ≠ 0; L2a ordered eigenbases and `2|ε|` stability; L2b exact double consecutive baseline slots; L2c real, distinct perturbed eigenvalue and nonzero natural-domain eigenvector within `2|ε|` for every ε ≠ 0. Lean-verified |
+| Isolated simple dark/bright **point-spectrum** pair | §4.94: for `0<|ε|≤1/1024`, exactly two genuine natural-domain eigenvalue energies occur inside `|t-E_*|≤1/256`: the fixed simple dark level and one unique simple moving level within `2|ε|`. Lean-verified |
+| Genuine moving-eigenvector bright amplitude and exterior bound | §4.95: the true moving eigenvector has `⟨D,x⟩=0`, `c=⟨F,x⟩≠0`, `x=cF+Qx` and `‖Qx‖≤256|ε||c|‖QWF‖`, with `‖QWF‖²=7/16`. Lean-verified |
+| True infinite-operator quadratic energy law | §4.96: for the actual unique simple moving natural-domain level, `|E_b-(E_*+ε/4)|≤112ε²` when `0<|ε|≤1/1024`. Uses the exact bright residual pairing and `‖QWF‖²=7/16`. Lean-verified |
+| Signed dark/bright spectral splitting, final theorem | §4.97: for `0<|ε|≤1/1024`, the moving energy shifts strictly in the direction of ε. The consolidated theorem explicitly asserts both nonzero eigenvectors, their simple eigenspaces, the point-spectrum window, quadratic energy law and exterior bright control. Lean- and Comparator-verified |
+| L5 Palomar registration | §4.98: the strengthened L5 theorem, explicitly including the nonzero fixed dark eigenvector and its equation, was independently verified and registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) on 23 November 2026 |
+| Relative products and certified finite-patch zero response | Remaining obligations in §§6.5–6.6; geometric scalar cofactor/radius certificates also remain open |
+| Coordinated eight-edge control, L7a first milestone | §4.99: eight genuine adjacent pairs with no shared endpoints, matched amplitudes, bounded symmetric correction and exact dark cancellation `MD=0`. Lean-verified |
+| Exact invariant plane under both controls, L7a complete | §4.100: `Ma=a-b`, `Mb=b-a`, `MF=2F`, `QMP=0`, and full natural-domain invariance at arbitrary real control strengths. Lean-verified |
+| Exact Pauli control algebra, L7b first part | §4.100: exact effective matrix in the normalized dark/bright basis, Pauli decomposition, noncommuting complex generators and all three commutators. Lean-verified |
+| Full Lie generation and constructive Euler state reachability, L7b complete | §4.101: the smallest real commutator-closed subspace containing the two generators is all of `su(2)`; a three-rotation matrix product reaches every normalized complex pair from dark, with independent signed control coefficients. Lean-verified |
+| Exact single-axis Schrödinger trajectories, L7c.1 | §4.102: arbitrary complex compact-mode coefficients, exact coupled real/imaginary full-domain equations, conserved squared complex norm and zero leakage of both components for all real times; the combined real Hamiltonian is self-adjoint at arbitrary real control strengths. Lean-verified |
+| Exact phase-weighted rotation action, L7c.2 | §4.103: the full natural-domain single-axis trajectories equal the embeddings of the X and Z rotation matrices with their common phases, for every complex initial pair and real strength and time. Lean-verified |
+| Continuous three-pulse protocol, L7c.3 | §4.104: exact Z–X–Z composition for arbitrary complex initial pairs and real strengths, continuous full-space components and exact switch matching, natural-domain membership, conserved squared complex norm and zero leakage at every time, with full Schrödinger equations on each open pulse interval. Lean-verified |
+| Exact arbitrary target preparation, L7c.4 | §4.105: every normalized complex dark/bright pair is reached from dark up to the explicit common phase by three unit-duration local control pulses; continuous full-graph components, natural-domain membership, conserved unit norm, full piecewise Schrödinger equations and zero leakage at all times. Lean-verified and registered as [PALOMAR-2026-11-25-000001 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-25-000001&version=1) |
+| L8a.1 — sharp bounded control estimates | §4.106: exact norms `‖R‖=1`, `‖M‖=2`, full-space identity `M²=2M`, exact natural-domain decomposition and `‖δR+ηM‖≤|δ|+2|η|` for all signed real controls. Lean-verified; the existing independent L7 Comparator also passed. |
+| L8a.2 — exact controlled plane levels and reduction | §4.107: exactly the two explicit energies have nonzero full-domain eigenvectors in the original plane; their half-spacing vanishes iff both controls vanish. Both projections preserve the natural domain and commute with the full Hamiltonian. Lean-verified. |
+| L8a.3 — quantitative exterior spectral exclusion | §4.108: full-domain complement residual bound `(g−ρ−|e−E_*|)‖x‖`, exterior eigenvalue distance, complete real-spectrum characterization in the open window `ρ+|e−E_*|<g`, and zero leakage of every eigenvector there. Lean-verified. |
+| L8a.4 — consolidated spectral protection | §4.109: for `ρ=|δ|+2|η|<1/256`, both plane energies lie in the complete real spectrum, exhaust its closed radius-ρ window, have only zero-leakage eigenvectors and are separated from all other spectral energies by at least `1/128−2ρ>0`. Lean-verified, including zero controls. |
+| Centered spectral protection | §4.110: with `s=√(δ²/4+η²)`, `ρ/2+s<1/128` gives full real spectral isolation by at least `1/128−ρ/2−s>0`. In particular `ρ<1/128` suffices, doubling the earlier guaranteed pure-axis ranges. Lean-verified, independently compared and registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). |
+| Remaining control research | Arbitrary-target preparation with variable durations and a prescribed fraction of the certified baseline gap throughout the pulses (§6.9); general complex full-space propagator, preparation from arbitrary initial states as a separately stated theorem, control optimality and the distinct L6 approximate single-edge theorem (§6.4) remain open. |
+
+The program already has formal results on infinite-operator spectral
+enumeration, finite-coordinate observation, exact eigenvalue multiplicities,
+spectral response, and zeros of canonical products. The explicit octagonal
+graph supplies concrete examples, including the crossing described above.
+The more ambitious geometric cofactor certificates, relative-product
+identity and certified finite-patch comparisons remain open (§6).
+The registered crossing result (§4.78), the separately proved gap (§4.79),
+the certified dark/bright generator algebra (§§4.80–4.91), the archived
+unsubmitted combined theorem (§4.92), the registered L5 spectral splitting
+(§§4.93–4.98), exact coordinated-plane invariance, full Lie generation, constructive matrix reachability, exact single-axis phase-weighted rotations, continuous three-pulse dynamics and exact arbitrary target preparation from dark (§§4.99–4.105), the sharp full-space control norms and bounded perturbation decomposition (§4.106), exact controlled plane energies and natural-domain reduction (§4.107), quantitative exterior exclusion in the complete real spectrum (§4.108), consolidated positive cluster isolation (§4.109), stronger centered spectral protection (§4.110), and
+the still-open single-edge approximate-control problem (§6.4) and variable-duration spectrally protected preparation problem (§6.9) have distinct scopes.
+
+The chosen affine line is part of the definition of the analytic family.
+Originality and research significance must come from the geometric and spectral
+information established about that family, rather than from choosing the line.
+No identification with the Riemann zeta function or proof of the Riemann
+hypothesis is claimed.
+
