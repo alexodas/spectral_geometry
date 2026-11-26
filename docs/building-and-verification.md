@@ -153,21 +153,22 @@ treated as an independently proved library.
 
 **Palomar / independent statement verification.** The active root
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
-[formalization metadata](../formalization.yaml) describe **Spectral Protection During Coordinated Control on an Infinite Ammann–Beenker Graph** (§4.110).
-The principal selected theorem is
-`SpectralGeometry.AmmannBeenker.coordinatedCluster_centered_isolation`.
-Five concrete model witnesses, three locality certificates and supporting
-plane-energy, domain-reduction and numerical-bound theorems accompany it.
-All definitions are concrete; the independent Mathlib-only Challenge
-uses proposition proof placeholders only. Solution publicly imports the
-substantive controlled spectral proof, not Challenge.
+[formalization metadata](../formalization.yaml) describe **Exact Leakage-Free Quantum State Preparation with Arbitrarily Weak Controls and Prescribed Spectral Protection on an Infinite Ammann–Beenker Graph** (§4.111).
+The principal theorem is `SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation`.
+The [Comparator](../palomar/protected-exact-preparation/comparator.json) selects 19 propositions:
+the previous 15 model, locality and spectral certificates, the phase,
+stretching and protected-setting statements, and the new principal theorem.
+All definitions are concrete; the Mathlib-only Challenge uses proposition
+proof placeholders only. Solution publicly imports the substantive proof,
+not Challenge. Matching snapshots are in [the fifth candidate package](../palomar/protected-exact-preparation/).
+The complete 118-module substantive library is Lean-verified with no proof
+holes. Independent comparison of this candidate is a separate step.
 
-The active [theorem-specific Comparator](../palomar/spectral-protection-during-coordinated-control/comparator.json)
-and matching snapshots are in [`palomar/spectral-protection-during-coordinated-control/`](../palomar/spectral-protection-during-coordinated-control/).
-The complete 118-module substantive library is Lean-verified with no
-proof holes. Independent comparison of all 15 newly selected statements passed,
-including the bundled NanoDa and con-ron kernels. The fourth result was
-registered on 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
+The fourth registered package (§4.110) remains preserved in
+[the spectral-protection directory](../palomar/spectral-protection-during-coordinated-control/).
+Independent comparison of its 15 selected propositions passed, including
+NanoDa and con-ron. The result was registered on 26 November 2026 as
+[PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1).
 
 The third registered preparation package (§4.105) remains preserved in
 [`palomar/exact-leakage-free-preparation/`](../palomar/exact-leakage-free-preparation/),
@@ -185,7 +186,7 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](../palomar/dark-bright/).
 No root `comparator.json` exists. Local packaging and verification
-checks select the new spectral-protection Comparator explicitly.
+checks select the new protected-preparation Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
