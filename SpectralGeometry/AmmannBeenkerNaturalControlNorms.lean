@@ -152,7 +152,10 @@ theorem naturalRemoteMatching_opNorm (t : Lattice)
 theorem naturalRemoteOnsite_opNorm (t : Lattice)
     (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n) :
     ‖naturalRemoteOnsiteControl t‖ = 1 := by
-  apply le_antisymm (finiteSectorProjection_norm_le _)
+  have hupper : ‖naturalRemoteOnsiteControl t‖ ≤ 1 := by
+    unfold naturalRemoteOnsiteControl
+    exact finiteSectorProjection_norm_le _
+  apply le_antisymm hupper
   have h := ContinuousLinearMap.le_opNorm (naturalRemoteOnsiteControl t) (translatedCompactA t)
   rw [naturalRemoteOnsite_compactA t hrec] at h
   obtain ⟨ha, _, _⟩ := translatedCompact_inner_products t hrec
