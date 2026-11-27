@@ -195,5 +195,103 @@ theorem finite_pattern_recurrence (F : Finset Lattice) (R : ℝ) :
   exact ⟨inflatedOriginNeighbor (max N M), hM _ (le_max_right _ _),
     hN _ (le_max_left _ _)⟩
 
+/-- Arbitrarily many recurring centers beyond a prescribed radius, with
+any prescribed nonnegative pairwise physical separation. -/
+theorem finite_pattern_recurrence_family (F : Finset Lattice) (R D : ℝ)
+    (hD : 0 ≤ D) (N : ℕ) :
+    ∃ S : Finset Vertex, S.card = N ∧
+      (∀ v ∈ S, R < ‖position v‖ ∧
+        ∀ n ∈ F, Admitted (n + v.val) ↔ Admitted n) ∧
+      (∀ v ∈ S, ∀ w ∈ S, v ≠ w → D < dist (position v) (position w)) := by
+  classical
+  induction N with
+  | zero =>
+    exact ⟨∅, by simp, by simp, by simp⟩
+  | succ N ih =>
+    obtain ⟨S, hcard, hpattern, hsep⟩ := ih
+    let B : ℝ := max R 0 + D + ∑ w ∈ S, ‖position w‖
+    obtain ⟨v, hv, hvpattern⟩ := finite_pattern_recurrence F B
+    have hsum_nonneg : 0 ≤ ∑ w ∈ S, ‖position w‖ :=
+      Finset.sum_nonneg (fun w _ => norm_nonneg _)
+    have hvR : R < ‖position v‖ := by
+      dsimp [B] at hv
+      linarith [le_max_left R 0]
+    have hvfar (w : Vertex) (hw : w ∈ S) :
+        D < dist (position v) (position w) := by
+      have hwbound : ‖position w‖ ≤ ∑ u ∈ S, ‖position u‖ :=
+        Finset.single_le_sum (fun u _ => norm_nonneg (position u)) hw
+      have htriangle : ‖position v‖ ≤
+          dist (position v) (position w) + ‖position w‖ := by
+        simpa using dist_triangle (position v) (position w) (0 : ℂ)
+      dsimp [B] at hv
+      linarith [le_max_right R 0]
+    have hvnot : v ∉ S := by
+      intro h
+      have hbad := hvfar v h
+      rw [dist_self] at hbad
+      linarith
+    refine ⟨insert v S, ?_, ?_, ?_⟩
+    · simp [hvnot, hcard]
+    · intro w hw
+      rcases Finset.mem_insert.mp hw with rfl | hw
+      · exact ⟨hvR, hvpattern⟩
+      · exact hpattern w hw
+    · intro x hx y hy hxy
+      rcases Finset.mem_insert.mp hx with rfl | hx
+      · rcases Finset.mem_insert.mp hy with rfl | hy
+        · exact (hxy rfl).elim
+        · exact hvfar y hy
+      · rcases Finset.mem_insert.mp hy with rfl | hy
+        · rw [dist_comm]
+          exact hvfar x hx
+        · exact hsep x hx y hy hxy
+
+/-- Separation of centers by more than twice a radius separates every lift
+in two translated radius-bounded patterns, including excluded lifts. -/
+theorem separated_translated_lifts (v w : Vertex) (n m : Lattice) (r : ℝ)
+    (hn : ‖physical n‖ ≤ r) (hm : ‖physical m‖ ≤ r)
+    (hsep : 2 * r < dist (position v) (position w)) :
+    n + v.val ≠ m + w.val := by
+  intro heq
+  have hp := congrArg physical heq
+  simp only [physical_add] at hp
+  change physical n + position v = physical m + position w at hp
+  have hd : position v - position w = physical m - physical n := by
+    calc
+      position v - position w =
+          (physical n + position v) - (physical n + position w) := by abel
+      _ = (physical m + position w) - (physical n + position w) := by rw [hp]
+      _ = physical m - physical n := by abel
+  rw [dist_eq_norm, hd] at hsep
+  linarith [norm_sub_le (physical m) (physical n)]
+
+/-- Every finite membership pattern has arbitrarily many recurring copies
+whose entire translated lift sets are pairwise disjoint. The caller can
+include candidate neighbors and control sites in F before applying this
+theorem; separation then covers those sites, not only the centers. -/
+theorem finite_pattern_disjoint_copies (F : Finset Lattice) (R D : ℝ)
+    (hD : 0 ≤ D) (N : ℕ) :
+    ∃ S : Finset Vertex, S.card = N ∧
+      (∀ v ∈ S, R < ‖position v‖ ∧
+        ∀ n ∈ F, Admitted (n + v.val) ↔ Admitted n) ∧
+      (∀ v ∈ S, ∀ w ∈ S, v ≠ w →
+        D < dist (position v) (position w) ∧
+          ∀ n ∈ F, ∀ m ∈ F, n + v.val ≠ m + w.val) := by
+  classical
+  let r : ℝ := ∑ n ∈ F, ‖physical n‖
+  have hr : 0 ≤ r := Finset.sum_nonneg (fun n _ => norm_nonneg _)
+  obtain ⟨S, hcard, hpattern, hsep⟩ :=
+    finite_pattern_recurrence_family F R (D + 2 * r) (by linarith) N
+  refine ⟨S, hcard, hpattern, ?_⟩
+  intro v hv w hw hne
+  have h := hsep v hv w hw hne
+  refine ⟨by linarith, ?_⟩
+  intro n hn m hm
+  have hn' : ‖physical n‖ ≤ r :=
+    Finset.single_le_sum (fun a _ => norm_nonneg (physical a)) hn
+  have hm' : ‖physical m‖ ≤ r :=
+    Finset.single_le_sum (fun a _ => norm_nonneg (physical a)) hm
+  exact separated_translated_lifts v w n m r hn' hm' (by linarith)
+
 end
 end SpectralGeometry.AmmannBeenker
