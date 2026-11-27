@@ -92,9 +92,14 @@ candidate lift within two signed coordinate steps of it. -/
 @[expose] def centralRecurrenceLifts : Finset Lattice :=
   patchNeighborhoodLifts (patchNeighborhoodLifts centralLifts)
 
+set_option maxRecDepth 4096 in
 theorem centralLifts_mem_recurrence {n : Lattice} (hn : n ∈ centralLifts) :
-    n ∈ centralRecurrenceLifts :=
-  mem_patchNeighborhoodLifts_self (mem_patchNeighborhoodLifts_self hn)
+    n ∈ centralRecurrenceLifts := by
+  have hinner : n ∈ patchNeighborhoodLifts centralLifts :=
+    mem_patchNeighborhoodLifts_self (F := centralLifts) (n := n) hn
+  change n ∈ patchNeighborhoodLifts (patchNeighborhoodLifts centralLifts)
+  exact mem_patchNeighborhoodLifts_self
+    (F := patchNeighborhoodLifts centralLifts) (n := n) hinner
 
 /-- On each of the central vertices and its actual neighbors the complete
 neighbor correspondence follows from recurrence of the concrete pattern. -/
