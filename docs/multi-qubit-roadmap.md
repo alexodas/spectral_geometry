@@ -141,7 +141,7 @@ Here E_A = C + 3/16 and E_B = C + 1/4 are independent of j, and E_B - E_A = 1/16
 
 ## L9.6 — Exact preparation under the natural energy splitting
 
-**Active task.** [AmmannBeenkerNaturalPairDynamics.lean](../SpectralGeometry/AmmannBeenkerNaturalPairDynamics.lean) implements exact bounded-operator real/imaginary Schroedinger trajectories for free evolution, pure onsite detuning and compensated inter-ring pulses, with normalization, support and relative phase identities. Verification pending. Pulse composition and arbitrary preparation remain to be proved. The compensated route is not an arbitrarily weak control protocol.
+**Active task.** [AmmannBeenkerNaturalPairDynamics.lean](../SpectralGeometry/AmmannBeenkerNaturalPairDynamics.lean) certifies exact bounded-operator real/imaginary Schroedinger trajectories for free evolution, pure onsite detuning and compensated inter-ring pulses, with normalization, support and relative phase identities (140 modules). The continuous three-pulse protocol, its support, conserved norm and differential equations on the three open intervals are implemented in [AmmannBeenkerNaturalPulseComposition.lean](../SpectralGeometry/AmmannBeenkerNaturalPulseComposition.lean), awaiting verification. Arbitrary target preparation remains to be proved. The compensated route is not an arbitrarily weak control protocol.
 
 - [ ] Construct a rigorous protocol reaching any normalized complex superposition in one remote A/B plane from a specified initial state, up to global phase, with the 1/16 drift included.
 - [ ] Prove normalization, continuous full-space trajectories, the Schrödinger equations on open pulse intervals and exactly zero leakage, including switching times.
