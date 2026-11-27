@@ -137,6 +137,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction
 public import SpectralGeometry.AmmannBeenkerNaturalCollectiveSpectrum
 public import SpectralGeometry.AmmannBeenkerNaturalDefectComparison
 public import SpectralGeometry.AmmannBeenkerNaturalRemoteControls
+public import SpectralGeometry.AmmannBeenkerNaturalControlSelectivity
 
 public section
 
