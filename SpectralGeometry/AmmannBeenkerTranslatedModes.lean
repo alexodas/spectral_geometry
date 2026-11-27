@@ -110,6 +110,7 @@ theorem translated_neighbors_image (F : Finset Lattice) (t : Lattice)
 
 /-- Local Laplacian equality at every translated vertex whose original
 complete neighborhood is certified. -/
+set_option maxHeartbeats 2000000 in
 theorem translated_interaction_apply (F : Finset Lattice) (P : Finset Vertex)
     (t : Lattice)
     (hrec : ∀ n ∈ patchNeighborhoodLifts F, Admitted (n + t) ↔ Admitted n)
@@ -126,11 +127,14 @@ theorem translated_interaction_apply (F : Finset Lattice) (P : Finset Vertex)
   rw [interaction_apply, interaction_apply, hvc,
     translated_neighbors_image F t hrec v v' hv hv']
   rw [Finset.sum_image]
-  · congr 1
-    apply Finset.sum_congr rfl
-    intro w hw
-    rw [translateFiniteState_apply_supported P t x hx w
-      (patchTranslateVertex t w) (hval w hw)]
+  · have hs :
+        (∑ w ∈ neighbors v, (x v - translateFiniteState P t x (patchTranslateVertex t w))) =
+          ∑ w ∈ neighbors v, (x v - x w) := by
+      apply Finset.sum_congr rfl
+      intro w hw
+      rw [translateFiniteState_apply_supported P t x hx w
+        (patchTranslateVertex t w) (hval w hw)]
+    exact congrArg (fun a : ℝ => (1 / 16 : ℝ) * a) hs
   · intro a ha' b hb' he
     have h := congrArg (fun w : Vertex => w.val) he
     rw [hval a ha', hval b hb'] at h
