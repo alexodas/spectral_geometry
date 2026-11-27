@@ -54,9 +54,9 @@ spectrum fills an interval or is absolutely continuous.*
   preservation of the original exact multiplicity and gap.
 - [x] Prove boundedness, symmetry/self-adjointness on the full real
   Hilbert space and equality of the natural domain with the entire space.
-- [ ] Prove the full bounded-inverse spectral interface (including
-  complexification if needed). The original compact-resolvent and eigenvalue-exhaustion
-  arguments cannot be assumed for this bounded model.
+- [x] Prove real bounded-inverse spectral isolation of the crossing,
+  without assuming compact resolvent or eigenvalue exhaustion.
+  Complexification is a separate extension if needed.
 - [ ] Establish the bulk enclosure sigma(C I + B) ⊆ [C,C+1] using the
   verified positivity and norm bound of the interaction B. Prove the
   appropriate finite-rank perturbation/essential-spectrum statements
@@ -72,7 +72,7 @@ C + 1 + |t*|. The verified
 [`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean)
 transfers the original full-space action on centrally supported states
 for C >= 5 and preserves both independent compact eigenvectors at
-crossingEnergy. Full real spectral isolation remains to be transferred. The verified module
+crossingEnergy. The verified module
 [`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean),
 uses the central 1/24 bound, exterior barrier 2 and boundary coupling
 1/4 to derive ||x|| <= 122 ||(H_C - E*)x|| for orthogonal states on
@@ -82,13 +82,25 @@ extends this bound to the entire Hilbert space using density and
 continuity of the compact projection, then identifies the full
 crossing eigenspace with the two-dimensional compact plane.
 The full-space estimate and exact geometric multiplicity two are now
-Lean-verified. The candidate modules
+Lean-verified. The verified modules
 [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean)
 and [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean)
 use closed range, self-adjointness and the reducing compact projection
 to obtain bounded invertibility of the regularized residual and
 exclude every different real spectral energy at distance < 1/122.
-These full-spectrum results remain under verification.
+These full real spectral results are Lean-verified. The candidate
+[`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean)
+proves the uniform bulk enclosure, finite-rank defect of rank at most
+17 and a bundled isolated-double-eigenvalue theorem. Verification is
+pending. No claim about the exact essential spectrum is made.
+
+A prospective sixth Palomar statement will focus on the concrete
+bounded plateau model, exact double eigenvalue, full real spectral
+gap and finite-rank bulk comparison. Aim for the Registry's preferred
+300-line / 32 KiB Challenge review surface using standalone concrete
+coordinate definitions; the hard limits are 1,000 lines / 100 KiB.
+Do not duplicate the previous control protocols. All earlier registered
+packages remain unchanged.
 
 ## L9.2 — Recurrence of compact-mode patches
 

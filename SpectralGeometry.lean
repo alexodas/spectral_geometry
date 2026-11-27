@@ -124,6 +124,7 @@ public import SpectralGeometry.AmmannBeenkerPlateauResidual
 public import SpectralGeometry.AmmannBeenkerPlateauMultiplicity
 public import SpectralGeometry.BoundedSelfAdjointInverse
 public import SpectralGeometry.AmmannBeenkerPlateauSpectrum
+public import SpectralGeometry.AmmannBeenkerPlateauBulk
 
 public section
 
