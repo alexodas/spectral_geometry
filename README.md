@@ -66,7 +66,7 @@ states can be isolated and controlled on such graphs.**
 
 ## Executive summary
 
-We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth result, independently verified and prepared for submission, concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
+We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth registered result concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
 
 <a id="first-palomar-result--exactly-two-localized-crossing-states"></a>
 ### Exactly two localized crossing states
@@ -180,7 +180,9 @@ There is a useful comparison with the uniform reference operator C I + L, called
 
 Why is this interesting? Localized states in an infinite network need not depend on confinement throughout the network. Here a strictly local modification of a uniform background produces an exactly two-dimensional isolated energy space, with a quantitative guarantee valid on the full infinite graph. Unlike the earlier confined model, the proof does not require a compact resolvent or a discrete spectrum. This provides a mathematical starting point for investigating separated localized two-state systems in the same network. It does not yet establish multiple independently controllable qubits, state preparation for the plateau Hamiltonian, noise robustness, or experimental feasibility.
 
-The substantive theorem and its supporting results have passed Lean and Mathlib verification. All 13 selected propositions passed independent Comparator verification using the Lean default, NanoDa and con-ron kernels. This sixth result is prepared for Palomar submission, but is not yet registered. Neither independent human peer review nor a novelty or priority assessment is claimed.
+The substantive theorem and its supporting results have passed Lean and Mathlib verification. All 13 selected propositions passed independent Comparator verification using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Neither independent human peer review nor a novelty or priority assessment is claimed.
+
+**Palomar registration.** The sixth result was registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).
 
 #### Visual summary of the sixth theorem
 

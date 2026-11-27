@@ -2,10 +2,10 @@
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: active research; L9.1 bounded plateau isolation Lean- and Comparator-verified, multi-qubit target not yet proved.** This is the active Track B
+**Status: active research; L9.1 bounded plateau isolation registered, multi-qubit target not yet proved.** This is the active Track B
 direction. Track A (spectral geometry and analytic zeros), the original
 L6 single-edge approximate preparation, and L8b–L8e imperfect-control
-research are preserved but deferred. All five Palomar registrations and
+research are preserved but deferred. All six Palomar registrations and
 the original confined Hamiltonian remain unchanged.
 
 ## Motivation and target architecture
@@ -93,12 +93,12 @@ These full real spectral results are Lean-verified. The verified
 proves the uniform bulk enclosure, finite-rank defect of rank at most
 17 and a bundled isolated-double-eigenvalue theorem. No claim about the exact essential spectrum is made.
 
-The sixth Palomar candidate focuses on the concrete
+The sixth registered result focuses on the concrete
 bounded plateau model, exact double eigenvalue, full real spectral
 gap and finite-rank bulk comparison. Aim for the Registry's preferred
 300-line / 32 KiB Challenge review surface using standalone concrete
 coordinate definitions; the hard limits are 1,000 lines / 100 KiB.
-The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. The sixth candidate is prepared for submission, not yet registered. All earlier registered packages remain unchanged.
+The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1). All earlier registered packages remain unchanged.
 
 ## L9.2 — Recurrence of compact-mode patches
 
@@ -201,4 +201,4 @@ allows essential spectrum but does not guarantee spectral gaps, and
 the five previous theorems do not establish L9. Preserve Track A's
 analytic-product infrastructure: its compact-resolvent and summability
 hypotheses may not hold for this new model. Do not transfer them without
-new proofs. The first research deliverable, the separate bounded Lean model and its spectral certificates, is verified. A sixth Palomar candidate is prepared; registration and release are separate actions.
+new proofs. The first research deliverable, the separate bounded Lean model and its spectral certificates, is verified. The sixth result is registered; publication of a software release is a separate action.
