@@ -133,6 +133,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalPlateauPairs
 public import SpectralGeometry.AmmannBeenkerNaturalCellCompleteness
 public import SpectralGeometry.AmmannBeenkerNaturalRemoteCompleteness
 public import SpectralGeometry.AmmannBeenkerNaturalMultiplicity
+public import SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction
 
 public section
 
