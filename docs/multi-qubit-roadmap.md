@@ -2,7 +2,7 @@
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: proposed research, not yet proved.** This is the active Track B
+**Status: active research; bounded plateau construction Lean-verified, multi-qubit target not yet proved.** This is the active Track B
 direction. Track A (spectral geometry and analytic zeros), the original
 L6 single-edge approximate preparation, and L8b–L8e imperfect-control
 research are preserved but deferred. All five Palomar registrations and
@@ -45,22 +45,35 @@ spectrum fills an interval or is absolutely continuous.*
 
 ## L9.1 — Bounded plateau model
 
-- [ ] Introduce a separate bounded onsite potential
+- [x] Introduce a separate bounded onsite potential
   V_R(x) = 1 + min(|p(x)|², R²), with plateau C = 1 + R²,
   preserving the original definitions and the central first-ring
   crossing correction t* = 17/16 + sqrt(2).
 - [ ] Choose R large enough to preserve both central compact-mode
   equations; distinguish preservation of those eigenvectors from
   preservation of the original exact multiplicity and gap.
-- [ ] Prove boundedness, symmetry/self-adjointness and the full
-  bounded-inverse spectral interface (including complexification if
-  needed). The original compact-resolvent and eigenvalue-exhaustion
+- [x] Prove boundedness, symmetry/self-adjointness on the full real
+  Hilbert space and equality of the natural domain with the entire space.
+- [ ] Prove the full bounded-inverse spectral interface (including
+  complexification if needed). The original compact-resolvent and eigenvalue-exhaustion
   arguments cannot be assumed for this bounded model.
 - [ ] Establish the bulk enclosure sigma(C I + B) ⊆ [C,C+1] using the
   verified positivity and norm bound of the interaction B. Prove the
   appropriate finite-rank perturbation/essential-spectrum statements
   if needed; do not assume that the bulk fills the interval or is
   absolutely continuous.
+
+**Verified foundation.** [`AmmannBeenkerPlateauOperator.lean`](../SpectralGeometry/AmmannBeenkerPlateauOperator.lean)
+constructs the bounded self-adjoint real Hamiltonian for every height
+C >= 1. The canonical height C = 4 + 4 alpha (alpha = sqrt(2)/2)
+preserves the original potential on all seventeen central vertices
+and is exactly constant everywhere else. The operator norm is at most
+C + 1 + |t*|. The candidate
+[`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean)
+transfers the original full-space action on centrally supported states
+for C >= 5 and preserves both independent compact eigenvectors;
+verification is pending. Neither exact multiplicity nor spectral
+isolation has yet been transferred.
 
 ## L9.2 — Recurrence of compact-mode patches
 
