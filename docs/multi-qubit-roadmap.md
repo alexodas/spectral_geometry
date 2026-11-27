@@ -73,13 +73,17 @@ C + 1 + |t*|. The verified
 transfers the original full-space action on centrally supported states
 for C >= 5 and preserves both independent compact eigenvectors at
 crossingEnergy. Neither exact multiplicity nor spectral isolation has
-yet been transferred. The next candidate module,
+yet been transferred. The verified module
 [`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean),
 uses the central 1/24 bound, exterior barrier 2 and boundary coupling
 1/4 to derive ||x|| <= 122 ||(H_C - E*)x|| for orthogonal states on
 the old dense natural domain when C >= canonicalPlateauHeight.
-Verification, extension to the whole space and bounded invertibility
-on the orthogonal complement remain separate obligations.
+The candidate [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean)
+extends this bound to the entire Hilbert space using density and
+continuity of the compact projection, then identifies the full
+crossing eigenspace with the two-dimensional compact plane.
+Verification of this extension and bounded invertibility on the
+orthogonal complement remain separate obligations.
 
 ## L9.2 — Recurrence of compact-mode patches
 

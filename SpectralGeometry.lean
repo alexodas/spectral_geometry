@@ -121,6 +121,7 @@ public import SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation
 public import SpectralGeometry.AmmannBeenkerPlateauOperator
 public import SpectralGeometry.AmmannBeenkerPlateauCrossing
 public import SpectralGeometry.AmmannBeenkerPlateauResidual
+public import SpectralGeometry.AmmannBeenkerPlateauMultiplicity
 
 public section
 
