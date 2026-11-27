@@ -91,6 +91,8 @@ theorem naturalRemoteCell_pullback (t : Lattice)
     intro u hu he
     exact hw ((naturalRemoteCell_mem_iff t hrec w).mpr ⟨u, hu, he⟩)
 
+set_option maxRecDepth 4096 in
+set_option maxHeartbeats 2000000 in
 /-- A remote eigenvector pulls back to a full-graph eigenvector of L.
 The proof explicitly includes the exterior neighbors of the original cell. -/
 theorem naturalRemoteCell_pullback_eigenvector (t : Lattice)
@@ -105,8 +107,10 @@ theorem naturalRemoteCell_pullback_eigenvector (t : Lattice)
   change interaction y u = c * y u
   by_cases hu : u.val ∈ patchNeighborhoodLifts centralLifts
   · have hu' : u.val ∈ centralRecurrenceLifts := by
-      exact mem_patchNeighborhoodLifts_self hu
-    have ha : Admitted (u.val + t) := (hrec _ hu').mpr u.property
+      change u.val ∈ patchNeighborhoodLifts (patchNeighborhoodLifts centralLifts)
+      exact mem_patchNeighborhoodLifts_self
+        (F := patchNeighborhoodLifts centralLifts) (n := u.val) hu
+    have ha : Admitted (u.val + t) := (hrec u.val hu').mpr u.property
     let w := patchTranslateVertex t u
     have hv : w.val = u.val + t := patchTranslateVertex_val t u ha
     have h := congrArg (fun z : TileHilbert Vertex => z w) he
