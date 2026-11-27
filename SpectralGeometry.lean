@@ -130,6 +130,7 @@ public import SpectralGeometry.AmmannBeenkerPatchNeighborhood
 public import SpectralGeometry.AmmannBeenkerTranslatedModes
 public import SpectralGeometry.AmmannBeenkerReplicatedPairs
 public import SpectralGeometry.AmmannBeenkerNaturalPlateauPairs
+public import SpectralGeometry.AmmannBeenkerNaturalCellCompleteness
 
 public section
 
