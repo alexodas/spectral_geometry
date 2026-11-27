@@ -48,9 +48,9 @@ covers excluded as well as admitted coordinates.
 Lean/Mathlib build. The existing sixth-result Comparator also passed;
 the new recurrence statements have not yet been independently selected.
 The concrete candidate neighborhoods and complete graph-neighbor
-correspondence are now verified as described below. This is not yet a
-certified transfer of the compact eigenstates, an isolated remote double
-eigenvalue, or a multi-pair control theorem. General cut-and-project recurrence is not
+correspondence are now verified as described below. Full-graph transfer of the compact eigenvector equations is now also
+verified as described below. This does not give an isolated remote double
+eigenvalue or a multi-pair control theorem. General cut-and-project recurrence is not
 claimed as a new discovery; the concrete replicated spectral statement
 is the intended L9.2 target.
 
@@ -66,3 +66,22 @@ patch and all of its immediate neighbors, while
 `central_recurrence_disjoint_copies` gives arbitrary finite disjoint copies
 of the entire two-step pattern. These statements passed full Lean/Mathlib
 verification. The existing sixth-result Comparator passed separately.
+
+**Verified full-graph spectral transfer.** The module
+[`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean)
+defines a finite state translation as a sum of site vectors with the
+original amplitudes at the translated coordinates. It proves that the
+amplitudes agree at admitted translated sites and vanish elsewhere.
+Using the exact neighbor correspondence and the full coordinate formula
+for the Laplacian, `central_translate_eigenvector` transports every
+eigenvector supported on the central sector. The proof also covers
+exterior vertices neighboring the support (where cancellation matters)
+and all other vertices (where the translated amplitudes and their
+neighbor amplitudes vanish). There is no assumption of a global graph
+automorphism or preservation of matching colors.
+The concrete `translatedCompactA_eigenvector` and
+`translatedCompactB_eigenvector` prove the eigenvector equations with
+coefficients 3/16 and 1/4 on the entire infinite graph.
+Full Lean/Mathlib verification passed, as did the existing sixth-result
+Comparator. The exact normalization and mutual orthogonality of the
+replicated family are the next proof checkpoint.

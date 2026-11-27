@@ -102,7 +102,7 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## L9.2 — Recurrence of compact-mode patches
 
-**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean and the existing sixth-result Comparator passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is under verification in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products remains open.
+**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean and the existing sixth-result Comparator passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is Lean-verified in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products and the bundled finite family theorem are under verification in [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean).
 
 - [x] Prove recurrence for the exact cut-and-project window and lattice
   coordinates of the implemented graph, for any finite lift set.
@@ -113,9 +113,9 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 - [x] Construct arbitrarily many mutually separated translated
   patches outside a prescribed radius, with disjoint supports and
   control neighborhoods. A finite patch illustration is not a proof.
-- [ ] Transfer the full-space compact-mode equations
-  B a_j = (3/16) a_j and B b_j = (1/4) b_j, orthogonality and
-  squared norms 8. On a uniform plateau their prospective energies
+- [x] Transfer the full-space compact-mode equations
+  B a_j = (3/16) a_j and B b_j = (1/4) b_j.
+- [ ] Certify preservation of orthogonality and squared norms 8. On a uniform plateau their prospective energies
   are C+3/16 and C+1/4, respectively, not a degenerate pair.
   Infinite multiplicity at a common plateau energy is a separate
   possible consequence of recurrence, not the preferred architecture.
