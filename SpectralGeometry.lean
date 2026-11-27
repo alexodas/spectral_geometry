@@ -129,6 +129,7 @@ public import SpectralGeometry.AmmannBeenkerPatchRecurrence
 public import SpectralGeometry.AmmannBeenkerPatchNeighborhood
 public import SpectralGeometry.AmmannBeenkerTranslatedModes
 public import SpectralGeometry.AmmannBeenkerReplicatedPairs
+public import SpectralGeometry.AmmannBeenkerNaturalPlateauPairs
 
 public section
 
