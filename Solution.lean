@@ -1,8 +1,9 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation
+public import SpectralGeometry.AmmannBeenkerPlateauBulk
 
 /-!
-The substantive full-graph proof of exact weak-control preparation with
-prescribed spectral protection is imported independently of Challenge.
+The substantive proof of the bounded plateau crossing, full real spectral
+isolation, bulk enclosure and finite-rank defect is imported independently
+of Challenge.
 -/

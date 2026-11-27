@@ -1,0 +1,25 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SpectralGeometry.AmmannBeenker.admitted_zero",
+    "SpectralGeometry.AmmannBeenker.finite_norm_sublevel",
+    "SpectralGeometry.AmmannBeenker.mate_involutive",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauHeight_ge_five",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauPotential_outside",
+    "SpectralGeometry.AmmannBeenker.plateauPotential_normalized_norm_le",
+    "SpectralGeometry.AmmannBeenker.sector_card",
+    "SpectralGeometry.AmmannBeenker.compactA_inner_self",
+    "SpectralGeometry.AmmannBeenker.compactB_inner_self",
+    "SpectralGeometry.AmmannBeenker.compactA_inner_compactB",
+    "SpectralGeometry.AmmannBeenker.plateauHamiltonian_realSpectrum_gap",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauDefect_zero_outside",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

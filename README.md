@@ -2,7 +2,8 @@
 
 **A research program in Lean 4 and Mathlib studying how local changes to
 operators on infinite geometric graphs affect their energy levels and the
-zeros of analytic functions built from those levels.**
+zeros of analytic functions built from those levels, and how localized
+states can be isolated and controlled on such graphs.**
 
 ## Table of contents
 
@@ -12,6 +13,9 @@ zeros of analytic functions built from those levels.**
   - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
   - [Spectral protection during coordinated control](#spectral-protection-during-coordinated-control)
   - [Exact protected state preparation with arbitrarily weak controls](#exact-protected-state-preparation-with-arbitrarily-weak-controls)
+    - [Visual summary of the fifth theorem](#visual-summary-of-the-fifth-theorem)
+  - [An isolated double eigenvalue without global confinement](#an-isolated-double-eigenvalue-without-global-confinement)
+    - [Visual summary of the sixth theorem](#visual-summary-of-the-sixth-theorem)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -23,6 +27,7 @@ zeros of analytic functions built from those levels.**
   - [4.68–4.79. Ammann–Beenker geometry and the compact crossing](docs/ammann-beenker-geometry.md)
   - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
   - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
+  - <a id="4112-bounded-plateau-and-full-real-spectral-isolation"></a>[4.112. Bounded plateau and full real spectral isolation](docs/plateau-spectral-isolation.md#4112-bounded-plateau-and-full-real-spectral-isolation)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
@@ -56,11 +61,12 @@ zeros of analytic functions built from those levels.**
   - <a id="65-local-geometric-defects-and-relative-spectral-products"></a>[6.5–6.7. Relative products, finite patches and exploratory zeros](docs/research-roadmap.md#65-local-geometric-defects-and-relative-spectral-products)
   - <a id="68-independent-statement-verification-and-research-interest-assessment"></a>[6.8. Scientific assessment and submission status](docs/research-roadmap.md#68-independent-statement-verification-and-research-interest-assessment)
   - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-open"></a>[6.9. L8a: Quantitative spectral protection (verified; refinements open)](docs/research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open)
+  - [6.10. L9 — Independently controllable spectrally protected localized qubits (open)](docs/research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
 - [7. Research methodology and maintenance rules](docs/maintenance-rules.md#7-research-methodology-and-maintenance-rules)
 
 ## Executive summary
 
-We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure.
+We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth result, independently verified and prepared for submission, concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
 
 <a id="first-palomar-result--exactly-two-localized-crossing-states"></a>
 ### Exactly two localized crossing states
@@ -141,6 +147,46 @@ This is an exact result for the unbounded Hamiltonian on the full infinite graph
 The substantive proof and all 19 selected candidate propositions passed full Lean verification and independent statement comparison using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Independent human peer review and assessment of novelty are not claimed.
 
 **Palomar registration.** The fifth result was registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
+
+#### Visual summary of the fifth theorem
+
+![Verified protected exact preparation: two compact rings, coordinated controls, quadratic confinement and protected energy levels](docs/figures/protected-exact-preparation.svg)
+
+**Figure.** Schematic illustration of the verified protected exact-preparation protocol.
+The central patch shows the actual two eight-site supports and the eight matched
+inter-ring edges (magenta); the other central edges are gray and the exterior
+neighbors are omitted. The quadratic baseline potential is supplemented by the
+fixed crossing correction on the first ring. Three consecutive equal-duration
+pulses act on the matched edges, the first-ring onsite values, and the matched
+edges again. Pulse heights are illustrative and may be signed or zero. The
+instantaneous plane energies shown correspond to each constant control setting;
+after switching off the controls both return to the common energy E*.
+The certified separation from all other real spectral energies is at least
+f/128 in each setting, not the internal level spacing. The state is prepared
+exactly from dark up to a common phase, with zero leakage throughout.
+No noise robustness or differentiability at switches is asserted.
+
+### An isolated double eigenvalue without global confinement
+
+Can two exactly localized states remain isolated in energy if the potential stops growing away from their center? For the specific infinite Ammann–Beenker graph studied here, the answer is yes. This result replaces the growing radial potential of the earlier theorems with a bounded potential that is constant far from the origin, while retaining the exact two-state degeneracy and a positive certified rest-energy gap.
+
+The graph is defined by projecting admitted points of a four-dimensional integer lattice into the plane, using an octagonal acceptance window. Edges join admitted lattice points differing by a signed coordinate unit vector. The interaction L is the positive graph Laplacian with edge weight 1/16, acting on the real square-summable states of the entire infinite graph. No finite sample or artificial boundary is introduced.
+
+The original onsite potential 1 + r², where r is the distance from the origin, is now truncated to V(r) = min(1 + r², C), with C = 4 + 2√2 (approximately 6.828). A fixed onsite correction of 17/16 + √2 is retained on the eight vertices of the first ring. The resulting Hamiltonian is a bounded self-adjoint operator defined on the whole real Hilbert space. Outside the seventeen vertices of the central sector, the onsite value is exactly C.
+
+Two compact states, A and B, have alternating amplitudes +1 and −1 on their respective eight-site rings and vanish everywhere else. They are orthogonal, each has squared norm eight, and both are exact eigenvectors at E* = 13/4 + √2 (approximately 4.664). The theorem proves that the entire eigenspace at E* has dimension exactly two: every state at that energy is a linear combination of A and B. Moreover, every other energy in the full real spectrum lies at distance at least 1/122 from E*. This excludes not only other eigenvalues but also any non-discrete real spectral energies within the open protected window. The radius is a rigorous lower bound, not a claimed exact gap.
+
+There is a useful comparison with the uniform reference operator C I + L, called the bulk here. Its entire real spectrum lies in [C, C + 1], strictly above E*. The actual Hamiltonian differs from this reference only by a perturbation supported on the central sector, whose range has dimension at most seventeen. The enclosure does not say that the bulk fills the interval or that the full Hamiltonian has no other levels below it.
+
+Why is this interesting? Localized states in an infinite network need not depend on confinement throughout the network. Here a strictly local modification of a uniform background produces an exactly two-dimensional isolated energy space, with a quantitative guarantee valid on the full infinite graph. Unlike the earlier confined model, the proof does not require a compact resolvent or a discrete spectrum. This provides a mathematical starting point for investigating separated localized two-state systems in the same network. It does not yet establish multiple independently controllable qubits, state preparation for the plateau Hamiltonian, noise robustness, or experimental feasibility.
+
+The substantive theorem and its supporting results have passed Lean and Mathlib verification. All 13 selected propositions passed independent Comparator verification using the Lean default, NanoDa and con-ron kernels. This sixth result is prepared for Palomar submission, but is not yet registered. Neither independent human peer review nor a novelty or priority assessment is claimed.
+
+#### Visual summary of the sixth theorem
+
+![Bounded plateau potential, two compact modes and full real spectral isolation](docs/figures/plateau-isolated-double-eigenvalue.svg)
+
+**Figure.** The actual central graph and its two alternating compact-mode patterns are shown on the left (exterior neighbors omitted). The radial onsite baseline becomes constant at C; the first-ring crossing correction is shown separately. The two modes share E*, with a certified radius 1/122 free of other real spectral energies. The uniform reference bulk spectrum lies in [C, C + 1]. The energy panel is schematic and does not assert that the rest of the spectrum is empty.
 
 ## Detailed section index
 

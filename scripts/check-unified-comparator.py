@@ -14,7 +14,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "palomar/protected-exact-preparation/comparator.json"
+config_path = root / "palomar/plateau-isolated-double-eigenvalue/comparator.json"
 archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
@@ -34,11 +34,12 @@ per_theorem_configs = sorted(path.relative_to(root).as_posix()
 if per_theorem_configs != [
     "palomar/dark-bright/comparator.json",
     "palomar/exact-leakage-free-preparation/comparator.json",
+    "palomar/plateau-isolated-double-eigenvalue/comparator.json",
     "palomar/protected-exact-preparation/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
     "palomar/spectral-protection-during-coordinated-control/comparator.json",
 ]:
-    errors.append("Expected four predecessor Comparators and the active protected-preparation Comparator")
+    errors.append("Expected five predecessor Comparators and the active bounded-plateau Comparator")
 try:
     archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
     old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
@@ -56,9 +57,9 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation"
+proof_module = "SpectralGeometry.AmmannBeenkerPlateauBulk"
 # Preserve the previous spectral certificates and select the new preparation statements.
-expected_sources = {
+previous_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
     "SpectralGeometry.AmmannBeenker.compactA_mem_domain": "SpectralGeometry.AmmannBeenkerCompactModes",
@@ -78,6 +79,22 @@ expected_sources = {
     "SpectralGeometry.AmmannBeenker.coordinatedProtocolStretch_bounds": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
     "SpectralGeometry.AmmannBeenker.coordinatedProtectedSetting_of_budget": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
     "SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
+}
+
+expected_sources = {
+    "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.finite_norm_sublevel": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauHeight_ge_five": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauPotential_outside": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+    "SpectralGeometry.AmmannBeenker.plateauPotential_normalized_norm_le": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+    "SpectralGeometry.AmmannBeenker.sector_card": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.compactA_inner_self": "SpectralGeometry.AmmannBeenkerCompactStates",
+    "SpectralGeometry.AmmannBeenker.compactB_inner_self": "SpectralGeometry.AmmannBeenkerCompactStates",
+    "SpectralGeometry.AmmannBeenker.compactA_inner_compactB": "SpectralGeometry.AmmannBeenkerCompactStates",
+    "SpectralGeometry.AmmannBeenker.plateauHamiltonian_realSpectrum_gap": "SpectralGeometry.AmmannBeenkerPlateauSpectrum",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauDefect_zero_outside": "SpectralGeometry.AmmannBeenkerPlateauBulk",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue": "SpectralGeometry.AmmannBeenkerPlateauBulk"
 }
 for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml"):
     if (root / filename).read_bytes() != (config_path.parent / filename).read_bytes():
@@ -101,18 +118,25 @@ for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "compa
     if not (protection / filename).is_file():
         errors.append(f"Registered protection snapshot missing: {filename}")
 protection_cfg = json.loads((protection / "comparator.json").read_text())
-if protection_cfg.get("theorem_names", []) != list(expected_sources)[:-4]:
+if protection_cfg.get("theorem_names", []) != list(previous_sources)[:-4]:
     errors.append("Registered spectral-protection theorem selection must be preserved")
 readme = (root / "README.md").read_text(encoding="utf-8")
 previous_summary = readme.split("### Spectral protection during coordinated control\n\n", 1)[1].split("\n\nThe research direction was conceived", 1)[0]
 if previous_summary != json.loads((protection / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered spectral-protection description must be preserved")
-summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n## Detailed section index", 1)[0]
+fifth = root / "palomar/protected-exact-preparation"
+fifth_cfg = json.loads((fifth / "comparator.json").read_text())
+if fifth_cfg.get("theorem_names", []) != list(previous_sources):
+    errors.append("Registered fifth theorem selection must be preserved")
+fifth_summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n#### Visual summary of the fifth theorem", 1)[0]
+if fifth_summary != json.loads((fifth / "formalization.yaml").read_text())["project"]["description"]:
+    errors.append("Registered fifth description must be preserved")
+summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the protected-preparation conclusions and all preceding spectral and model certificates")
+    errors.append("Select the bounded-plateau conclusions and their concrete model certificates")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):

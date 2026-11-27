@@ -2,11 +2,14 @@
 
 **Relationship to the original program.** This is the **specialized
 localized-modes/control roadmap** (Track B). The repo's original
-spectral-geometry and analytic-zero program (Track A) remains active,
+spectral-geometry and analytic-zero program (Track A) is temporarily paused,
 with its verified canonical-product results and open relative
 determinant, cofactor, finite-patch and zero-statistics objectives
 in the [main README §6](research-roadmap.md#6-roadmap-proof-status-and-next-steps).
 Following the registered L7 and L8a results, exact variable-duration preparation with prescribed energetic protection is Lean-verified (§4.111); all 19 selected propositions passed independent comparison. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1). Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. This does not withdraw the earlier goals.
+**Current priority:** [L9 — independently controllable spectrally protected
+localized qubits](multi-qubit-roadmap.md). L6 and imperfect-control
+refinements L8b–L8e remain open but are deferred. L9.1 is now verified: the bounded plateau has an exact double eigenvalue and a full real spectral gap of at least 1/122, with a finite-rank defect relative to the uniform bulk (§4.112). L9.2 recurrence is the next task.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -578,5 +581,5 @@ theorem for ideal controls. Later L8b–L8e may address nonuniform control
 errors, leakage, preparation fidelity and robust pulse design.
 No dynamical noise bound, arbitrary-strength spectral gap, hardware
 robustness is asserted. The fourth registration concerns static spectral protection. L6 and all
-Track A objectives remain open as before.
+Track A objectives remain open and are currently paused.
 

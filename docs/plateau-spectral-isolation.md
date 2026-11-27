@@ -1,0 +1,20 @@
+[← Main README and table of contents](../README.md) · [L9 roadmap](multi-qubit-roadmap.md)
+
+### 4.112. Bounded plateau and full real spectral isolation
+
+The sixth result concerns the same concrete infinite graph as §§4.68–4.111, but a distinct bounded rest Hamiltonian. All the earlier confined-model theorems and their hypotheses remain unchanged.
+
+Set alpha = sqrt(2)/2, C₀ = 4 + 4 alpha, t* = 17/16 + 2 alpha and E* = 13/4 + 2 alpha. On the real Hilbert space of square-summable vertex states, write L for the positive interaction Laplacian (operator norm at most one). The plateau potential is min(1 + |p(v)|², C); the Hamiltonian adds the fixed t* onsite correction on the neighbors of the origin. For every C ≥ 1 it is bounded and self-adjoint, with natural domain equal to the entire Hilbert space. For C ≥ 5 it preserves both compact crossing eigenvectors.
+
+At C = C₀ the onsite potential is exactly constant off the seventeen-site sector. The two alternating compact modes A and B are orthogonal, each has squared norm eight. At every height C ≥ C₀ the full-space residual satisfies
+`‖Qx‖ ≤ 122 ‖(H_C − E* I)x‖`, where Q is the orthogonal complement projection to the compact pair. The eigenspace at E* has exact geometric multiplicity two.
+
+The proof uses the central singular-value estimate 1/24, exterior barrier 2 and boundary coupling bound 1/4. On the old dense domain these give scalar inequalities u/24 ≤ s + v/4 and 2v ≤ s + u/4, implying u + v ≤ 122s. Continuity extends the estimate to the whole Hilbert space. The compact plane and complement reduce the bounded Hamiltonian. A nonzero plane shift and a complement shift of absolute size less than 1/122 give a positive lower norm bound. For a bounded self-adjoint operator this implies closed range and trivial kernel; self-adjointness then gives dense range and hence bounded invertibility. Thus every other real spectral energy has distance at least 1/122 from E*. The proof does not assume a compact resolvent or exhaust the spectrum by eigenvectors.
+
+The uniform reference bulk C₀ I + L has its real spectrum enclosed in [C₀,C₀+1], above E*. The canonical Hamiltonian differs from it by a defect vanishing outside the central coordinates. Its range is finite-dimensional, of dimension at most seventeen. This is not a classification of the essential spectrum and does not assert a filled bulk interval.
+
+The principal theorem `canonicalPlateau_isolated_double_eigenvalue` bundles these conclusions at the canonical height. The uniform gap theorem `plateauHamiltonian_realSpectrum_gap` applies to every C ≥ C₀. The substantive modules are [PlateauOperator](../SpectralGeometry/AmmannBeenkerPlateauOperator.lean), [PlateauCrossing](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean), [PlateauResidual](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean), [PlateauMultiplicity](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean), [BoundedSelfAdjointInverse](../SpectralGeometry/BoundedSelfAdjointInverse.lean), [PlateauSpectrum](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) and [PlateauBulk](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean).
+
+**Verification:** the substantive Lean library and the [sixth independent package](../palomar/plateau-isolated-double-eigenvalue/) passed Lean and Comparator verification of all 13 selected propositions, including the Lean default, NanoDa and con-ron kernels. The standalone Mathlib-only Challenge has 281 lines and 12,547 bytes. The sixth candidate is prepared for submission, not yet registered. No independent human review or priority assessment is claimed.
+
+**Scope:** real spectrum, isolated rest eigenspace and finite-rank defect. Transfer of the preparation theorem, complexification if needed, recurrent patches and independently protected multiple pairs remain separate questions. Track A's analytic objectives are preserved.
