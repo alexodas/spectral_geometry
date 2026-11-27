@@ -94,7 +94,7 @@ theorem internal_window_boundary_avoided (n : Lattice) :
     exact recurrence_diagonal_ne _ _
 
 private theorem recurrence_abs_lt_iff {x y c : ℝ}
-    (hne : |x| ≠ c) (hy : |y| < ||x| - c|) :
+    (hne : |x| ≠ c) (hy : |y| < abs (abs x - c)) :
     |x + y| < c ↔ |x| < c := by
   have h₁ : |x + y| ≤ |x| + |y| := abs_add_le _ _
   have h₂ : |x| ≤ |x + y| + |y| := by
@@ -132,9 +132,9 @@ theorem eventual_admitted_translate (n : Lattice) :
     ∃ N : ℕ, ∀ k ≥ N,
       Admitted (n + (inflatedOriginNeighbor k).val) ↔ Admitted n := by
   obtain ⟨h₁, h₂, h₃, h₄⟩ := internal_window_boundary_avoided n
-  let d₁ := ||(internal n).re| - (1 / 2 + alpha)|
-  let d₃ := ||(internal n).re + (internal n).im| - (1 + alpha)|
-  let d₄ := ||(internal n).re - (internal n).im| - (1 + alpha)|
+  let d₁ := abs (abs (internal n).re - (1 / 2 + alpha))
+  let d₃ := abs (abs ((internal n).re + (internal n).im) - (1 + alpha))
+  let d₄ := abs (abs ((internal n).re - (internal n).im) - (1 + alpha))
   have hd₁ : 0 < d₁ := abs_pos.mpr (sub_ne_zero.mpr h₁)
   have hd₃ : 0 < d₃ := abs_pos.mpr (sub_ne_zero.mpr h₃)
   have hd₄ : 0 < d₄ := abs_pos.mpr (sub_ne_zero.mpr h₄)
