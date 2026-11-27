@@ -65,6 +65,8 @@ theorem naturalRemotePerturbation_zero_of_cell_zero (t : Lattice) (δ η : ℝ)
   simp [naturalRemotePerturbation, ContinuousLinearMap.add_apply,
     ContinuousLinearMap.smul_apply, ha, hb]
 
+set_option maxRecDepth 4096 in
+set_option maxHeartbeats 2000000 in
 theorem naturalRemotePerturbation_zero_of_disjoint (t s : Lattice)
     (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n)
     (hdis : ∀ n ∈ centralRecurrenceLifts, ∀ m ∈ centralRecurrenceLifts,
@@ -199,8 +201,9 @@ theorem naturalFamilyHamiltonian_central_action (S : Finset Vertex)
     exact naturalRemotePerturbation_zero_of_central_support v (hp v hv).1
       (hp v hv).2 (δ v) (η v) _ hx
   obtain ⟨_, _, ha, hb, _⟩ := canonicalPlateau_isolated_double_eigenvalue
-  simp only [naturalFamilyHamiltonian, ContinuousLinearMap.add_apply,
-    ContinuousLinearMap.sum_apply, hz, add_zero, map_add, map_smul, ha, hb]
+  unfold naturalFamilyHamiltonian
+  rw [ContinuousLinearMap.add_apply, ContinuousLinearMap.sum_apply, hz, add_zero]
+  simp only [map_add, map_smul, ha, hb]
   module
 
 /-- Orthogonality to the two directions of a selected remote cell is
