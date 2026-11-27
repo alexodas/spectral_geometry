@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 
 root = Path(__file__).resolve().parent.parent
-config = json.loads((root / "palomar/plateau-isolated-double-eigenvalue/comparator.json").read_text())
+config = json.loads((root / "palomar/recurrent-compact-mode-pairs/comparator.json").read_text())
 targets = set(config["theorem_names"])
 namespaces = []
 names = []
@@ -35,7 +35,6 @@ with tempfile.TemporaryDirectory(prefix="comparator-diagnostic-", dir=root / ".l
     outputs = {}
     for module in (config["challenge_module"], config["solution_module"]):
         commands = [f"import {module}", "set_option pp.all true"]
-        commands.extend(["#print SpectralGeometry.AmmannBeenker.firstRingIndex_lt", "#print SpectralGeometry.AmmannBeenker.secondRingIndex_lt"])
         for name in names:
             commands.extend([
                 f'#eval IO.println "BEGIN {name}"',

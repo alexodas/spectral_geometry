@@ -125,6 +125,10 @@ public import SpectralGeometry.AmmannBeenkerPlateauMultiplicity
 public import SpectralGeometry.BoundedSelfAdjointInverse
 public import SpectralGeometry.AmmannBeenkerPlateauSpectrum
 public import SpectralGeometry.AmmannBeenkerPlateauBulk
+public import SpectralGeometry.AmmannBeenkerPatchRecurrence
+public import SpectralGeometry.AmmannBeenkerPatchNeighborhood
+public import SpectralGeometry.AmmannBeenkerTranslatedModes
+public import SpectralGeometry.AmmannBeenkerReplicatedPairs
 
 public section
 

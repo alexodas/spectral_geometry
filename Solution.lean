@@ -1,9 +1,8 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerPlateauBulk
+public import SpectralGeometry.AmmannBeenkerReplicatedPairs
 
 /-!
-The substantive proof of the bounded plateau crossing, full real spectral
-isolation, bulk enclosure and finite-rank defect is imported independently
-of Challenge.
+The substantive recurrence and compact-mode replication proof is
+imported independently of Challenge.
 -/

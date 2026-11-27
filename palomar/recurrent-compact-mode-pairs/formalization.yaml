@@ -1,0 +1,270 @@
+{
+  "version": "v0.4",
+  "project": {
+    "name": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
+    "description": "Can the same two localized wave patterns occur arbitrarily many times in one infinite network, without spreading into the rest of it? For the specific octagonal Ammann–Beenker graph studied here, the answer is yes.\n\nThe network is built by projecting selected points of a four-dimensional integer lattice into the plane. Its graph Laplacian L assigns the same weight, 1/16, to each edge. Two known compact wave patterns, A and B, live on separate eight-site rings of a central seventeen-vertex patch. Their amplitudes alternate between +1 and −1 and vanish elsewhere. They have exact eigenvalues 3/16 and 1/4, respectively.\n\nThe new theorem proves that for any finite number N, we can find N copies of this patch arbitrarily far from the origin and farther apart than any prescribed separation. The copies include the complete surrounding candidate neighborhoods, with both present and absent vertices preserved. These neighborhoods do not overlap. This is possible because certain lattice translations move arbitrarily far in physical space while their displacement in the internal projection tends to zero.\n\nEach copy carries the same two localized waves, with exactly the original amplitudes and eigenvalues. The eigenvector equations hold at every vertex of the infinite graph, even outside the patch, where the contributions cancel. Every copied wave has squared norm eight. The two waves in each copy, and all waves in different copies, are mutually orthogonal. Thus the construction gives 2N nonzero, mutually orthogonal compact eigenvectors on a single infinite graph. No artificial boundary, numerical approximation or global translation symmetry is assumed.\n\nWhy is this interesting? The earlier results established an isolated two-state system at one location. The new result proves that its underlying compact wave patterns can be replicated at arbitrarily many separated locations, providing a geometric and spectral foundation for placing local two-state systems on the same network. It does not yet make them degenerate, individually isolated or independently controllable qubits: the two Laplacian eigenvalues differ. Engineering distinct degenerate rest energies, proving spectral isolation and implementing local control are the next research goals.\n\nRepetitivity of cut-and-project sets and compact localized states are established research topics. This result certifies their concrete combination for the specified graph and Laplacian, not a claim of priority or experimental feasibility. The full 129-module Lean/Mathlib library passed verification, and all 16 selected propositions passed independent comparison using the Lean default, NanoDa and con-ron kernels. No Palomar registration or independent human peer review is claimed for this seventh candidate.",
+    "authors": [
+      "Alessandro Odasso"
+    ],
+    "license": "Apache-2.0",
+    "responsible_maintainers": [
+      "Alessandro Odasso"
+    ]
+  },
+  "classification": {
+    "arxiv": [
+      "math.SP",
+      "cond-mat.mes-hall"
+    ],
+    "msc2020": [
+      "52C23",
+      "05C50",
+      "05C63",
+      "47A75"
+    ]
+  },
+  "sources": [
+    {
+      "title": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
+      "authors": [
+        "Alessandro Odasso"
+      ],
+      "type": "original-proof",
+      "relationship": "other",
+      "id": "https://github.com/alexodas/spectral_geometry",
+      "note": "AI-generated recurrence and full-Laplacian replication proof under the maintainer's direction. No independent novelty or priority assessment is claimed."
+    },
+    {
+      "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
+      "authors": [
+        "M. Ö. Oktel"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.104.014204",
+      "note": "Background for known localized ring patterns in a tight-binding setting, rather than the present weighted graph Laplacian."
+    },
+    {
+      "title": "Compact localized states and flat bands from local symmetry partitioning",
+      "authors": [
+        "M. Röntgen",
+        "C. V. Morfonios",
+        "P. Schmelcher"
+      ],
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1103/PhysRevB.97.035161",
+      "note": "Background on compact states and local symmetry, not a priority claim for this certificate."
+    },
+    {
+      "title": "A characterisation of linear repetitivity for cut and project sets with general polytopal windows",
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://doi.org/10.1016/j.indag.2024.03.003",
+      "note": "General repetitivity background. The present proof does not assert linear repetitivity.",
+      "authors": [
+        "James J. Walton"
+      ]
+    },
+    {
+      "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
+      "authors": [
+        "F. P. M. Beenker"
+      ],
+      "type": "other",
+      "relationship": "background",
+      "id": "https://pure.tue.nl/ws/files/4269555/253166.pdf",
+      "note": "Geometric origin of square-rhombus octagonal tiling models. The present theorem concerns one centered admitted-vertex graph and does not claim polygonal coverage, aperiodicity of the hull, or validity for every Ammann–Beenker realization."
+    },
+    {
+      "title": "Mathlib4 — Lean mathematical library",
+      "type": "other",
+      "relationship": "background",
+      "id": "https://github.com/leanprover-community/mathlib4",
+      "note": "Provides the Hilbert-space, linear-algebra and verification infrastructure."
+    }
+  ],
+  "status": {
+    "scope": "Exact finite recurrence and arbitrary finite families of orthogonal compact eigenstate pairs with disjoint complete two-step candidate neighborhoods on the specified infinite graph. All six registered results remain unchanged.",
+    "sorry_count": 0,
+    "sorry_in_definitions": 0,
+    "axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  },
+  "automation": {
+    "methods": [
+      {
+        "method": "agent",
+        "models": [
+          "OpenAI ChatGPT GPT-6"
+        ],
+        "framework": "ChatGPT",
+        "tool_setup": "OpenAI ChatGPT generated mathematical theorem statements, Lean formalizations and proof code in an iterative research process directed by Alessandro Odasso. The resulting proof terms are subject to Lean kernel checking; human direction does not imply that the maintainer personally authored the formal mathematics.",
+        "prompting_notes": "Alessandro Odasso is not a mathematician. He originated the project and directs its questions and goals to investigate the ability of large language models to conduct scientific research. According to his account, theorem statements, formal proof development and Lean code were generated by AI. Individual contributions and the research's novelty have not been independently audited."
+      }
+    ],
+    "spend_usd": "not tracked",
+    "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
+  },
+  "fidelity": {
+    "divergences": "One specified centered infinite Ammann–Beenker graph on the real square-summable Hilbert space. Finite replicated families. No relative-density rate, global symmetry, isolated degenerate remote eigenvalues, multiple independent controls, tensor-product register, noise robustness or experiment."
+  },
+  "review": {
+    "status": "Full substantive Lean/Mathlib verification passed. All 16 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. Not registered; no independent human peer review.",
+    "reviewers": [],
+    "notes": "Potential audiences: spectral graph theory, quasicrystals, compact localization and formalized mathematics."
+  },
+  "alignment": {
+    "namespace": "SpectralGeometry.AmmannBeenker",
+    "statements": [
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
+        "module": "SpectralGeometry.AmmannBeenkerCutProject",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
+        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.interaction_apply",
+        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
+        "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.centralPatch_card",
+        "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.internal_window_boundary_avoided",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_recurrence",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_disjoint_copies",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_neighbors_exact",
+        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_disjoint_copies",
+        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_translate_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_translate_support",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Principal theorem: arbitrary finite orthogonal compact-mode family with disjoint complete candidate neighborhoods."
+      }
+    ]
+  },
+  "acknowledgements": "Alessandro Odasso, who is not a mathematician, conceived and directs this research to explore the scientific capabilities of large language models. The theorem statements and Lean proof development were generated with OpenAI ChatGPT under his direction, according to his account. Lean and Mathlib provide machine-checked formal proofs; Palomar provides an independent statement-verification framework. No independent human mathematical peer review is claimed.",
+  "related_formalizations": [
+    {
+      "id": "PALOMAR-2026-11-06-000012",
+      "relationship": "builds-on",
+      "note": "Version 1: exact crossing multiplicity on the specified infinite graph. The quantitative baseline gap is a separate Lean-verified theorem."
+    },
+    {
+      "id": "PALOMAR-2026-11-23-000017",
+      "relationship": "builds-on",
+      "note": "Version 1: signed splitting under a single-edge change, with explicit energy and leakage bounds; the fifth theorem uses coordinated controls."
+    },
+    {
+      "id": "PALOMAR-2026-11-25-000001",
+      "relationship": "builds-on",
+      "note": "Version 1: exact leakage-free preparation from dark up to global phase using three unit-duration coordinated pulses; the fifth theorem extends this to variable durations and prescribed spectral protection."
+    },
+    {
+      "id": "PALOMAR-2026-11-26-000015",
+      "relationship": "builds-on",
+      "note": "Version 1: centered full real-spectral isolation for ideal coordinated controls; the fifth theorem combines it with variable-duration exact preparation."
+    },
+    {
+      "id": "PALOMAR-2026-11-27-000003",
+      "relationship": "builds-on",
+      "note": "Version 1: protected exact state preparation on the original confined model. The present result replicates compact eigenvectors of the shared graph Laplacian; it does not transfer that control theorem."
+    },
+    {
+      "id": "PALOMAR-2026-11-27-000042",
+      "relationship": "builds-on",
+      "note": "Version 1: bounded plateau isolation of the central pair. This result concerns the Laplacian, not transfer of the isolated double eigenvalue."
+    }
+  ]
+}

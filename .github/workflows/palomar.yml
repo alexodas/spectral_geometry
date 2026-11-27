@@ -64,7 +64,7 @@ jobs:
           fi
       - name: Build complete mathematical library and Comparator modules
         run: lake build SpectralGeometry Challenge Solution
-      - name: Compare bounded plateau spectral isolation with bundled kernels
+      - name: Compare recurrent compact-mode pairs with bundled kernels
         id: comparator
         run: |
           sudo apt-get update -qq >/dev/null

@@ -16,6 +16,8 @@ states can be isolated and controlled on such graphs.**
     - [Visual summary of the fifth theorem](#visual-summary-of-the-fifth-theorem)
   - [An isolated double eigenvalue without global confinement](#an-isolated-double-eigenvalue-without-global-confinement)
     - [Visual summary of the sixth theorem](#visual-summary-of-the-sixth-theorem)
+  - [Exact spatial replication of compact localized eigenstates](#exact-spatial-replication-of-compact-localized-eigenstates)
+    - [Visual summary of the seventh theorem](#visual-summary-of-the-seventh-theorem)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -28,6 +30,7 @@ states can be isolated and controlled on such graphs.**
   - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
   - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
   - <a id="4112-bounded-plateau-and-full-real-spectral-isolation"></a>[4.112. Bounded plateau and full real spectral isolation](docs/plateau-spectral-isolation.md#4112-bounded-plateau-and-full-real-spectral-isolation)
+  - [4.113. Exact finite-pattern recurrence and separation](docs/compact-patch-recurrence.md#4113-exact-finite-pattern-recurrence-and-separation)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
@@ -66,7 +69,7 @@ states can be isolated and controlled on such graphs.**
 
 ## Executive summary
 
-We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth registered result concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
+We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth registered result concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. The seventh candidate concerns the shared graph Laplacian itself: exact replication of the compact modes at arbitrarily many separated locations (L9.2). Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
 
 <a id="first-palomar-result--exactly-two-localized-crossing-states"></a>
 ### Exactly two localized crossing states
@@ -96,14 +99,14 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected as standalone statements in any of the five registrations.
+The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected as standalone statements in the six registered selections.
 
 <a id="third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph"></a>
 ### Exact leakage-free quantum state preparation
 
 We study a particular infinite Ammann–Beenker network, an octagonal mathematical graph with a confining potential. At a special energy it supports two localized wave patterns, A and B. Their normalized sum is called the dark state, and their normalized difference the bright state. The result registered as [PALOMAR-2026-11-06-000012 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-06-000012&version=1) proves that the two patterns account for all independent states at the crossing energy, and the result registered as [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000017&version=1) proves that changing a single edge splits this energy while allowing a small part of the bright-derived wave to spread into the rest of the network.
 
-The new theorem asks whether we can prepare any desired mixture of the dark and bright waves without any such spreading. The answer is yes, under two independently adjustable signed real controls. The first changes a common parameter on the eight vertices of the first ring, shifting the energy of A relative to B. The second changes eight genuine edges connecting corresponding sites on the two rings, all by the same amount. These edges are distinct and share no endpoints. Their combined effect leaves the dark state unchanged and shifts the bright energy by twice the edge-strength change. Both controls preserve the original two-state space exactly on the full infinite graph.
+The third registered theorem asks whether we can prepare any desired mixture of the dark and bright waves without any such spreading. The answer is yes, under two independently adjustable signed real controls. The first changes a common parameter on the eight vertices of the first ring, shifting the energy of A relative to B. The second changes eight genuine edges connecting corresponding sites on the two rings, all by the same amount. These edges are distinct and share no endpoints. Their combined effect leaves the dark state unchanged and shifts the bright energy by twice the edge-strength change. Both controls preserve the original two-state space exactly on the full infinite graph.
 
 The controls change the state in different ways: one mixes the dark and bright amplitudes, while the other changes their relative phase. By applying three consecutive pulses of unit duration (edge control, first-ring control, edge control), we can start with the dark wave and reach any chosen normalized pair of complex dark and bright amplitudes, including the pure bright wave. The final state differs from the desired state only by a common phase of modulus one, which does not change the relative amplitudes or the physical ray. The accumulated phase is given explicitly. The pulse strengths can be chosen from the magnitudes and phases of the desired amplitudes.
 
@@ -189,6 +192,26 @@ The substantive theorem and its supporting results have passed Lean and Mathlib 
 ![Bounded plateau potential, two compact modes and full real spectral isolation](docs/figures/plateau-isolated-double-eigenvalue.svg)
 
 **Figure.** The actual central graph and its two alternating compact-mode patterns are shown on the left (exterior neighbors omitted). The radial onsite baseline becomes constant at C; the first-ring crossing correction is shown separately. The two modes share E*, with a certified radius 1/122 free of other real spectral energies. The uniform reference bulk spectrum lies in [C, C + 1]. The energy panel is schematic and does not assert that the rest of the spectrum is empty.
+
+### Exact spatial replication of compact localized eigenstates
+
+Can the same two localized wave patterns occur arbitrarily many times in one infinite network, without spreading into the rest of it? For the specific octagonal Ammann–Beenker graph studied here, the answer is yes.
+
+The network is built by projecting selected points of a four-dimensional integer lattice into the plane. Its graph Laplacian L assigns the same weight, 1/16, to each edge. Two known compact wave patterns, A and B, live on separate eight-site rings of a central seventeen-vertex patch. Their amplitudes alternate between +1 and −1 and vanish elsewhere. They have exact eigenvalues 3/16 and 1/4, respectively.
+
+The new theorem proves that for any finite number N, we can find N copies of this patch arbitrarily far from the origin and farther apart than any prescribed separation. The copies include the complete surrounding candidate neighborhoods, with both present and absent vertices preserved. These neighborhoods do not overlap. This is possible because certain lattice translations move arbitrarily far in physical space while their displacement in the internal projection tends to zero.
+
+Each copy carries the same two localized waves, with exactly the original amplitudes and eigenvalues. The eigenvector equations hold at every vertex of the infinite graph, even outside the patch, where the contributions cancel. Every copied wave has squared norm eight. The two waves in each copy, and all waves in different copies, are mutually orthogonal. Thus the construction gives 2N nonzero, mutually orthogonal compact eigenvectors on a single infinite graph. No artificial boundary, numerical approximation or global translation symmetry is assumed.
+
+Why is this interesting? The earlier results established an isolated two-state system at one location. The new result proves that its underlying compact wave patterns can be replicated at arbitrarily many separated locations, providing a geometric and spectral foundation for placing local two-state systems on the same network. It does not yet make them degenerate, individually isolated or independently controllable qubits: the two Laplacian eigenvalues differ. Engineering distinct degenerate rest energies, proving spectral isolation and implementing local control are the next research goals.
+
+Repetitivity of cut-and-project sets and compact localized states are established research topics. This result certifies their concrete combination for the specified graph and Laplacian, not a claim of priority or experimental feasibility. The full 129-module Lean/Mathlib library passed verification, and all 16 selected propositions passed independent comparison using the Lean default, NanoDa and con-ron kernels. No Palomar registration or independent human peer review is claimed for this seventh candidate.
+
+#### Visual summary of the seventh theorem
+
+![Schematic of arbitrarily many separated copies of two compact localized waves, with exact Laplacian eigenvalues and orthogonal supports](docs/figures/recurrent-compact-mode-pairs.svg)
+
+*Figure — Schematic spatial replication on one infinite graph. The exact central ring geometry and alternating signs are shown; the separated locations and dashed neighborhood boundaries are illustrative, not computed coordinates. Every copy retains the same two Laplacian eigenvalues. No degeneracy or spectral isolation is claimed.*
 
 ## Detailed section index
 

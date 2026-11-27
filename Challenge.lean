@@ -2,51 +2,13 @@ module
 public import Mathlib
 public section
 /-!
-# Exact Double Eigenvalue and Spectral Isolation on an Infinite Ammann--Beenker Graph with a Bounded Plateau Potential
-Standalone concrete graph, compact modes and bounded operators. Only selected propositions have proof placeholders.
+# Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann--Beenker Graph
+Standalone concrete graph, finite lift neighborhoods and replicated compact modes.
+Only selected propositions have proof placeholders.
 -/
 namespace SpectralGeometry
 noncomputable section
 @[expose] abbrev TileHilbert (Tile : Type*) : Type _ := lp (fun _ : Tile => ℝ) 2
--- Source module: SpectralGeometry.InfiniteOnsiteCompactResolvent
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-section
-variable {Tile : Type*}
-@[expose] noncomputable def infiniteOnsiteDiagonalContraction
-    (c : Tile → ℝ) (hc : ∀ t : Tile, ‖c t‖ ≤ 1) :
-    TileHilbert Tile →L[ℝ] TileHilbert Tile := by
-  let F : TileHilbert Tile →ₗ[ℝ] TileHilbert Tile :=
-    { toFun := fun f =>
-        ⟨(fun t : Tile => c t * f t : PreLp (fun _ : Tile => ℝ)),
-          f.property.mono' (fun t => by
-            calc
-              ‖c t * f t‖ = ‖c t‖ * ‖f t‖ := norm_mul _ _
-              _ ≤ 1 * ‖f t‖ :=
-                mul_le_mul_of_nonneg_right (hc t) (norm_nonneg _)
-              _ = ‖f t‖ := one_mul _)⟩
-      map_add' := by
-        intro f g
-        apply lp.ext
-        funext t
-        change c t * (f t + g t) = c t * f t + c t * g t
-        ring
-      map_smul' := by
-        intro r f
-        apply lp.ext
-        funext t
-        change c t * (r * f t) = r * (c t * f t)
-        ring }
-  exact F.mkContinuous 1 (fun f => by
-    calc
-      ‖F f‖ ≤ ‖f‖ := lp.norm_mono (by norm_num : (2 : ENNReal) ≠ 0) (fun t => by
-        change ‖c t * f t‖ ≤ ‖f t‖
-        calc
-          ‖c t * f t‖ = ‖c t‖ * ‖f t‖ := norm_mul _ _
-          _ ≤ 1 * ‖f t‖ :=
-            mul_le_mul_of_nonneg_right (hc t) (norm_nonneg _)
-          _ = ‖f t‖ := one_mul _)
-      _ = 1 * ‖f‖ := (one_mul _).symm)
-end
 -- Source module: SpectralGeometry.InfiniteLocalMatching
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 section
@@ -108,15 +70,6 @@ variable {Tile : Type*} [DecidableEq Tile]
     TileHilbert Tile →L[ℝ] TileHilbert Tile :=
   ∑ i : Fin D, w i • infiniteMatchingLaplacian (σ i)
 end
--- Source module: SpectralGeometry.InfiniteLowEnergyObservation
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-section
-variable {Tile : Type*} [DecidableEq Tile]
-@[expose] def finiteSectorProjection (F : Finset Tile) :
-    TileHilbert Tile →L[ℝ] TileHilbert Tile :=
-  infiniteOnsiteDiagonalContraction (fun t => if t ∈ F then 1 else 0)
-    (fun t => by split_ifs <;> norm_num)
-end
 namespace AmmannBeenker
 -- Source module: SpectralGeometry.AmmannBeenkerCutProject
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
@@ -138,8 +91,6 @@ theorem admitted_zero : Admitted 0 := by
   sorry
 @[expose] def origin : Vertex := ⟨0, admitted_zero⟩
 @[expose] def basis (i : Fin 4) : Lattice := Pi.single i 1
-theorem finite_norm_sublevel (R : ℝ) : {v : Vertex | ‖position v‖ ≤ R}.Finite := by
-  sorry
 end
 -- Source module: SpectralGeometry.AmmannBeenkerGraph
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
@@ -161,12 +112,9 @@ theorem mate_involutive (c : Color) : Function.Involutive (mate c) := by
   matching (finProdFinEquiv.symm i)
 @[expose] def interaction : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
   infiniteLocalMatchingLaplacian 8 matching8 (fun _ => 1 / 16)
-end
--- Source module: SpectralGeometry.AmmannBeenkerOperator
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-section
-@[expose] def potential (v : Vertex) : ℝ := 1 + ‖position v‖ ^ 2
-@[expose] def sector : Finset Vertex := (finite_norm_sublevel 2).toFinset
+theorem interaction_apply (f : TileHilbert Vertex) (v : Vertex) :
+    interaction f v = (1 / 16 : ℝ) * ∑ w ∈ neighbors v, (f v - f w) := by
+  sorry
 end
 -- Source module: SpectralGeometry.AmmannBeenkerCompactModes
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
@@ -193,87 +141,147 @@ open scoped Classical
     + latticeSingle ![0, 0, -1, -1]
     - latticeSingle ![1, 0, 0, -1]
 end
--- Source module: SpectralGeometry.AmmannBeenkerCompactCrossing
+-- Source module: SpectralGeometry.AmmannBeenkerCompactStates
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 section
-@[expose] def ringInteraction (t : ℝ) : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  interaction + t • finiteSectorProjection (neighbors origin)
-@[expose] def crossingParameter : ℝ := 17 / 16 + 2 * alpha
-@[expose] def crossingEnergy : ℝ := 13 / 4 + 2 * alpha
-end
--- Source module: SpectralGeometry.AmmannBeenkerPlateauOperator
-run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
-section
-@[expose] def plateauPotential (C : ℝ) (v : Vertex) : ℝ := min (potential v) C
-@[expose] def canonicalPlateauHeight : ℝ := 4 + 4 * alpha
-theorem canonicalPlateauHeight_ge_five : 5 ≤ canonicalPlateauHeight := by
-  sorry
-theorem canonicalPlateauPotential_outside (v : Vertex) (hv : v ∉ sector) :
-    plateauPotential canonicalPlateauHeight v = canonicalPlateauHeight := by
-  sorry
-theorem plateauPotential_normalized_norm_le (C : ℝ) (hC : 1 ≤ C)
-    (v : Vertex) : ‖plateauPotential C v / C‖ ≤ 1 := by
-  sorry
-@[expose] def plateauOnsite (C : ℝ) (hC : 1 ≤ C) :
-    TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  C • infiniteOnsiteDiagonalContraction
-    (fun v => plateauPotential C v / C)
-    (plateauPotential_normalized_norm_le C hC)
-@[expose] def plateauHamiltonian (C : ℝ) (hC : 1 ≤ C) :
-    TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  plateauOnsite C hC + ringInteraction crossingParameter
+open scoped Classical
+@[expose] def latticeVertex (n : Lattice) (hn : Admitted n) : Vertex := ⟨n, hn⟩
 end
 -- Source module: SpectralGeometry.AmmannBeenkerCentralPatch
-section
-theorem sector_card : sector.card = 17 := by
-  sorry
-end
--- Source module: SpectralGeometry.AmmannBeenkerCompactStates
-section
-theorem compactA_inner_self : inner ℝ compactA compactA = 8 := by
-  sorry
-theorem compactB_inner_self : inner ℝ compactB compactB = 8 := by
-  sorry
-theorem compactA_inner_compactB : inner ℝ compactA compactB = 0 := by
-  sorry
-end
--- Source module: SpectralGeometry.AmmannBeenkerPlateauSpectrum
-section
-theorem plateauHamiltonian_realSpectrum_gap (C : ℝ) (hC : 1 ≤ C)
-    (hheight : canonicalPlateauHeight ≤ C) (energy : ℝ)
-    (hspec : energy ∈ spectrum ℝ (plateauHamiltonian C hC))
-    (hne : energy ≠ crossingEnergy) :
-    (1 / 122 : ℝ) ≤ |energy - crossingEnergy| := by
-  sorry
-end
--- Source module: SpectralGeometry.AmmannBeenkerPlateauBulk
 run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
 section
-@[expose] def plateauBulk (C : ℝ) : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  C • ContinuousLinearMap.id ℝ (TileHilbert Vertex) + interaction
-@[expose] def canonicalPlateauHamiltonian : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  plateauHamiltonian canonicalPlateauHeight
-    (le_trans (by norm_num : (1 : ℝ) ≤ 5) canonicalPlateauHeight_ge_five)
-@[expose] def canonicalPlateauDefect : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
-  canonicalPlateauHamiltonian - plateauBulk canonicalPlateauHeight
-theorem canonicalPlateauDefect_zero_outside (x : TileHilbert Vertex)
-    (v : Vertex) (hv : v ∉ sector) :
-    canonicalPlateauDefect x v = 0 := by
+@[expose] def centralLift (i : Fin 17) : Lattice :=
+  ![![0, 0, 0, 0],
+    ![1, 0, 0, 0],
+    ![0, 1, 0, 0],
+    ![0, 0, 1, 0],
+    ![0, 0, 0, 1],
+    ![-1, 0, 0, 0],
+    ![0, -1, 0, 0],
+    ![0, 0, -1, 0],
+    ![0, 0, 0, -1],
+    ![1, 1, 0, 0],
+    ![0, 1, 1, 0],
+    ![0, 0, 1, 1],
+    ![-1, 0, 0, 1],
+    ![-1, -1, 0, 0],
+    ![0, -1, -1, 0],
+    ![0, 0, -1, -1],
+    ![1, 0, 0, -1]] i
+theorem centralLift_admitted (i : Fin 17) : Admitted (centralLift i) := by
   sorry
-theorem canonicalPlateau_isolated_double_eigenvalue :
-    IsSelfAdjoint canonicalPlateauHamiltonian ∧
-    LinearIndependent ℝ ![compactA, compactB] ∧
-    canonicalPlateauHamiltonian compactA = crossingEnergy • compactA ∧
-    canonicalPlateauHamiltonian compactB = crossingEnergy • compactB ∧
-    Module.finrank ℝ
-      (Module.End.eigenspace canonicalPlateauHamiltonian.toLinearMap crossingEnergy) = 2 ∧
-    (∀ energy ∈ spectrum ℝ canonicalPlateauHamiltonian,
-      energy ≠ crossingEnergy → (1 / 122 : ℝ) ≤ |energy - crossingEnergy|) ∧
-    crossingEnergy < canonicalPlateauHeight ∧
-    spectrum ℝ (plateauBulk canonicalPlateauHeight) ⊆
-      Set.Icc canonicalPlateauHeight (canonicalPlateauHeight + 1) ∧
-    FiniteDimensional ℝ canonicalPlateauDefect.toLinearMap.range ∧
-    Module.finrank ℝ canonicalPlateauDefect.toLinearMap.range ≤ 17 := by
+@[expose] def centralLifts : Finset Lattice := Finset.univ.image centralLift
+@[expose] def centralVertex (i : Fin 17) : Vertex :=
+  latticeVertex (centralLift i) (centralLift_admitted i)
+@[expose] def centralPatch : Finset Vertex := Finset.univ.image centralVertex
+theorem centralPatch_card : centralPatch.card = 17 := by
+  sorry
+end
+-- Source module: SpectralGeometry.AmmannBeenkerPatchRecurrence
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+section
+theorem internal_window_boundary_avoided (n : Lattice) :
+    |(internal n).re| ≠ 1 / 2 + alpha ∧
+      |(internal n).im| ≠ 1 / 2 + alpha ∧
+      |(internal n).re + (internal n).im| ≠ 1 + alpha ∧
+      |(internal n).re - (internal n).im| ≠ 1 + alpha := by
+  sorry
+theorem finite_pattern_recurrence (F : Finset Lattice) (R : ℝ) :
+    ∃ v : Vertex, R < ‖position v‖ ∧
+      ∀ n ∈ F, Admitted (n + v.val) ↔ Admitted n := by
+  sorry
+theorem finite_pattern_disjoint_copies (F : Finset Lattice) (R D : ℝ)
+    (hD : 0 ≤ D) (N : ℕ) :
+    ∃ S : Finset Vertex, S.card = N ∧
+      (∀ v ∈ S, R < ‖position v‖ ∧
+        ∀ n ∈ F, Admitted (n + v.val) ↔ Admitted n) ∧
+      (∀ v ∈ S, ∀ w ∈ S, v ≠ w →
+        D < dist (position v) (position w) ∧
+          ∀ n ∈ F, ∀ m ∈ F, n + v.val ≠ m + w.val) := by
+  sorry
+end
+-- Source module: SpectralGeometry.AmmannBeenkerPatchNeighborhood
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+section
+@[expose] def patchNeighborhoodLifts (F : Finset Lattice) : Finset Lattice := by
+  classical
+  exact F ∪ F.biUnion (fun n =>
+    (Finset.univ.image (fun i : Fin 4 => n + basis i)) ∪
+    (Finset.univ.image (fun i : Fin 4 => n - basis i)))
+@[expose] def centralRecurrenceLifts : Finset Lattice :=
+  patchNeighborhoodLifts (patchNeighborhoodLifts centralLifts)
+theorem central_recurrence_neighbors_exact (t : Lattice)
+    (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n)
+    (v v' : Vertex) (hv : v.val ∈ patchNeighborhoodLifts centralLifts)
+    (hv' : v'.val = v.val + t) (w' : Vertex) :
+    w' ∈ neighbors v' ↔ ∃ w ∈ neighbors v, w'.val = w.val + t := by
+  sorry
+theorem central_recurrence_disjoint_copies (R D : ℝ) (hD : 0 ≤ D) (N : ℕ) :
+    ∃ S : Finset Vertex, S.card = N ∧
+      (∀ v ∈ S, R < ‖position v‖ ∧
+        ∀ n ∈ centralRecurrenceLifts, Admitted (n + v.val) ↔ Admitted n) ∧
+      (∀ v ∈ S, ∀ w ∈ S, v ≠ w →
+        D < dist (position v) (position w) ∧
+          ∀ n ∈ centralRecurrenceLifts, ∀ m ∈ centralRecurrenceLifts,
+            n + v.val ≠ m + w.val) := by
+  sorry
+end
+-- Source module: SpectralGeometry.AmmannBeenkerTranslatedModes
+run_elab Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env (fun _ => {})
+section
+open scoped Classical
+@[expose] def translateFiniteState (F : Finset Vertex) (t : Lattice)
+    (x : TileHilbert Vertex) : TileHilbert Vertex :=
+  ∑ v ∈ F, x v • latticeSingle (v.val + t)
+theorem central_translate_eigenvector (t : Lattice)
+    (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n)
+    (x : TileHilbert Vertex) (hx : ∀ v : Vertex, v ∉ centralPatch → x v = 0)
+    (c : ℝ) (heig : interaction x = c • x) :
+    interaction (translateFiniteState centralPatch t x) =
+      c • translateFiniteState centralPatch t x := by
+  sorry
+@[expose] def translatedCompactA (t : Lattice) : TileHilbert Vertex :=
+  translateFiniteState centralPatch t compactA
+@[expose] def translatedCompactB (t : Lattice) : TileHilbert Vertex :=
+  translateFiniteState centralPatch t compactB
+theorem translatedCompactA_eigenvector (t : Lattice)
+    (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n) :
+    interaction (translatedCompactA t) = (3 / 16 : ℝ) • translatedCompactA t := by
+  sorry
+theorem translatedCompactB_eigenvector (t : Lattice)
+    (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n) :
+    interaction (translatedCompactB t) = (1 / 4 : ℝ) • translatedCompactB t := by
+  sorry
+end
+-- Source module: SpectralGeometry.AmmannBeenkerReplicatedPairs
+section
+theorem translatedCompact_inner_products (t : Lattice)
+    (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n) :
+    inner ℝ (translatedCompactA t) (translatedCompactA t) = 8 ∧
+    inner ℝ (translatedCompactB t) (translatedCompactB t) = 8 ∧
+    inner ℝ (translatedCompactA t) (translatedCompactB t) = 0 := by
+  sorry
+theorem central_translate_support (t : Lattice) (x : TileHilbert Vertex)
+    (w : Vertex) (hw : translateFiniteState centralPatch t x w ≠ 0) :
+    ∃ n ∈ centralLifts, w.val = n + t := by
+  sorry
+theorem exact_recurrent_compact_mode_pairs (R D : ℝ) (hD : 0 ≤ D) (N : ℕ) :
+    ∃ S : Finset Vertex, S.card = N ∧
+      (∀ v ∈ S, R < ‖position v‖ ∧
+        (∀ n ∈ centralRecurrenceLifts, Admitted (n + v.val) ↔ Admitted n) ∧
+        interaction (translatedCompactA v.val) = (3 / 16 : ℝ) • translatedCompactA v.val ∧
+        interaction (translatedCompactB v.val) = (1 / 4 : ℝ) • translatedCompactB v.val ∧
+        inner ℝ (translatedCompactA v.val) (translatedCompactA v.val) = 8 ∧
+        inner ℝ (translatedCompactB v.val) (translatedCompactB v.val) = 8 ∧
+        inner ℝ (translatedCompactA v.val) (translatedCompactB v.val) = 0) ∧
+      (∀ v ∈ S, ∀ w ∈ S, v ≠ w →
+        D < dist (position v) (position w) ∧
+        (∀ n ∈ centralRecurrenceLifts, ∀ m ∈ centralRecurrenceLifts,
+          n + v.val ≠ m + w.val) ∧
+        inner ℝ (translatedCompactA v.val) (translatedCompactA w.val) = 0 ∧
+        inner ℝ (translatedCompactA v.val) (translatedCompactB w.val) = 0 ∧
+        inner ℝ (translatedCompactB v.val) (translatedCompactA w.val) = 0 ∧
+        inner ℝ (translatedCompactB v.val) (translatedCompactB w.val) = 0) := by
   sorry
 end
 end AmmannBeenker

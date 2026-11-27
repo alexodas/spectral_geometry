@@ -1,0 +1,28 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "SpectralGeometry.AmmannBeenker.admitted_zero",
+    "SpectralGeometry.AmmannBeenker.mate_involutive",
+    "SpectralGeometry.AmmannBeenker.interaction_apply",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted",
+    "SpectralGeometry.AmmannBeenker.centralPatch_card",
+    "SpectralGeometry.AmmannBeenker.internal_window_boundary_avoided",
+    "SpectralGeometry.AmmannBeenker.finite_pattern_recurrence",
+    "SpectralGeometry.AmmannBeenker.finite_pattern_disjoint_copies",
+    "SpectralGeometry.AmmannBeenker.central_recurrence_neighbors_exact",
+    "SpectralGeometry.AmmannBeenker.central_recurrence_disjoint_copies",
+    "SpectralGeometry.AmmannBeenker.central_translate_eigenvector",
+    "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector",
+    "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector",
+    "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products",
+    "SpectralGeometry.AmmannBeenker.central_translate_support",
+    "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

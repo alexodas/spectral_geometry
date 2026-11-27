@@ -1,6 +1,6 @@
 # Compact-mode crossing: proved results and next steps
 
-The Palomar selection is the exact multiplicity-two crossing and the
+The first registered Palomar selection is the exact multiplicity-two crossing and the
 representation of every crossing eigenvector by two site amplitudes.
 The result is for the infinite operator on its natural domain. The
 nine-level response for the radius-two intervention is also proved;
@@ -14,7 +14,7 @@ The eigenvalue branches for K(t) = H + t P_A are 35/16 + t and
 13/4 + √2. They meet at t* = 17/16 + √2, at energy E* = 13/4 + √2.
 
 The full crossing eigenspace is exactly the span of the two alternating
-modes. The next questions concern an explicit gap to the rest of the
+modes. The original next questions concerned an explicit gap to the rest of the
 spectrum and quantitative splitting after changing the weight of the
 edge from (1,0,0,0) to (1,1,0,0). One state stays at E*. The Rayleigh
 quotient in the other compact direction changes by ε/4; this alone
@@ -54,10 +54,8 @@ does not determine the motion of a second eigenvalue.
   The historically registered declarations are `crossingEigenspace_finrank`
   and `crossing_eigenvector_representation`; see
   [README §4.78](ammann-beenker-geometry.md#478-central-support-and-exact-multiplicity-of-the-infinite-crossing)
-  for their statements and the original registration reference. The current
-  independent Challenge instead targets the later dark/bright theorem.
-- An explicit isolation interval and a quantitative estimate for the
-  moving level remain open. Transferring any such new estimates to product
+  for their statements and the original registration reference. The later dark/bright generator candidate is archived; the active independent Challenge now targets compact-mode replication (§4.113).
+- An explicit isolation interval and quantitative estimate for the moving level were subsequently verified (§4.79 and §§4.93–4.98). Transferring such estimates to product
   zeros would require checking the exact-divisor hypotheses for this ring
   intervention.
 
@@ -92,7 +90,7 @@ One route is a finite central-block estimate on the orthogonal complement
 of the two compact states, combined with a bound on coupling to the exterior.
 The patch classification and boundary-edge count are now proved. Turning
 the sixteen edges, each of weight 1/16, into a coupling-norm estimate and
-proving the finite algebraic certificate remain open. Numerical finite-patch
+proving the finite algebraic certificate were subsequently completed (§4.79), yielding the certified gap 1/128. Numerical finite-patch
 eigenvalues do not supply those proofs.
 
 ## Provenance
@@ -111,5 +109,4 @@ https://arxiv.org/abs/1709.07806 .
 The contribution to assess is the exhaustion of the full crossing eigenspace
 by these two known modes. This may be new for the specified confined model
 and of interest to researchers studying quasicrystal localization. Priority
-is unconfirmed. An explicit isolation interval and quantitative splitting
-after an edge change remain research goals.
+is unconfirmed. The isolation interval and quantitative splitting after an edge change were subsequently established (§4.79 and §§4.93–4.98).

@@ -2,7 +2,7 @@
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: active research; L9.1 bounded plateau isolation registered, multi-qubit target not yet proved.** This is the active Track B
+**Status: active research; L9.1 bounded plateau isolation registered; L9.2 compact-mode replication Lean-verified and independently compared; seventh candidate not registered; multi-qubit target not yet proved.** This is the active Track B
 direction. Track A (spectral geometry and analytic zeros), the original
 L6 single-edge approximate preparation, and L8b–L8e imperfect-control
 research are preserved but deferred. All six Palomar registrations and
@@ -102,18 +102,25 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## L9.2 — Recurrence of compact-mode patches
 
-- [ ] Prove recurrence for the exact cut-and-project window and
-  lattice coordinates of the implemented graph, including all support
-  sites and neighboring sites required for cancellation and control.
-- [ ] Construct arbitrarily many mutually separated translated
+**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean verification and independent comparison of the seventh candidate passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is Lean-verified in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products and the bundled finite family theorem are Lean-verified in [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean).
+
+- [x] Prove recurrence for the exact cut-and-project window and lattice
+  coordinates of the implemented graph, for any finite lift set.
+- [x] Prove arbitrary finite families with separated centers and disjoint
+  complete translated lift sets.
+- [x] Certify the concrete candidate neighborhood pattern, including all
+  neighboring sites required for cancellation and control.
+- [x] Construct arbitrarily many mutually separated translated
   patches outside a prescribed radius, with disjoint supports and
   control neighborhoods. A finite patch illustration is not a proof.
-- [ ] Transfer the full-space compact-mode equations
-  B a_j = (3/16) a_j and B b_j = (1/4) b_j, orthogonality and
-  squared norms 8. On a uniform plateau their prospective energies
+- [x] Transfer the full-space compact-mode equations
+  L a_j = (3/16) a_j and L b_j = (1/4) b_j.
+- [x] Certify preservation of orthogonality and squared norms 8. On a uniform plateau their prospective energies
   are C+3/16 and C+1/4, respectively, not a degenerate pair.
   Infinite multiplicity at a common plateau energy is a separate
   possible consequence of recurrence, not the preferred architecture.
+
+The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually orthogonal nonzero compact eigenvectors with disjoint complete candidate neighborhoods for arbitrary finite N. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered.
 
 ## L9.3 — Two degenerate pairs at distinct rest energies
 
@@ -196,7 +203,7 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## Working order and boundaries
 
-L9.1 is complete for the stated real spectral problem (§4.112). The next mathematical task is L9.2, recurrence of the exact compact-mode patches. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
+L9.1 is complete for the stated real spectral problem (§4.112). L9.2 is Lean-verified (§4.113); all 16 selected propositions have passed independent comparison, and the candidate is not registered. The next mathematical task is L9.3, distinct degenerate rest energies. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
 allows essential spectrum but does not guarantee spectral gaps, and
 the five previous theorems do not establish L9. Preserve Track A's
 analytic-product infrastructure: its compact-resolvent and summability

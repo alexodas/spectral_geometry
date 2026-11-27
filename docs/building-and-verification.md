@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh candidate passed independent statement comparison; registration remains pending. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -91,7 +91,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`FullSpectralZeroCounts.lean`](../SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](../SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (40):**
+- **Explicit octagonal geometry, operator and spectral products (51):**
   - [`AmmannBeenkerCutProject.lean`](../SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](../SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](../SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -133,6 +133,10 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean) *(bounded invertibility from a uniform lower norm bound; Lean-verified)*
   - [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) *(L9.1 real bounded-operator spectral separation; Lean-verified)*
   - [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean) *(L9.1 uniform bulk enclosure, finite-rank defect and bundled isolated double eigenvalue; Lean-verified)*
+  - [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) *(L9.2 exact boundary avoidance, finite-pattern recurrence and disjoint finite families; Lean-verified; §4.113)*
+  - [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) *(L9.2 complete candidate neighborhoods and translated neighbor correspondence; Lean-verified; §4.113)*
+  - [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean) *(L9.2 finite state translation and full-graph Laplacian transfer; Lean-verified; §4.113)*
+  - [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean) *(L9.2 translated inner products and bundled recurrent compact-mode pairs; Lean-verified; §4.113)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -160,7 +164,13 @@ treated as an independently proved library.
 
 **Palomar / independent statement verification.** The active root
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
-[formalization metadata](../formalization.yaml) describe **Exact Double
+[formalization metadata](../formalization.yaml) describe **Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph** (§4.113).
+The principal theorem is `SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs`.
+The [seventh candidate Comparator](../palomar/recurrent-compact-mode-pairs/comparator.json) selects 16 propositions.
+The standalone Mathlib-only Challenge contains 289 lines and 13,160 UTF-8 bytes.
+The substantive library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered.
+
+The sixth registered package describes **Exact Double
 Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph
 with a Bounded Plateau Potential** (§4.112).
 The principal theorem is
@@ -174,11 +184,11 @@ The Mathlib-only Challenge contains 281 lines and 12,547 UTF-8 bytes
 All definitions are concrete; only selected propositions have proof
 placeholders. Solution publicly imports the substantive proof, not
 Challenge. Matching snapshots are in [the sixth registered package](../palomar/plateau-isolated-double-eigenvalue/).
-The complete 125-module substantive library is Lean-verified with no
+The registered 125-module substantive library is Lean-verified with no
 proof holes. All 13 selected propositions passed independent comparison
 with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
 Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).
-The registry record remains attached to the original registered revision; the current metadata records the subsequent registration without changing the statements or proof.
+The registry record remains attached to the original registered revision; the archived sixth-package metadata records the subsequent registration without changing the statements or proof.
 
 The fifth registered package (§4.111) remains preserved in
 [the protected-preparation directory](../palomar/protected-exact-preparation/).
@@ -211,7 +221,7 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](../palomar/dark-bright/).
 No root `comparator.json` exists. Local packaging and verification
-checks select the bounded-plateau Comparator explicitly.
+checks select the recurrent compact-mode pair Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
