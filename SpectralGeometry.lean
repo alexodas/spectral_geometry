@@ -139,6 +139,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalDefectComparison
 public import SpectralGeometry.AmmannBeenkerNaturalRemoteControls
 public import SpectralGeometry.AmmannBeenkerNaturalControlSelectivity
 public import SpectralGeometry.AmmannBeenkerNaturalControlNorms
+public import SpectralGeometry.AmmannBeenkerNaturalPairDynamics
 
 public section
 
