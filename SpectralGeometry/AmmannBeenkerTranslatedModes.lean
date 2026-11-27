@@ -108,9 +108,9 @@ theorem translated_neighbors_image (F : Finset Lattice) (t : Lattice)
     refine ⟨w, hw, ?_⟩
     rw [← he, patchTranslateVertex_val t w (ha w hw)]
 
+set_option maxHeartbeats 2000000 in
 /-- Local Laplacian equality at every translated vertex whose original
 complete neighborhood is certified. -/
-set_option maxHeartbeats 2000000 in
 theorem translated_interaction_apply (F : Finset Lattice) (P : Finset Vertex)
     (t : Lattice)
     (hrec : ∀ n ∈ patchNeighborhoodLifts F, Admitted (n + t) ↔ Admitted n)
