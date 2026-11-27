@@ -87,10 +87,18 @@ theorem translateFiniteState_inner_of_disjoint (F G : Finset Vertex)
     exact hdis v hv w hw
   rw [hz, mul_zero]
 
+set_option maxRecDepth 4096 in
+theorem centralPatch_val_mem_recurrence (v : Vertex) (hv : v ∈ centralPatch) :
+    v.val ∈ centralRecurrenceLifts := by
+  have hcentral : v.val ∈ centralLifts := (mem_centralPatch v).mp hv
+  exact centralLifts_mem_recurrence (n := v.val) hcentral
+
+set_option maxRecDepth 4096 in
 theorem central_recurrence_admitted (t : Lattice)
     (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n)
-    (v : Vertex) (hv : v ∈ centralPatch) : Admitted (v.val + t) :=
-  (hrec _ (centralLifts_mem_recurrence ((mem_centralPatch v).mp hv))).mpr v.property
+    (v : Vertex) (hv : v ∈ centralPatch) : Admitted (v.val + t) := by
+  have hn : v.val ∈ centralRecurrenceLifts := centralPatch_val_mem_recurrence v hv
+  exact (hrec v.val hn).mpr v.property
 
 theorem compactA_supported_centralPatch (v : Vertex) (hv : v ∉ centralPatch) :
     compactA v = 0 := by
@@ -130,6 +138,7 @@ theorem central_translate_support (t : Lattice) (x : TileHilbert Vertex)
   obtain ⟨v, hv, he⟩ := translateFiniteState_nonzero centralPatch t x w hw
   exact ⟨v.val, (mem_centralPatch v).mp hv, he⟩
 
+set_option maxRecDepth 4096 in
 theorem central_translate_inner_of_disjoint (t s : Lattice)
     (hrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + t) ↔ Admitted n)
     (hdis : ∀ n ∈ centralRecurrenceLifts, ∀ m ∈ centralRecurrenceLifts,
@@ -139,8 +148,9 @@ theorem central_translate_inner_of_disjoint (t s : Lattice)
   apply translateFiniteState_inner_of_disjoint centralPatch centralPatch t s
     (central_recurrence_admitted t hrec) _ x y
   intro v hv w hw
-  exact hdis v.val (centralLifts_mem_recurrence ((mem_centralPatch v).mp hv))
-    w.val (centralLifts_mem_recurrence ((mem_centralPatch w).mp hw))
+  have hv' : v.val ∈ centralRecurrenceLifts := centralPatch_val_mem_recurrence v hv
+  have hw' : w.val ∈ centralRecurrenceLifts := centralPatch_val_mem_recurrence w hw
+  exact hdis v.val hv' w.val hw'
 
 /-- Arbitrarily many exact compact-mode pairs with complete disjoint
 candidate neighborhoods, full-graph eigenvector equations and all
