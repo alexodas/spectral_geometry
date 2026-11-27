@@ -49,7 +49,7 @@ spectrum fills an interval or is absolutely continuous.*
   V_R(x) = 1 + min(|p(x)|², R²), with plateau C = 1 + R²,
   preserving the original definitions and the central first-ring
   crossing correction t* = 17/16 + sqrt(2).
-- [ ] Choose R large enough to preserve both central compact-mode
+- [x] Choose R large enough to preserve both central compact-mode
   equations; distinguish preservation of those eigenvectors from
   preservation of the original exact multiplicity and gap.
 - [x] Prove boundedness, symmetry/self-adjointness on the full real
@@ -68,12 +68,18 @@ constructs the bounded self-adjoint real Hamiltonian for every height
 C >= 1. The canonical height C = 4 + 4 alpha (alpha = sqrt(2)/2)
 preserves the original potential on all seventeen central vertices
 and is exactly constant everywhere else. The operator norm is at most
-C + 1 + |t*|. The candidate
+C + 1 + |t*|. The verified
 [`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean)
 transfers the original full-space action on centrally supported states
-for C >= 5 and preserves both independent compact eigenvectors;
-verification is pending. Neither exact multiplicity nor spectral
-isolation has yet been transferred.
+for C >= 5 and preserves both independent compact eigenvectors at
+crossingEnergy. Neither exact multiplicity nor spectral isolation has
+yet been transferred. The next candidate module,
+[`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean),
+uses the central 1/24 bound, exterior barrier 2 and boundary coupling
+1/4 to derive ||x|| <= 122 ||(H_C - E*)x|| for orthogonal states on
+the old dense natural domain when C >= canonicalPlateauHeight.
+Verification, extension to the whole space and bounded invertibility
+on the orthogonal complement remain separate obligations.
 
 ## L9.2 — Recurrence of compact-mode patches
 
