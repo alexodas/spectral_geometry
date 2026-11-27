@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth candidate passed independent statement comparison. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -173,11 +173,12 @@ The Mathlib-only Challenge contains 281 lines and 12,547 UTF-8 bytes
 (12.25 KiB), within Palomar's recommended 300 lines and 32 KiB.
 All definitions are concrete; only selected propositions have proof
 placeholders. Solution publicly imports the substantive proof, not
-Challenge. Matching snapshots are in [the sixth candidate package](../palomar/plateau-isolated-double-eigenvalue/).
+Challenge. Matching snapshots are in [the sixth registered package](../palomar/plateau-isolated-double-eigenvalue/).
 The complete 125-module substantive library is Lean-verified with no
 proof holes. All 13 selected propositions passed independent comparison
-with the Lean default, NanoDa and con-ron kernels. The sixth candidate is
-prepared for submission, but not yet registered.
+with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
+Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).
+The registry record remains attached to the original registered revision; the current metadata records the subsequent registration without changing the statements or proof.
 
 The fifth registered package (§4.111) remains preserved in
 [the protected-preparation directory](../palomar/protected-exact-preparation/).
