@@ -122,6 +122,8 @@ public import SpectralGeometry.AmmannBeenkerPlateauOperator
 public import SpectralGeometry.AmmannBeenkerPlateauCrossing
 public import SpectralGeometry.AmmannBeenkerPlateauResidual
 public import SpectralGeometry.AmmannBeenkerPlateauMultiplicity
+public import SpectralGeometry.BoundedSelfAdjointInverse
+public import SpectralGeometry.AmmannBeenkerPlateauSpectrum
 
 public section
 

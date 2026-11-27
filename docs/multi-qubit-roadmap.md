@@ -72,18 +72,23 @@ C + 1 + |t*|. The verified
 [`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean)
 transfers the original full-space action on centrally supported states
 for C >= 5 and preserves both independent compact eigenvectors at
-crossingEnergy. Neither exact multiplicity nor spectral isolation has
-yet been transferred. The verified module
+crossingEnergy. Full real spectral isolation remains to be transferred. The verified module
 [`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean),
 uses the central 1/24 bound, exterior barrier 2 and boundary coupling
 1/4 to derive ||x|| <= 122 ||(H_C - E*)x|| for orthogonal states on
 the old dense natural domain when C >= canonicalPlateauHeight.
-The candidate [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean)
+The verified [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean)
 extends this bound to the entire Hilbert space using density and
 continuity of the compact projection, then identifies the full
 crossing eigenspace with the two-dimensional compact plane.
-Verification of this extension and bounded invertibility on the
-orthogonal complement remain separate obligations.
+The full-space estimate and exact geometric multiplicity two are now
+Lean-verified. The candidate modules
+[`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean)
+and [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean)
+use closed range, self-adjointness and the reducing compact projection
+to obtain bounded invertibility of the regularized residual and
+exclude every different real spectral energy at distance < 1/122.
+These full-spectrum results remain under verification.
 
 ## L9.2 — Recurrence of compact-mode patches
 

@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **122 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and seven infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and the three L9 plateau construction, crossing and dense-domain residual modules are Lean-verified; the full-space residual and multiplicity extension is under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **124 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and nine infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and four L9 plateau construction, crossing, residual and multiplicity modules are Lean-verified; the bounded-inverse and spectral-isolation modules are under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -129,7 +129,9 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`AmmannBeenkerPlateauOperator.lean`](../SpectralGeometry/AmmannBeenkerPlateauOperator.lean) *(L9.1 bounded plateau construction, whole natural domain and self-adjointness; Lean-verified)*
   - [`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean) *(L9.1 preservation of the original compact crossing; Lean-verified)*
   - [`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean) *(L9.1 quantitative residual estimate on the old dense domain; Lean-verified)*
-  - [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean) *(L9.1 full-space residual bound and exact geometric multiplicity two; verification pending)*
+  - [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean) *(L9.1 full-space residual bound and exact geometric multiplicity two; Lean-verified)*
+  - [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean) *(bounded invertibility from a uniform lower norm bound; verification pending)*
+  - [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) *(L9.1 real bounded-operator spectral separation; verification pending)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
