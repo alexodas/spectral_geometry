@@ -875,7 +875,7 @@ coordinated-control route has since proved exact arbitrary normalized
 target preparation from dark (§4.105), and static energetic protection
 under sufficiently small ideal controls (§4.110). Simultaneous
 arbitrary-target preparation with a prescribed spectral gap through
-variable-duration pulses is now Lean-verified (§4.111; §6.9). The original relative-product and
+variable-duration pulses is Lean-verified and registered (§4.111; §6.9). The original relative-product and
 finite-patch objectives (§§6.5–6.6) remain separate
 and open.
 **Historical scientific checkpoint.** The §§4.80–4.89 results were
@@ -1003,7 +1003,7 @@ that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](../palomar/dark-bright/comparator.json)
 and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
-The active Comparator now selects exact protected preparation with arbitrarily weak controls (§4.111); all four earlier registrations and the unsubmitted generator-response candidate are preserved.
+The active Comparator selects the fifth registered result, exact protected preparation with arbitrarily weak controls (§4.111); all five registrations and the unsubmitted generator-response candidate are preserved.
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 

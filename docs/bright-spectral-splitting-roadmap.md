@@ -6,7 +6,7 @@ spectral-geometry and analytic-zero program (Track A) remains active,
 with its verified canonical-product results and open relative
 determinant, cofactor, finite-patch and zero-statistics objectives
 in the [main README §6](research-roadmap.md#6-roadmap-proof-status-and-next-steps).
-Following the registered L7 and L8a results, exact variable-duration preparation with prescribed energetic protection is Lean-verified (§4.111); all 19 selected propositions of the fifth candidate have passed independent comparison; registry verification remains pending. This does not withdraw the earlier goals.
+Following the registered L7 and L8a results, exact variable-duration preparation with prescribed energetic protection is Lean-verified (§4.111); all 19 selected propositions passed independent comparison. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1). Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. This does not withdraw the earlier goals.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -237,7 +237,7 @@ are preserved together, with six concrete-model witnesses and one
 scientific conclusion. The earlier unsubmitted generator-response
 package is archived in [palomar/dark-bright](../palomar/dark-bright/).
 Each Comparator remains in its own directory; the active root files
-now describe the fifth candidate (§4.111).
+now describe the fifth registered result (§4.111).
 
 The L5 metadata explains the fixed simple energy and the unique
 moving simple energy, with explicit energy and wave-pattern bounds.
@@ -570,7 +570,7 @@ for the complete declarations and proof. The separate
   normalized continuous zero-leakage evolution, target up to global phase,
   and prescribed real spectral separation in each setting (§4.111). Lean-verified.
 - [x] Independently compare all 19 selected propositions of the fifth candidate (Lean default, NanoDa and con-ron).
-- [ ] Submit the fifth candidate for separate registry verification and record registration only if completed.
+- [x] Complete separate registry verification and record the fifth registration: [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
 - [ ] Investigate further sharp bounds and imperfect control dynamics.
 
 **Scope and continuation.** L8a is a verified static spectral-protection

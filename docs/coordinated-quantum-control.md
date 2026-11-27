@@ -1225,7 +1225,7 @@ is `coordinatedProtocol_protected_exact_preparation`, supported by
 `coordinatedDurationAngle_scaled`, `coordinatedProtocolStretch_bounds`
 and `coordinatedProtectedSetting_of_budget`.
 
-The substantive proof and the standalone [candidate package](../palomar/protected-exact-preparation/) passed full Lean/Mathlib verification and independent statement comparison of all 19 selected propositions, including the Lean default, NanoDa and con-ron kernels. Separate registry verification and registration have not yet been completed. The four preceding registrations are preserved.
+The substantive proof and the standalone [registered package](../palomar/protected-exact-preparation/) passed full Lean/Mathlib verification and independent statement comparison of all 19 selected propositions, including the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1). The four preceding registrations are preserved. Automated editorial review is not independent human peer review.
 The result does not assert a general complex propagator, optimal durations,
 preparation at zero control strength for arbitrary targets, retention of
 the entire certified gap, or resilience to imperfect controls.

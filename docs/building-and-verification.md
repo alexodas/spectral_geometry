@@ -160,11 +160,13 @@ the previous 15 model, locality and spectral certificates, the phase,
 stretching and protected-setting statements, and the new principal theorem.
 All definitions are concrete; the Mathlib-only Challenge uses proposition
 proof placeholders only. Solution publicly imports the substantive proof,
-not Challenge. Matching snapshots are in [the fifth candidate package](../palomar/protected-exact-preparation/).
+not Challenge. Matching snapshots are in [the fifth registered package](../palomar/protected-exact-preparation/).
 The complete 118-module substantive library is Lean-verified with no proof
 holes. All 19 selected propositions passed independent statement comparison;
 the Lean default, NanoDa and con-ron kernels accepted the solution.
-Separate registry verification and registration remain pending.
+Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
+Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
+The registered submission remains fixed at its original revision; the current metadata records the subsequent registration without changing the formal statements or proof.
 
 The fourth registered package (§4.110) remains preserved in
 [the spectral-protection directory](../palomar/spectral-protection-during-coordinated-control/).
