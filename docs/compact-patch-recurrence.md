@@ -47,9 +47,22 @@ covers excluded as well as admitted coordinates.
 **Status and limits.** These ten public theorems have passed the complete
 Lean/Mathlib build. The existing sixth-result Comparator also passed;
 the new recurrence statements have not yet been independently selected.
-The next checkpoint specifies the actual candidate neighborhoods and
-their complete graph-neighbor correspondence. It is not yet a transfer
-of the compact eigenstates, an isolated remote double eigenvalue, or a
-multi-pair control theorem. General cut-and-project recurrence is not
+The concrete candidate neighborhoods and complete graph-neighbor
+correspondence are now verified as described below. This is not yet a
+certified transfer of the compact eigenstates, an isolated remote double
+eigenvalue, or a multi-pair control theorem. General cut-and-project recurrence is not
 claimed as a new discovery; the concrete replicated spectral statement
 is the intended L9.2 target.
+
+**Verified concrete neighborhood transfer.** In
+[`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean),
+`patchNeighborhoodLifts F` includes F and every signed unit-coordinate
+candidate, admitted or excluded. The concrete `centralRecurrenceLifts`
+applies this enlargement twice to the seventeen central lifts. The
+theorem `translated_neighbors_exact` identifies the complete translated
+neighbor set, not merely edges between already selected vertices.
+`central_recurrence_neighbors_exact` specializes this to the central
+patch and all of its immediate neighbors, while
+`central_recurrence_disjoint_copies` gives arbitrary finite disjoint copies
+of the entire two-step pattern. These statements passed full Lean/Mathlib
+verification. The existing sixth-result Comparator passed separately.
