@@ -62,6 +62,7 @@ theorem natural_distinct_eigenvectors_orthogonal
     (hx : T x = e • x) (hy : T y = f • y) :
     inner ℝ x y = 0 := by
   have hs := (ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mp hT) x y
+  change inner ℝ (T x) y = inner ℝ x (T y) at hs
   rw [hx, hy, real_inner_smul_left, real_inner_smul_right] at hs
   have hp : (e - f) * inner ℝ x y = 0 := by linarith only [hs]
   exact (mul_eq_zero.mp hp).resolve_left (sub_ne_zero.mpr hne)
@@ -95,7 +96,7 @@ theorem naturalCollectiveResidualBound_le_of_other_eigenvector
   have hb := hg x (fun y hy =>
     natural_distinct_eigenvectors_orthogonal T hT e f hne y x hy hx)
   rw [hx, ← sub_smul, norm_smul, Real.norm_eq_abs] at hb
-  exact (mul_le_mul_right (norm_pos_iff.mpr hn)).mp hb
+  exact le_of_mul_le_mul_right hb (norm_pos_iff.mpr hn)
 
 /-- At either natural level, any collective gap of the canonical plateau
 is at most the splitting 1/16. This is not a positive lower bound. -/
