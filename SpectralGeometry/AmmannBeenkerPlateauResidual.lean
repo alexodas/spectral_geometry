@@ -183,8 +183,11 @@ theorem plateauResidual_block_bounds (C : ℝ) (hC : 1 ≤ C)
       rw [hz, mul_zero]
       positivity
     · have hp : 0 < ‖q.1‖ := lt_of_le_of_ne (norm_nonneg _) (Ne.symm hz)
-      apply (mul_le_mul_right₀ hp).mp
-      nlinarith only [hsquared]
+      by_contra hn
+      have hgt : ‖T x.1‖ + (1 / 4 : ℝ) * ‖c.1‖ < 2 * ‖q.1‖ :=
+        lt_of_not_ge hn
+      have hmul := mul_lt_mul_of_pos_right hgt hp
+      nlinarith only [hsquared, hmul]
 
 /-- A rational certificate for the inhomogeneous block inequalities.
 It gives a conservative bound without spectral theory. -/
