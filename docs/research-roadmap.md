@@ -12,10 +12,15 @@
 - [6.7. Exploratory objectives: zero statistics and structural constraints](#67-exploratory-objectives-zero-statistics-and-structural-constraints)
 - [6.8. Independent statement verification and research-interest assessment](#68-independent-statement-verification-and-research-interest-assessment)
 - [6.9. L8a — Quantitative spectral protection under coordinated controls (verified; refinements open)](#69-l8a--quantitative-spectral-protection-under-coordinated-controls-verified-refinements-open)
+- [6.10. L9 — Independently controllable spectrally protected localized qubits (open)](#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
 
 </details>
 
 ## 6. Roadmap: proof status and next steps
+
+**Current priority:** Track B / L9 (§6.10). Track A is temporarily paused;
+its original objectives and verified results are preserved. L6 and the
+imperfect-control work L8b–L8e are deferred, not abandoned.
 
 **The original goal remains unchanged:** obtain quantitative response
 theorems for zeros of canonical products associated with explicitly
@@ -32,7 +37,7 @@ of its formal infrastructure.
    certificates for the interacting geometric product (§6.3),
    finite-rank relative determinants (§6.5), certified finite-patch
    approximations (§6.6), and optional exploratory zero statistics
-   (§6.7). Their validity and priority do not depend on solving
+   (§6.7). Their validity does not depend on solving
    quantum control.
 2. **Track B — localized dark/bright modes and control.** The full
    infinite-graph crossing and isolation (§§4.78–4.79) and
@@ -874,6 +879,26 @@ theorem for ideal controls. Later L8b–L8e may address nonuniform control
 errors, leakage, preparation fidelity and robust pulse design.
 No dynamical noise bound, arbitrary-strength spectral gap, hardware
 robustness is asserted. The fourth registration concerns static spectral protection. L6 and all
-Track A objectives remain open as before.
+Track A objectives remain open and are currently paused.
+
+### 6.10. L9 — Independently controllable spectrally protected localized qubits (open)
+
+The active Track B objective is to extend the single protected compact
+two-state system of §4.111 to a finite family of independently
+addressable localized two-state subspaces on the same infinite graph.
+Each pair should be exactly degenerate with its controls off, have a
+distinct rest energy, and remain separated from every other full
+spectral energy during ideal control. A bounded quadratic-to-plateau
+potential and independently tuned local defects are candidate
+constructions. The bulk spectrum need not be discrete; continuous or
+essential spectrum is allowed provided the required isolation is proved.
+
+The [dedicated L9 roadmap](multi-qubit-roadmap.md) defines eight open
+proof stages, starting with the plateau model and recurrent compact
+patterns, then a two-pair example, individual full-spectrum isolation,
+independent preparation and switch-off stability, and finally arbitrary
+finite multiplicity of addressable pairs. No L9 result is claimed
+verified. The original confined model and all five registered results
+remain unchanged. Track A is paused, and L6 and L8b–L8e are deferred.
 
 See [Chapter 7 — Research methodology and maintenance rules](maintenance-rules.md#7-research-methodology-and-maintenance-rules) for the repository's documentation and verification policy.

@@ -56,6 +56,7 @@ zeros of analytic functions built from those levels.**
   - <a id="65-local-geometric-defects-and-relative-spectral-products"></a>[6.5–6.7. Relative products, finite patches and exploratory zeros](docs/research-roadmap.md#65-local-geometric-defects-and-relative-spectral-products)
   - <a id="68-independent-statement-verification-and-research-interest-assessment"></a>[6.8. Scientific assessment and submission status](docs/research-roadmap.md#68-independent-statement-verification-and-research-interest-assessment)
   - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-open"></a>[6.9. L8a: Quantitative spectral protection (verified; refinements open)](docs/research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open)
+  - [6.10. L9 — Independently controllable spectrally protected localized qubits (open)](docs/research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
 - [7. Research methodology and maintenance rules](docs/maintenance-rules.md#7-research-methodology-and-maintenance-rules)
 
 ## Executive summary
