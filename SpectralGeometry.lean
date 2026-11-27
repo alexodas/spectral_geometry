@@ -142,6 +142,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalControlNorms
 public import SpectralGeometry.AmmannBeenkerNaturalPairDynamics
 public import SpectralGeometry.AmmannBeenkerNaturalPulseComposition
 public import SpectralGeometry.AmmannBeenkerNaturalExactPreparation
+public import SpectralGeometry.AmmannBeenkerNaturalFamilyDynamics
 
 public section
 
