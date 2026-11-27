@@ -102,6 +102,8 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## L9.2 — Recurrence of compact-mode patches
 
+**First proof checkpoint (CI pending).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proposes boundary avoidance for every lattice lift, internal contraction of the existing silver-unit inflation sequence, eventual preservation of every admission and exclusion decision on an arbitrary finite set, and existence of a recurring center beyond any prescribed physical radius. These statements do not yet transfer the compact eigenvectors or prove mutual separation of arbitrarily many copies.
+
 - [ ] Prove recurrence for the exact cut-and-project window and
   lattice coordinates of the implemented graph, including all support
   sites and neighboring sites required for cancellation and control.

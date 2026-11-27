@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **126 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and eleven infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The new L9.2 recurrence module is under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -133,6 +133,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean) *(bounded invertibility from a uniform lower norm bound; Lean-verified)*
   - [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) *(L9.1 real bounded-operator spectral separation; Lean-verified)*
   - [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean) *(L9.1 uniform bulk enclosure, finite-rank defect and bundled isolated double eigenvalue; Lean-verified)*
+  - [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) *(L9.2 exact window boundary avoidance and finite-pattern recurrence; CI pending)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -174,7 +175,7 @@ The Mathlib-only Challenge contains 281 lines and 12,547 UTF-8 bytes
 All definitions are concrete; only selected propositions have proof
 placeholders. Solution publicly imports the substantive proof, not
 Challenge. Matching snapshots are in [the sixth registered package](../palomar/plateau-isolated-double-eigenvalue/).
-The complete 125-module substantive library is Lean-verified with no
+The registered 125-module substantive library is Lean-verified with no
 proof holes. All 13 selected propositions passed independent comparison
 with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
 Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).
