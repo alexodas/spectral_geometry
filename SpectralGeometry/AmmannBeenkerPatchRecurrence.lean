@@ -237,14 +237,15 @@ theorem finite_pattern_recurrence_family (F : Finset Lattice) (R D : ℝ)
       · exact ⟨hvR, hvpattern⟩
       · exact hpattern w hw
     · intro x hx y hy hxy
-      rcases Finset.mem_insert.mp hx with rfl | hx
-      · rcases Finset.mem_insert.mp hy with rfl | hy
-        · exact (hxy rfl).elim
-        · exact hvfar y hy
-      · rcases Finset.mem_insert.mp hy with rfl | hy
-        · rw [dist_comm]
-          exact hvfar x hx
-        · exact hsep x hx y hy hxy
+      rcases Finset.mem_insert.mp hx with hxv | hxS
+      · rcases Finset.mem_insert.mp hy with hyv | hyS
+        · exact (hxy (hxv.trans hyv.symm)).elim
+        · rw [hxv]
+          exact hvfar y hyS
+      · rcases Finset.mem_insert.mp hy with hyv | hyS
+        · rw [hyv, dist_comm]
+          exact hvfar x hxS
+        · exact hsep x hxS y hyS hxy
 
 /-- Separation of centers by more than twice a radius separates every lift
 in two translated radius-bounded patterns, including excluded lifts. -/
