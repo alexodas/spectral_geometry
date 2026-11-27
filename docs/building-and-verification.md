@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh candidate passed independent statement comparison; registration remains pending. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -91,7 +91,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`FullSpectralZeroCounts.lean`](../SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](../SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (46):**
+- **Explicit octagonal geometry, operator and spectral products (51):**
   - [`AmmannBeenkerCutProject.lean`](../SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](../SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](../SpectralGeometry/AmmannBeenkerOperator.lean)

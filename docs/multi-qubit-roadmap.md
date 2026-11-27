@@ -2,7 +2,7 @@
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: active research; L9.1 bounded plateau isolation registered; L9.2 compact-mode replication Lean-verified; multi-qubit target not yet proved.** This is the active Track B
+**Status: active research; L9.1 bounded plateau isolation registered; L9.2 compact-mode replication Lean-verified and independently compared; seventh candidate not registered; multi-qubit target not yet proved.** This is the active Track B
 direction. Track A (spectral geometry and analytic zeros), the original
 L6 single-edge approximate preparation, and L8b–L8e imperfect-control
 research are preserved but deferred. All six Palomar registrations and
@@ -102,7 +102,7 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## L9.2 — Recurrence of compact-mode patches
 
-**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean and the existing sixth-result Comparator passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is Lean-verified in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products and the bundled finite family theorem are Lean-verified in [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean).
+**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean verification and independent comparison of the seventh candidate passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is Lean-verified in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products and the bundled finite family theorem are Lean-verified in [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean).
 
 - [x] Prove recurrence for the exact cut-and-project window and lattice
   coordinates of the implemented graph, for any finite lift set.
@@ -114,7 +114,7 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
   patches outside a prescribed radius, with disjoint supports and
   control neighborhoods. A finite patch illustration is not a proof.
 - [x] Transfer the full-space compact-mode equations
-  B a_j = (3/16) a_j and B b_j = (1/4) b_j.
+  L a_j = (3/16) a_j and L b_j = (1/4) b_j.
 - [x] Certify preservation of orthogonality and squared norms 8. On a uniform plateau their prospective energies
   are C+3/16 and C+1/4, respectively, not a degenerate pair.
   Infinite multiplicity at a common plateau energy is a separate

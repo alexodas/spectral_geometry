@@ -45,8 +45,9 @@ covers excluded as well as admitted coordinates.
   and disjoint translated lift sets.
 
 **Status and limits.** These ten public theorems have passed the complete
-Lean/Mathlib build. The existing sixth-result Comparator also passed;
-the new recurrence statements are selected in the seventh candidate and have passed independent comparison.
+Lean/Mathlib build. Three of them (`internal_window_boundary_avoided`,
+`finite_pattern_recurrence`, and `finite_pattern_disjoint_copies`) are selected
+in the seventh candidate and have passed independent comparison.
 The concrete candidate neighborhoods and complete graph-neighbor
 correspondence are now verified as described below. Full-graph transfer of the compact eigenvector equations is now also
 verified as described below. This does not give an isolated remote double
@@ -65,7 +66,8 @@ neighbor set, not merely edges between already selected vertices.
 patch and all of its immediate neighbors, while
 `central_recurrence_disjoint_copies` gives arbitrary finite disjoint copies
 of the entire two-step pattern. These statements passed full Lean/Mathlib
-verification. The existing sixth-result Comparator passed separately.
+verification. Both `central_recurrence_neighbors_exact` and
+`central_recurrence_disjoint_copies` passed independent comparison in the seventh candidate.
 
 **Verified full-graph spectral transfer.** The module
 [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean)
@@ -82,8 +84,10 @@ automorphism or preservation of matching colors.
 The concrete `translatedCompactA_eigenvector` and
 `translatedCompactB_eigenvector` prove the eigenvector equations with
 coefficients 3/16 and 1/4 on the entire infinite graph.
-Full Lean/Mathlib verification passed, as did the existing sixth-result
-Comparator. The exact normalization and mutual orthogonality of the replicated family are also verified.
+Full Lean/Mathlib verification passed, and the three eigenvector transfer statements
+(`central_translate_eigenvector`, `translatedCompactA_eigenvector`, and
+`translatedCompactB_eigenvector`) passed independent comparison in the seventh candidate.
+The exact normalization and mutual orthogonality of the replicated family are also verified.
 
 
 **Verified finite families.** In [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean),
@@ -92,6 +96,8 @@ Comparator. The exact normalization and mutual orthogonality of the replicated f
 `translatedCompact_inner_products` proves both squared norms are 8 and their inner product is zero.
 `central_translate_support` locates all nonzero amplitudes in the translated central lift set.
 The bundled theorem `exact_recurrent_compact_mode_pairs` proves for any finite N, real R and D >= 0 the existence of N centers beyond R, separated by more than D, with complete disjoint candidate patterns, exact eigenvalues 3/16 and 1/4, squared norms 8 and all cross-pair inner products zero. Thus 2N nonzero mutually orthogonal compact eigenvectors exist on the same infinite graph. No finite boundary or global graph automorphism is assumed.
+
+The principal theorem, `translatedCompact_inner_products` and `central_translate_support` are included in the independent selection; the supporting inner-product lemmas are verified in the full library.
 
 The 129-module library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered. L9.2 is mathematically complete; distinct degenerate energies, full-spectrum isolation and controls remain open.
 

@@ -64,6 +64,8 @@ retain their separate scope. The centered spectral-protection result
 (§4.110) passed independent comparison and was registered on
 26 November 2026 as [PALOMAR-2026-11-26-000015 (version 1)](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000015&version=1). The subsequent variable-duration preparation theorem with prescribed energetic protection is Lean-verified (§4.111); all 19 selected propositions passed independent comparison (§6.9). Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1). Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
 
+The bounded plateau isolation theorem (L9.1, §4.112) is the sixth registered result. The finite recurrence and orthogonal compact-mode replication theorem (L9.2, §4.113) is Lean-verified and independently compared (16 selected propositions); its Palomar registration is not yet complete. L9.3, distinct degenerate rest energies, is the next mathematical task.
+
 A checked item below denotes an actual substantive Lean result
 under its stated hypotheses; an unchecked item is an open task.
 P2, P3 and P4 are research phases, not numbered new theorems.

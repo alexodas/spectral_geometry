@@ -259,7 +259,7 @@
     {
       "id": "PALOMAR-2026-11-27-000003",
       "relationship": "builds-on",
-      "note": "Version 1: protected exact state preparation on the original confined model. The present result changes the rest Hamiltonian; it does not transfer that control theorem."
+      "note": "Version 1: protected exact state preparation on the original confined model. The present result replicates compact eigenvectors of the shared graph Laplacian; it does not transfer that control theorem."
     },
     {
       "id": "PALOMAR-2026-11-27-000042",

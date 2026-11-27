@@ -24,7 +24,7 @@ The program studies these questions for an operator with a confining onsite
 potential, bounded local interactions and controlled perturbations. It then
 transports the spectral information to a normalized canonical product on a
 fixed complex line. The concrete application uses the centered octagonal
-cut-and-project vertex graph (§§4.68–4.79). The spectral proofs use its
+cut-and-project vertex graph (§§4.68–4.79). The complementary localized-mode program establishes exact spectral splitting and coordinated control for the confined model (§§4.80–4.111), isolation for a bounded plateau model (§4.112), and arbitrary finite disjoint replication of compact Laplacian eigenstates on the same graph (§4.113). The broader multi-pair architecture remains open. The spectral proofs use its
 verified vertex and edge geometry. Polygonal tiling coverage and aperiodicity
 remain open (§6.4).
 
