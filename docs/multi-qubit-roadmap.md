@@ -15,33 +15,11 @@ establishes exact preparation from dark with arbitrarily weak ideal
 controls, zero leakage and a prescribed fraction of the certified gap
 on the original infinite confined graph (§4.111).
 
-The new goal is to find multiple spatially separated copies of the
-compact-mode mechanism on that same graph, using a different onsite
-potential. Each local two-state plane should have a distinct rest
-energy, an individual positive gap to the rest of the full spectrum,
-and independently addressable ideal controls. A pair is degenerate at
-rest, can split during pulses, and returns to degeneracy when the
-controls are switched off. The prepared ray then remains unchanged
-under the rest Hamiltonian.
+The immediate goal is to understand how far the **existing canonical plateau Hamiltonian** can take us without adding any new static onsite correction in a remote cell. The original tuned central pair, with its verified isolated double eigenvalue and gap, is preserved. In the constant exterior, the recurrent A/B configurations instead offer natural two-level systems with distinct energies. We will investigate these first rather than assume that each remote pair must be made degenerate.
 
-The primary first example is two pairs, one central and one remote.
-The ambitious target is any prescribed positive finite number N of
-pairs, with the potential and gaps permitted to depend on N.
-A fixed infinite architecture, a uniform gap as N grows, physical
-hardware robustness and tensor-product quantum registers are not
-asserted. Orthogonal two-state subspaces of one single-particle Hilbert
-space form a direct sum, not an N-qubit tensor product; entanglement and
-multi-qubit gates would require additional mathematics.
+The first target is one remote cell and then two well-separated remote cells. The ambitious target is any prescribed finite number N of independently addressable two-state planes. Orthogonal subspaces of a single-particle Hilbert space form a direct sum, not an N-qubit tensor product. Neither entanglement, a uniform protection gap as N grows, nor experimental feasibility is asserted.
 
-![Conceptual energy diagram of two individually protected localized qubits below the bulk spectral enclosure](figures/l9-two-protected-qubits.svg)
-
-*Figure — First L9 target (not yet proved): two localized pairs with
-distinct rest energies below the bulk spectral enclosure. Each pair is
-degenerate with controls off and may split temporarily under ideal local
-control, while retaining individual isolation from the full remaining
-spectrum. The shaded windows are schematic; their existence and positive
-margins must be proved. The bulk enclosure does not assert that the
-spectrum fills an interval or is absolutely continuous.*
+The earlier engineered architecture with distinct degenerate rest energies is retained below as an alternative, not a prerequisite. The current analysis does not change the seven registered results.
 
 ## L9.1 — Bounded plateau model
 
@@ -117,12 +95,73 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
   L a_j = (3/16) a_j and L b_j = (1/4) b_j.
 - [x] Certify preservation of orthogonality and squared norms 8. On a uniform plateau their prospective energies
   are C+3/16 and C+1/4, respectively, not a degenerate pair.
-  Infinite multiplicity at a common plateau energy is a separate
-  possible consequence of recurrence, not the preferred architecture.
+  Infinite multiplicity at each common plateau energy is a consequence
+  to formalize in the new L9.3–L9.4 natural architecture.
 
 The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually orthogonal nonzero compact eigenvectors with disjoint complete candidate neighborhoods for arbitrary finite N. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1).
 
-## L9.3 — Two degenerate pairs at distinct rest energies
+## L9.3 — Natural plateau pairs: exact energies and local completeness
+
+**Immediate priority; all new proof tasks below are open.** Keep the canonical Hamiltonian from §4.112 fixed: H_C = L + V_eff, where V_eff includes the original first-ring correction and equals C = 4 + 2 sqrt(2) off the central seventeen-site sector. L = (D - A)/16, with D the full graph degree diagonal and A the adjacency matrix. No remote wells or additional static onsite terms are introduced.
+
+The registered L9.2 theorem gives A/B compact eigenvectors a_j, b_j of L at 3/16 and 1/4, respectively, with squared norms eight and pairwise orthogonality. Whenever a translated patch is disjoint from the central defect, multiplication by V_eff on its supported vectors is exactly multiplication by C. Thus the following identities are direct mathematical consequences of the existing results, to be consolidated in new Lean declarations (not yet separately verified or registered):
+
+```math
+H_C a_j=(C+3/16)a_j,\qquad H_C b_j=(C+1/4)b_j.
+```
+
+Here E_A = C + 3/16 and E_B = C + 1/4 are independent of j, and E_B - E_A = 1/16. In a globally uniform model C I + L, changing C only shifts the spectrum and contributes a common dynamical phase; C = 0 gives L itself. The canonical H_C is different from C I + L at its central defect, which must be included in any global spectral or dynamical argument.
+
+- [ ] Formalize the full-space transfer to the canonical plateau and exact orthogonality for arbitrary finite families outside the defect. Preserve the central pair at E*.
+- [ ] Classify the supported eigenvectors on the exact seventeen-site cell, using the full degree diagonal, its finite interior block, and all exterior cancellation equations. Equivalently, for a supported eigenvector x, require both the interior eigenvalue equation and zero boundary coupling. Do not infer completeness from the finite principal block alone.
+- [ ] Determine whether the only supported eigenvectors, across all energies, are scalar multiples of A or B, and whether each supported eigenspace at E_A or E_B has dimension one. If true, their span is exactly the two-dimensional space generated by eigenvectors supported in the cell. This is not an eigenspace of multiplicity two at a single energy. Extra supported modes must be classified if present.
+- [ ] Transfer the classification to all exact recurrent patches via the existing neighborhood equivalence. Record the scope explicitly: support inside this cell is not the same as localization in a larger region or the dimension of a full-graph eigenspace.
+- [ ] As a secondary geometry question, enumerate the next graph-distance shells and their full degrees, then test for other compact modes with exact boundary cancellation. A uniform degree alone does not establish an eigenvector. Treat exploratory calculations as unverified until proved.
+
+## L9.4 — Spectral environment and the limits of protection
+
+- [ ] Formalize the consequence of arbitrary finite orthogonal replicas: each of E_A and E_B has infinite-dimensional eigenspace in the full canonical plateau operator and in the uniform bulk (at the corresponding energies). In particular, no individual remote two-state plane can have a positive full-spectrum separation from its entire orthogonal complement: that complement contains other eigenvectors at both energies.
+- [ ] Distinguish the exact internal level splitting 1/16 from spectral gaps. Determine whether E_A and E_B are isolated spectral points of infinite multiplicity, embedded or accumulation points; investigate gaps between or around them and the distance to the spectrum outside their **full** eigenspaces. No positive collective gap is assumed.
+- [ ] Study the uniform bulk L and C I + L, the full canonical H_C and the finite-rank central defect separately. Establish any required essential-spectrum or bounded-inverse claims rigorously; the enclosure [C,C+1] does not imply an interval of spectrum or absence of internal gaps.
+- [ ] Where appropriate, use exact local residuals, rigorous finite-region bounds, and full-space estimates with justified invertibility. Numerical spectra can guide conjectures but cannot certify absence of spectrum on the infinite graph.
+- [ ] Identify what protection is available through exact local reducing planes even if a global gap is impossible for an individual cell. If a collective spectral gap exists, determine its scope and whether controls preserve it.
+
+## L9.5 — Local addressing without additional static wells
+
+- [ ] Translate the existing first-ring onsite control R_j and eight-edge matching control M_j to a remote recurrent cell. Prove the exact full-space actions, boundedness, norms and reducing-plane identities on the normalized A/B basis, including boundary and exterior action.
+- [ ] Derive the local driven two-state matrix with its nondegenerate rest drift diag(E_A,E_B). Check independently whether the available controls generate the required two-state unitaries; do not simply reuse the degenerate dark/bright pulse equations.
+- [ ] Prove that local controls on one cell annihilate every other selected plane, including the central plane when the neighborhoods are disjoint. Prove joint reduction of the chosen finite family and its common orthogonal complement, with exact selectivity even when different cells share the same energies.
+- [ ] Determine whether energy-selective addressing is unnecessary under ideal spatially local controls; assess control strengths against any spectral bounds that can actually be certified.
+
+## L9.6 — Exact preparation under the natural energy splitting
+
+- [ ] Construct a rigorous protocol reaching any normalized complex superposition in one remote A/B plane from a specified initial state, up to global phase, with the 1/16 drift included.
+- [ ] Prove normalization, continuous full-space trajectories, the Schrödinger equations on open pulse intervals and exactly zero leakage, including switching times.
+- [ ] Investigate arbitrary weakness of controls, pulse durations and any attainable spectral protection separately. Do not transfer the fifth registered theorem's prescribed gap fraction without proving appropriate hypotheses.
+- [ ] Demonstrate preparation of one plane while other selected cells undergo only their known free evolution. Extend to two independently addressed cells and assess simultaneous versus sequential schedules.
+
+## L9.7 — Free evolution, storage and perturbations
+
+- [ ] With controls off, derive the exact evolution in a remote plane: its A/B amplitudes acquire phases exp(-i E_A t) and exp(-i E_B t). The relative phase rotates at angular frequency 1/16 in units with hbar = 1. There is no spreading under exact rest evolution, but a general superposition is not a stationary ray.
+- [ ] Study known-phase tracking, refocusing or other storage strategies if needed. Compare the uniform-zero-potential model with the canonical plateau, retaining the central defect distinction.
+- [ ] Distinguish exact invariance for ideal controls from robustness to onsite disorder, edge perturbations and imperfect addressing. Investigate leakage and mixing among equal-energy replicas, including perturbations not respecting local reduction. Establish bounds if possible rather than infer robustness from compact support.
+- [ ] Identify concrete obstructions, and only then consider the smallest additional static local intervention that resolves them. A plateau or a tuned well is not assumed necessary for remote control.
+
+## L9.8 — Arbitrary finite natural architecture and decision point
+
+- [ ] Extend verified local classification, ideal control and exact preparation to arbitrary finite families on the same fixed canonical plateau when possible. State all separation, control and spectral hypotheses and any dependence on N.
+- [ ] Compare the natural nondegenerate architecture against the alternative engineered architecture below, based on proved results rather than assumed requirements. If an essential objective fails, investigate minimal modifications before pursuing distinct degenerate rest energies.
+- [ ] Consolidate Lean proofs and independent statement comparison before selecting a new registry candidate; examine related literature without claiming priority or hardware feasibility.
+
+## Alternative architecture — engineered degenerate rest energies (deferred)
+
+The previous L9.3–L9.8 proposal is retained here in full. Its individual spectral isolation and stationary-ray storage targets are stronger and different from exact local addressing in the natural plateau. Pursue this route if the natural architecture proves insufficient for the chosen application, not by default.
+
+![Conceptual energy diagram of two individually protected localized qubits below the bulk spectral enclosure](figures/l9-two-protected-qubits.svg)
+
+*Figure — Alternative engineered target, not yet proved: two degenerate pairs at distinct rest energies below the bulk enclosure, with individual positive spectral windows. This is not the energy diagram of the current natural plateau pairs.*
+
+### Alternative L9.3 — Two degenerate pairs at distinct rest energies
 
 - [ ] Construct central and remote pairs with disjoint support and
   energies E_0 ≠ E_1. For a translated A/B patch, a candidate onsite
@@ -134,7 +173,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
 - [ ] Preserve the original central energy E_0 = 13/4 + sqrt(2)
   if possible. The chosen construction must be justified, not assumed.
 
-## L9.4 — Individual full-spectrum isolation
+### Alternative L9.4 — Individual full-spectrum isolation
 
 - [ ] For each pair P_j prove exact dimension two of the eigenspace
   at E_j and an explicit positive lower bound g_j on the distance
@@ -150,7 +189,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   If this fails, revise the potential or patch construction rather
   than presupposing the gap. Internal bulk gaps are a later option.
 
-## L9.5 — Independent local controls
+### Alternative L9.5 — Independent local controls
 
 - [ ] Transfer each first-ring onsite control R_j and eight-edge
   matching M_j to the verified translated patch, and prove the
@@ -163,7 +202,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   of each active pair from the other pairs and full exterior,
   for concurrent as well as sequential settings if attainable.
 
-## L9.6 — Protected arbitrary-target preparation
+### Alternative L9.6 — Protected arbitrary-target preparation
 
 - [ ] Transfer the three-pulse Euler construction to each pair,
   starting from its dark state and reaching any normalized complex
@@ -179,7 +218,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   phases internal to each plane. A sequential schedule suffices
   for the first milestone.
 
-## L9.7 — Switch-off and storage
+### Alternative L9.7 — Switch-off and storage
 
 - [ ] Prove that both levels of each pair coincide again at E_j
   when its ideal controls are off, with no residual control.
@@ -188,7 +227,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   relative phases between planes in a global direct-sum state.
   This is ideal storage, not a noise-resilience theorem.
 
-## L9.8 — Arbitrary finite architecture
+### Alternative L9.8 — Arbitrary finite architecture
 
 - [ ] Extend the construction and full-spectrum certificates to
   any finite N, with explicit patch placement, rest energies,
@@ -203,9 +242,4 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
 
 ## Working order and boundaries
 
-L9.1 is complete for the stated real spectral problem (§4.112). L9.2 is Lean-verified (§4.113); all 16 selected propositions have passed independent comparison, and the result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). The next mathematical task is L9.3, distinct degenerate rest energies. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
-allows essential spectrum but does not guarantee spectral gaps, and
-the five previous theorems do not establish L9. Preserve Track A's
-analytic-product infrastructure: its compact-resolvent and summability
-hypotheses may not hold for this new model. Do not transfer them without
-new proofs. The first research deliverable, the separate bounded Lean model and its spectral certificates, is verified. The sixth result is registered; publication of a software release is a separate action.
+L9.1 and L9.2 are registered and remain unchanged. L9.3 is the immediate mathematical task: transfer the recurrent compact modes to the actual canonical plateau, then prove or disprove exact local completeness on the seventeen-site cell. L9.4 investigates the full spectral environment; L9.5–L9.8 address local control, preparation, storage, robustness and arbitrary finite families. No individual gap from equal-energy replicas can exist on the unmodified plateau. A collective gap, exact selective control and robustness are separate questions. The earlier tuned-defect architecture is deferred as an alternative. Track A's compact-resolvent and summability infrastructure is preserved; do not transfer those hypotheses to the bounded model without proof. No new theorem is claimed verified by this roadmap update.
