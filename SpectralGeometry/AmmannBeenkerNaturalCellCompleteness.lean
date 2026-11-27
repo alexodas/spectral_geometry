@@ -69,7 +69,8 @@ theorem naturalCell_degree_values :
       ![8, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4] := by
   funext i
   fin_cases i
-  · rw [centralVertex_zero, origin_neighbors_card]
+  · change ((neighbors (centralVertex (0 : Fin 17))).card : ℝ) = 8
+    rw [centralVertex_zero, origin_neighbors_card]
     norm_num
   · change ((neighbors (firstRingVertex 0)).card : ℝ) = 3
     rw [firstRing_degree]
