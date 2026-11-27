@@ -55,15 +55,19 @@ theorem plateauBulk_realSpectrum_subset (C : ℝ) :
   by_contra hn
   have hout : energy < C ∨ C + 1 < energy := by
     change ¬ (C ≤ energy ∧ energy ≤ C + 1) at hn
-    push Not at hn
-    exact hn
+    by_cases hl : C ≤ energy
+    · exact Or.inr (lt_of_not_ge (fun hr => hn ⟨hl, hr⟩))
+    · exact Or.inl (lt_of_not_ge hl)
   let T : TileHilbert Vertex →L[ℝ] TileHilbert Vertex :=
     plateauBulk C - energy • (1 : TileHilbert Vertex →L[ℝ] TileHilbert Vertex)
   have hT : IsSelfAdjoint T := by
     apply ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mpr
     intro x y
-    have hb := (ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mp
-      (plateauBulk_isSelfAdjoint C)) x y
+    have hb : inner ℝ (plateauBulk C x) y = inner ℝ x (plateauBulk C y) := by
+      change inner ℝ (C • x + interaction x) y =
+        inner ℝ x (C • y + interaction y)
+      rw [inner_add_left, inner_add_right, real_inner_smul_left, real_inner_smul_right,
+        interaction_symmetric]
     change inner ℝ (plateauBulk C x - energy • x) y =
       inner ℝ x (plateauBulk C y - energy • y)
     rw [inner_sub_left, inner_sub_right, real_inner_smul_left, real_inner_smul_right, hb]
@@ -134,7 +138,7 @@ theorem canonicalPlateauDefect_zero_outside (x : TileHilbert Vertex)
       (interaction x v + crossingParameter * finiteSectorProjection (neighbors origin) x v)) -
       (canonicalPlateauHeight * x v + interaction x v) = 0
   rw [plateauOnsite_apply, canonicalPlateauPotential_outside v hv,
-    finiteSectorProjection_apply, if_neg hn]
+    finiteSectorProjection_apply, ite_eq_right hn]
   ring
 
 /-- Restriction to the finite central coordinate set is injective on
