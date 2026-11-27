@@ -120,7 +120,7 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
   Infinite multiplicity at a common plateau energy is a separate
   possible consequence of recurrence, not the preferred architecture.
 
-The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually orthogonal nonzero compact eigenvectors with disjoint complete candidate neighborhoods for arbitrary finite N. The seventh candidate is prepared for independent comparison; it is not registered.
+The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually orthogonal nonzero compact eigenvectors with disjoint complete candidate neighborhoods for arbitrary finite N. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered.
 
 ## L9.3 — Two degenerate pairs at distinct rest energies
 
@@ -203,7 +203,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
 
 ## Working order and boundaries
 
-L9.1 is complete for the stated real spectral problem (§4.112). L9.2 is Lean-verified (§4.113); independent comparison of the seventh candidate is pending. The next mathematical task is L9.3, distinct degenerate rest energies. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
+L9.1 is complete for the stated real spectral problem (§4.112). L9.2 is Lean-verified (§4.113); all 16 selected propositions have passed independent comparison, and the candidate is not registered. The next mathematical task is L9.3, distinct degenerate rest energies. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
 allows essential spectrum but does not guarantee spectral gaps, and
 the five previous theorems do not establish L9. Preserve Track A's
 analytic-product infrastructure: its compact-resolvent and summability

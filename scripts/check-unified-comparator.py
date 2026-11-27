@@ -160,7 +160,7 @@ if sixth_cfg.get("theorem_names", []) != list(sixth_sources):
 sixth_summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
 if sixth_summary != json.loads((sixth / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered sixth description must be preserved")
-summary = readme.split("### Exact spatial replication of compact localized eigenstates\n\n", 1)[1].split("\n\n## Detailed section index", 1)[0]
+summary = readme.split("### Exact spatial replication of compact localized eigenstates\n\n", 1)[1].split("\n\n#### Visual summary of the seventh theorem", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")

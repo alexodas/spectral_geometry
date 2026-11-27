@@ -168,7 +168,7 @@ treated as an independently proved library.
 The principal theorem is `SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs`.
 The [seventh candidate Comparator](../palomar/recurrent-compact-mode-pairs/comparator.json) selects 16 propositions.
 The standalone Mathlib-only Challenge contains 289 lines and 13,160 UTF-8 bytes.
-The substantive library is Lean-verified; independent comparison of the seventh candidate is pending.
+The substantive library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered.
 
 The sixth registered package describes **Exact Double
 Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph
@@ -188,7 +188,7 @@ The registered 125-module substantive library is Lean-verified with no
 proof holes. All 13 selected propositions passed independent comparison
 with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
 Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).
-The registry record remains attached to the original registered revision; the current metadata records the subsequent registration without changing the statements or proof.
+The registry record remains attached to the original registered revision; the archived sixth-package metadata records the subsequent registration without changing the statements or proof.
 
 The fifth registered package (§4.111) remains preserved in
 [the protected-preparation directory](../palomar/protected-exact-preparation/).
