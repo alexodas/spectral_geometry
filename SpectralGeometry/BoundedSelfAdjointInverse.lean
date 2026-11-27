@@ -23,7 +23,7 @@ theorem boundedSelfAdjoint_isUnit_of_norm_lower
     (T : E →L[ℝ] E) (hT : IsSelfAdjoint T)
     (k : ℝ) (hk : 0 ≤ k) (hbound : ∀ x : E, ‖x‖ ≤ k * ‖T x‖) :
     IsUnit T := by
-  let K : ℝ≥0 := ⟨k, hk⟩
+  let K : NNReal := ⟨k, hk⟩
   have ha : AntilipschitzWith K T := by
     apply antilipschitzWith_iff_le_mul_dist.mpr
     intro x y
