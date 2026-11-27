@@ -46,13 +46,13 @@ covers excluded as well as admitted coordinates.
 
 **Status and limits.** These ten public theorems have passed the complete
 Lean/Mathlib build. The existing sixth-result Comparator also passed;
-the new recurrence statements have not yet been independently selected.
+the new recurrence statements are selected in the seventh candidate; independent comparison is pending.
 The concrete candidate neighborhoods and complete graph-neighbor
 correspondence are now verified as described below. Full-graph transfer of the compact eigenvector equations is now also
 verified as described below. This does not give an isolated remote double
 eigenvalue or a multi-pair control theorem. General cut-and-project recurrence is not
 claimed as a new discovery; the concrete replicated spectral statement
-is the intended L9.2 target.
+is now proved in L9.2.
 
 **Verified concrete neighborhood transfer.** In
 [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean),
@@ -83,5 +83,16 @@ The concrete `translatedCompactA_eigenvector` and
 `translatedCompactB_eigenvector` prove the eigenvector equations with
 coefficients 3/16 and 1/4 on the entire infinite graph.
 Full Lean/Mathlib verification passed, as did the existing sixth-result
-Comparator. The exact normalization and mutual orthogonality of the
-replicated family are the next proof checkpoint.
+Comparator. The exact normalization and mutual orthogonality of the replicated family are also verified.
+
+
+**Verified finite families.** In [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean),
+`translateFiniteState_inner` proves preservation of the inner product on admitted finite patterns;
+`translateFiniteState_inner_of_disjoint` gives orthogonality of disjoint translated lift sets.
+`translatedCompact_inner_products` proves both squared norms are 8 and their inner product is zero.
+`central_translate_support` locates all nonzero amplitudes in the translated central lift set.
+The bundled theorem `exact_recurrent_compact_mode_pairs` proves for any finite N, real R and D >= 0 the existence of N centers beyond R, separated by more than D, with complete disjoint candidate patterns, exact eigenvalues 3/16 and 1/4, squared norms 8 and all cross-pair inner products zero. Thus 2N nonzero mutually orthogonal compact eigenvectors exist on the same infinite graph. No finite boundary or global graph automorphism is assumed.
+
+The 129-module library is Lean-verified. The seventh candidate selects 16 propositions for independent comparison, which is pending. L9.2 is mathematically complete; distinct degenerate energies, full-spectrum isolation and controls remain open.
+
+**Scientific context.** General cut-and-project repetitivity is established (see [A characterisation of linear repetitivity for cut and project sets with general polytopal windows](https://www.sciencedirect.com/science/article/pii/S0019357724000156)). [M. Ö. Oktel, Phys. Rev. B 104, 014204 (2021)](https://doi.org/10.1103/PhysRevB.104.014204) studies compact localized patterns in the octagonal lattice in a tight-binding zero-energy model, not the present weighted Laplacian. The contribution here is the exact concrete certificate of recurrence, complete-neighbor transfer, full-graph spectral cancellation and disjoint orthogonal replication. No priority claim is made.
