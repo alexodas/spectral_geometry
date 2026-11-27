@@ -21,6 +21,8 @@ noncomputable section
 
 open scoped Classical
 
+set_option maxRecDepth 4096 in
+set_option maxHeartbeats 2000000 in
 /-- Extend any prescribed center by a remote recurrence whose complete
 candidate pattern is disjoint, at any requested separation. -/
 theorem naturalRemoteCell_disjoint_partner (v : Vertex) (R D : ℝ) (hD : 0 ≤ D) :
@@ -43,10 +45,12 @@ theorem naturalRemoteCell_disjoint_partner (v : Vertex) (R D : ℝ) (hD : 0 ≤ 
     linarith [le_max_right R 4]
   refine ⟨w, hR, h4, by linarith, hrec, ?_⟩
   intro n hn m hm
-  have hn' : ‖physical n‖ ≤ r :=
-    Finset.single_le_sum (fun a _ => norm_nonneg (physical a)) hn
-  have hm' : ‖physical m‖ ≤ r :=
-    Finset.single_le_sum (fun a _ => norm_nonneg (physical a)) hm
+  have hbound (k : Lattice) (hk : k ∈ centralRecurrenceLifts) : ‖physical k‖ ≤ r := by
+    change ‖physical k‖ ≤ ∑ a ∈ centralRecurrenceLifts, ‖physical a‖
+    exact Finset.single_le_sum (f := fun a : Lattice => ‖physical a‖)
+      (fun a _ => norm_nonneg (physical a)) hk
+  have hn' := hbound n hn
+  have hm' := hbound m hm
   exact separated_translated_lifts v w n m r hn' hm' (by linarith)
 
 /-- The two equal-energy partners can be placed beyond any radius and
