@@ -433,6 +433,6 @@ crossing under arbitrary perturbations, identify the moving eigenvalue
 after the one-edge change, or provide a derivative, remainder or
 finite-patch zero certificate. The **historical first Palomar registration** selected the
 exact-multiplicity statements of §4.78. The gap theorems are not
-selected as separate statements in any of the six registered Palomar selections (§§4.78, 4.98, 4.105, 4.110–4.112), but remain included
+selected as separate statements in any of the seven registered Palomar selections (§§4.78, 4.98, 4.105, 4.110–4.113), but remain included
 in the full Lean/Mathlib source build.
 

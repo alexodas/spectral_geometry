@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh candidate passed independent statement comparison; registration remains pending. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh registered result passed independent statement comparison ([PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1)). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -166,9 +166,9 @@ treated as an independently proved library.
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
 [formalization metadata](../formalization.yaml) describe **Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph** (§4.113).
 The principal theorem is `SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs`.
-The [seventh candidate Comparator](../palomar/recurrent-compact-mode-pairs/comparator.json) selects 16 propositions.
+The [seventh registered-result Comparator](../palomar/recurrent-compact-mode-pairs/comparator.json) selects 16 propositions.
 The standalone Mathlib-only Challenge contains 289 lines and 13,160 UTF-8 bytes.
-The substantive library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered.
+The substantive library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1).
 
 The sixth registered package describes **Exact Double
 Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph

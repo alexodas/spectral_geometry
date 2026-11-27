@@ -9,7 +9,7 @@ in the [main README §6](research-roadmap.md#6-roadmap-proof-status-and-next-ste
 Following the registered L7 and L8a results, exact variable-duration preparation with prescribed energetic protection is Lean-verified (§4.111); all 19 selected propositions passed independent comparison. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1). Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. This does not withdraw the earlier goals.
 **Current priority:** [L9 — independently controllable spectrally protected
 localized qubits](multi-qubit-roadmap.md). L6 and imperfect-control
-refinements L8b–L8e remain open but are deferred. L9.1 is now registered ([PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1)): the bounded plateau has an exact double eigenvalue and a full real spectral gap of at least 1/122, with a finite-rank defect relative to the uniform bulk (§4.112). L9.2 exact compact-mode recurrence and replication are verified and independently compared (§4.113). L9.3 distinct degenerate rest energies is the next mathematical task.
+refinements L8b–L8e remain open but are deferred. L9.1 is now registered ([PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1)): the bounded plateau has an exact double eigenvalue and a full real spectral gap of at least 1/122, with a finite-rank defect relative to the uniform bulk (§4.112). L9.2 exact compact-mode recurrence and replication are verified, independently compared and registered (§4.113; [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1)). L9.3 distinct degenerate rest energies is the next mathematical task.
 The original single-edge proposal is retained below as L6 and in
 the [historical L6 note](edge-control-reachability.md).
 
@@ -239,7 +239,7 @@ Its Mathlib-only [Challenge](../palomar/signed-bright-splitting/Challenge.lean),
 are preserved together, with six concrete-model witnesses and one
 scientific conclusion. The earlier unsubmitted generator-response
 package is archived in [palomar/dark-bright](../palomar/dark-bright/).
-Each Comparator remains in its own directory; the fifth and sixth registered packages remain preserved (§§4.111–4.112). The active root files describe the seventh candidate, exact compact-mode replication (§4.113).
+Each Comparator remains in its own directory; the fifth and sixth registered packages remain preserved (§§4.111–4.112). The active root files describe the seventh registered result, exact compact-mode replication (§4.113).
 
 The L5 metadata explains the fixed simple energy and the unique
 moving simple energy, with explicit energy and wave-pattern bounds.

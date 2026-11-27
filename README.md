@@ -69,7 +69,7 @@ states can be isolated and controlled on such graphs.**
 
 ## Executive summary
 
-We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth registered result concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. The seventh candidate concerns the shared graph Laplacian itself: exact replication of the compact modes at arbitrarily many separated locations (L9.2). Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
+We study how local changes affect waves in an infinite Ammann–Beenker network, a mathematical model with an octagonal structure. The first five registered results concern the original confined Hamiltonian. The sixth registered result concerns a distinct bounded plateau Hamiltonian on the same graph. The two models and their certified gaps (1/128 and 1/122, respectively) must not be conflated. The seventh registered result concerns the shared graph Laplacian itself: exact replication of the compact modes at arbitrarily many separated locations (L9.2). Track B / L9 is the active research direction; Track A and its analytic goals are preserved but paused.
 
 <a id="first-palomar-result--exactly-two-localized-crossing-states"></a>
 ### Exactly two localized crossing states
@@ -99,7 +99,7 @@ These temporal conclusions are conditional: they assume that the supplied evolut
 
 The results fit together in a natural way. Changing the first-ring parameter offers an exact way to adjust the relative energies of the two original patterns without changing their shapes. Changing the connecting edge produces a genuine energy separation involving a bright-derived state, while the associated spreading into the infinite network can be kept small. The temporal results complement these spectral findings by showing that, under suitable evolution assumptions, the wave remains close to the original two-state space during and after a temporary edge change.
 
-The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected as standalone statements in the six registered selections.
+The exact signed spectral-splitting theorem is the second registered result; the baseline gap and conditional pulse bounds are not independently selected as standalone statements in the seven registered selections.
 
 <a id="third-result--exact-leakage-free-quantum-state-preparation-on-an-infinite-ammannbeenker-graph"></a>
 ### Exact leakage-free quantum state preparation
@@ -205,7 +205,7 @@ Each copy carries the same two localized waves, with exactly the original amplit
 
 Why is this interesting? The earlier results established an isolated two-state system at one location. The new result proves that its underlying compact wave patterns can be replicated at arbitrarily many separated locations, providing a geometric and spectral foundation for placing local two-state systems on the same network. It does not yet make them degenerate, individually isolated or independently controllable qubits: the two Laplacian eigenvalues differ. Engineering distinct degenerate rest energies, proving spectral isolation and implementing local control are the next research goals.
 
-Repetitivity of cut-and-project sets and compact localized states are established research topics. This result certifies their concrete combination for the specified graph and Laplacian, not a claim of priority or experimental feasibility. The full 129-module Lean/Mathlib library passed verification, and all 16 selected propositions passed independent comparison using the Lean default, NanoDa and con-ron kernels. No Palomar registration or independent human peer review is claimed for this seventh candidate.
+Repetitivity of cut-and-project sets and compact localized states are established research topics. This result certifies their concrete combination for the specified graph and Laplacian, not a claim of priority or experimental feasibility. The full 129-module Lean/Mathlib library passed verification, and all 16 selected propositions passed independent comparison using the Lean default, NanoDa and con-ron kernels. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). No independent human peer review is claimed.
 
 #### Visual summary of the seventh theorem
 

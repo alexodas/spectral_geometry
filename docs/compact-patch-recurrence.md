@@ -47,7 +47,7 @@ covers excluded as well as admitted coordinates.
 **Status and limits.** These ten public theorems have passed the complete
 Lean/Mathlib build. Three of them (`internal_window_boundary_avoided`,
 `finite_pattern_recurrence`, and `finite_pattern_disjoint_copies`) are selected
-in the seventh candidate and have passed independent comparison.
+in the seventh registered package and have passed independent comparison.
 The concrete candidate neighborhoods and complete graph-neighbor
 correspondence are now verified as described below. Full-graph transfer of the compact eigenvector equations is now also
 verified as described below. This does not give an isolated remote double
@@ -67,7 +67,7 @@ patch and all of its immediate neighbors, while
 `central_recurrence_disjoint_copies` gives arbitrary finite disjoint copies
 of the entire two-step pattern. These statements passed full Lean/Mathlib
 verification. Both `central_recurrence_neighbors_exact` and
-`central_recurrence_disjoint_copies` passed independent comparison in the seventh candidate.
+`central_recurrence_disjoint_copies` passed independent comparison in the seventh registered package.
 
 **Verified full-graph spectral transfer.** The module
 [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean)
@@ -86,7 +86,7 @@ The concrete `translatedCompactA_eigenvector` and
 coefficients 3/16 and 1/4 on the entire infinite graph.
 Full Lean/Mathlib verification passed, and the three eigenvector transfer statements
 (`central_translate_eigenvector`, `translatedCompactA_eigenvector`, and
-`translatedCompactB_eigenvector`) passed independent comparison in the seventh candidate.
+`translatedCompactB_eigenvector`) passed independent comparison in the seventh registered package.
 The exact normalization and mutual orthogonality of the replicated family are also verified.
 
 
@@ -99,7 +99,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` proves for any finite N
 
 The principal theorem, `translatedCompact_inner_products` and `central_translate_support` are included in the independent selection; the supporting inner-product lemmas are verified in the full library.
 
-The 129-module library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh candidate is not registered. L9.2 is mathematically complete; distinct degenerate energies, full-spectrum isolation and controls remain open.
+The 129-module library is Lean-verified. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). L9.2 is mathematically complete; distinct degenerate energies, full-spectrum isolation and controls remain open.
 
 **Scientific context.** General cut-and-project repetitivity is established (see [A characterisation of linear repetitivity for cut and project sets with general polytopal windows](https://doi.org/10.1016/j.indag.2024.03.003)). [M. Ö. Oktel, Phys. Rev. B 104, 014204 (2021)](https://doi.org/10.1103/PhysRevB.104.014204) studies compact localized patterns in the octagonal lattice in a tight-binding zero-energy model, not the present weighted Laplacian. The contribution here is the exact concrete certificate of recurrence, complete-neighbor transfer, full-graph spectral cancellation and disjoint orthogonal replication. No priority claim is made.
 

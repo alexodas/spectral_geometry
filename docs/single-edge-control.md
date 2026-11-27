@@ -1003,7 +1003,7 @@ that earlier independently explicit model required 531 physical
 lines, well below Palomar's hard 1,000-line/100-KiB limit.
 Its [historical per-theorem Comparator](../palomar/dark-bright/comparator.json)
 and root-file snapshots are preserved unchanged. The stronger final spectral theorem was registered separately in §4.98.
-The active Comparator selects the seventh candidate, exact compact-mode replication (§4.113); all six registered results and the unsubmitted generator-response candidate are preserved. The fifth registered result remains the exact protected preparation theorem (§4.111).
+The active Comparator selects the seventh registered result, exact compact-mode replication (§4.113); all seven registered results and the unsubmitted generator-response candidate are preserved. The fifth registered result remains the exact protected preparation theorem (§4.111).
 
 ### 4.93. Verified dark simplicity and a distinct perturbed spectral level
 
