@@ -102,11 +102,14 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 select
 
 ## L9.2 — Recurrence of compact-mode patches
 
-**First proof checkpoint (CI pending).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proposes boundary avoidance for every lattice lift, internal contraction of the existing silver-unit inflation sequence, eventual preservation of every admission and exclusion decision on an arbitrary finite set, and existence of a recurring center beyond any prescribed physical radius. These statements do not yet transfer the compact eigenvectors or prove mutual separation of arbitrarily many copies.
+**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean and the existing sixth-result Comparator passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are under verification; compact-mode transfer remains open.
 
-- [ ] Prove recurrence for the exact cut-and-project window and
-  lattice coordinates of the implemented graph, including all support
-  sites and neighboring sites required for cancellation and control.
+- [x] Prove recurrence for the exact cut-and-project window and lattice
+  coordinates of the implemented graph, for any finite lift set.
+- [x] Prove arbitrary finite families with separated centers and disjoint
+  complete translated lift sets.
+- [ ] Certify the concrete candidate neighborhood pattern, including all
+  neighboring sites required for cancellation and control.
 - [ ] Construct arbitrarily many mutually separated translated
   patches outside a prescribed radius, with disjoint supports and
   control neighborhoods. A finite patch illustration is not a proof.

@@ -1,0 +1,55 @@
+[← Main README and table of contents](../README.md)
+
+### 4.113. Exact finite-pattern recurrence and separation
+
+**Plain-English result.** A finite set of lattice coordinates, including sites
+that are excluded by the octagonal acceptance window, can be translated
+arbitrarily far in physical space while preserving every admission decision.
+For any prescribed finite number of copies and any nonnegative separation,
+the centers can be chosen mutually separated and the complete translated
+finite lift sets can be made disjoint. These are exact statements for the
+implemented infinite graph, not finite sample observations.
+
+**Arithmetic mechanism.** Write alpha = sqrt(2)/2. The silver-unit inflation
+sequence has physical norm (1+2 alpha)^k and internal displacement
+(1−2 alpha)^k on the real axis. The first tends to infinity and the second
+tends to zero. No integer lift lies on any of the eight supporting lines
+of the exact open window: the axis thresholds contradict integer parity,
+and the diagonal thresholds contradict the even irrational coefficient.
+For each lift, the nonzero margins to the thresholds ensure eventual
+preservation of admission and exclusion. A finite induction supplies a
+single threshold for the whole finite set.
+
+**Multiple copies.** Given an already selected finite set S of recurring
+centers, a new center can be chosen beyond
+max(R,0)+D+sum of the physical norms of the centers in S. The triangle
+inequality gives separation greater than D from every previous center.
+Induction gives any finite cardinality, including zero. If every lift in
+the original pattern has physical norm at most r, centers separated by
+more than 2r give disjoint translated lift sets. Taking r as the sum of
+the original lift norms yields an explicit sufficient separation and
+covers excluded as well as admitted coordinates.
+
+**Verified Lean declarations.** In
+[`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean):
+
+- `internal_window_boundary_avoided`: exact avoidance of every supporting line.
+- `internal_inflatedOriginNeighbor`, `recurrence_internal_tendsto_zero`:
+  explicit contracting internal displacement and convergence.
+- `eventual_admitted_translate`, `eventual_finite_pattern_translate`:
+  eventual preservation of a single decision and of a finite pattern.
+- `recurrence_physical_norm_tendsto_atTop`, `finite_pattern_recurrence`:
+  divergence and arbitrary remote recurrence.
+- `finite_pattern_recurrence_family`, `separated_translated_lifts`,
+  `finite_pattern_disjoint_copies`: arbitrarily many recurring centers
+  and disjoint translated lift sets.
+
+**Status and limits.** These ten public theorems have passed the complete
+Lean/Mathlib build. The existing sixth-result Comparator also passed;
+the new recurrence statements have not yet been independently selected.
+The next checkpoint specifies the actual candidate neighborhoods and
+their complete graph-neighbor correspondence. It is not yet a transfer
+of the compact eigenstates, an isolated remote double eigenvalue, or a
+multi-pair control theorem. General cut-and-project recurrence is not
+claimed as a new discovery; the concrete replicated spectral statement
+is the intended L9.2 target.

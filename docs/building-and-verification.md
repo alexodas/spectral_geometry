@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **126 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and eleven infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The new L9.2 recurrence module is under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **127 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and twelve infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the new candidate-neighborhood module is under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -91,7 +91,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`FullSpectralZeroCounts.lean`](../SpectralGeometry/FullSpectralZeroCounts.lean)
   - [`LinearOnsiteZeroCertificate.lean`](../SpectralGeometry/LinearOnsiteZeroCertificate.lean)
 
-- **Explicit octagonal geometry, operator and spectral products (40):**
+- **Explicit octagonal geometry, operator and spectral products (41):**
   - [`AmmannBeenkerCutProject.lean`](../SpectralGeometry/AmmannBeenkerCutProject.lean)
   - [`AmmannBeenkerGraph.lean`](../SpectralGeometry/AmmannBeenkerGraph.lean)
   - [`AmmannBeenkerOperator.lean`](../SpectralGeometry/AmmannBeenkerOperator.lean)
@@ -133,7 +133,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean) *(bounded invertibility from a uniform lower norm bound; Lean-verified)*
   - [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) *(L9.1 real bounded-operator spectral separation; Lean-verified)*
   - [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean) *(L9.1 uniform bulk enclosure, finite-rank defect and bundled isolated double eigenvalue; Lean-verified)*
-  - [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) *(L9.2 exact window boundary avoidance and finite-pattern recurrence; CI pending)*
+  - [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) *(L9.2 exact boundary avoidance, finite-pattern recurrence and disjoint finite families; Lean-verified; §4.113)*
+  - [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) *(L9.2 complete candidate neighborhoods and translated neighbor correspondence; under verification)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)

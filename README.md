@@ -28,6 +28,7 @@ states can be isolated and controlled on such graphs.**
   - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
   - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
   - <a id="4112-bounded-plateau-and-full-real-spectral-isolation"></a>[4.112. Bounded plateau and full real spectral isolation](docs/plateau-spectral-isolation.md#4112-bounded-plateau-and-full-real-spectral-isolation)
+  - [4.113. Exact finite-pattern recurrence and separation](docs/compact-patch-recurrence.md#4113-exact-finite-pattern-recurrence-and-separation)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
