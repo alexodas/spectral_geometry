@@ -139,7 +139,7 @@ theorem natural_translate_single (t : Lattice)
       lp.single (2 : ENNReal) (patchTranslateVertex t u) (1 : ℝ) := by
   unfold translateFiniteState
   rw [Finset.sum_eq_single_of_mem u hu]
-  · simp only [lp.single_apply, Pi.single_apply, if_pos rfl, one_smul]
+  · simp only [lp.single_apply, Pi.single_apply, if_true, one_smul]
     apply lp.ext
     funext w
     rw [latticeSingle_apply, lp.single_apply, Pi.single_apply]
