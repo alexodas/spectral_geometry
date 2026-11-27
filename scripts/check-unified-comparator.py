@@ -128,10 +128,10 @@ fifth = root / "palomar/protected-exact-preparation"
 fifth_cfg = json.loads((fifth / "comparator.json").read_text())
 if fifth_cfg.get("theorem_names", []) != list(previous_sources):
     errors.append("Registered fifth theorem selection must be preserved")
-fifth_summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n### An isolated double eigenvalue without global confinement", 1)[0]
+fifth_summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n#### Visual summary of the fifth theorem", 1)[0]
 if fifth_summary != json.loads((fifth / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered fifth description must be preserved")
-summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n## Visual summary of the sixth theorem", 1)[0]
+summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")
