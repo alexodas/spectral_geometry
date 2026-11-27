@@ -195,7 +195,16 @@ theorem plateauResidual_regularized_isUnit (C : ℝ) (hC : 1 ≤ C)
     IsUnit (plateauResidual C hC + plateauQubitProjection) := by
   have h := plateauBlockShift_isUnit C hC hheight 1 0 (by norm_num)
     (by norm_num)
-  simpa only [plateauBlockShift, one_smul, zero_smul, add_zero] using h
+  have he : plateauBlockShift C hC 1 0 =
+      plateauResidual C hC + plateauQubitProjection := by
+    apply ContinuousLinearMap.ext
+    intro x
+    change plateauResidual C hC x + (1 : ℝ) • plateauQubitProjection x +
+      (0 : ℝ) • plateauLeakageCLM x =
+      plateauResidual C hC x + plateauQubitProjection x
+    rw [one_smul, zero_smul, add_zero]
+  rw [he] at h
+  exact h
 
 /-- Every different real energy in the open radius 1/122 lies in
 the bounded resolvent set of the full plateau Hamiltonian. -/
