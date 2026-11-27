@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **118 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and three infinite geometry/operator/spectral modules (including domain-generic interfaces). The full library is Lean-verified. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **119 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and four infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library is Lean-verified; the new L9 plateau module is under development. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -126,6 +126,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`AmmannBeenkerCoordinatedExactPreparation.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedExactPreparation.lean) *(exact arbitrary normalized target preparation from dark up to global phase with continuous full-domain zero-leakage dynamics; §4.105)*
   - [`AmmannBeenkerCoordinatedVariableDuration.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedVariableDuration.lean) *(exact variable-duration three-pulse dynamics, phase and full-domain equations; §4.111)*
   - [`AmmannBeenkerCoordinatedProtectedPreparation.lean`](../SpectralGeometry/AmmannBeenkerCoordinatedProtectedPreparation.lean) *(arbitrarily weak exact preparation with prescribed real spectral gap; §4.111)*
+  - [`AmmannBeenkerPlateauOperator.lean`](../SpectralGeometry/AmmannBeenkerPlateauOperator.lean) *(L9.1 bounded plateau construction; verification pending)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
