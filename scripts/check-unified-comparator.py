@@ -107,7 +107,7 @@ readme = (root / "README.md").read_text(encoding="utf-8")
 previous_summary = readme.split("### Spectral protection during coordinated control\n\n", 1)[1].split("\n\nThe research direction was conceived", 1)[0]
 if previous_summary != json.loads((protection / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered spectral-protection description must be preserved")
-summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n## Detailed section index", 1)[0]
+summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n## Visual summary of the fifth theorem", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")

@@ -12,6 +12,7 @@ zeros of analytic functions built from those levels.**
   - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
   - [Spectral protection during coordinated control](#spectral-protection-during-coordinated-control)
   - [Exact protected state preparation with arbitrarily weak controls](#exact-protected-state-preparation-with-arbitrarily-weak-controls)
+- [Visual summary of the fifth theorem](#visual-summary-of-the-fifth-theorem)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -142,6 +143,24 @@ This is an exact result for the unbounded Hamiltonian on the full infinite graph
 The substantive proof and all 19 selected candidate propositions passed full Lean verification and independent statement comparison using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Independent human peer review and assessment of novelty are not claimed.
 
 **Palomar registration.** The fifth result was registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
+
+## Visual summary of the fifth theorem
+
+![Verified protected exact preparation: two compact rings, coordinated controls, quadratic confinement and protected energy levels](docs/figures/protected-exact-preparation.svg)
+
+**Figure.** Schematic illustration of the verified protected exact-preparation protocol.
+The central patch shows the actual two eight-site supports and the eight matched
+inter-ring edges (magenta); the other central edges are gray and the exterior
+neighbors are omitted. The quadratic baseline potential is supplemented by the
+fixed crossing correction on the first ring. Three consecutive equal-duration
+pulses act on the matched edges, the first-ring onsite values, and the matched
+edges again. Pulse heights are illustrative and may be signed or zero. The
+instantaneous plane energies shown correspond to each constant control setting;
+after switching off the controls both return to the common energy E*.
+The certified separation from all other real spectral energies is at least
+f/128 in each setting, not the internal level spacing. The state is prepared
+exactly from dark up to a common phase, with zero leakage throughout.
+No noise robustness or differentiability at switches is asserted.
 
 ## Detailed section index
 
