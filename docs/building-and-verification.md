@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and six L9 plateau construction, crossing, residual, multiplicity, bounded-inverse and spectral-isolation modules are Lean-verified; the bulk and finite-rank defect module is under verification. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; independent statement comparison of the sixth candidate is pending. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -132,7 +132,7 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean) *(L9.1 full-space residual bound and exact geometric multiplicity two; Lean-verified)*
   - [`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean) *(bounded invertibility from a uniform lower norm bound; Lean-verified)*
   - [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean) *(L9.1 real bounded-operator spectral separation; Lean-verified)*
-  - [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean) *(L9.1 uniform bulk enclosure, finite-rank defect and bundled isolated double eigenvalue; verification pending)*
+  - [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean) *(L9.1 uniform bulk enclosure, finite-rank defect and bundled isolated double eigenvalue; Lean-verified)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)

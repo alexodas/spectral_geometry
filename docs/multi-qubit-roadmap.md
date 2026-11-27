@@ -57,7 +57,7 @@ spectrum fills an interval or is absolutely continuous.*
 - [x] Prove real bounded-inverse spectral isolation of the crossing,
   without assuming compact resolvent or eigenvalue exhaustion.
   Complexification is a separate extension if needed.
-- [ ] Establish the bulk enclosure sigma(C I + B) ⊆ [C,C+1] using the
+- [x] Establish the bulk enclosure sigma(C I + B) ⊆ [C,C+1] using the
   verified positivity and norm bound of the interaction B. Prove the
   appropriate finite-rank perturbation/essential-spectrum statements
   if needed; do not assume that the bulk fills the interval or is
@@ -88,19 +88,17 @@ and [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlate
 use closed range, self-adjointness and the reducing compact projection
 to obtain bounded invertibility of the regularized residual and
 exclude every different real spectral energy at distance < 1/122.
-These full real spectral results are Lean-verified. The candidate
+These full real spectral results are Lean-verified. The verified
 [`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean)
 proves the uniform bulk enclosure, finite-rank defect of rank at most
-17 and a bundled isolated-double-eigenvalue theorem. Verification is
-pending. No claim about the exact essential spectrum is made.
+17 and a bundled isolated-double-eigenvalue theorem. No claim about the exact essential spectrum is made.
 
-A prospective sixth Palomar statement will focus on the concrete
+The sixth Palomar candidate focuses on the concrete
 bounded plateau model, exact double eigenvalue, full real spectral
 gap and finite-rank bulk comparison. Aim for the Registry's preferred
 300-line / 32 KiB Challenge review surface using standalone concrete
 coordinate definitions; the hard limits are 1,000 lines / 100 KiB.
-Do not duplicate the previous control protocols. All earlier registered
-packages remain unchanged.
+The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. Independent Comparator verification is pending. All earlier registered packages remain unchanged.
 
 ## L9.2 — Recurrence of compact-mode patches
 

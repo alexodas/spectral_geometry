@@ -12,6 +12,8 @@ zeros of analytic functions built from those levels.**
   - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
   - [Spectral protection during coordinated control](#spectral-protection-during-coordinated-control)
   - [Exact protected state preparation with arbitrarily weak controls](#exact-protected-state-preparation-with-arbitrarily-weak-controls)
+  - [An isolated double eigenvalue without global confinement](#an-isolated-double-eigenvalue-without-global-confinement)
+- [Visual summary of the sixth theorem](#visual-summary-of-the-sixth-theorem)
 - [Visual summary of the fifth theorem](#visual-summary-of-the-fifth-theorem)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
@@ -143,6 +145,28 @@ This is an exact result for the unbounded Hamiltonian on the full infinite graph
 The substantive proof and all 19 selected candidate propositions passed full Lean verification and independent statement comparison using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Independent human peer review and assessment of novelty are not claimed.
 
 **Palomar registration.** The fifth result was registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
+
+### An isolated double eigenvalue without global confinement
+
+Can two exactly localized states remain isolated in energy if the potential stops growing away from their center? For the specific infinite Ammann–Beenker graph studied here, the answer is yes. This result replaces the growing radial potential of the earlier theorems with a bounded potential that is constant far from the origin, without losing either the two-state degeneracy or its spectral protection.
+
+The graph is defined by projecting admitted points of a four-dimensional integer lattice into the plane, using an octagonal acceptance window. Edges join admitted lattice points differing by a signed coordinate unit vector. The interaction B is the positive graph Laplacian with edge weight 1/16, acting on the real square-summable states of the entire infinite graph. No finite sample or artificial boundary is introduced.
+
+The original onsite potential 1 + r², where r is the distance from the origin, is now truncated to V(r) = min(1 + r², C), with C = 4 + 2√2 (approximately 6.828). A fixed onsite correction of 17/16 + √2 is retained on the eight vertices of the first ring. The resulting Hamiltonian is a bounded self-adjoint operator defined on the whole real Hilbert space. Outside the seventeen vertices of the central sector, the onsite value is exactly C.
+
+Two compact states, A and B, have alternating amplitudes +1 and −1 on their respective eight-site rings and vanish everywhere else. They are orthogonal, each has squared norm eight, and both are exact eigenvectors at E* = 13/4 + √2 (approximately 4.664). The theorem proves that the entire eigenspace at E* has dimension exactly two: every state at that energy is a linear combination of A and B. Moreover, every other energy in the full real spectrum lies at distance at least 1/122 from E*. This excludes not only other eigenvalues but also any non-discrete real spectral energies within the open protected window. The radius is a rigorous lower bound, not a claimed exact gap.
+
+There is a useful comparison with the uniform reference operator C I + B, called the bulk here. Its entire real spectrum lies in [C, C + 1], strictly above E*. The actual Hamiltonian differs from this reference only by a perturbation supported on the central sector, whose range has dimension at most seventeen. The enclosure does not say that the bulk fills the interval or that the full Hamiltonian has no other levels below it.
+
+Why is this interesting? Localized states in an infinite network need not depend on confinement throughout the network. Here a strictly local modification of a uniform background produces an exactly two-dimensional isolated energy space, with a quantitative guarantee valid on the full infinite graph. Unlike the earlier confined model, the proof does not require a compact resolvent or a discrete spectrum. This provides a mathematical starting point for investigating separated localized two-state systems in the same network. It does not yet establish multiple independently controllable qubits, state preparation for the plateau Hamiltonian, noise robustness, or experimental feasibility.
+
+The substantive theorem and its supporting results have passed Lean and Mathlib verification. Independent Comparator verification of this sixth candidate is pending; neither independent human peer review nor a novelty or priority assessment is claimed.
+
+## Visual summary of the sixth theorem
+
+![Bounded plateau potential, two compact modes and full real spectral isolation](docs/figures/plateau-isolated-double-eigenvalue.svg)
+
+**Figure.** The actual central graph and its two alternating compact-mode patterns are shown on the left (exterior neighbors omitted). The radial onsite baseline becomes constant at C; the first-ring crossing correction is shown separately. The two modes share E*, with a certified radius 1/122 free of other real spectral energies. The uniform reference bulk lies in [C, C + 1]. The energy panel is schematic and does not assert that the rest of the spectrum is empty.
 
 ## Visual summary of the fifth theorem
 
