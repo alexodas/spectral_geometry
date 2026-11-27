@@ -167,6 +167,7 @@ theorem naturalRemoteCompensated_eigenpair (v : Vertex) (hr : 4 < ‖position v�
   unfold naturalRemoteDriven
   rw [hDark, hBright]
   norm_num only [add_zero] at hD hF
+  rw [show -(1 / 4 : ℝ) = (-1 / 4 : ℝ) by ring] at hF
   constructor
   · rw [hD]
     module
@@ -260,9 +261,27 @@ theorem naturalRemotePair_support (t : Lattice)
     naturalRemote_translated_supported t hrec compactA w hw
   have hb : translatedCompactB t w = 0 :=
     naturalRemote_translated_supported t hrec compactB w hw
-  simp [naturalPairReal, naturalPairImag, naturalRemoteDark, naturalRemoteBright,
-    lp.coeFn_add, lp.coeFn_sub, lp.coeFn_smul, Pi.add_apply, Pi.sub_apply,
-    Pi.smul_apply, smul_eq_mul, ha, hb]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change (coordinatedEigenCoeff E a τ).re * translatedCompactA t w +
+      (coordinatedEigenCoeff F b τ).re * translatedCompactB t w = 0
+    rw [ha, hb]
+    ring
+  · change (coordinatedEigenCoeff E a τ).im * translatedCompactA t w +
+      (coordinatedEigenCoeff F b τ).im * translatedCompactB t w = 0
+    rw [ha, hb]
+    ring
+  · change (coordinatedEigenCoeff E a τ).re *
+      ((1 / 4 : ℝ) * (translatedCompactA t w + translatedCompactB t w)) +
+      (coordinatedEigenCoeff F b τ).re *
+      ((1 / 4 : ℝ) * (translatedCompactA t w - translatedCompactB t w)) = 0
+    rw [ha, hb]
+    ring
+  · change (coordinatedEigenCoeff E a τ).im *
+      ((1 / 4 : ℝ) * (translatedCompactA t w + translatedCompactB t w)) +
+      (coordinatedEigenCoeff F b τ).im *
+      ((1 / 4 : ℝ) * (translatedCompactA t w - translatedCompactB t w)) = 0
+    rw [ha, hb]
+    ring
 
 /-- The relative phase factor between the two freely evolving natural
 modes is the phase at angular frequency 1/16, independent of height. -/
