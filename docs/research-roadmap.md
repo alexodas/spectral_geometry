@@ -889,16 +889,10 @@ addressable localized two-state subspaces on the same infinite graph.
 Each pair should be exactly degenerate with its controls off, have a
 distinct rest energy, and remain separated from every other full
 spectral energy during ideal control. A bounded quadratic-to-plateau
-potential and independently tuned local defects are candidate
-constructions. The bulk spectrum need not be discrete; continuous or
+potential is now verified for a single protected pair (§4.112); independently tuned remote local defects remain a proposed construction. The bulk spectrum need not be discrete; continuous or
 essential spectrum is allowed provided the required isolation is proved.
 
-The [dedicated L9 roadmap](multi-qubit-roadmap.md) defines eight open
-proof stages, starting with the plateau model and recurrent compact
-patterns, then a two-pair example, individual full-spectrum isolation,
-independent preparation and switch-off stability, and finally arbitrary
-finite multiplicity of addressable pairs. No L9 result is claimed
-verified. The original confined model and all five registered results
+The [dedicated L9 roadmap](multi-qubit-roadmap.md) defines eight proof stages. L9.1 is verified for the real bounded plateau model: exact multiplicity two, gap at least 1/122, uniform bulk spectral enclosure and defect rank at most 17. All 13 selected propositions of the sixth candidate passed independent Comparator verification; registry submission is separate. L9.2–L9.8 remain open: recurrent compact patterns, a two-pair example, individual full-spectrum isolation, independent preparation and switch-off stability, and finally arbitrary finite multiplicity of addressable pairs. The original confined model and all five registered results
 remain unchanged. Track A is paused, and L6 and L8b–L8e are deferred.
 
 See [Chapter 7 — Research methodology and maintenance rules](maintenance-rules.md#7-research-methodology-and-maintenance-rules) for the repository's documentation and verification policy.

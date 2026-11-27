@@ -2,7 +2,7 @@
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: active research; bounded plateau construction Lean-verified, multi-qubit target not yet proved.** This is the active Track B
+**Status: active research; L9.1 bounded plateau isolation Lean- and Comparator-verified, multi-qubit target not yet proved.** This is the active Track B
 direction. Track A (spectral geometry and analytic zeros), the original
 L6 single-edge approximate preparation, and L8b–L8e imperfect-control
 research are preserved but deferred. All five Palomar registrations and
@@ -98,7 +98,7 @@ bounded plateau model, exact double eigenvalue, full real spectral
 gap and finite-rank bulk comparison. Aim for the Registry's preferred
 300-line / 32 KiB Challenge review surface using standalone concrete
 coordinate definitions; the hard limits are 1,000 lines / 100 KiB.
-The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. Independent Comparator verification is pending. All earlier registered packages remain unchanged.
+The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. The sixth candidate is prepared for submission, not yet registered. All earlier registered packages remain unchanged.
 
 ## L9.2 — Recurrence of compact-mode patches
 
@@ -196,11 +196,9 @@ The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. Independent C
 
 ## Working order and boundaries
 
-Start with L9.1 and L9.2; a rigorous two-pair construction with
-full-spectrum isolation is the first substantive target. A plateau
+L9.1 is complete for the stated real spectral problem (§4.112). The next mathematical task is L9.2, recurrence of the exact compact-mode patches. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
 allows essential spectrum but does not guarantee spectral gaps, and
 the five previous theorems do not establish L9. Preserve Track A's
 analytic-product infrastructure: its compact-resolvent and summability
 hypotheses may not hold for this new model. Do not transfer them without
-new proofs. The first research deliverable is a separate Lean model and
-verified statements, not a new Palomar registration or release.
+new proofs. The first research deliverable, the separate bounded Lean model and its spectral certificates, is verified. A sixth Palomar candidate is prepared; registration and release are separate actions.

@@ -51,12 +51,12 @@
 <rect x="414" y="404" width="356" height="73" rx="6" fill="#e0f2fe"/>
 <text x="426" y="426" font-size="13" font-weight="bold">Fixed onsite correction on ring A</text>
 <text x="426" y="448" font-size="13">t* = 17/16 + √2 (added to V at r = 1)</text>
-<text x="426" y="468" font-size="12">H − (C I + B): rank ≤ 17</text>
+<text x="426" y="468" font-size="12">H − (C I + L): rank ≤ 17</text>
 <text x="813" y="103" font-size="17" font-weight="bold">3  Full real spectral separation</text>
 <path d="M839 455V133l-5 9m5-9 5 9" fill="none" stroke="#64748b" stroke-width="1.5"/>
 <rect x="854" y="146" width="306" height="76" rx="5" fill="#dbe4ed"/>
 <text x="1007" y="172" font-size="14" font-weight="bold" text-anchor="middle">Uniform reference bulk</text>
-<text x="1007" y="194" font-size="13" text-anchor="middle">σ(C I + B) ⊆ [C, C + 1]</text>
+<text x="1007" y="194" font-size="13" text-anchor="middle">σ(C I + L) ⊆ [C, C + 1]</text>
 <text x="1007" y="212" font-size="12" text-anchor="middle">[6.828, 7.828] (enclosure)</text>
 <text x="1007" y="259" font-size="12" text-anchor="middle" fill="#64748b">Other spectral energies may occur</text>
 <rect x="854" y="302" width="306" height="91" rx="5" fill="#dcfce7"/>

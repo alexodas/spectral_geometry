@@ -2,7 +2,7 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; independent statement comparison of the sixth candidate is pending. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **125 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and ten infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth candidate passed independent statement comparison. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -160,20 +160,33 @@ treated as an independently proved library.
 
 **Palomar / independent statement verification.** The active root
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
-[formalization metadata](../formalization.yaml) describe **Exact Leakage-Free Quantum State Preparation with Arbitrarily Weak Controls and Prescribed Spectral Protection on an Infinite Ammann–Beenker Graph** (§4.111).
-The principal theorem is `SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation`.
-The [Comparator](../palomar/protected-exact-preparation/comparator.json) selects 19 propositions:
-the previous 15 model, locality and spectral certificates, the phase,
-stretching and protected-setting statements, and the new principal theorem.
-All definitions are concrete; the Mathlib-only Challenge uses proposition
-proof placeholders only. Solution publicly imports the substantive proof,
-not Challenge. Matching snapshots are in [the fifth registered package](../palomar/protected-exact-preparation/).
-The complete 118-module substantive library is Lean-verified with no proof
-holes. All 19 selected propositions passed independent statement comparison;
-the Lean default, NanoDa and con-ron kernels accepted the solution.
-Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem.
-Registered on 27 November 2026 as [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
-The registered submission remains fixed at its original revision; the current metadata records the subsequent registration without changing the formal statements or proof.
+[formalization metadata](../formalization.yaml) describe **Exact Double
+Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph
+with a Bounded Plateau Potential** (§4.112).
+The principal theorem is
+`SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue`.
+The [Comparator](../palomar/plateau-isolated-double-eigenvalue/comparator.json)
+selects 13 propositions, including concrete model certificates,
+orthogonality, the uniform full-real-spectrum gap estimate, locality of
+the canonical defect, and the bundled isolated-double-eigenvalue theorem.
+The Mathlib-only Challenge contains 281 lines and 12,547 UTF-8 bytes
+(12.25 KiB), within Palomar's recommended 300 lines and 32 KiB.
+All definitions are concrete; only selected propositions have proof
+placeholders. Solution publicly imports the substantive proof, not
+Challenge. Matching snapshots are in [the sixth candidate package](../palomar/plateau-isolated-double-eigenvalue/).
+The complete 125-module substantive library is Lean-verified with no
+proof holes. All 13 selected propositions passed independent comparison
+with the Lean default, NanoDa and con-ron kernels. The sixth candidate is
+prepared for submission, but not yet registered.
+
+The fifth registered package (§4.111) remains preserved in
+[the protected-preparation directory](../palomar/protected-exact-preparation/).
+Its 19 selected propositions passed independent comparison with the Lean
+default, NanoDa and con-ron kernels. Palomar mechanical verification and
+Challenge renderability passed, and automated editorial review identified
+no blocking problem. It was registered on 27 November 2026 as
+[PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1).
+The original 118-module proof library and registered snapshot are preserved.
 
 The fourth registered package (§4.110) remains preserved in
 [the spectral-protection directory](../palomar/spectral-protection-during-coordinated-control/).
@@ -197,7 +210,7 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](../palomar/dark-bright/).
 No root `comparator.json` exists. Local packaging and verification
-checks select the new protected-preparation Comparator explicitly.
+checks select the bounded-plateau Comparator explicitly.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
