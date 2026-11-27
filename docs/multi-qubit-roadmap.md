@@ -33,6 +33,16 @@ asserted. Orthogonal two-state subspaces of one single-particle Hilbert
 space form a direct sum, not an N-qubit tensor product; entanglement and
 multi-qubit gates would require additional mathematics.
 
+![Conceptual energy diagram of two individually protected localized qubits below the bulk spectral enclosure](figures/l9-two-protected-qubits.svg)
+
+*Figure — First L9 target (not yet proved): two localized pairs with
+distinct rest energies below the bulk spectral enclosure. Each pair is
+degenerate with controls off and may split temporarily under ideal local
+control, while retaining individual isolation from the full remaining
+spectrum. The shaded windows are schematic; their existence and positive
+margins must be proved. The bulk enclosure does not assert that the
+spectrum fills an interval or is absolutely continuous.*
+
 ## L9.1 — Bounded plateau model
 
 - [ ] Introduce a separate bounded onsite potential
