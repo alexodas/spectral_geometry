@@ -81,7 +81,7 @@ theorem natural_finiteDefect_eigenspace_bound
   have hi := naturalEigenspaceDefectMap_injective T U D e h he
   have hf := FiniteDimensional.of_injective (naturalEigenspaceDefectMap T D e) hi
   letI := hf
-  exact ⟨hf, LinearMap.finrank_le_finrank_of_injective _ hi⟩
+  exact ⟨hf, LinearMap.finrank_le_finrank_of_injective hi⟩
 
 /-- The actual plateau cannot have an infinite-dimensional eigenspace
 at an energy outside the real spectrum of its uniform bulk. -/
