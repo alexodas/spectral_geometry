@@ -26,6 +26,8 @@ for name in (
     "palomar/protected-exact-preparation/formalization.yaml",
     "palomar/plateau-isolated-double-eigenvalue/comparator.json",
     "palomar/plateau-isolated-double-eigenvalue/formalization.yaml",
+    "palomar/recurrent-compact-mode-pairs/comparator.json",
+    "palomar/recurrent-compact-mode-pairs/formalization.yaml",
     "lake-manifest.json",
 ):
     try: json.loads((root/name).read_text(encoding="utf-8"))

@@ -1,8 +1,8 @@
 {
   "version": "v0.4",
   "project": {
-    "name": "Exact Double Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph with a Bounded Plateau Potential",
-    "description": "Can two exactly localized states remain isolated in energy if the potential stops growing away from their center? For the specific infinite Ammann–Beenker graph studied here, the answer is yes. This result replaces the growing radial potential of the earlier theorems with a bounded potential that is constant far from the origin, while retaining the exact two-state degeneracy and a positive certified rest-energy gap.\n\nThe graph is defined by projecting admitted points of a four-dimensional integer lattice into the plane, using an octagonal acceptance window. Edges join admitted lattice points differing by a signed coordinate unit vector. The interaction L is the positive graph Laplacian with edge weight 1/16, acting on the real square-summable states of the entire infinite graph. No finite sample or artificial boundary is introduced.\n\nThe original onsite potential 1 + r², where r is the distance from the origin, is now truncated to V(r) = min(1 + r², C), with C = 4 + 2√2 (approximately 6.828). A fixed onsite correction of 17/16 + √2 is retained on the eight vertices of the first ring. The resulting Hamiltonian is a bounded self-adjoint operator defined on the whole real Hilbert space. Outside the seventeen vertices of the central sector, the onsite value is exactly C.\n\nTwo compact states, A and B, have alternating amplitudes +1 and −1 on their respective eight-site rings and vanish everywhere else. They are orthogonal, each has squared norm eight, and both are exact eigenvectors at E* = 13/4 + √2 (approximately 4.664). The theorem proves that the entire eigenspace at E* has dimension exactly two: every state at that energy is a linear combination of A and B. Moreover, every other energy in the full real spectrum lies at distance at least 1/122 from E*. This excludes not only other eigenvalues but also any non-discrete real spectral energies within the open protected window. The radius is a rigorous lower bound, not a claimed exact gap.\n\nThere is a useful comparison with the uniform reference operator C I + L, called the bulk here. Its entire real spectrum lies in [C, C + 1], strictly above E*. The actual Hamiltonian differs from this reference only by a perturbation supported on the central sector, whose range has dimension at most seventeen. The enclosure does not say that the bulk fills the interval or that the full Hamiltonian has no other levels below it.\n\nWhy is this interesting? Localized states in an infinite network need not depend on confinement throughout the network. Here a strictly local modification of a uniform background produces an exactly two-dimensional isolated energy space, with a quantitative guarantee valid on the full infinite graph. Unlike the earlier confined model, the proof does not require a compact resolvent or a discrete spectrum. This provides a mathematical starting point for investigating separated localized two-state systems in the same network. It does not yet establish multiple independently controllable qubits, state preparation for the plateau Hamiltonian, noise robustness, or experimental feasibility.\n\nThe substantive theorem and its supporting results have passed Lean and Mathlib verification. All 13 selected propositions passed independent Comparator verification using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Neither independent human peer review nor a novelty or priority assessment is claimed.\n\n**Palomar registration.** The sixth result was registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1).",
+    "name": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
+    "description": "Can the same pair of compact localized waves be reproduced arbitrarily many times in a single infinite octagonal network, with exact separation and no change to their spectral equations? For the specific Ammann–Beenker graph studied here, the answer is yes.\n\nThe graph is built from four-dimensional integer lifts whose internal projection lies in an explicit open octagonal window. Edges join admitted lifts differing by a signed coordinate unit vector. The positive graph Laplacian L has edge weight 1/16 and acts on the real square-summable Hilbert space of the entire infinite graph.\n\nThe starting states A and B alternate on two eight-site rings of the central seventeen-vertex patch. Each has squared norm eight, their inner product is zero, and their Laplacian eigenvalues are 3/16 and 1/4. An explicit silver-unit sequence grows without bound in physical space and contracts to zero in internal space. No integer lift lies on a supporting line of the open window, so sufficiently late translations preserve every admission and exclusion decision of any finite set of lifts. The concrete pattern includes the central lifts and all candidates within two signed coordinate steps, including excluded sites. Complete graph neighborhoods are preserved.\n\nFor any finite N, any prescribed center radius and any nonnegative separation, there exist N recurring centers beyond that radius, with pairwise distance greater than the separation and disjoint complete translated candidate lift sets. Each translated pair satisfies the exact full-graph Laplacian equations at 3/16 and 1/4, retains squared norms eight and has zero inner product. All cross-pair inner products vanish. This supplies 2N mutually orthogonal nonzero compact eigenvectors on the same infinite graph, including exterior cancellation, without a finite boundary or global translation symmetry.\n\nThis provides a foundation for placing local two-state systems far apart. It is not a theorem about multiple degenerate, individually isolated or independently controllable qubits: the two Laplacian energies differ. A constant onsite background C shifts them to C+3/16 and C+1/4. Distinct degenerate rest energies, full spectral isolation and control remain separate research goals. No uniform gap, tensor-product register, noise robustness or experimental feasibility is claimed.\n\nRepetitivity of cut-and-project patterns and compact localized states on octagonal quasicrystals are established research topics. The contribution here is the exact concrete arithmetic, neighborhood and full-Laplacian replication certificate in Lean, not a priority claim. Full substantive Lean/Mathlib verification passed. Independent Comparator verification of this seventh candidate is pending; no Palomar registration or independent human peer review is claimed.",
     "authors": [
       "Alessandro Odasso"
     ],
@@ -23,14 +23,14 @@
   },
   "sources": [
     {
-      "title": "Exact Double Eigenvalue and Spectral Isolation on an Infinite Ammann–Beenker Graph with a Bounded Plateau Potential",
+      "title": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
       "authors": [
         "Alessandro Odasso"
       ],
       "type": "original-proof",
       "relationship": "other",
       "id": "https://github.com/alexodas/spectral_geometry",
-      "note": "Mathematical development of exact double eigenvalue and full real spectral isolation for a bounded plateau on the specified infinite graph. The maintainer conceived and directs the research; according to his account, AI generated the proof development and formalization under his direction. Independent human review of novelty or priority has not been completed."
+      "note": "AI-generated recurrence and full-Laplacian replication proof under the maintainer's direction. No independent novelty or priority assessment is claimed."
     },
     {
       "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
@@ -40,7 +40,7 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.104.014204",
-      "note": "Background for compact localized wave patterns; not a source of the specific bounded plateau isolation theorem."
+      "note": "Background for known localized ring patterns in a tight-binding setting, rather than the present weighted graph Laplacian."
     },
     {
       "title": "Compact localized states and flat bands from local symmetry partitioning",
@@ -52,7 +52,14 @@
       "type": "paper",
       "relationship": "background",
       "id": "https://doi.org/10.1103/PhysRevB.97.035161",
-      "note": "Background on localized waves and flat bands, not a source of the specific plateau spectral isolation theorem."
+      "note": "Background on compact states and local symmetry, not a priority claim for this certificate."
+    },
+    {
+      "title": "A characterisation of linear repetitivity for cut and project sets with general polytopal windows",
+      "type": "paper",
+      "relationship": "background",
+      "id": "https://www.sciencedirect.com/science/article/pii/S0019357724000156",
+      "note": "General repetitivity background. The present proof does not assert linear repetitivity."
     },
     {
       "title": "Algebraic theory of non-periodic tilings of the plane by two simple building blocks: a square and a rhombus",
@@ -73,7 +80,7 @@
     }
   ],
   "status": {
-    "scope": "Exact multiplicity two and a full real spectral gap of at least 1/122 for the concrete bounded canonical plateau Hamiltonian, with a uniform bulk spectral enclosure and a finite-rank defect of rank at most seventeen. All five previous registered results remain unchanged.",
+    "scope": "Exact finite recurrence and arbitrary finite families of orthogonal compact eigenstate pairs with disjoint complete two-step candidate neighborhoods on the specified infinite graph. All six registered results remain unchanged.",
     "sorry_count": 0,
     "sorry_in_definitions": 0,
     "axioms": [
@@ -98,106 +105,127 @@
     "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
   },
   "fidelity": {
-    "divergences": "One specified centered infinite Ammann–Beenker admitted-vertex graph, real square-summable Hilbert space and real Banach-algebra spectrum. No assertion of a filled bulk interval, spectral type, exact essential spectrum, complexification, plateau control protocol, multi-qubit architecture, noise robustness or experimental feasibility."
+    "divergences": "One specified centered infinite Ammann–Beenker graph on the real square-summable Hilbert space. Finite replicated families. No relative-density rate, global symmetry, isolated degenerate remote eigenvalues, multiple independent controls, tensor-product register, noise robustness or experiment."
   },
   "review": {
-    "status": "The substantive Lean/Mathlib proof passed the full project build. All 13 selected propositions passed independent statement comparison using the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1). No independent human review is claimed.",
+    "status": "Full substantive Lean/Mathlib verification passed. Independent statement comparison pending. Not registered; no independent human peer review.",
     "reviewers": [],
-    "notes": "Possible audiences include spectral theory, discrete Schrödinger operators, quasicrystals and compact localized states. This is a mathematical theorem, not a hardware demonstration or priority claim."
+    "notes": "Potential audiences: spectral graph theory, quasicrystals, compact localization and formalized mathematics."
   },
   "alignment": {
     "namespace": "SpectralGeometry.AmmannBeenker",
     "statements": [
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
         "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
         "module": "SpectralGeometry.AmmannBeenkerCutProject",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.finite_norm_sublevel",
-        "module": "SpectralGeometry.AmmannBeenkerCutProject",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
         "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
         "module": "SpectralGeometry.AmmannBeenkerGraph",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateauHeight_ge_five",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauOperator",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.interaction_apply",
+        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateauPotential_outside",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauOperator",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.plateauPotential_normalized_norm_le",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauOperator",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.sector_card",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.compactA_inner_self",
-        "module": "SpectralGeometry.AmmannBeenkerCompactStates",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.centralPatch_card",
+        "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.compactB_inner_self",
-        "module": "SpectralGeometry.AmmannBeenkerCompactStates",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.internal_window_boundary_avoided",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.compactA_inner_compactB",
-        "module": "SpectralGeometry.AmmannBeenkerCompactStates",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_recurrence",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.plateauHamiltonian_realSpectrum_gap",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauSpectrum",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_disjoint_copies",
+        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateauDefect_zero_outside",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauBulk",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_neighbors_exact",
+        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
         "note": "Supporting concrete model or spectral certificate."
       },
       {
-        "source": "README Executive summary, An isolated double eigenvalue without global confinement; §4.112",
-        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue",
-        "module": "SpectralGeometry.AmmannBeenkerPlateauBulk",
-        "status": "Proved in substantive Lean source and verified by independent statement comparison.",
-        "note": "Principal theorem: exact double eigenvalue, full real spectral separation, bulk enclosure and finite-rank defect."
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_disjoint_copies",
+        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_translate_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector",
+        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.central_translate_support",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Supporting concrete model or spectral certificate."
+      },
+      {
+        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "lean": "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs",
+        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "status": "Proved in substantive Lean source; independent statement comparison pending.",
+        "note": "Principal theorem: arbitrary finite orthogonal compact-mode family with disjoint complete candidate neighborhoods."
       }
     ]
   },
@@ -227,6 +255,11 @@
       "id": "PALOMAR-2026-11-27-000003",
       "relationship": "builds-on",
       "note": "Version 1: protected exact state preparation on the original confined model. The present result changes the rest Hamiltonian; it does not transfer that control theorem."
+    },
+    {
+      "id": "PALOMAR-2026-11-27-000042",
+      "relationship": "builds-on",
+      "note": "Version 1: bounded plateau isolation of the central pair. This result concerns the Laplacian, not transfer of the isolated double eigenvalue."
     }
   ]
 }

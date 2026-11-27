@@ -16,6 +16,7 @@ states can be isolated and controlled on such graphs.**
     - [Visual summary of the fifth theorem](#visual-summary-of-the-fifth-theorem)
   - [An isolated double eigenvalue without global confinement](#an-isolated-double-eigenvalue-without-global-confinement)
     - [Visual summary of the sixth theorem](#visual-summary-of-the-sixth-theorem)
+  - [Exact spatial replication of compact localized eigenstates](#exact-spatial-replication-of-compact-localized-eigenstates)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -190,6 +191,20 @@ The substantive theorem and its supporting results have passed Lean and Mathlib 
 ![Bounded plateau potential, two compact modes and full real spectral isolation](docs/figures/plateau-isolated-double-eigenvalue.svg)
 
 **Figure.** The actual central graph and its two alternating compact-mode patterns are shown on the left (exterior neighbors omitted). The radial onsite baseline becomes constant at C; the first-ring crossing correction is shown separately. The two modes share E*, with a certified radius 1/122 free of other real spectral energies. The uniform reference bulk spectrum lies in [C, C + 1]. The energy panel is schematic and does not assert that the rest of the spectrum is empty.
+
+### Exact spatial replication of compact localized eigenstates
+
+Can the same pair of compact localized waves be reproduced arbitrarily many times in a single infinite octagonal network, with exact separation and no change to their spectral equations? For the specific Ammann–Beenker graph studied here, the answer is yes.
+
+The graph is built from four-dimensional integer lifts whose internal projection lies in an explicit open octagonal window. Edges join admitted lifts differing by a signed coordinate unit vector. The positive graph Laplacian L has edge weight 1/16 and acts on the real square-summable Hilbert space of the entire infinite graph.
+
+The starting states A and B alternate on two eight-site rings of the central seventeen-vertex patch. Each has squared norm eight, their inner product is zero, and their Laplacian eigenvalues are 3/16 and 1/4. An explicit silver-unit sequence grows without bound in physical space and contracts to zero in internal space. No integer lift lies on a supporting line of the open window, so sufficiently late translations preserve every admission and exclusion decision of any finite set of lifts. The concrete pattern includes the central lifts and all candidates within two signed coordinate steps, including excluded sites. Complete graph neighborhoods are preserved.
+
+For any finite N, any prescribed center radius and any nonnegative separation, there exist N recurring centers beyond that radius, with pairwise distance greater than the separation and disjoint complete translated candidate lift sets. Each translated pair satisfies the exact full-graph Laplacian equations at 3/16 and 1/4, retains squared norms eight and has zero inner product. All cross-pair inner products vanish. This supplies 2N mutually orthogonal nonzero compact eigenvectors on the same infinite graph, including exterior cancellation, without a finite boundary or global translation symmetry.
+
+This provides a foundation for placing local two-state systems far apart. It is not a theorem about multiple degenerate, individually isolated or independently controllable qubits: the two Laplacian energies differ. A constant onsite background C shifts them to C+3/16 and C+1/4. Distinct degenerate rest energies, full spectral isolation and control remain separate research goals. No uniform gap, tensor-product register, noise robustness or experimental feasibility is claimed.
+
+Repetitivity of cut-and-project patterns and compact localized states on octagonal quasicrystals are established research topics. The contribution here is the exact concrete arithmetic, neighborhood and full-Laplacian replication certificate in Lean, not a priority claim. Full substantive Lean/Mathlib verification passed. Independent Comparator verification of this seventh candidate is pending; no Palomar registration or independent human peer review is claimed.
 
 ## Detailed section index
 

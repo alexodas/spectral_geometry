@@ -14,7 +14,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "palomar/plateau-isolated-double-eigenvalue/comparator.json"
+config_path = root / "palomar/recurrent-compact-mode-pairs/comparator.json"
 archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
@@ -36,10 +36,11 @@ if per_theorem_configs != [
     "palomar/exact-leakage-free-preparation/comparator.json",
     "palomar/plateau-isolated-double-eigenvalue/comparator.json",
     "palomar/protected-exact-preparation/comparator.json",
+    "palomar/recurrent-compact-mode-pairs/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
     "palomar/spectral-protection-during-coordinated-control/comparator.json",
 ]:
-    errors.append("Expected five predecessor Comparators and the active bounded-plateau Comparator")
+    errors.append("Expected six preserved predecessor Comparators and the active recurrence Comparator")
 try:
     archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
     old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
@@ -57,7 +58,7 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerPlateauBulk"
+proof_module = "SpectralGeometry.AmmannBeenkerReplicatedPairs"
 # Preserve the previous spectral certificates and select the new preparation statements.
 previous_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
@@ -81,7 +82,7 @@ previous_sources = {
     "SpectralGeometry.AmmannBeenker.coordinatedProtocol_protected_exact_preparation": "SpectralGeometry.AmmannBeenkerCoordinatedProtectedPreparation",
 }
 
-expected_sources = {
+sixth_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     "SpectralGeometry.AmmannBeenker.finite_norm_sublevel": "SpectralGeometry.AmmannBeenkerCutProject",
     "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
@@ -95,6 +96,24 @@ expected_sources = {
     "SpectralGeometry.AmmannBeenker.plateauHamiltonian_realSpectrum_gap": "SpectralGeometry.AmmannBeenkerPlateauSpectrum",
     "SpectralGeometry.AmmannBeenker.canonicalPlateauDefect_zero_outside": "SpectralGeometry.AmmannBeenkerPlateauBulk",
     "SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue": "SpectralGeometry.AmmannBeenkerPlateauBulk"
+}
+expected_sources = {
+    "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
+    "SpectralGeometry.AmmannBeenker.interaction_apply": "SpectralGeometry.AmmannBeenkerGraph",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.centralPatch_card": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.internal_window_boundary_avoided": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+    "SpectralGeometry.AmmannBeenker.finite_pattern_recurrence": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+    "SpectralGeometry.AmmannBeenker.finite_pattern_disjoint_copies": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
+    "SpectralGeometry.AmmannBeenker.central_recurrence_neighbors_exact": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+    "SpectralGeometry.AmmannBeenker.central_recurrence_disjoint_copies": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
+    "SpectralGeometry.AmmannBeenker.central_translate_eigenvector": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+    "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+    "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+    "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+    "SpectralGeometry.AmmannBeenker.central_translate_support": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+    "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
 }
 for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml"):
     if (root / filename).read_bytes() != (config_path.parent / filename).read_bytes():
@@ -131,12 +150,22 @@ if fifth_cfg.get("theorem_names", []) != list(previous_sources):
 fifth_summary = readme.split("### Exact protected state preparation with arbitrarily weak controls\n\n", 1)[1].split("\n\n#### Visual summary of the fifth theorem", 1)[0]
 if fifth_summary != json.loads((fifth / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered fifth description must be preserved")
-summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
+sixth = root / "palomar/plateau-isolated-double-eigenvalue"
+for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "comparator.json"):
+    if not (sixth / filename).is_file():
+        errors.append(f"Registered sixth snapshot missing: {filename}")
+sixth_cfg = json.loads((sixth / "comparator.json").read_text())
+if sixth_cfg.get("theorem_names", []) != list(sixth_sources):
+    errors.append("Registered sixth theorem selection must be preserved")
+sixth_summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
+if sixth_summary != json.loads((sixth / "formalization.yaml").read_text())["project"]["description"]:
+    errors.append("Registered sixth description must be preserved")
+summary = readme.split("### Exact spatial replication of compact localized eigenstates\n\n", 1)[1].split("\n\n## Detailed section index", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Executive summary and formalization description differ")
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the bounded-plateau conclusions and their concrete model certificates")
+    errors.append("Select the recurrence conclusions and their concrete model certificates")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):
