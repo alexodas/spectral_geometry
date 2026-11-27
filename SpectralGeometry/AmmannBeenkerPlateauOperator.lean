@@ -103,7 +103,8 @@ theorem plateauOnsite_norm_le (C : ℝ) (hC : 1 ≤ C) :
         ‖plateauPotential C v * x v‖ = plateauPotential C v * ‖x v‖ := by
           rw [norm_mul, Real.norm_eq_abs, abs_of_nonneg hv]
         _ ≤ C * ‖x v‖ := mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
-        _ = ‖C * x v‖ := by rw [norm_mul, Real.norm_eq_abs, abs_of_nonneg hC0]
+        _ = ‖C * x v‖ := by
+          rw [norm_mul, Real.norm_of_nonneg hC0]
     _ = C * ‖x‖ := by rw [norm_smul, Real.norm_eq_abs, abs_of_nonneg hC0]
 
 theorem plateauOnsite_symmetric (C : ℝ) (hC : 1 ≤ C)
@@ -131,7 +132,7 @@ theorem plateauHamiltonian_norm_le (C : ℝ) (hC : 1 ≤ C) :
       norm_add_le _ _
     _ ≤ ‖plateauOnsite C hC‖ + (‖interaction‖ +
         ‖crossingParameter • finiteSectorProjection (neighbors origin)‖) :=
-      add_le_add_left (norm_add_le _ _) _
+      add_le_add_right (norm_add_le _ _) _
     _ ≤ C + 1 + |crossingParameter| := by
       rw [norm_smul, Real.norm_eq_abs]
       have hh := mul_le_mul_of_nonneg_left
