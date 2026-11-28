@@ -154,8 +154,8 @@ theorem naturalTrajectory_error_sq_le
   have huτ := huu τ hτ
   unfold naturalTrajectoryWeight at hrτ huτ
   unfold naturalTrajectoryOverlap at hlo
-  rw [norm_sub_sq_real, norm_sub_sq_real, real_inner_comm (u τ) (r τ),
-    real_inner_comm (j τ) (i τ)]
+  rw [norm_sub_sq_real, norm_sub_sq_real, real_inner_comm (r τ) (u τ),
+    real_inner_comm (i τ) (j τ)]
   nlinarith
 
 /-- Application to a prepared remote plane during free storage.
