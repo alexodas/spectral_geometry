@@ -18,6 +18,8 @@ states can be isolated and controlled on such graphs.**
     - [Visual summary of the sixth theorem](#visual-summary-of-the-sixth-theorem)
   - [Exact spatial replication of compact localized eigenstates](#exact-spatial-replication-of-compact-localized-eigenstates)
     - [Visual summary of the seventh theorem](#visual-summary-of-the-seventh-theorem)
+  - [Exact local completeness and infinite global multiplicity of compact eigenstates](#exact-local-completeness-and-infinite-global-multiplicity-of-compact-eigenstates)
+    - [Visual summary of the eighth theorem](#visual-summary-of-the-eighth-theorem)
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -219,6 +221,30 @@ Repetitivity of cut-and-project sets and compact localized states are establishe
 ![Schematic of arbitrarily many separated copies of two compact localized waves, with exact Laplacian eigenvalues and orthogonal supports](docs/figures/recurrent-compact-mode-pairs.svg)
 
 *Figure — Schematic spatial replication on one infinite graph. The exact central ring geometry and alternating signs are shown; the separated locations and dashed neighborhood boundaries are illustrative, not computed coordinates. Every copy retains the same two Laplacian eigenvalues. No degeneracy or spectral isolation is claimed.*
+
+### Exact local completeness and infinite global multiplicity of compact eigenstates
+
+Can a small region of an infinite network have exactly two localized wave patterns, while the same two energies occur infinitely many times elsewhere? For the Ammann–Beenker graph studied here, the answer is yes.
+
+We use the same infinite octagonal network and bounded Hamiltonian as in the sixth registered result. Its potential is constant outside the original central seventeen-site region, with value C = 4 + 2√2. No new remote wells are added. The seventh result showed that the central geometric pattern can recur arbitrarily far away, including its surrounding candidate vertices.
+
+In each such remote seventeen-site cell, two waves, A and B, have alternating positive and negative amplitudes on separate eight-site rings and vanish everywhere else. Their energies are exactly C + 3/16 and C + 1/4. They are orthogonal and each has squared norm eight. The energy difference is 1/16.
+
+The first new conclusion is local completeness: every nonzero eigenvector supported entirely inside a certified remote cell is a nonzero multiple of A or B, at its corresponding energy. There is no third eigenvector direction confined to those seventeen sites. The proof checks the equations on the infinite graph, including cancellation at exterior neighbors, rather than treating the cell as a disconnected finite network.
+
+The second conclusion is infinite global multiplicity. For any finite number of cells and any prescribed separation, copies can be placed arbitrarily far away with disjoint complete candidate neighborhoods. All copied waves are mutually orthogonal. Hence each of the two energies has an infinite-dimensional eigenspace. The same holds for the uniform graph Laplacian with any constant potential, including zero.
+
+This gives a third conclusion: a single remote cell cannot be spectrally isolated from all other replicas at the same energy. Even a distant orthogonal state can have exactly the same energy. A gap after excluding the entire corresponding eigenspace is a different question: any collective residual bound is at most 1/16, but no positive collective gap has been established. At energies outside the uniform bulk spectrum, the central defect can produce eigenspaces of dimension at most seventeen.
+
+Why is this interesting? Exact local classification does not require global simplicity or isolated energy levels. Geometry distinguishes the cells even when energy alone cannot. The result concerns one specified graph and support class; it does not establish collective spectral isolation, a complete spectrum classification, quantum control or experimental feasibility.
+
+All 150 substantive Lean modules and all 22 selected propositions have passed Lean/Mathlib and independent Comparator checks using the Lean default, NanoDa and con-ron kernels. Registry review and independent human peer review are not claimed.
+
+#### Visual summary of the eighth theorem
+
+![Local completeness in one recurrent cell and infinite multiplicity of the same two energies across remote cells](docs/figures/natural-plateau-local-completeness.svg)
+
+*Figure — The ring geometry and alternating signs follow the verified compact patterns; the remote placements and energy diagram are schematic. A single cell has exactly two supported eigenvector directions, but other orthogonal copies share both energies. The 1/16 internal splitting is not a positive collective gap. See [the eighth candidate and selected statements](docs/natural-plateau-palomar.md).*
 
 ## Detailed section index
 

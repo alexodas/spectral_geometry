@@ -199,6 +199,14 @@ candidate = (root / "docs/natural-plateau-palomar.md").read_text(encoding="utf-8
 summary = candidate.split("# Eighth Palomar candidate — local completeness and global multiplicity\n\n", 1)[1].split("\n\n## Selected statements", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
     errors.append("Candidate description and formalization description differ")
+summary_header = "### Exact local completeness and infinite global multiplicity of compact eigenstates\n\n"
+summary_end = "\n\n#### Visual summary of the eighth theorem"
+if summary_header not in readme or summary_end not in readme:
+    errors.append("Eighth executive summary or figure heading missing")
+else:
+    executive_summary = readme.split(summary_header, 1)[1].split(summary_end, 1)[0]
+    if executive_summary != metadata.get("project", {}).get("description"):
+        errors.append("Eighth executive summary and formalization description differ")
 names = config.get("theorem_names")
 if names != list(expected_sources):
     errors.append("Select the local-completeness, multiplicity and isolation conclusions and their concrete model certificates")
