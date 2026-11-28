@@ -13,7 +13,7 @@ revising old status sentences and open-problem descriptions when later
 theorems resolve them without erasing their historical context.
 For Palomar, preserve a separate Comparator inside each
 `palomar/<candidate>/` directory, preserve predecessor packages,
-and never place a redundant Comparator at the repository root.
+and never place a redundant Comparator at the repository root. Preserve the registered executive-summary descriptions verbatim where the packaging audit compares them with historical metadata; explicitly mark these as historical scopes and record subsequent results and changed research priorities in separate current-status sections or linked chapters. Do not edit archived metadata merely to make a changed historical summary pass the audit.
 
 Keep the **README and linked scientific documentation cumulative and readable in plain English**.
 Explain each result's mathematical meaning, assumptions, exact conclusions,

@@ -2,7 +2,7 @@
 
 # 4. Infinite-dimensional geometric operators and spectral theory — §§4.114–4.118
 
-**Verification status.** All 150 library modules, including the 21 natural-plateau modules following the registered 129-module baseline, have passed full Lean checking. The existing seventh-result Comparator selection of 16 propositions also passed. The new results below have not yet undergone their own independent statement comparison or registration. All seven registered results remain unchanged. Earlier development milestones are preserved in [§4.113](compact-patch-recurrence.md).
+**Verification status.** All 150 library modules, including the 21 natural-plateau modules following the registered 129-module baseline, have passed full Lean checking. The existing seventh-result Comparator selection of 16 propositions also passed. A new [eighth Palomar candidate](natural-plateau-palomar.md) selects the L9.3–L9.4 spectral results for independent comparison; comparison and registration of this new selection are pending. All seven registered results remain unchanged. Earlier development milestones are preserved in [§4.113](compact-patch-recurrence.md).
 
 The model is the same fixed bounded canonical Hamiltonian H_C of §4.112 on the real square-summable state space of the infinite Ammann–Beenker graph. Write L=(D−A)/16 for its graph Laplacian, C=4+2√2 for the canonical plateau height, and U=C I+L for the uniform bulk. The central defect H_C−U is supported in the original seventeen-site sector; no extra static wells are introduced. The isolated central crossing and its gap ≥1/122 are distinct from the remote modes studied here.
 

@@ -41,4 +41,4 @@ The result combines concrete local completeness, global infinite multiplicity, a
 
 ## Verification and submission status
 
-The 22-statement selection includes nine supporting concrete-model propositions and thirteen natural-plateau conclusions. The standalone Challenge imports only Mathlib; Solution imports the proved mathematical library, not Challenge. The seven previous packages remain preserved. Submission requires successful independent comparison of this selection and review of the exact public commit. No registration is claimed.
+The 22-statement selection includes nine supporting concrete-model propositions and thirteen natural-plateau conclusions. The standalone Challenge is 463 physical lines and 21,695 UTF-8 bytes; this is below both hard limits and the preferred byte count, but exceeds the preferred 300-line review surface. The standalone Challenge imports only Mathlib; Solution imports the proved mathematical library, not Challenge. The seven previous packages remain preserved. Submission requires successful independent comparison of this selection and review of the exact public commit. No registration is claimed.
