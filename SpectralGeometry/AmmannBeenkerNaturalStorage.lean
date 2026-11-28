@@ -59,7 +59,10 @@ theorem naturalStorage_full_solvesAt (v : Vertex) (hr : 4 < ‖position v‖)
       (fun s => naturalStateImag v.val (naturalStoragePair s w)) τ := by
   have h := naturalStorage_solvesAt v hr hrec w τ
   unfold naturalSolvesAt at h
-  simpa only [naturalRemoteDriven, zero_smul, add_zero] using h
+  unfold naturalFullSolvesAt
+  simp only [naturalRemoteDriven, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.smul_apply, zero_smul, add_zero] at h
+  exact h
 
 /-- The two A/B coefficients of the freely evolving state retain their
 physical scalar phases. The two coefficients here multiply the
@@ -191,7 +194,10 @@ theorem naturalProtocolStored_solves_after (v : Vertex) (hr : 4 < ‖position v�
     · filter_upwards [Ioi_mem_nhds h3] with τ hτ
       exact (naturalProtocolStored_after p t q w τ hτ.le).symm
   unfold naturalSolvesAt at h
-  simpa only [naturalRemoteDriven, zero_smul, add_zero] using h
+  unfold naturalFullSolvesAt
+  simp only [naturalRemoteDriven, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.smul_apply, zero_smul, add_zero] at h
+  exact h
 
 /-- The prepared state recurs after a full free relative period. -/
 theorem naturalProtocolStored_return (p t q : ℝ) (w : ℂ × ℂ) :
