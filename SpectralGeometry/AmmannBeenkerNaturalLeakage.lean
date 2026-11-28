@@ -152,8 +152,10 @@ theorem naturalStorage_retained_weight_ge (v : Vertex) (hr : 4 < ‖position v�
     (τ : ℝ) (hτ : 0 ≤ τ) :
     1 - ‖P‖ ^ 2 * τ ^ 2 ≤
       ‖naturalRemotePart v.val (u τ)‖ ^ 2 + ‖naturalRemotePart v.val (j τ)‖ ^ 2 := by
-  have hs := ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mp
-    canonicalPlateau_isolated_double_eigenvalue.1
+  have hs (x y : TileHilbert Vertex) :
+      inner ℝ (canonicalPlateauHamiltonian x) y = inner ℝ x (canonicalPlateauHamiltonian y) :=
+    ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mp
+      canonicalPlateau_isolated_double_eigenvalue.1 x y
   have hsym : ∀ x y, inner ℝ ((canonicalPlateauHamiltonian + P) x) y =
       inner ℝ x ((canonicalPlateauHamiltonian + P) y) := by
     intro x y
