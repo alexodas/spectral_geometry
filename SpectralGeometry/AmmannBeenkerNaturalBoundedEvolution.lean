@@ -87,8 +87,10 @@ theorem naturalFullSolves_exists (H : TileHilbert Vertex →L[ℝ] TileHilbert V
   refine ⟨fun s => (naturalBoundedEvolution H (x,y) s).1,
     fun s => (naturalBoundedEvolution H (x,y) s).2, ?_, ?_,
     naturalBoundedEvolution_solvesAt H (x,y)⟩
-  · rw [naturalBoundedEvolution_initial]
-  · rw [naturalBoundedEvolution_initial]
+  · change (naturalBoundedEvolution H (x, y) 0).1 = x
+    rw [naturalBoundedEvolution_initial]
+  · change (naturalBoundedEvolution H (x, y) 0).2 = y
+    rw [naturalBoundedEvolution_initial]
 
 /-- Quadratic leakage and retained-weight estimates for the
 constructed evolution of a normalized remote state. -/
