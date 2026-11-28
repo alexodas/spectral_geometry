@@ -87,8 +87,11 @@ theorem naturalTwo_continuous (v w : Vertex) (c d : ℝ)
     exact ((Complex.continuous_im.comp hk.fst).smul continuous_const).add
       ((Complex.continuous_im.comp hk.snd).smul continuous_const)
   unfold naturalTwoReal naturalTwoImag
-  exact ⟨(continuous_const.smul (hR v f hf)).add (continuous_const.smul (hR w g hg)),
-    (continuous_const.smul (hI v f hf)).add (continuous_const.smul (hI w g hg))⟩
+  have hc : Continuous (fun _ : ℝ => c) := continuous_const
+  have hd : Continuous (fun _ : ℝ => d) := continuous_const
+  constructor
+  · exact (hc.smul (hR v f hf)).add (hd.smul (hR w g hg))
+  · exact (hc.smul (hI v f hf)).add (hd.smul (hI w g hg))
 
 theorem naturalTwo_support (v w : Vertex)
     (hvrec : ∀ n ∈ centralRecurrenceLifts, Admitted (n + v.val) ↔ Admitted n)
@@ -106,14 +109,21 @@ theorem naturalTwo_support (v w : Vertex)
     rw [hvI, hwI]
     ring
 
+set_option backward.isDefEq.respectTransparency false in
 theorem naturalFullSolvesAt_smul (H : TileHilbert Vertex →L[ℝ] TileHilbert Vertex)
     (r i : ℝ → TileHilbert Vertex) (τ c : ℝ)
     (h : naturalFullSolvesAt H r i τ) :
     naturalFullSolvesAt H (fun s => c • r s) (fun s => c • i s) τ := by
   unfold naturalFullSolvesAt at h ⊢
   constructor
-  · simpa only [map_smul] using h.1.const_smul c
-  · simpa only [map_smul, smul_neg] using h.2.const_smul c
+  · rw [map_smul]
+    first
+    | exact h.1.fun_const_smul c
+    | exact h.1.const_smul c
+  · rw [map_smul, ← smul_neg]
+    first
+    | exact h.2.fun_const_smul c
+    | exact h.2.const_smul c
 
 theorem naturalTwo_solvesAt (S : Finset Vertex)
     (hp : ∀ v ∈ S, 4 < ‖position v‖ ∧
