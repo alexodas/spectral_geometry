@@ -1,8 +1,7 @@
 module
 
-public import SpectralGeometry.AmmannBeenkerReplicatedPairs
+public import SpectralGeometry.AmmannBeenkerNaturalDefectComparison
 
 /-!
-The substantive recurrence and compact-mode replication proof is
-imported independently of Challenge.
+The substantive local classification, infinite multiplicity, isolation obstruction and finite-defect comparison proofs are imported independently of Challenge.
 -/

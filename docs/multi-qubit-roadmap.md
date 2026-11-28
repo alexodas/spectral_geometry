@@ -1,128 +1,76 @@
-[← Main README and table of contents](../README.md) · [Track B roadmap](bright-spectral-splitting-roadmap.md) · [Research roadmap §6.10](research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
+[← Main README and table of contents](../README.md) · [Research roadmap §6.10](research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open) · [Track B roadmap](bright-spectral-splitting-roadmap.md) · [Historical L9 roadmap](multi-qubit-roadmap-history.md)
 
 # L9 — Independently controllable spectrally protected localized qubits
 
-**Status: active research; L9.1 bounded plateau isolation registered; L9.2 compact-mode replication registered; multi-qubit target not yet proved.** This is the active Track B
-direction. Track A (spectral geometry and analytic zeros), the original
-L6 single-edge approximate preparation, and L8b–L8e imperfect-control
-research are preserved but deferred. All seven Palomar registrations and
-the original confined Hamiltonian remain unchanged.
+**Active priority.** Investigate how far the unchanged canonical plateau can support independently addressable localized two-state systems without additional static remote wells. Collective spectral protection and robustness are open; an individual gap from equal-energy replicas is impossible. The proved architecture is a direct sum of orthogonal subspaces of a single-particle space, not a tensor product. See [§§4.112–4.118](natural-plateau-architecture.md) and [verified milestones](verified-milestones.md) for completed results. The original Track A, L6 and L8b–L8e objectives remain paused or deferred.
 
 ## Motivation and target architecture
 
-The fifth registered result, [PALOMAR-2026-11-27-000003 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000003&version=1),
-establishes exact preparation from dark with arbitrarily weak ideal
-controls, zero leakage and a prescribed fraction of the certified gap
-on the original infinite confined graph (§4.111).
+Prioritize natural nondegenerate remote pairs on the existing plateau. Do not require engineered degeneracy unless a necessary objective cannot be met by the natural architecture. The central isolated double eigenvalue remains unchanged. L9.1 and L9.2 are completed and retained in [§4.112](plateau-spectral-isolation.md), [§4.113](compact-patch-recurrence.md) and the historical roadmap, not in the active checklist.
 
-The new goal is to find multiple spatially separated copies of the
-compact-mode mechanism on that same graph, using a different onsite
-potential. Each local two-state plane should have a distinct rest
-energy, an individual positive gap to the rest of the full spectrum,
-and independently addressable ideal controls. A pair is degenerate at
-rest, can split during pulses, and returns to degeneracy when the
-controls are switched off. The prepared ray then remains unchanged
-under the rest Hamiltonian.
+<a id="l93--natural-plateau-pairs-exact-energies-and-local-completeness"></a>
 
-The primary first example is two pairs, one central and one remote.
-The ambitious target is any prescribed positive finite number N of
-pairs, with the potential and gaps permitted to depend on N.
-A fixed infinite architecture, a uniform gap as N grows, physical
-hardware robustness and tensor-product quantum registers are not
-asserted. Orthogonal two-state subspaces of one single-particle Hilbert
-space form a direct sum, not an N-qubit tensor product; entanglement and
-multi-qubit gates would require additional mathematics.
+## L9.3 — Larger compact-support geometry
+
+The seventeen-site classification is complete. The remaining geometry task concerns larger supports.
+
+- [ ] As a secondary geometry question, enumerate the next graph-distance shells and their full degrees, then test for other compact modes with exact boundary cancellation. A uniform degree alone does not establish an eigenvector. Treat exploratory calculations as unverified until proved.
+
+<a id="l94--spectral-environment-and-the-limits-of-protection"></a>
+
+## L9.4 — Collective spectral environment
+
+The same two natural energies have infinite multiplicity. Individual residual gaps are ruled out, and any collective residual bound is at most 1/16. No positive collective gap has been proved.
+
+- [ ] Distinguish the exact internal level splitting 1/16 from spectral gaps. Determine whether E_A and E_B are isolated spectral points of infinite multiplicity, embedded or accumulation points; investigate gaps between or around them and the distance to the spectrum outside their **full** eigenspaces. No positive collective gap is assumed.
+- [ ] Study the uniform bulk L and C I + L, the full canonical H_C and the finite-rank central defect separately. Establish any required essential-spectrum or bounded-inverse claims rigorously; the enclosure [C,C+1] does not imply an interval of spectrum or absence of internal gaps.
+- [ ] Where appropriate, use exact local residuals, rigorous finite-region bounds, and full-space estimates with justified invertibility. Numerical spectra can guide conjectures but cannot certify absence of spectrum on the infinite graph.
+- [ ] Identify what protection is available through exact local reducing planes even if a global gap is impossible for an individual cell. If a collective spectral gap exists, determine its scope and whether controls preserve it.
+
+<a id="l95--local-addressing-without-additional-static-wells"></a>
+
+## L9.5 — Control strength and protection refinements
+
+Ideal independent spatial addressing and finite-family reduction are proved. Energy selectivity is not required for those ideal protocols; what remains is quantitative refinement under spectral or nonideal constraints.
+
+- [ ] Assess control strengths and any attainable protection against rigorously certified spectral bounds; analyze departures from ideal spatial selectivity.
+
+<a id="l96--exact-preparation-under-the-natural-energy-splitting"></a>
+
+## L9.6 — Weak-control preparation refinements
+
+Exact simultaneous finite-family preparation is proved with the natural rest drift included. Arbitrarily weak controls on the remote pairs are not established.
+
+- [ ] Investigate arbitrary weakness of controls, pulse durations and any attainable spectral protection separately. Do not transfer the fifth registered theorem's prescribed gap fraction without proving appropriate hypotheses.
+
+<a id="l97--free-evolution-storage-and-perturbations"></a>
+
+## L9.7 — Storage and perturbation refinements
+
+Ideal free evolution and bounded finite-time perturbation estimates are proved. The remaining questions concern practical mathematical storage strategies and stronger robustness.
+
+- [ ] Study known-phase tracking, refocusing or other storage strategies if needed. Compare the uniform-zero-potential model with the canonical plateau, retaining the central defect distinction.
+- [ ] Investigate concrete onsite disorder, edge perturbations, imperfect addressing and mixing among equal-energy replicas; determine whether stronger or long-time bounds hold.
+- [ ] Identify concrete obstructions, and only then consider the smallest additional static local intervention that resolves them. A plateau or a tuned well is not assumed necessary for remote control.
+
+<a id="l98--arbitrary-finite-natural-architecture-and-decision-point"></a>
+
+## L9.8 — Architecture decision and research assessment
+
+Arbitrary finite direct-sum preparation is proved. Registry review and scientific assessment are separate from proof verification.
+
+- [ ] Compare the natural nondegenerate architecture against the alternative engineered architecture below, based on proved results rather than assumed requirements. If an essential objective fails, investigate minimal modifications before pursuing distinct degenerate rest energies.
+- [ ] Complete registry review and examine related literature without claiming priority or hardware feasibility.
+
+## Alternative architecture — engineered degenerate rest energies (deferred)
+
+The previous L9.3–L9.8 proposal is retained here in full. Its individual spectral isolation and stationary-ray storage targets are stronger and different from exact local addressing in the natural plateau. Pursue this route if the natural architecture proves insufficient for the chosen application, not by default.
 
 ![Conceptual energy diagram of two individually protected localized qubits below the bulk spectral enclosure](figures/l9-two-protected-qubits.svg)
 
-*Figure — First L9 target (not yet proved): two localized pairs with
-distinct rest energies below the bulk spectral enclosure. Each pair is
-degenerate with controls off and may split temporarily under ideal local
-control, while retaining individual isolation from the full remaining
-spectrum. The shaded windows are schematic; their existence and positive
-margins must be proved. The bulk enclosure does not assert that the
-spectrum fills an interval or is absolutely continuous.*
+*Figure — Alternative engineered target, not yet proved: two degenerate pairs at distinct rest energies below the bulk enclosure, with individual positive spectral windows. This is not the energy diagram of the current natural plateau pairs.*
 
-## L9.1 — Bounded plateau model
-
-- [x] Introduce a separate bounded onsite potential
-  V_R(x) = 1 + min(|p(x)|², R²), with plateau C = 1 + R²,
-  preserving the original definitions and the central first-ring
-  crossing correction t* = 17/16 + sqrt(2).
-- [x] Choose R large enough to preserve both central compact-mode
-  equations; distinguish preservation of those eigenvectors from
-  preservation of the original exact multiplicity and gap.
-- [x] Prove boundedness, symmetry/self-adjointness on the full real
-  Hilbert space and equality of the natural domain with the entire space.
-- [x] Prove real bounded-inverse spectral isolation of the crossing,
-  without assuming compact resolvent or eigenvalue exhaustion.
-  Complexification is a separate extension if needed.
-- [x] Establish the bulk enclosure sigma(C I + B) ⊆ [C,C+1] using the
-  verified positivity and norm bound of the interaction B. Prove the
-  appropriate finite-rank perturbation/essential-spectrum statements
-  if needed; do not assume that the bulk fills the interval or is
-  absolutely continuous.
-
-**Verified foundation.** [`AmmannBeenkerPlateauOperator.lean`](../SpectralGeometry/AmmannBeenkerPlateauOperator.lean)
-constructs the bounded self-adjoint real Hamiltonian for every height
-C >= 1. The canonical height C = 4 + 4 alpha (alpha = sqrt(2)/2)
-preserves the original potential on all seventeen central vertices
-and is exactly constant everywhere else. The operator norm is at most
-C + 1 + |t*|. The verified
-[`AmmannBeenkerPlateauCrossing.lean`](../SpectralGeometry/AmmannBeenkerPlateauCrossing.lean)
-transfers the original full-space action on centrally supported states
-for C >= 5 and preserves both independent compact eigenvectors at
-crossingEnergy. The verified module
-[`AmmannBeenkerPlateauResidual.lean`](../SpectralGeometry/AmmannBeenkerPlateauResidual.lean),
-uses the central 1/24 bound, exterior barrier 2 and boundary coupling
-1/4 to derive ||x|| <= 122 ||(H_C - E*)x|| for orthogonal states on
-the old dense natural domain when C >= canonicalPlateauHeight.
-The verified [`AmmannBeenkerPlateauMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerPlateauMultiplicity.lean)
-extends this bound to the entire Hilbert space using density and
-continuity of the compact projection, then identifies the full
-crossing eigenspace with the two-dimensional compact plane.
-The full-space estimate and exact geometric multiplicity two are now
-Lean-verified. The verified modules
-[`BoundedSelfAdjointInverse.lean`](../SpectralGeometry/BoundedSelfAdjointInverse.lean)
-and [`AmmannBeenkerPlateauSpectrum.lean`](../SpectralGeometry/AmmannBeenkerPlateauSpectrum.lean)
-use closed range, self-adjointness and the reducing compact projection
-to obtain bounded invertibility of the regularized residual and
-exclude every different real spectral energy at distance < 1/122.
-These full real spectral results are Lean-verified. The verified
-[`AmmannBeenkerPlateauBulk.lean`](../SpectralGeometry/AmmannBeenkerPlateauBulk.lean)
-proves the uniform bulk enclosure, finite-rank defect of rank at most
-17 and a bundled isolated-double-eigenvalue theorem. No claim about the exact essential spectrum is made.
-
-The sixth registered result focuses on the concrete
-bounded plateau model, exact double eigenvalue, full real spectral
-gap and finite-rank bulk comparison. Aim for the Registry's preferred
-300-line / 32 KiB Challenge review surface using standalone concrete
-coordinate definitions; the hard limits are 1,000 lines / 100 KiB.
-The standalone Challenge contains 281 lines and 12547 UTF-8 bytes. All 13 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. Palomar mechanical verification and Challenge renderability passed, and the automated editorial review identified no blocking problem. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000042 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000042&version=1). All earlier registered packages remain unchanged.
-
-## L9.2 — Recurrence of compact-mode patches
-
-**Verified recurrence and finite separation (§4.113).** [`AmmannBeenkerPatchRecurrence.lean`](../SpectralGeometry/AmmannBeenkerPatchRecurrence.lean) proves exact boundary avoidance, eventual preservation of all admission and exclusion decisions in any finite lift set, and arbitrary finite families of remote mutually separated centers with disjoint translated lift sets. Full Lean verification and independent comparison of the seventh registered result passed. The concrete two-step candidate neighborhood and full neighbor correspondence in [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) are now Lean-verified. Full-graph compact-mode transfer is Lean-verified in [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean); preservation of inner products and the bundled finite family theorem are Lean-verified in [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean).
-
-- [x] Prove recurrence for the exact cut-and-project window and lattice
-  coordinates of the implemented graph, for any finite lift set.
-- [x] Prove arbitrary finite families with separated centers and disjoint
-  complete translated lift sets.
-- [x] Certify the concrete candidate neighborhood pattern, including all
-  neighboring sites required for cancellation and control.
-- [x] Construct arbitrarily many mutually separated translated
-  patches outside a prescribed radius, with disjoint supports and
-  control neighborhoods. A finite patch illustration is not a proof.
-- [x] Transfer the full-space compact-mode equations
-  L a_j = (3/16) a_j and L b_j = (1/4) b_j.
-- [x] Certify preservation of orthogonality and squared norms 8. On a uniform plateau their prospective energies
-  are C+3/16 and C+1/4, respectively, not a degenerate pair.
-  Infinite multiplicity at a common plateau energy is a separate
-  possible consequence of recurrence, not the preferred architecture.
-
-The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually orthogonal nonzero compact eigenvectors with disjoint complete candidate neighborhoods for arbitrary finite N. All 16 selected propositions passed independent comparison with the Lean default, NanoDa and con-ron kernels; the seventh result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1).
-
-## L9.3 — Two degenerate pairs at distinct rest energies
+### Alternative L9.3 — Two degenerate pairs at distinct rest energies
 
 - [ ] Construct central and remote pairs with disjoint support and
   energies E_0 ≠ E_1. For a translated A/B patch, a candidate onsite
@@ -134,7 +82,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
 - [ ] Preserve the original central energy E_0 = 13/4 + sqrt(2)
   if possible. The chosen construction must be justified, not assumed.
 
-## L9.4 — Individual full-spectrum isolation
+### Alternative L9.4 — Individual full-spectrum isolation
 
 - [ ] For each pair P_j prove exact dimension two of the eigenspace
   at E_j and an explicit positive lower bound g_j on the distance
@@ -150,7 +98,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   If this fails, revise the potential or patch construction rather
   than presupposing the gap. Internal bulk gaps are a later option.
 
-## L9.5 — Independent local controls
+### Alternative L9.5 — Independent local controls
 
 - [ ] Transfer each first-ring onsite control R_j and eight-edge
   matching M_j to the verified translated patch, and prove the
@@ -163,7 +111,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   of each active pair from the other pairs and full exterior,
   for concurrent as well as sequential settings if attainable.
 
-## L9.6 — Protected arbitrary-target preparation
+### Alternative L9.6 — Protected arbitrary-target preparation
 
 - [ ] Transfer the three-pulse Euler construction to each pair,
   starting from its dark state and reaching any normalized complex
@@ -179,7 +127,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   phases internal to each plane. A sequential schedule suffices
   for the first milestone.
 
-## L9.7 — Switch-off and storage
+### Alternative L9.7 — Switch-off and storage
 
 - [ ] Prove that both levels of each pair coincide again at E_j
   when its ideal controls are off, with no residual control.
@@ -188,7 +136,7 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
   relative phases between planes in a global direct-sum state.
   This is ideal storage, not a noise-resilience theorem.
 
-## L9.8 — Arbitrary finite architecture
+### Alternative L9.8 — Arbitrary finite architecture
 
 - [ ] Extend the construction and full-spectrum certificates to
   any finite N, with explicit patch placement, rest energies,
@@ -203,9 +151,16 @@ The bundled theorem `exact_recurrent_compact_mode_pairs` certifies 2N mutually o
 
 ## Working order and boundaries
 
-L9.1 is complete for the stated real spectral problem (§4.112). L9.2 is Lean-verified (§4.113); all 16 selected propositions have passed independent comparison, and the result is registered as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). The next mathematical task is L9.3, distinct degenerate rest energies. A rigorous two-pair construction with full-spectrum isolation remains the first multi-pair target. A plateau
-allows essential spectrum but does not guarantee spectral gaps, and
-the five previous theorems do not establish L9. Preserve Track A's
-analytic-product infrastructure: its compact-resolvent and summability
-hypotheses may not hold for this new model. Do not transfer them without
-new proofs. The first research deliverable, the separate bounded Lean model and its spectral certificates, is verified. The sixth result is registered; publication of a software release is a separate action.
+Prioritize L9.4, then weak controls and robustness in L9.5–L9.7; pursue larger-support geometry as a secondary question. Revisit the engineered route only if a necessary requirement fails on the natural plateau. Do not transfer compact-resolvent hypotheses from the confined model to the bounded model, or equate direct-sum systems with tensor-product qubits.
+
+## Historical references
+
+<a id="l91--bounded-plateau-model"></a>
+
+[L9.1 — Bounded plateau model (completed)](multi-qubit-roadmap-history.md#l91--bounded-plateau-model)
+
+<a id="l92--recurrence-of-compact-mode-patches"></a>
+
+[L9.2 — Recurrence of compact-mode patches (completed)](multi-qubit-roadmap-history.md#l92--recurrence-of-compact-mode-patches)
+
+The [complete historical roadmap](multi-qubit-roadmap-history.md) preserves all earlier results, figures, and checklists.

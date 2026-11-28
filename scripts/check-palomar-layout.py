@@ -28,6 +28,8 @@ for name in (
     "palomar/plateau-isolated-double-eigenvalue/formalization.yaml",
     "palomar/recurrent-compact-mode-pairs/comparator.json",
     "palomar/recurrent-compact-mode-pairs/formalization.yaml",
+    "palomar/natural-plateau-local-completeness/comparator.json",
+    "palomar/natural-plateau-local-completeness/formalization.yaml",
     "lake-manifest.json",
 ):
     try: json.loads((root/name).read_text(encoding="utf-8"))

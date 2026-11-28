@@ -1,8 +1,8 @@
 {
   "version": "v0.4",
   "project": {
-    "name": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
-    "description": "Can the same two localized wave patterns occur arbitrarily many times in one infinite network, without spreading into the rest of it? For the specific octagonal Ammann–Beenker graph studied here, the answer is yes.\n\nThe network is built by projecting selected points of a four-dimensional integer lattice into the plane. Its graph Laplacian L assigns the same weight, 1/16, to each edge. Two known compact wave patterns, A and B, live on separate eight-site rings of a central seventeen-vertex patch. Their amplitudes alternate between +1 and −1 and vanish elsewhere. They have exact eigenvalues 3/16 and 1/4, respectively.\n\nThe new theorem proves that for any finite number N, we can find N copies of this patch arbitrarily far from the origin and farther apart than any prescribed separation. The copies include the complete surrounding candidate neighborhoods, with both present and absent vertices preserved. These neighborhoods do not overlap. This is possible because certain lattice translations move arbitrarily far in physical space while their displacement in the internal projection tends to zero.\n\nEach copy carries the same two localized waves, with exactly the original amplitudes and eigenvalues. The eigenvector equations hold at every vertex of the infinite graph, even outside the patch, where the contributions cancel. Every copied wave has squared norm eight. The two waves in each copy, and all waves in different copies, are mutually orthogonal. Thus the construction gives 2N nonzero, mutually orthogonal compact eigenvectors on a single infinite graph. No artificial boundary, numerical approximation or global translation symmetry is assumed.\n\nWhy is this interesting? The earlier results established an isolated two-state system at one location. The new result proves that its underlying compact wave patterns can be replicated at arbitrarily many separated locations, providing a geometric and spectral foundation for placing local two-state systems on the same network. It does not yet make them degenerate, individually isolated or independently controllable qubits: the two Laplacian eigenvalues differ. Engineering distinct degenerate rest energies, proving spectral isolation and implementing local control are the next research goals.\n\nRepetitivity of cut-and-project sets and compact localized states are established research topics. This result certifies their concrete combination for the specified graph and Laplacian, not a claim of priority or experimental feasibility. The full 129-module Lean/Mathlib library passed verification, and all 16 selected propositions passed independent comparison using the Lean default, NanoDa and con-ron kernels. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). No independent human peer review is claimed.",
+    "name": "Exact Local Completeness and Infinite Global Multiplicity of Compact Eigenstates on an Infinite Ammann–Beenker Graph",
+    "description": "Can a small region of an infinite network have exactly two localized wave patterns, while the same two energies occur infinitely many times elsewhere? For the Ammann–Beenker graph studied here, the answer is yes.\n\nWe use the same infinite octagonal network and bounded Hamiltonian as in the sixth registered result. Its potential is constant outside the original central seventeen-site region, with value C = 4 + 2√2. No new remote wells are added. The seventh result showed that the central geometric pattern can recur arbitrarily far away, including its surrounding candidate vertices.\n\nIn each such remote seventeen-site cell, two waves, A and B, have alternating positive and negative amplitudes on separate eight-site rings and vanish everywhere else. Their energies are exactly C + 3/16 and C + 1/4. They are orthogonal and each has squared norm eight. The energy difference is 1/16.\n\nThe first new conclusion is local completeness: every nonzero eigenvector supported entirely inside a certified remote cell is a nonzero multiple of A or B, at its corresponding energy. There is no third eigenvector direction confined to those seventeen sites. The proof checks the equations on the infinite graph, including cancellation at exterior neighbors, rather than treating the cell as a disconnected finite network.\n\nThe second conclusion is infinite global multiplicity. For any finite number of cells and any prescribed separation, copies can be placed arbitrarily far away with disjoint complete candidate neighborhoods. All copied waves are mutually orthogonal. Hence each of the two energies has an infinite-dimensional eigenspace. The same holds for the uniform graph Laplacian with any constant potential, including zero.\n\nThis gives a third conclusion: a single remote cell cannot be spectrally isolated from all other replicas at the same energy. Even a distant orthogonal state can have exactly the same energy. A gap after excluding the entire corresponding eigenspace is a different question: any collective residual bound is at most 1/16, but no positive collective gap has been established. At energies outside the uniform bulk spectrum, the central defect can produce eigenspaces of dimension at most seventeen.\n\nWhy is this interesting? Exact local classification does not require global simplicity or isolated energy levels. Geometry distinguishes the cells even when energy alone cannot. The result concerns one specified graph and support class; it does not establish collective spectral isolation, a complete spectrum classification, quantum control or experimental feasibility.\n\nAll 150 substantive Lean modules and all 22 selected propositions have passed Lean/Mathlib and independent Comparator checks using the Lean default, NanoDa and con-ron kernels. Registry review and independent human peer review are not claimed.",
     "authors": [
       "Alessandro Odasso"
     ],
@@ -25,14 +25,14 @@
   },
   "sources": [
     {
-      "title": "Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph",
+      "title": "Exact Local Completeness and Infinite Global Multiplicity of Compact Eigenstates on an Infinite Ammann–Beenker Graph",
       "authors": [
         "Alessandro Odasso"
       ],
       "type": "original-proof",
       "relationship": "other",
       "id": "https://github.com/alexodas/spectral_geometry",
-      "note": "AI-generated recurrence and full-Laplacian replication proof under the maintainer's direction. No independent novelty or priority assessment is claimed."
+      "note": "AI-generated concrete spectral classification, recurrence transfer and multiplicity/obstruction proofs under the maintainer's direction; no independent novelty or priority assessment."
     },
     {
       "title": "Strictly localized states in the octagonal Ammann–Beenker quasicrystal",
@@ -85,7 +85,7 @@
     }
   ],
   "status": {
-    "scope": "Exact finite recurrence and arbitrary finite families of orthogonal compact eigenstate pairs with disjoint complete two-step candidate neighborhoods on the specified infinite graph. All six previous registered results remain unchanged.",
+    "scope": "Local classification on certified recurrent seventeen-site cells, exact orthogonal plateau replicas, infinite-dimensional global eigenspaces, individual residual-gap obstruction, collective residual upper bound and bulk-resolvent finite-defect dimension bound.",
     "sorry_count": 0,
     "sorry_in_definitions": 0,
     "axioms": [
@@ -110,127 +110,169 @@
     "notes": "This is an investigation of AI-generated mathematical results and Lean formalization under human project direction. Alessandro Odasso is the responsible maintainer and presenter, not the claimed independent human author of the mathematical proofs. Independent human peer review and a literature-priority assessment have not been completed."
   },
   "fidelity": {
-    "divergences": "One specified centered infinite Ammann–Beenker graph on the real square-summable Hilbert space. Finite replicated families. No relative-density rate, global symmetry, isolated degenerate remote eigenvalues, multiple independent controls, tensor-product register, noise robustness or experiment."
+    "divergences": "One specified infinite centered graph, weighted real Laplacian and unchanged bounded canonical plateau. Local completeness is restricted to the seventeen-site support; no full-graph simplicity, collective positive spectral gap, essential-spectrum identification, accumulation, general quasicrystal classification, quantum control or experimental claim."
   },
   "review": {
-    "status": "Full substantive Lean/Mathlib verification passed. All 16 selected propositions passed independent Comparator verification with the Lean default, NanoDa and con-ron kernels. Registered on 27 November 2026 as [PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1). No independent human peer review is claimed.",
+    "status": "Full substantive Lean/Mathlib verification passed. All 22 selected propositions passed independent Comparator verification using the Lean default, NanoDa and con-ron kernels. No registry submission or independent human peer review is claimed.",
     "reviewers": [],
-    "notes": "Potential audiences: spectral graph theory, quasicrystals, compact localization and formalized mathematics."
+    "notes": "Potential audiences: spectral graph theory, quasicrystals, compact localization and mathematical physics. General cut-and-project repetitivity, compact localized states and the elementary finite-rank dimension argument are established background, not claimed new in isolation."
   },
   "alignment": {
     "namespace": "SpectralGeometry.AmmannBeenker",
     "statements": [
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.admitted_zero",
         "module": "SpectralGeometry.AmmannBeenkerCutProject",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "The origin belongs to the concrete octagonal acceptance window."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.finite_norm_sublevel",
+        "module": "SpectralGeometry.AmmannBeenkerCutProject",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Every bounded physical-radius region has finitely many admitted vertices; defines the central sector."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.mate_involutive",
         "module": "SpectralGeometry.AmmannBeenkerGraph",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "Each signed parity matching is an involution, so the weighted matching Laplacian is concrete."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.interaction_apply",
-        "module": "SpectralGeometry.AmmannBeenkerGraph",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateauHeight_ge_five",
+        "module": "SpectralGeometry.AmmannBeenkerPlateauOperator",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "The fixed height is at least five, so the bounded canonical onsite operator is defined."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.plateauPotential_normalized_norm_le",
+        "module": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "The normalized onsite multiplier is bounded by one, defining a bounded operator."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.centralLift_admitted",
         "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "All seventeen explicit cell lifts are admitted."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.centralPatch_card",
         "module": "SpectralGeometry.AmmannBeenkerCentralPatch",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "The explicit central cell has seventeen distinct vertices."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.internal_window_boundary_avoided",
-        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_recurrence",
-        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.finite_pattern_disjoint_copies",
-        "module": "SpectralGeometry.AmmannBeenkerPatchRecurrence",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_neighbors_exact",
-        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.central_recurrence_disjoint_copies",
-        "module": "SpectralGeometry.AmmannBeenkerPatchNeighborhood",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.central_translate_eigenvector",
-        "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
-        "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
-      },
-      {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector",
         "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "The translated first-ring alternating mode satisfies the full Laplacian equation at 3/16."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
         "lean": "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector",
         "module": "SpectralGeometry.AmmannBeenkerTranslatedModes",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "The translated second-ring alternating mode satisfies the full Laplacian equation at 1/4."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products",
-        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateau_eq_bulk_of_exterior_support",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "For a vector zero on the central sector, the canonical Hamiltonian acts exactly as the uniform bulk."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.central_translate_support",
-        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalPlateauPair_eigenvectors",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Supporting concrete model or spectral certificate."
+        "note": "At a remote recurrent cell both compact eigenvector equations hold for the actual canonical Hamiltonian, at C+3/16 and C+1/4."
       },
       {
-        "source": "README Executive summary, Exact spatial replication of compact localized eigenstates; §4.113",
-        "lean": "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs",
-        "module": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.exact_recurrent_natural_plateau_pairs",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
         "status": "Proved in substantive Lean source; independent statement comparison passed.",
-        "note": "Principal theorem: arbitrary finite orthogonal compact-mode family with disjoint complete candidate neighborhoods."
+        "note": "For every finite N and prescribed radius and nonnegative separation, N exact remote pairs have disjoint complete candidate neighborhoods, squared norms eight and all mutual orthogonality."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalCell_supported_eigenvector_classification",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalCellCompleteness",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Every nonzero real Laplacian eigenvector supported in the original radius-two cell is a nonzero multiple of A at 3/16 or B at 1/4."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalRemoteCell_card",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalRemoteCompleteness",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Every exactly recurrent translated cell has seventeen vertices."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalRemoteCell_plateau_classification",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalRemoteCompleteness",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Every nonzero real eigenvector of the actual canonical plateau supported in a remote recurrent cell is a nonzero multiple of one of the two translated modes, at its stated energy."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateau_natural_eigenspaces_infinite",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalMultiplicity",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Both full eigenspaces of the canonical Hamiltonian at the natural remote energies are not finite-dimensional."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.plateauBulk_natural_eigenspaces_infinite",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalMultiplicity",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "The same infinite-dimensionality holds at the corresponding energies for any real uniform bulk height, including zero."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalPlateauPair_orthogonal_partners",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "For any prescribed recurrent cell, arbitrarily distant recurrent partners exist, with both eigenvectors orthogonal to both original modes."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.naturalPlateauPair_no_individual_residual_gap",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "At either remote energy no positive residual lower bound can hold on the entire orthogonal complement of a single recurring cell's two modes."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.plateauBulk_collectiveResidualBound_iff",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalCollectiveSpectrum",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Collective residual bounds on the complement of the entire eigenspace are unchanged by a uniform shift of the Hamiltonian and energy."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateau_collectiveResidualBound_le",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalCollectiveSpectrum",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "Any collective residual bound at either canonical remote energy is at most 1/16; this does not give a positive lower bound."
+      },
+      {
+        "source": "README Executive summary, Exact local completeness and infinite global multiplicity of compact eigenstates; docs/natural-plateau-architecture.md, §§4.114–4.115; docs/natural-plateau-palomar.md",
+        "lean": "SpectralGeometry.AmmannBeenker.canonicalPlateau_eigenspace_bound_outside_bulk",
+        "module": "SpectralGeometry.AmmannBeenkerNaturalDefectComparison",
+        "status": "Proved in substantive Lean source; independent statement comparison passed.",
+        "note": "At a real energy outside the uniform bulk spectrum the canonical plateau eigenspace is finite-dimensional with dimension at most seventeen."
       }
     ]
   },
@@ -265,6 +307,11 @@
       "id": "PALOMAR-2026-11-27-000042",
       "relationship": "builds-on",
       "note": "Version 1: bounded plateau isolation of the central pair. This result concerns the Laplacian, not transfer of the isolated double eigenvalue."
+    },
+    {
+      "id": "PALOMAR-2026-11-27-000067",
+      "relationship": "builds-on",
+      "note": "Version 1: exact recurrent orthogonal compact-mode replication for the shared graph Laplacian. The new result adds canonical plateau transfer, local completeness and global multiplicity/obstruction."
     }
   ]
 }

@@ -2,7 +2,9 @@
 
 ## 5. Building and verification
 
-The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **129 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and fourteen infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh registered result passed independent statement comparison ([PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1)). The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
+<a id="lean-module-catalogue"></a>
+
+The canonical import list is maintained in [`SpectralGeometry.lean`](../SpectralGeometry.lean). It imports **150 Lean modules**: eleven analytic and window modules, four finite-dimensional geometry modules, and one hundred and thirty-five infinite geometry/operator/spectral modules (including domain-generic interfaces). The original 118-module library and all seven L9 plateau modules are Lean-verified; all 13 selected propositions of the sixth registered result passed independent statement comparison. The L9.2 recurrence module is Lean-verified, including finite families of disjoint lift patterns (§4.113); the concrete candidate-neighborhood module is also Lean-verified (§4.113). The translated-mode module is Lean-verified, including full-graph eigenvector transfer. The replicated-pair module and the bundled L9.2 theorem are Lean-verified (§4.113). All 16 selected propositions of the seventh registered result passed independent statement comparison ([PALOMAR-2026-11-27-000067 (version 1)](https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-27-000067&version=1)). The L9.3 natural plateau transfer module has passed full Lean verification; the 130-module library passed the build and all 16 previously selected Comparator propositions. The local completeness module is Lean-verified (131 modules); the reverse translation and remote plateau classification module passed full Lean verification (132 modules). The global multiplicity module passed full Lean verification (133 modules). The individual isolation obstruction module passed full Lean verification (134 modules). The uniform spectrum shift and collective residual bound module passed full Lean verification (135 modules). The finite-defect eigenspace comparison module passed full Lean verification (136 modules). The remote onsite and matched-edge controls module passed full Lean verification (137 modules). The spatial selectivity and family reduction module passed full Lean verification (138 modules). The sharp remote control norms and compensated drift module passed full Lean verification (139 modules). The bounded natural pair dynamics module passed full Lean verification (140 modules). The continuous compensated remote pulse composition module passed full Lean verification (141 modules). The arbitrary normalized remote target preparation module passed full Lean verification (142 modules). The common family Hamiltonian dynamics module passed full Lean verification (143 modules). The simultaneous weighted two-cell preparation module passed full Lean verification (144 modules). The finite-family simultaneous preparation module passed full Lean verification (145 modules). The preparation-to-free-storage continuation and exact relative-period return module passed full Lean verification (146 modules). The gap-independent finite-time dynamical stability module passed full Lean verification (147 modules). The quadratic finite-time error estimate module passed full Lean verification (148 modules). The remote orthogonal leakage and retained-weight bound module and the full bounded evolution module are Lean-verified. All 150 modules passed full Lean checking and the existing 16 selected Comparator propositions passed. The new L9.3–L9.8 statements have not yet been independently compared; see [§§4.114–4.118](natural-plateau-architecture.md). The registered 129-module baseline remains unchanged. The original fourteen bright generator lemmas and the fifteenth bundled theorem are distinct from the later spectral-level results in §4.93.
 
 - **Analytic core, indexed points and certified windows (11):**
   - [`CanonicalProduct.lean`](../SpectralGeometry/CanonicalProduct.lean)
@@ -137,6 +139,27 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
   - [`AmmannBeenkerPatchNeighborhood.lean`](../SpectralGeometry/AmmannBeenkerPatchNeighborhood.lean) *(L9.2 complete candidate neighborhoods and translated neighbor correspondence; Lean-verified; §4.113)*
   - [`AmmannBeenkerTranslatedModes.lean`](../SpectralGeometry/AmmannBeenkerTranslatedModes.lean) *(L9.2 finite state translation and full-graph Laplacian transfer; Lean-verified; §4.113)*
   - [`AmmannBeenkerReplicatedPairs.lean`](../SpectralGeometry/AmmannBeenkerReplicatedPairs.lean) *(L9.2 translated inner products and bundled recurrent compact-mode pairs; Lean-verified; §4.113)*
+  - [`AmmannBeenkerNaturalPlateauPairs.lean`](../SpectralGeometry/AmmannBeenkerNaturalPlateauPairs.lean) *(L9.3 exterior support, canonical plateau energy shift and recurrent pairs; Lean-verified)*
+  - [`AmmannBeenkerNaturalCellCompleteness.lean`](../SpectralGeometry/AmmannBeenkerNaturalCellCompleteness.lean) *(L9.3 third-ring exterior cancellation and exact central supported Laplacian classification; Lean-verified)*
+  - [`AmmannBeenkerNaturalRemoteCompleteness.lean`](../SpectralGeometry/AmmannBeenkerNaturalRemoteCompleteness.lean) *(L9.3 reverse translation and complete remote plateau classification; Lean-verified)*
+  - [`AmmannBeenkerNaturalMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerNaturalMultiplicity.lean) *(L9.4 infinite global eigenspace multiplicity on canonical plateau and uniform bulk; Lean-verified)*
+  - [`AmmannBeenkerNaturalIsolationObstruction.lean`](../SpectralGeometry/AmmannBeenkerNaturalIsolationObstruction.lean) *(L9.4 disjoint orthogonal partners and impossibility of individual positive residual gaps; Lean-verified)*
+  - [`AmmannBeenkerNaturalCollectiveSpectrum.lean`](../SpectralGeometry/AmmannBeenkerNaturalCollectiveSpectrum.lean) *(L9.4 exact uniform spectrum translation and collective residual upper bound; Lean-verified)*
+  - [`AmmannBeenkerNaturalDefectComparison.lean`](../SpectralGeometry/AmmannBeenkerNaturalDefectComparison.lean) *(L9.4 finite-defect eigenspace dimension bound outside the bulk spectrum; Lean-verified)*
+  - [`AmmannBeenkerNaturalRemoteControls.lean`](../SpectralGeometry/AmmannBeenkerNaturalRemoteControls.lean) *(L9.5 translated onsite and matched-edge controls and exact driven action; Lean-verified)*
+  - [`AmmannBeenkerNaturalControlSelectivity.lean`](../SpectralGeometry/AmmannBeenkerNaturalControlSelectivity.lean) *(L9.5 spatial selectivity, simultaneous finite-family actions and reducing complements; Lean-verified)*
+  - [`AmmannBeenkerNaturalControlNorms.lean`](../SpectralGeometry/AmmannBeenkerNaturalControlNorms.lean) *(L9.5 sharp remote operator norms and exact drift compensation; Lean-verified)*
+  - [`AmmannBeenkerNaturalPairDynamics.lean`](../SpectralGeometry/AmmannBeenkerNaturalPairDynamics.lean) *(L9.6 full-space free and controlled eigenpair dynamics; Lean-verified)*
+  - [`AmmannBeenkerNaturalPulseComposition.lean`](../SpectralGeometry/AmmannBeenkerNaturalPulseComposition.lean) *(L9.6 compensated three-pulse composition, norm, support and actual differential equations; Lean-verified)*
+  - [`AmmannBeenkerNaturalExactPreparation.lean`](../SpectralGeometry/AmmannBeenkerNaturalExactPreparation.lean) *(L9.6 arbitrary normalized remote preparation from dark, with explicit scalar phase; Lean-verified)*
+  - [`AmmannBeenkerNaturalFamilyDynamics.lean`](../SpectralGeometry/AmmannBeenkerNaturalFamilyDynamics.lean) *(L9.6 actual common-Hamiltonian equations for independent local trajectories and spectators; Lean-verified)*
+  - [`AmmannBeenkerNaturalTwoCellPreparation.lean`](../SpectralGeometry/AmmannBeenkerNaturalTwoCellPreparation.lean) *(L9.6 simultaneous normalized weighted direct-sum preparation of two targets; Lean-verified)*
+  - [`AmmannBeenkerNaturalFinitePreparation.lean`](../SpectralGeometry/AmmannBeenkerNaturalFinitePreparation.lean) *(L9.6 simultaneous weighted direct-sum preparation of any finite family; Lean-verified)*
+  - [`AmmannBeenkerNaturalStorage.lean`](../SpectralGeometry/AmmannBeenkerNaturalStorage.lean) *(L9.7 continuous preparation-to-storage continuation and exact free relative-period return; Lean-verified)*
+  - [`AmmannBeenkerNaturalDynamicalStability.lean`](../SpectralGeometry/AmmannBeenkerNaturalDynamicalStability.lean) *(L9.7 conditional gap-independent finite-time squared state-distance bound; Lean-verified)*
+  - [`AmmannBeenkerNaturalQuadraticStability.lean`](../SpectralGeometry/AmmannBeenkerNaturalQuadraticStability.lean) *(L9.7 quadratic squared state-distance bound via regularized scalar comparison; Lean-verified)*
+  - [`AmmannBeenkerNaturalLeakage.lean`](../SpectralGeometry/AmmannBeenkerNaturalLeakage.lean) *(L9.7 orthogonal remote-plane decomposition and conditional quadratic leakage bound; Lean-verified)*
+  - [`AmmannBeenkerNaturalBoundedEvolution.lean`](../SpectralGeometry/AmmannBeenkerNaturalBoundedEvolution.lean) *(L9.7 full bounded evolution by a Banach-algebra exponential and constructed-solution leakage bound; Lean-verified)*
   - [`AmmannBeenkerCentralPatch.lean`](../SpectralGeometry/AmmannBeenkerCentralPatch.lean)
   - [`AmmannBeenkerCentralKernel.lean`](../SpectralGeometry/AmmannBeenkerCentralKernel.lean)
   - [`AmmannBeenkerCrossingMultiplicity.lean`](../SpectralGeometry/AmmannBeenkerCrossingMultiplicity.lean)
@@ -147,6 +170,8 @@ The canonical import list is maintained in [`SpectralGeometry.lean`](../Spectral
 - **Bounded spectral errors and full zero-cluster certificates (2):**
   - [`InfiniteBoundedSpectralStability.lean`](../SpectralGeometry/InfiniteBoundedSpectralStability.lean)
   - [`InfiniteFullSpectralCluster.lean`](../SpectralGeometry/InfiniteFullSpectralCluster.lean)
+
+<a id="lean-build-commands"></a>
 
 The project uses Lean 4 `v4.35.0` with its corresponding Mathlib version. Every module listed above is imported by the root entry point.
 
@@ -162,9 +187,13 @@ contains deliberate statement placeholders (`sorry`), and is judged
 against the substantive proof modules by Comparator rather than being
 treated as an independently proved library.
 
+<a id="palomar-independent-verification"></a>
+
 **Palomar / independent statement verification.** The active root
 [Challenge](../Challenge.lean), [Solution](../Solution.lean) and
-[formalization metadata](../formalization.yaml) describe **Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph** (§4.113).
+[formalization metadata](../formalization.yaml) now describe **Exact Local Completeness and Infinite Global Multiplicity of Compact Eigenstates on an Infinite Ammann–Beenker Graph** (§§4.114–4.115). The [eighth candidate package](../palomar/natural-plateau-local-completeness/) preserves matching snapshots and its own [Comparator](../palomar/natural-plateau-local-completeness/comparator.json). It selects 22 propositions (nine supporting model certificates and thirteen natural-plateau conclusions). The Mathlib-only Challenge contains 463 physical lines and 21,695 UTF-8 bytes, within the hard limits of 1,000 lines and 100 KiB and the preferred 32 KiB size, but above the preferred 300 lines. The substantive proofs and all 22 selected propositions have passed Lean checking and independent Comparator verification with the Lean default, NanoDa and con-ron kernels. Registry review is pending. See the [candidate description and selection](natural-plateau-palomar.md).
+
+The preserved seventh registered package describes **Exact Recurrence and Spatial Replication of Compact Localized Eigenstates on an Infinite Ammann–Beenker Graph** (§4.113).
 The principal theorem is `SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs`.
 The [seventh registered-result Comparator](../palomar/recurrent-compact-mode-pairs/comparator.json) selects 16 propositions.
 The standalone Mathlib-only Challenge contains 289 lines and 13,160 UTF-8 bytes.
@@ -221,11 +250,13 @@ It retains [PALOMAR-2026-11-23-000017 (version 1)](https://palomar-registry.org/
 The unsubmitted generator-response package remains archived under
 [`palomar/dark-bright/`](../palomar/dark-bright/).
 No root `comparator.json` exists. Local packaging and verification
-checks select the recurrent compact-mode pair Comparator explicitly.
+checks select the natural-plateau local-completeness Comparator explicitly. The seventh Comparator and matching snapshots remain unchanged.
 
 Challenge mirrors the source module boundaries when generating auxiliary
 proof names: only Lean's module-local auxiliary-proof cache is reset between
 blocks. Kernel declarations and the full definition comparison are unchanged.
+
+<a id="human-direction-and-ai-mathematics"></a>
 
 **Human direction and AI-generated mathematics:** Alessandro Odasso
 conceived and directs the project. He is **not a mathematician**; his
@@ -241,6 +272,8 @@ its own Comparator verification. Formal correctness does not by itself
 establish mathematical novelty or scientific importance. See §4.92 and
 [formalization.yaml](../formalization.yaml) for the mathematical scope, research
 provenance, and intended audiences.
+
+<a id="running-independent-verification"></a>
 
 To run the independent statement comparison on a supported Linux runner
 with Bubblewrap configured, execute:

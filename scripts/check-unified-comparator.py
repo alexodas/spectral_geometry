@@ -14,7 +14,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 errors = []
 challenge = root / "Challenge.lean"
 solution = root / "Solution.lean"
-config_path = root / "palomar/recurrent-compact-mode-pairs/comparator.json"
+config_path = root / "palomar/natural-plateau-local-completeness/comparator.json"
 archived_config_path = root / "palomar/dark-bright/comparator.json"
 try:
     statement = challenge.read_text(encoding="utf-8")
@@ -34,13 +34,14 @@ per_theorem_configs = sorted(path.relative_to(root).as_posix()
 if per_theorem_configs != [
     "palomar/dark-bright/comparator.json",
     "palomar/exact-leakage-free-preparation/comparator.json",
+    "palomar/natural-plateau-local-completeness/comparator.json",
     "palomar/plateau-isolated-double-eigenvalue/comparator.json",
     "palomar/protected-exact-preparation/comparator.json",
     "palomar/recurrent-compact-mode-pairs/comparator.json",
     "palomar/signed-bright-splitting/comparator.json",
     "palomar/spectral-protection-during-coordinated-control/comparator.json",
 ]:
-    errors.append("Expected six preserved predecessor Comparators and the active recurrence Comparator")
+    errors.append("Expected seven preserved predecessor Comparators and the active local-completeness Comparator")
 try:
     archived_config = json.loads(archived_config_path.read_text(encoding="utf-8"))
     old_target = "SpectralGeometry.AmmannBeenker.crossingOneEdgeDarkBrightResponse"
@@ -58,7 +59,7 @@ except (OSError, UnicodeError, ValueError) as error:
 if config.get("challenge_module") != "Challenge" or config.get("solution_module") != "Solution":
     errors.append("Comparator must use root Challenge and Solution modules")
 namespace = "SpectralGeometry.AmmannBeenker"
-proof_module = "SpectralGeometry.AmmannBeenkerReplicatedPairs"
+proof_module = "SpectralGeometry.AmmannBeenkerNaturalDefectComparison"
 # Preserve the previous spectral certificates and select the new preparation statements.
 previous_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
@@ -97,7 +98,7 @@ sixth_sources = {
     "SpectralGeometry.AmmannBeenker.canonicalPlateauDefect_zero_outside": "SpectralGeometry.AmmannBeenkerPlateauBulk",
     "SpectralGeometry.AmmannBeenker.canonicalPlateau_isolated_double_eigenvalue": "SpectralGeometry.AmmannBeenkerPlateauBulk"
 }
-expected_sources = {
+seventh_sources = {
     "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
     "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
     "SpectralGeometry.AmmannBeenker.interaction_apply": "SpectralGeometry.AmmannBeenkerGraph",
@@ -114,6 +115,30 @@ expected_sources = {
     "SpectralGeometry.AmmannBeenker.translatedCompact_inner_products": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
     "SpectralGeometry.AmmannBeenker.central_translate_support": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
     "SpectralGeometry.AmmannBeenker.exact_recurrent_compact_mode_pairs": "SpectralGeometry.AmmannBeenkerReplicatedPairs",
+}
+expected_sources = {
+    "SpectralGeometry.AmmannBeenker.admitted_zero": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.finite_norm_sublevel": "SpectralGeometry.AmmannBeenkerCutProject",
+    "SpectralGeometry.AmmannBeenker.mate_involutive": "SpectralGeometry.AmmannBeenkerGraph",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateauHeight_ge_five": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+    "SpectralGeometry.AmmannBeenker.plateauPotential_normalized_norm_le": "SpectralGeometry.AmmannBeenkerPlateauOperator",
+    "SpectralGeometry.AmmannBeenker.centralLift_admitted": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.centralPatch_card": "SpectralGeometry.AmmannBeenkerCentralPatch",
+    "SpectralGeometry.AmmannBeenker.translatedCompactA_eigenvector": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+    "SpectralGeometry.AmmannBeenker.translatedCompactB_eigenvector": "SpectralGeometry.AmmannBeenkerTranslatedModes",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_eq_bulk_of_exterior_support": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
+    "SpectralGeometry.AmmannBeenker.naturalPlateauPair_eigenvectors": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
+    "SpectralGeometry.AmmannBeenker.exact_recurrent_natural_plateau_pairs": "SpectralGeometry.AmmannBeenkerNaturalPlateauPairs",
+    "SpectralGeometry.AmmannBeenker.naturalCell_supported_eigenvector_classification": "SpectralGeometry.AmmannBeenkerNaturalCellCompleteness",
+    "SpectralGeometry.AmmannBeenker.naturalRemoteCell_card": "SpectralGeometry.AmmannBeenkerNaturalRemoteCompleteness",
+    "SpectralGeometry.AmmannBeenker.naturalRemoteCell_plateau_classification": "SpectralGeometry.AmmannBeenkerNaturalRemoteCompleteness",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_natural_eigenspaces_infinite": "SpectralGeometry.AmmannBeenkerNaturalMultiplicity",
+    "SpectralGeometry.AmmannBeenker.plateauBulk_natural_eigenspaces_infinite": "SpectralGeometry.AmmannBeenkerNaturalMultiplicity",
+    "SpectralGeometry.AmmannBeenker.naturalPlateauPair_orthogonal_partners": "SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction",
+    "SpectralGeometry.AmmannBeenker.naturalPlateauPair_no_individual_residual_gap": "SpectralGeometry.AmmannBeenkerNaturalIsolationObstruction",
+    "SpectralGeometry.AmmannBeenker.plateauBulk_collectiveResidualBound_iff": "SpectralGeometry.AmmannBeenkerNaturalCollectiveSpectrum",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_collectiveResidualBound_le": "SpectralGeometry.AmmannBeenkerNaturalCollectiveSpectrum",
+    "SpectralGeometry.AmmannBeenker.canonicalPlateau_eigenspace_bound_outside_bulk": "SpectralGeometry.AmmannBeenkerNaturalDefectComparison",
 }
 for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml"):
     if (root / filename).read_bytes() != (config_path.parent / filename).read_bytes():
@@ -160,12 +185,31 @@ if sixth_cfg.get("theorem_names", []) != list(sixth_sources):
 sixth_summary = readme.split("### An isolated double eigenvalue without global confinement\n\n", 1)[1].split("\n\n#### Visual summary of the sixth theorem", 1)[0]
 if sixth_summary != json.loads((sixth / "formalization.yaml").read_text())["project"]["description"]:
     errors.append("Registered sixth description must be preserved")
-summary = readme.split("### Exact spatial replication of compact localized eigenstates\n\n", 1)[1].split("\n\n#### Visual summary of the seventh theorem", 1)[0]
+seventh = root / "palomar/recurrent-compact-mode-pairs"
+for filename in ("Challenge.lean", "Solution.lean", "formalization.yaml", "comparator.json"):
+    if not (seventh / filename).is_file():
+        errors.append(f"Registered seventh snapshot missing: {filename}")
+seventh_cfg = json.loads((seventh / "comparator.json").read_text())
+if seventh_cfg.get("theorem_names", []) != list(seventh_sources):
+    errors.append("Registered seventh theorem selection must be preserved")
+seventh_summary = readme.split("### Exact spatial replication of compact localized eigenstates\n\n", 1)[1].split("\n\n#### Visual summary of the seventh theorem", 1)[0]
+if seventh_summary != json.loads((seventh / "formalization.yaml").read_text())["project"]["description"]:
+    errors.append("Registered seventh description must be preserved")
+candidate = (root / "docs/natural-plateau-palomar.md").read_text(encoding="utf-8")
+summary = candidate.split("# Eighth Palomar candidate — local completeness and global multiplicity\n\n", 1)[1].split("\n\n## Selected statements", 1)[0]
 if summary != metadata.get("project", {}).get("description"):
-    errors.append("Executive summary and formalization description differ")
+    errors.append("Candidate description and formalization description differ")
+summary_header = "### Exact local completeness and infinite global multiplicity of compact eigenstates\n\n"
+summary_end = "\n\n#### Visual summary of the eighth theorem"
+if summary_header not in readme or summary_end not in readme:
+    errors.append("Eighth executive summary or figure heading missing")
+else:
+    executive_summary = readme.split(summary_header, 1)[1].split(summary_end, 1)[0]
+    if executive_summary != metadata.get("project", {}).get("description"):
+        errors.append("Eighth executive summary and formalization description differ")
 names = config.get("theorem_names")
 if names != list(expected_sources):
-    errors.append("Select the recurrence conclusions and their concrete model certificates")
+    errors.append("Select the local-completeness, multiplicity and isolation conclusions and their concrete model certificates")
 aligned = metadata.get("alignment", {}).get("statements", [])
 if (len(aligned) != len(expected_sources) or
         {s.get("lean"): s.get("module") for s in aligned} != expected_sources):

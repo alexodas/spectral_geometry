@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 
 root = Path(__file__).resolve().parent.parent
-config = json.loads((root / "palomar/recurrent-compact-mode-pairs/comparator.json").read_text())
+config = json.loads((root / "palomar/natural-plateau-local-completeness/comparator.json").read_text())
 targets = set(config["theorem_names"])
 namespaces = []
 names = []
