@@ -149,6 +149,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalStorage
 public import SpectralGeometry.AmmannBeenkerNaturalDynamicalStability
 public import SpectralGeometry.AmmannBeenkerNaturalQuadraticStability
 public import SpectralGeometry.AmmannBeenkerNaturalLeakage
+public import SpectralGeometry.AmmannBeenkerNaturalBoundedEvolution
 
 public section
 
