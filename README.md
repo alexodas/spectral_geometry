@@ -7,7 +7,13 @@ states can be isolated and controlled on such graphs.**
 
 ## Table of contents
 
+[**Detailed section index →**](#detailed-section-index) — all 142 numbered subsections and historical links.
+
 - [Executive summary](#executive-summary)
+
+  <details>
+  <summary>Expand results and figures</summary>
+
   - [Exactly two localized crossing states](#exactly-two-localized-crossing-states)
   - [A one-edge change splits two energy levels](#a-one-edge-change-splits-two-energy-levels)
   - [Exact leakage-free quantum state preparation](#exact-leakage-free-quantum-state-preparation)
@@ -20,6 +26,9 @@ states can be isolated and controlled on such graphs.**
     - [Visual summary of the seventh theorem](#visual-summary-of-the-seventh-theorem)
   - [Exact local completeness and infinite global multiplicity of compact eigenstates](#exact-local-completeness-and-infinite-global-multiplicity-of-compact-eigenstates)
     - [Visual summary of the eighth theorem](#visual-summary-of-the-eighth-theorem)
+
+  </details>
+
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
@@ -27,19 +36,12 @@ states can be isolated and controlled on such graphs.**
 - <a id="2-canonical-product-and-analytic-foundations"></a>[2. Canonical products and analytic foundations](docs/canonical-products.md#2-canonical-product-and-analytic-foundations)
 - <a id="3-finite-dimensional-geometric-operators"></a>[3. Finite-dimensional geometric operators](docs/finite-dimensional-operators.md#3-finite-dimensional-geometric-operators)
 - <a id="4-infinite-dimensional-geometric-operators-and-spectral-theory"></a>[4. Infinite-dimensional operators and spectral theory](docs/infinite-spectral-theory.md#4-infinite-dimensional-geometric-operators-and-spectral-theory)
+
+  <details>
+  <summary>Expand chapter 4 navigation</summary>
+
   - [4.1–4.67. Infinite-dimensional spectral theory](docs/infinite-spectral-theory.md)
   - [4.68–4.79. Ammann–Beenker geometry and the compact crossing](docs/ammann-beenker-geometry.md)
-  - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
-  - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
-  - <a id="4112-bounded-plateau-and-full-real-spectral-isolation"></a>[4.112. Bounded plateau and full real spectral isolation](docs/plateau-spectral-isolation.md#4112-bounded-plateau-and-full-real-spectral-isolation)
-  - [4.113. Exact finite-pattern recurrence and separation](docs/compact-patch-recurrence.md#4113-exact-finite-pattern-recurrence-and-separation)
-  - **Natural remote pairs on the unchanged plateau (L9.3–L9.8)**
-    - [4.114. Exact energies and local completeness](docs/natural-plateau-architecture.md#4114-exact-energies-and-local-completeness-l93)
-    - [4.115. Infinite multiplicity and limits of spectral isolation](docs/natural-plateau-architecture.md#4115-infinite-multiplicity-and-limits-of-spectral-isolation-l94)
-    - [4.116. Spatially selective controls and exact preparation](docs/natural-plateau-architecture.md#4116-spatially-selective-controls-and-exact-preparation-l95l96)
-    - [4.117. Free storage and finite-time stability](docs/natural-plateau-architecture.md#4117-free-storage-and-finite-time-stability-l97)
-    - [4.118. Arbitrary finite architecture and remaining questions](docs/natural-plateau-architecture.md#4118-arbitrary-finite-architecture-and-remaining-questions-l98)
-    - [Eighth Palomar candidate — local completeness and global multiplicity](docs/natural-plateau-palomar.md)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
@@ -49,6 +51,7 @@ states can be isolated and controlled on such graphs.**
     - <a id="481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse"></a>[4.81. Projection onto the two-mode space and external leakage](docs/single-edge-control.md#481-exact-qubitleakage-bookkeeping-after-a-temporary-pulse)
     - <a id="485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector"></a>[4.85–4.88. Temporary edge pulses and switch-off bounds](docs/single-edge-control.md#485-uniform-post-pulse-leakage-without-a-perturbed-spectral-projector)
     - <a id="489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode"></a>[4.89–4.91. Dark-state evolution and bright-state response](docs/single-edge-control.md#489-an-exact-complex-phase-schrödinger-trajectory-for-the-dark-mode)
+  - [4.80–4.98. Single-edge control and spectral splitting](docs/single-edge-control.md)
   - **Quantitative spectral splitting, registration and coordinated control**
     - <a id="493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level"></a>[4.93–4.96. From existence to quantitative bounds](docs/single-edge-control.md#493-verified-dark-simplicity-and-a-distinct-perturbed-spectral-level)
     - <a id="497-signed-shift-and-consolidated-infinite-operator-splitting"></a>[4.97. Final L5 theorem: signed bright splitting](docs/single-edge-control.md#497-signed-shift-and-consolidated-infinite-operator-splitting)
@@ -66,16 +69,35 @@ states can be isolated and controlled on such graphs.**
     - <a id="4109-consolidated-quantitative-isolation-of-the-controlled-cluster"></a>[4.109. Consolidated quantitative isolation of the controlled cluster](docs/coordinated-quantum-control.md#4109-consolidated-quantitative-isolation-of-the-controlled-cluster)
     - <a id="4110-spectral-protection-during-coordinated-control"></a>[4.110. Spectral protection during coordinated control](docs/coordinated-quantum-control.md#4110-spectral-protection-during-coordinated-control)
     - <a id="4111-exact-protected-state-preparation-with-arbitrarily-weak-controls"></a>[4.111. Exact protected state preparation with arbitrarily weak controls](docs/coordinated-quantum-control.md#4111-exact-protected-state-preparation-with-arbitrarily-weak-controls)
+  - [4.99–4.111. Coordinated quantum control and spectral protection](docs/coordinated-quantum-control.md)
+  - <a id="4112-bounded-plateau-and-full-real-spectral-isolation"></a>[4.112. Bounded plateau and full real spectral isolation](docs/plateau-spectral-isolation.md#4112-bounded-plateau-and-full-real-spectral-isolation)
+  - [4.113. Exact finite-pattern recurrence and separation](docs/compact-patch-recurrence.md#4113-exact-finite-pattern-recurrence-and-separation)
+  - **Natural remote pairs on the unchanged plateau (L9.3–L9.8)**
+    - [4.114. Exact energies and local completeness](docs/natural-plateau-architecture.md#4114-exact-energies-and-local-completeness-l93)
+    - [4.115. Infinite multiplicity and limits of spectral isolation](docs/natural-plateau-architecture.md#4115-infinite-multiplicity-and-limits-of-spectral-isolation-l94)
+    - [4.116. Spatially selective controls and exact preparation](docs/natural-plateau-architecture.md#4116-spatially-selective-controls-and-exact-preparation-l95l96)
+    - [4.117. Free storage and finite-time stability](docs/natural-plateau-architecture.md#4117-free-storage-and-finite-time-stability-l97)
+    - [4.118. Arbitrary finite architecture and remaining questions](docs/natural-plateau-architecture.md#4118-arbitrary-finite-architecture-and-remaining-questions-l98)
+    - [Eighth Palomar candidate — local completeness and global multiplicity](docs/natural-plateau-palomar.md)
+
+  </details>
+
 - <a id="5-building-and-verification"></a>[5. Building and verification](docs/building-and-verification.md#5-building-and-verification)
 - <a id="6-roadmap-proof-status-and-next-steps"></a>[6. Roadmap: both research tracks and open questions](docs/research-roadmap.md#6-roadmap-proof-status-and-next-steps)
+
+  <details>
+  <summary>Expand roadmap topics</summary>
+
   - <a id="61-p2--spectral-foundations-and-the-complex-resolvent-interface"></a>[6.1–6.4. Original spectral and geometric program](docs/research-roadmap.md#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
   - <a id="64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention"></a>[6.4. L7 exact preparation verified; L6 preserved](docs/research-roadmap.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
   - <a id="65-local-geometric-defects-and-relative-spectral-products"></a>[6.5–6.7. Relative products, finite patches and exploratory zeros](docs/research-roadmap.md#65-local-geometric-defects-and-relative-spectral-products)
   - <a id="68-independent-statement-verification-and-research-interest-assessment"></a>[6.8. Scientific assessment and submission status](docs/research-roadmap.md#68-independent-statement-verification-and-research-interest-assessment)
   - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-open"></a>[6.9. L8a: Quantitative spectral protection (verified; refinements open)](docs/research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open)
   - [6.10. L9 — Independently controllable spectrally protected localized qubits (open)](docs/research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
+
+  </details>
+
 - [7. Research methodology and maintenance rules](docs/maintenance-rules.md#7-research-methodology-and-maintenance-rules)
-- [Detailed section index](#detailed-section-index)
 
 ## Executive summary
 
