@@ -5,10 +5,14 @@
 The project has **two complementary research tracks**, not a replacement
 of its original goals:
 
+<a id="current-research-priority"></a>
+
 **Current research priority:** Track B, specifically the new [L9 multi-qubit
 architecture roadmap](multi-qubit-roadmap.md). Track A is paused, not
 cancelled; all its verified results and open objectives are retained.
 L6 and imperfect-control refinements L8b–L8e are deferred while L9 is explored.
+
+<a id="research-track-comparison"></a>
 
 | Track | Question | Status and next steps |
 | --- | --- | --- |

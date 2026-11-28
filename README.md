@@ -30,11 +30,76 @@ states can be isolated and controlled on such graphs.**
   </details>
 
 - <a id="research-tracks-and-current-priority"></a>[Research tracks and current priority](docs/research-tracks.md#research-tracks-and-current-priority)
+
+  <details>
+  <summary>Expand research tracks</summary>
+
+  - [Current research priority](docs/research-tracks.md#current-research-priority)
+  - [Track A and Track B](docs/research-tracks.md#research-track-comparison)
+
+  </details>
+
 - <a id="scientific-audience-and-possible-relevance"></a>[Scientific audience and possible relevance](docs/scientific-audience.md#scientific-audience-and-possible-relevance)
+
+  <details>
+  <summary>Expand scientific audiences</summary>
+
+  - [Spectral theory and discrete Schrödinger operators](docs/scientific-audience.md#spectral-theory-audience)
+  - [Quasicrystals and compact localized states](docs/scientific-audience.md#quasicrystal-audience)
+  - [Wave control and photonic lattices](docs/scientific-audience.md#wave-control-audience)
+  - [Localized spectral defects](docs/scientific-audience.md#spectral-defect-audience)
+  - [Spectral graph theory and aperiodic order](docs/scientific-audience.md#spectral-graph-audience)
+  - [Formalized mathematics](docs/scientific-audience.md#formalized-mathematics-audience)
+
+  </details>
+
 - <a id="current-status-and-verified-milestones"></a>[Current status and verified milestones](docs/verified-milestones.md#current-status-and-verified-milestones)
+
+  <details>
+  <summary>Expand verification status</summary>
+
+  - [Verified milestones and remaining research tasks](docs/verified-milestones.md#milestone-table)
+
+  </details>
+
 - <a id="1-research-program-and-geometric-model"></a>[1. Research program and geometric model](docs/research-program.md#1-research-program-and-geometric-model)
+
+  <details>
+  <summary>Expand chapter 1 sections</summary>
+
+  - [1.1. The research question](docs/research-program.md#11-the-research-question)
+  - [1.2. First substantive milestone: finite-coordinate observation](docs/research-program.md#12-first-substantive-milestone-finite-coordinate-observation)
+  - [1.3. The operator and its geometric inputs](docs/research-program.md#13-the-operator-and-its-geometric-inputs)
+  - [1.4. Confinement, observation and local changes](docs/research-program.md#14-confinement-observation-and-local-changes)
+
+  </details>
+
 - <a id="2-canonical-product-and-analytic-foundations"></a>[2. Canonical products and analytic foundations](docs/canonical-products.md#2-canonical-product-and-analytic-foundations)
+
+  <details>
+  <summary>Expand chapter 2 sections</summary>
+
+  - [2.1. Verified analytic core](docs/canonical-products.md#21-verified-analytic-core)
+  - [2.2. A common analytic coordinate for geometric operators](docs/canonical-products.md#22-a-common-analytic-coordinate-for-geometric-operators)
+  - [2.3. Target: a relative product for a finite geometric defect](docs/canonical-products.md#23-target-a-relative-product-for-a-finite-geometric-defect)
+  - [2.4. Entire products, exact zeros and their orders](docs/canonical-products.md#24-entire-products-exact-zeros-and-their-orders)
+  - [2.5. Certified zero clusters from bounded operator error](docs/canonical-products.md#25-certified-zero-clusters-from-bounded-operator-error)
+  - [2.6. Scalar approximation near a multiple spectral zero](docs/canonical-products.md#26-scalar-approximation-near-a-multiple-spectral-zero)
+
+  </details>
+
 - <a id="3-finite-dimensional-geometric-operators"></a>[3. Finite-dimensional geometric operators](docs/finite-dimensional-operators.md#3-finite-dimensional-geometric-operators)
+
+  <details>
+  <summary>Expand chapter 3 sections</summary>
+
+  - [3.1. Symmetry under controlled perturbations](docs/finite-dimensional-operators.md#31-symmetry-under-controlled-perturbations)
+  - [3.2. Positivity under controlled perturbations](docs/finite-dimensional-operators.md#32-positivity-under-controlled-perturbations)
+  - [3.3. Nonnegative energy from geometry](docs/finite-dimensional-operators.md#33-nonnegative-energy-from-geometry)
+  - [3.4. Strictly positive energies and eigenvalues](docs/finite-dimensional-operators.md#34-strictly-positive-energies-and-eigenvalues)
+
+  </details>
+
 - <a id="4-infinite-dimensional-geometric-operators-and-spectral-theory"></a>[4. Infinite-dimensional operators and spectral theory](docs/infinite-spectral-theory.md#4-infinite-dimensional-geometric-operators-and-spectral-theory)
 
   <details>
@@ -83,6 +148,18 @@ states can be isolated and controlled on such graphs.**
   </details>
 
 - <a id="5-building-and-verification"></a>[5. Building and verification](docs/building-and-verification.md#5-building-and-verification)
+
+  <details>
+  <summary>Expand build and verification topics</summary>
+
+  - [Canonical Lean module catalogue](docs/building-and-verification.md#lean-module-catalogue)
+  - [Lean toolchain and build commands](docs/building-and-verification.md#lean-build-commands)
+  - [Palomar and independent statement verification](docs/building-and-verification.md#palomar-independent-verification)
+  - [Human direction and AI-generated mathematics](docs/building-and-verification.md#human-direction-and-ai-mathematics)
+  - [Running independent verification](docs/building-and-verification.md#running-independent-verification)
+
+  </details>
+
 - <a id="6-roadmap-proof-status-and-next-steps"></a>[6. Roadmap: both research tracks and open questions](docs/research-roadmap.md#6-roadmap-proof-status-and-next-steps)
 
   <details>
@@ -98,6 +175,16 @@ states can be isolated and controlled on such graphs.**
   </details>
 
 - [7. Research methodology and maintenance rules](docs/maintenance-rules.md#7-research-methodology-and-maintenance-rules)
+
+  <details>
+  <summary>Expand maintenance topics</summary>
+
+  - [Maintaining sections and historical results](docs/maintenance-rules.md#maintaining-sections)
+  - [Palomar packaging and registered summaries](docs/maintenance-rules.md#palomar-packaging-rules)
+  - [Plain English and scientific documentation](docs/maintenance-rules.md#scientific-documentation-rules)
+
+  </details>
+
 
 ## Executive summary
 

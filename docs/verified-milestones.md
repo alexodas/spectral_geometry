@@ -2,6 +2,8 @@
 
 ## Current status and verified milestones
 
+<a id="milestone-table"></a>
+
 The table below separates proved results from remaining research tasks.
 
 | Part of the program | Status |

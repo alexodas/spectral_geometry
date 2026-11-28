@@ -4,6 +4,8 @@
 
 These rules apply to the README and its linked documentation chapters. Numbered section references retain their original meaning.
 
+<a id="maintaining-sections"></a>
+
 **Maintenance rules:** append each new verified result to the appropriate chapter of §4 and to the
 roadmap **without deleting earlier results or historical registrations**;
 update the canonical §5 module list whenever source imports change;
@@ -11,9 +13,13 @@ update the **table of contents** whenever sections are added, renamed
 or reorganized; and review the README and linked documentation for **obsolete statements**,
 revising old status sentences and open-problem descriptions when later
 theorems resolve them without erasing their historical context.
+<a id="palomar-packaging-rules"></a>
+
 For Palomar, preserve a separate Comparator inside each
 `palomar/<candidate>/` directory, preserve predecessor packages,
 and never place a redundant Comparator at the repository root. Preserve the registered executive-summary descriptions verbatim where the packaging audit compares them with historical metadata; explicitly mark these as historical scopes and record subsequent results and changed research priorities in separate current-status sections or linked chapters. Do not edit archived metadata merely to make a changed historical summary pass the audit.
+
+<a id="scientific-documentation-rules"></a>
 
 Keep the **README and linked scientific documentation cumulative and readable in plain English**.
 Explain each result's mathematical meaning, assumptions, exact conclusions,
