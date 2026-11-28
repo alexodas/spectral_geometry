@@ -144,6 +144,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalPulseComposition
 public import SpectralGeometry.AmmannBeenkerNaturalExactPreparation
 public import SpectralGeometry.AmmannBeenkerNaturalFamilyDynamics
 public import SpectralGeometry.AmmannBeenkerNaturalTwoCellPreparation
+public import SpectralGeometry.AmmannBeenkerNaturalFinitePreparation
 
 public section
 
