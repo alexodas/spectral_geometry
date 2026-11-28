@@ -7,7 +7,7 @@ states can be isolated and controlled on such graphs.**
 
 ## Table of contents
 
-[**Detailed section index →**](#detailed-section-index) — all 142 numbered subsections and historical links.
+[**Detailed section index →**](#detailed-section-index) — all current numbered subsections and historical links.
 
 - [Executive summary](#executive-summary)
 
@@ -165,11 +165,11 @@ states can be isolated and controlled on such graphs.**
   <details>
   <summary>Expand roadmap topics</summary>
 
-  - <a id="61-p2--spectral-foundations-and-the-complex-resolvent-interface"></a>[6.1–6.4. Original spectral and geometric program](docs/research-roadmap.md#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
-  - <a id="64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention"></a>[6.4. L7 exact preparation verified; L6 preserved](docs/research-roadmap.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
+  - <a id="61-p2--spectral-foundations-and-the-complex-resolvent-interface"></a>[6.1, 6.3–6.4. Remaining spectral and geometric objectives](docs/research-roadmap.md#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
+  - <a id="64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention"></a>[6.4. Confined-model refinements and deferred L6](docs/research-roadmap.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
   - <a id="65-local-geometric-defects-and-relative-spectral-products"></a>[6.5–6.7. Relative products, finite patches and exploratory zeros](docs/research-roadmap.md#65-local-geometric-defects-and-relative-spectral-products)
   - <a id="68-independent-statement-verification-and-research-interest-assessment"></a>[6.8. Scientific assessment and submission status](docs/research-roadmap.md#68-independent-statement-verification-and-research-interest-assessment)
-  - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-open"></a>[6.9. L8a: Quantitative spectral protection (verified; refinements open)](docs/research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-open)
+  - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-open"></a>[6.9. L8 — Deferred robustness and control refinements](docs/research-roadmap.md#69-l8--deferred-robustness-and-control-refinements)
   - [6.10. L9 — Independently controllable spectrally protected localized qubits (open)](docs/research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
 
   </details>
@@ -180,6 +180,7 @@ states can be isolated and controlled on such graphs.**
   <summary>Expand maintenance topics</summary>
 
   - [Maintaining sections and historical results](docs/maintenance-rules.md#maintaining-sections)
+  - [Roadmap policy: remaining work only](docs/maintenance-rules.md#roadmap-policy-remaining-work-only)
   - [Palomar packaging and registered summaries](docs/maintenance-rules.md#palomar-packaging-rules)
   - [Plain English and scientific documentation](docs/maintenance-rules.md#scientific-documentation-rules)
 
@@ -511,19 +512,22 @@ All 150 substantive Lean modules and all 22 selected propositions have passed Le
 
 - [6. Roadmap: proof status and next steps](docs/research-roadmap.md#6-roadmap-proof-status-and-next-steps)
   - [6.1. P2 — Spectral foundations and the complex-resolvent interface](docs/research-roadmap.md#61-p2--spectral-foundations-and-the-complex-resolvent-interface)
-  - <a id="62-p2--quantitative-observation-and-control-of-low-energy-levels"></a>[6.2. P2 — Quantitative observation and control of low-energy levels](docs/research-roadmap.md#62-p2--quantitative-observation-and-control-of-low-energy-levels)
   - <a id="63-p3--full-spectral-products-and-their-exact-zero-divisors"></a>[6.3. P3 — Full spectral products and their exact zero divisors](docs/research-roadmap.md#63-p3--full-spectral-products-and-their-exact-zero-divisors)
   - [6.4. P4 — A confined Ammann–Beenker model and a finite intervention](docs/research-roadmap.md#64-p4--a-confined-ammannbeenker-model-and-a-finite-intervention)
   - [6.5. Local geometric defects and relative spectral products](docs/research-roadmap.md#65-local-geometric-defects-and-relative-spectral-products)
   - <a id="66-certified-finite-patch-approximation-and-zero-response"></a>[6.6. Certified finite-patch approximation and zero response](docs/research-roadmap.md#66-certified-finite-patch-approximation-and-zero-response)
   - <a id="67-exploratory-objectives-zero-statistics-and-structural-constraints"></a>[6.7. Exploratory objectives: zero statistics and structural constraints](docs/research-roadmap.md#67-exploratory-objectives-zero-statistics-and-structural-constraints)
   - [6.8. Independent statement verification and research-interest assessment](docs/research-roadmap.md#68-independent-statement-verification-and-research-interest-assessment)
-  - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-verified-refinements-open"></a>[6.9. L8a — Quantitative spectral protection under coordinated controls (verified; refinements open)](docs/research-roadmap.md#69-l8a--quantitative-spectral-protection-under-coordinated-controls-verified-refinements-open)
+  - <a id="69-l8a--quantitative-spectral-protection-under-coordinated-controls-verified-refinements-open"></a>[6.9. L8 — Deferred robustness and control refinements](docs/research-roadmap.md#69-l8--deferred-robustness-and-control-refinements)
   - <a id="610-l9--independently-controllable-spectrally-protected-localized-qubits-open"></a>[6.10. L9 — Independently controllable spectrally protected localized qubits (open)](docs/research-roadmap.md#610-l9--independently-controllable-spectrally-protected-localized-qubits-open)
 
 - <a id="7-research-methodology-and-maintenance-rules"></a>[7. Research methodology and maintenance rules](docs/maintenance-rules.md#7-research-methodology-and-maintenance-rules)
 
 - **Historical links (compatibility aliases)**
+  - <a id="62-p2--quantitative-observation-and-control-of-low-energy-levels"></a>[6.2 — Quantitative observation and control of low-energy levels (completed)](docs/research-roadmap-history.md#62-p2--quantitative-observation-and-control-of-low-energy-levels)
+  - [Historical research roadmap](docs/research-roadmap-history.md)
+  - [Historical L9 roadmap](docs/multi-qubit-roadmap-history.md)
+  - [Historical localized-mode control roadmap](docs/bright-spectral-splitting-roadmap-history.md)
   - <a id="498-palomar-candidate-signed-bright-splitting"></a>[4.98 — Signed bright splitting (former anchor)](docs/single-edge-control.md#498-palomar-candidate-signed-bright-splitting)
   - <a id="4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending"></a>[4.100 — Invariant-plane and Pauli algebra (former anchor)](docs/coordinated-quantum-control.md#4100-proposed-invariant-plane-and-pauli-algebra-proofs-ci-pending)
   - <a id="492-one-new-palomar-candidate-exact-dark-protection-and-bright-feedback"></a>[4.92 — Earlier, unsubmitted Palomar candidate (former anchor)](docs/single-edge-control.md#492-earlier-unsubmitted-palomar-candidate-exact-dark-protection-and-bright-feedback)
