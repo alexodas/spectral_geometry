@@ -29,7 +29,7 @@ private theorem naturalFinite_norm_sq (S : Finset Vertex) (x : Vertex → TileHi
   intro v hv
   rw [Finset.sum_eq_single_of_mem v hv]
   intro w hw hwv
-  exact ho v hv w hw hwv.symm
+  exact ho w hw v hv hwv
 
 @[expose] def naturalFiniteReal (S : Finset Vertex) (c : Vertex → ℝ)
     (f : Vertex → ℝ → ℂ × ℂ) (τ : ℝ) : TileHilbert Vertex :=
@@ -75,7 +75,9 @@ private theorem naturalFinite_continuous_sum (S : Finset Vertex)
     (r : Vertex → ℝ → TileHilbert Vertex) (h : ∀ v ∈ S, Continuous (r v)) :
     Continuous (fun τ => ∑ v ∈ S, r v τ) := by
   induction S using Finset.induction_on with
-  | empty => simp
+  | empty =>
+    simp only [Finset.sum_empty]
+    exact continuous_const
   | @insert v S hv ih =>
     simp only [Finset.sum_insert hv]
     exact (h v (Finset.mem_insert_self _ _)).add
@@ -211,10 +213,13 @@ theorem naturalFinite_exact_preparation (S : Finset Vertex)
   · unfold naturalFiniteReal
     apply Finset.sum_congr rfl
     intro v hv
+    change c v • naturalStateReal v.val (naturalProtocolPair (p v) (t v) (q v) (1,0) 0) =
+      c v • naturalRemoteDark v.val
     rw [naturalProtocol_initial, (naturalState_dark_initial v.val).1]
   · unfold naturalFiniteImag
     apply Finset.sum_eq_zero
     intro v hv
+    change c v • naturalStateImag v.val (naturalProtocolPair (p v) (t v) (q v) (1,0) 0) = 0
     rw [naturalProtocol_initial, (naturalState_dark_initial v.val).2, smul_zero]
   · intro τ
     rw [naturalFinite_weight S hp hd]
