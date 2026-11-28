@@ -37,6 +37,7 @@ states can be isolated and controlled on such graphs.**
     - [4.116. Spatially selective controls and exact preparation](docs/natural-plateau-architecture.md#4116-spatially-selective-controls-and-exact-preparation-l95l96)
     - [4.117. Free storage and finite-time stability](docs/natural-plateau-architecture.md#4117-free-storage-and-finite-time-stability-l97)
     - [4.118. Arbitrary finite architecture and remaining questions](docs/natural-plateau-architecture.md#4118-arbitrary-finite-architecture-and-remaining-questions-l98)
+    - [Eighth Palomar candidate — local completeness and global multiplicity](docs/natural-plateau-palomar.md)
   - **Ammann–Beenker model, crossing and controls**
     - <a id="468-an-explicit-octagonal-cut-and-project-vertex-set"></a>[4.68–4.70. Graph construction and spectral response](docs/ammann-beenker-geometry.md#468-an-explicit-octagonal-cut-and-project-vertex-set)
     - <a id="474-compact-eigenvectors-on-the-infinite-natural-domain"></a>[4.74–4.75. Localized modes and exact crossing](docs/ammann-beenker-geometry.md#474-compact-eigenvectors-on-the-infinite-natural-domain)
