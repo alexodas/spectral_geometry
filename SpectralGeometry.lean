@@ -146,6 +146,7 @@ public import SpectralGeometry.AmmannBeenkerNaturalFamilyDynamics
 public import SpectralGeometry.AmmannBeenkerNaturalTwoCellPreparation
 public import SpectralGeometry.AmmannBeenkerNaturalFinitePreparation
 public import SpectralGeometry.AmmannBeenkerNaturalStorage
+public import SpectralGeometry.AmmannBeenkerNaturalDynamicalStability
 
 public section
 
