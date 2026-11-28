@@ -15,7 +15,7 @@ establishes exact preparation from dark with arbitrarily weak ideal
 controls, zero leakage and a prescribed fraction of the certified gap
 on the original infinite confined graph (§4.111).
 
-The immediate goal is to understand how far the **existing canonical plateau Hamiltonian** can take us without adding any new static onsite correction in a remote cell. The original tuned central pair, with its verified isolated double eigenvalue and gap, is preserved. In the constant exterior, the recurrent A/B configurations instead offer natural two-level systems with distinct energies. We will investigate these first rather than assume that each remote pair must be made degenerate.
+The immediate goal is to understand how far the **existing canonical plateau Hamiltonian** can take us without adding any new static onsite correction in a remote cell. The original tuned central pair, with its verified isolated double eigenvalue and gap, is preserved. In the constant exterior, the recurrent A/B configurations instead offer natural two-level systems with distinct energies. The subsequent verified natural architecture analyzes these directly, without making each remote pair statically degenerate.
 
 The initial targets of one and two well-separated remote cells have been extended to arbitrary finite certified families of independently addressable two-state planes, with exact simultaneous preparation. The full spectral and robustness targets remain open. Orthogonal subspaces of a single-particle Hilbert space form a direct sum, not an N-qubit tensor product. Neither entanglement, a uniform protection gap as N grows, nor experimental feasibility is asserted.
 
@@ -153,14 +153,16 @@ Here E_A = C + 3/16 and E_B = C + 1/4 are independent of j, and E_B - E_A = 1/16
 
 - [x] With controls off, derive the exact evolution in a remote plane: its A/B amplitudes acquire phases exp(-i E_A t) and exp(-i E_B t). The relative phase rotates at angular frequency 1/16 in units with hbar = 1. There is no spreading under exact rest evolution, but a general superposition is not a stationary ray.
 - [ ] Study known-phase tracking, refocusing or other storage strategies if needed. Compare the uniform-zero-potential model with the canonical plateau, retaining the central defect distinction.
-- [ ] Distinguish exact invariance for ideal controls from robustness to onsite disorder, edge perturbations and imperfect addressing. Investigate leakage and mixing among equal-energy replicas, including perturbations not respecting local reduction. Establish bounds if possible rather than infer robustness from compact support.
+- [x] Distinguish exact ideal invariance from perturbation robustness; construct full bounded evolution and prove finite-time squared leakage and retained-weight bounds for arbitrary bounded symmetric static perturbations, including those not respecting local reduction.
+- [ ] Investigate concrete onsite disorder, edge perturbations, imperfect addressing and mixing among equal-energy replicas; determine whether stronger or long-time bounds hold.
 - [ ] Identify concrete obstructions, and only then consider the smallest additional static local intervention that resolves them. A plateau or a tuned well is not assumed necessary for remote control.
 
 ## L9.8 — Arbitrary finite natural architecture and decision point
 
 - [x] Extend verified local classification, ideal control and exact preparation to arbitrary finite certified disjoint families on the same fixed canonical plateau. The normalized weighted direct-sum protocol preserves the whole support union and solves one common Hamiltonian on each pulse interval. No spectral gap or uniform-in-N control budget is asserted.
 - [ ] Compare the natural nondegenerate architecture against the alternative engineered architecture below, based on proved results rather than assumed requirements. If an essential objective fails, investigate minimal modifications before pursuing distinct degenerate rest energies.
-- [ ] Consolidate Lean proofs and independent statement comparison before selecting a new registry candidate; examine related literature without claiming priority or hardware feasibility.
+- [x] Consolidate full Lean checking of the current 150-module library.
+- [ ] Prepare and independently compare a standalone new statement selection; examine related literature without claiming priority or hardware feasibility.
 
 ## Alternative architecture — engineered degenerate rest energies (deferred)
 
